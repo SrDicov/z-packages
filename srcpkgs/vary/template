@@ -13,6 +13,13 @@ homepage="https://github.com/SrDicov/Vary"
 distfiles="https://github.com/SrDicov/Vary/archive/refs/tags/v${version}.tar.gz"
 checksum=bb83ae62eba675eefc40b93a88a6876f24601485407d4bbfcf92d62d640cd671
 
+# upstream Cargo.lock still pins vary 0.2.3 (v0.2.4 released without
+# relocking), so --locked from build_style=cargo fails; build like
+# upstream CI does and let cargo refresh the lock.
+do_build() {
+	cargo build --release
+}
+
 post_install() {
 	vdoc README.md
 	vdoc docs/AUR2XBPS.md
