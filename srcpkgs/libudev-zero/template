@@ -1,0 +1,28 @@
+# Template file for 'libudev-zero'
+pkgname=libudev-zero
+version=1.0.5
+revision=1
+build_style=gnu-makefile
+make_build_args="PREFIX=/usr"
+make_install_args="PREFIX=/usr"
+short_desc="Daemonless replacement for libudev"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="ISC"
+homepage="https://github.com/illiliti/libudev-zero"
+distfiles="https://github.com/illiliti/libudev-zero/archive/refs/tags/${version}.tar.gz"
+checksum=bf4372f79ddbe6b0e266a3d2994ffac7018a7edf4f87632aecb5176565d96138
+
+# Virtual libudev API version is 251 (see libudev.pc.in:20 and eudev/template:3)
+# Permite que XBPS satisfaga `depends: libudev` sin arrastrar eudev completo.
+provides="libudev-251_${revision}"
+conflicts="eudev-libudev>=0"
+replaces="eudev-libudev>=0"
+
+# Hotplugging es opcional. Si usas mdevd, activa `mdevd -O 4` para
+# rebroadcast a netlink grupo 0x4 (ver contrib/mdev.conf:5). No hay
+# dependencia dura a mdevd — libudev-zero enumera vía /sys sin daemon.
+# Depende solo de libc. Añade `depends="mdevd"` solo si tu Z Linux lo exige.
+
+post_install() {
+	vlicense LICENSE
+}
