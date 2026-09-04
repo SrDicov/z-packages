@@ -1,0 +1,19 @@
+# Template file for 'ydotool'
+pkgname=ydotool
+version=1.0.4
+revision=1
+build_style=cmake
+hostmakedepends="cmake pkg-config scdoc"
+short_desc="Generic Linux command-line automation tool"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="AGPL-3.0-only"
+homepage="https://github.com/ReimuNotMoe/ydotool"
+distfiles="https://github.com/ReimuNotMoe/ydotool/archive/refs/tags/v${version}.tar.gz"
+checksum=ba075a43aa6ead51940e892ecffa4d0b8b40c241e4e2bc4bd9bd26b61fde23bd
+
+post_install() {
+	vsv ydotoold
+	vlicense LICENSE
+	# drop stray systemd unit dir (void uses the runit service above)
+	rm -rf ${DESTDIR}/usr/lib/systemd
+}

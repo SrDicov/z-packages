@@ -1,0 +1,5 @@
+#!/bin/sh
+exec 2>&1
+# ydotoold needs /dev/uinput; load the module if udev hasn't yet
+[ -e /dev/uinput ] || modprobe uinput
+exec ydotoold
