@@ -6,6 +6,7 @@
 # exclude everything in root except files and directories from void-packages
 /*
 !/AGENTS.md
+!/.VURINFO
 !/.editorconfig
 !/.gitattributes
 !/.github

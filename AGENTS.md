@@ -27,3 +27,9 @@ XBPS source-packages collection (Void Linux fork). Packages are shell `template`
 - `make_check=no` needs a comment explaining why. `nocross=`/`broken=` must state why (or link a build log). `restricted=` packages need `XBPS_ALLOW_RESTRICTED=yes` in `etc/conf` and never enter official repos. Scope `archs` only with upstream justification.
 - Soname bump → update `common/shlibs` and revbump every dependent in the same PR (one commit each).
 - CI builds glibc+musl × x86_64/i686/aarch64/armv7l(+musl variants) with tests on some; add `[ci skip]` to the PR title/body for multi-hour or >14G builds and report local glibc+musl × 64/32-bit results instead. PRs touching `srcpkgs/**` get lint+build; `master`-branch repo name maps to global repo scope.
+
+## VUR index (for vary)
+
+- Default branch stays `master`; vary auto-detects it (`--branch` override exists).
+- Root `.VURINFO` (JSON array, schema v1) is generated, never hand-edited: `.github/workflows/vurinfo.yaml` runs `.github/scripts/gen-vurinfo-root.sh` on every `master` push touching `srcpkgs/**` (Void container + bootstrapped masterdir, `xbps-src show` per template + vary's `vurinfo.jq` at pinned `VARY_REF`) and commits the result. Never `source template` on the host.
+- `/.VURINFO` is allow-listed in `.gitignore`; the workflow commit only touches it, so it never retriggers itself.

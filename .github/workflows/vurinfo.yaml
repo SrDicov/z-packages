@@ -1,0 +1,64 @@
+name: VURINFO index
+
+# Genera el .VURINFO raíz (array JSON, esquema v1) que consume vary y lo
+# commitea en master. Solo se dispara con cambios en plantillas; el commit
+# resultante solo toca el .VURINFO de la raíz, así que no se re-dispara
+# (sin bucle).
+
+on:
+  push:
+    branches: [master]
+    paths: ['srcpkgs/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  # Ref de Vary del que se descarga scripts/vurinfo.jq (fuente del esquema).
+  VARY_REF: vary-mvp
+
+jobs:
+  vurinfo:
+    name: Generate root .VURINFO
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/void-linux/void-glibc-full
+      options: --privileged
+      volumes:
+        - /dev:/dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare container
+        run: |
+          # switch to repo-ci mirror
+          mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          # install dependencies
+          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y sudo bash grep curl git jq
+          # create non-root user
+          useradd -G xbuilder -M builder
+          git config --global --add safe.directory "$PWD"
+
+      - name: Prepare masterdir
+        run: |
+          chown -R builder:builder . &&
+          sudo -Eu builder common/travis/set_mirror.sh &&
+          sudo -Eu builder ./xbps-src binary-bootstrap
+
+      - name: Generate root .VURINFO
+        run: sudo -Eu builder env VARY_REF="$VARY_REF" bash .github/scripts/gen-vurinfo-root.sh
+
+      - name: Commit and push if changed
+        run: |
+          git add .VURINFO
+          if git diff --cached --quiet; then
+            echo "sin cambios en .VURINFO"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "vur: regenerate root .VURINFO"
+          git push
