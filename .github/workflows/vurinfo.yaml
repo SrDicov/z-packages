@@ -4,6 +4,11 @@ name: VURINFO index
 # commitea en master. Solo se dispara con cambios en plantillas; el commit
 # resultante solo toca el .VURINFO de la raíz, así que no se re-dispara
 # (sin bucle).
+#
+# Método: checkout completo de void-packages + overlay de nuestros srcpkgs
+# (como documenta vary en docs/VURINFO.md). Todo corre como root en
+# contenedor privilegiado, igual que el builder de VUP: así xbps-src usa
+# chroot real y no necesita user namespaces.
 
 on:
   push:
@@ -28,30 +33,38 @@ jobs:
       volumes:
         - /dev:/dev
     steps:
-      - name: Checkout
+      - name: Checkout z-packages
         uses: actions/checkout@v4
+        with:
+          path: zpkgs
+
+      - name: Checkout void-packages
+        uses: actions/checkout@v4
+        with:
+          repository: void-linux/void-packages
+          path: void-packages
 
       - name: Prepare container
         run: |
-          # switch to repo-ci mirror
           mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
-          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
-          # install dependencies
-          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y sudo bash grep curl git jq
-          # create non-root user
-          useradd -G xbuilder -M builder
-          git config --global --add safe.directory "$PWD"
+          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y git curl jq bash
 
-      - name: Prepare masterdir
+      - name: Overlay templates and bootstrap
         run: |
-          chown -R builder:builder . &&
-          sudo -Eu builder common/travis/set_mirror.sh &&
-          sudo -Eu builder ./xbps-src binary-bootstrap
+          cp -r zpkgs/srcpkgs/* void-packages/srcpkgs/
+          cd void-packages
+          ./xbps-src binary-bootstrap
 
       - name: Generate root .VURINFO
-        run: sudo -Eu builder env VARY_REF="$VARY_REF" bash .github/scripts/gen-vurinfo-root.sh
+        run: |
+          cd void-packages
+          PKGS="$(for d in ../zpkgs/srcpkgs/*/; do basename "$d"; done | tr '\n' ' ')"
+          # shellcheck disable=SC2086
+          env VARY_REF="$VARY_REF" OUT_FILE="$GITHUB_WORKSPACE/zpkgs/.VURINFO" \
+            bash "$GITHUB_WORKSPACE/zpkgs/.github/scripts/gen-vurinfo-root.sh" $PKGS
 
       - name: Commit and push if changed
+        working-directory: zpkgs
         run: |
           git add .VURINFO
           if git diff --cached --quiet; then
