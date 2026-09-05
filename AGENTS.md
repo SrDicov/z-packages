@@ -31,5 +31,6 @@ XBPS source-packages collection (Void Linux fork). Packages are shell `template`
 ## VUR index (for vary)
 
 - Default branch stays `master`; vary auto-detects it (`--branch` override exists).
-- Root `.VURINFO` (JSON array, schema v1) is generated, never hand-edited: `.github/workflows/vurinfo.yaml` runs `.github/scripts/gen-vurinfo-root.sh` on every `master` push touching `srcpkgs/**` (Void container + bootstrapped masterdir, `xbps-src show` per template + vary's `vurinfo.jq` at pinned `VARY_REF`) and commits the result. Never `source template` on the host.
+- Root `.VURINFO` (JSON array, schema v1) is generated, never hand-edited: `.github/workflows/vurinfo.yaml` runs `.github/scripts/gen-vurinfo.py` (static parsing, same semantics as vary's template fallback — no container, no masterdir, on purpose: building happens in z-repo/Vary) on every `master` push touching `srcpkgs/**` and commits the result. Never `source template` anywhere.
+- Duplicate `pkgname` across templates (today: `font-inter-variable` declares `pkgname=font-inter`): first wins with a CI warning. That template violates "pkgname matches its directory" — fix it there, not in the generator.
 - `/.VURINFO` is allow-listed in `.gitignore`; the workflow commit only touches it, so it never retriggers itself.

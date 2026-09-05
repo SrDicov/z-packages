@@ -5,10 +5,10 @@ name: VURINFO index
 # resultante solo toca el .VURINFO de la raíz, así que no se re-dispara
 # (sin bucle).
 #
-# Método: checkout completo de void-packages + overlay de nuestros srcpkgs
-# (como documenta vary en docs/VURINFO.md). Todo corre como root en
-# contenedor privilegiado, igual que el builder de VUP: así xbps-src usa
-# chroot real y no necesita user namespaces.
+# A propósito SIN contenedor ni masterdir: z-packages son solo plantillas
+# (se compila en z-repo/Vary). El generador es parseo estático con la misma
+# semántica que el fallback de vary; vale porque las plantillas de este repo
+# son asignaciones estáticas (sin sustituciones en version).
 
 on:
   push:
@@ -19,52 +19,18 @@ on:
 permissions:
   contents: write
 
-env:
-  # Ref de Vary del que se descarga scripts/vurinfo.jq (fuente del esquema).
-  VARY_REF: vary-mvp
-
 jobs:
   vurinfo:
     name: Generate root .VURINFO
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/void-linux/void-glibc-full
-      options: --privileged
-      volumes:
-        - /dev:/dev
     steps:
-      - name: Checkout z-packages
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: zpkgs
-
-      - name: Checkout void-packages
-        uses: actions/checkout@v4
-        with:
-          repository: void-linux/void-packages
-          path: void-packages
-
-      - name: Prepare container
-        run: |
-          mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
-          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y git curl jq bash
-
-      - name: Overlay templates and bootstrap
-        run: |
-          cp -r zpkgs/srcpkgs/* void-packages/srcpkgs/
-          cd void-packages
-          ./xbps-src binary-bootstrap
 
       - name: Generate root .VURINFO
-        run: |
-          cd void-packages
-          PKGS="$(for d in ../zpkgs/srcpkgs/*/; do basename "$d"; done | tr '\n' ' ')"
-          # shellcheck disable=SC2086
-          env VARY_REF="$VARY_REF" OUT_FILE="$GITHUB_WORKSPACE/zpkgs/.VURINFO" \
-            bash "$GITHUB_WORKSPACE/zpkgs/.github/scripts/gen-vurinfo-root.sh" $PKGS
+        run: python3 .github/scripts/gen-vurinfo.py .VURINFO srcpkgs
 
       - name: Commit and push if changed
-        working-directory: zpkgs
         run: |
           git add .VURINFO
           if git diff --cached --quiet; then
