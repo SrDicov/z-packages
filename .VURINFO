@@ -187,7 +187,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:bb83ae62eba675eefc40b93a88a6876f24601485407d4bbfcf92d62d640cd671"
+      "sha256:2ccbb6fd9574771bcaca3cf14066d96046adcce94357e170469f8f9d3444abd2"
     ],
     "depends": [
       "git"
@@ -207,7 +207,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.4"
+    "version": "0.2.5"
   },
   {
     "archs": [
