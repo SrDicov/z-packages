@@ -1,6 +1,6 @@
 # Template file for 'vary'
 pkgname=vary
-version=0.2.4
+version=0.2.5
 revision=1
 wrksrc="Vary-${version}"
 build_style=cargo
@@ -11,11 +11,11 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/SrDicov/Vary"
 distfiles="https://github.com/SrDicov/Vary/archive/refs/tags/v${version}.tar.gz"
-checksum=bb83ae62eba675eefc40b93a88a6876f24601485407d4bbfcf92d62d640cd671
+checksum=2ccbb6fd9574771bcaca3cf14066d96046adcce94357e170469f8f9d3444abd2
 
-# upstream Cargo.lock still pins vary 0.2.3 (v0.2.4 released without
-# relocking), so --locked from build_style=cargo fails; build like
-# upstream CI does and let cargo refresh the lock.
+# upstream releases without relocking Cargo.lock, so --locked from
+# build_style=cargo fails; build like upstream CI does and let cargo
+# refresh the lock.
 do_build() {
 	cargo build --release
 }
