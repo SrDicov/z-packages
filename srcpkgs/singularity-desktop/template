@@ -19,11 +19,12 @@ makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
  tinysparql-devel eudev-libudev-devel pam-devel elogind-devel wayland-devel
  libxkbcommon-devel cairo-devel pango-devel gdk-pixbuf-devel libxcb-devel
  libpng-devel librsvg-devel libsfdo-devel libxml2-devel libsecret-devel
- poppler-glib-devel gst-plugins-base1-devel gst-plugins-good1-devel
- pipewire-devel libdisplay-info-devel libliftoff-devel libdrm-devel
+ poppler-glib-devel gst-plugins-base1-devel pipewire-devel
+ libdisplay-info-devel libliftoff-devel libdrm-devel
  MesaLib-devel libinput-devel libseat-devel xorg-server-xwayland"
 depends="labwc-singularity dbus elogind greetd xdg-desktop-portal
- xdg-user-dirs hicolor-icon-theme desktop-file-utils tinysparql"
+ xdg-user-dirs hicolor-icon-theme desktop-file-utils tinysparql
+ gst-plugins-base1 gst-plugins-good1"
 short_desc="Singularity Desktop Environment (Wayland, GTK4)"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-only"
