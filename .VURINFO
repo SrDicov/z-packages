@@ -259,6 +259,7 @@
       "python3",
       "curl",
       "unzip",
+      "tar",
       "glib-devel",
       "gobject-introspection",
       "sassc",
