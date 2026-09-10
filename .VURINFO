@@ -243,7 +243,9 @@
       "xdg-user-dirs",
       "hicolor-icon-theme",
       "desktop-file-utils",
-      "tinysparql"
+      "tinysparql",
+      "gst-plugins-base1",
+      "gst-plugins-good1"
     ],
     "distfiles": [],
     "format_version": 1,
@@ -297,7 +299,6 @@
       "libsecret-devel",
       "poppler-glib-devel",
       "gst-plugins-base1-devel",
-      "gst-plugins-good1-devel",
       "pipewire-devel",
       "libdisplay-info-devel",
       "libliftoff-devel",
