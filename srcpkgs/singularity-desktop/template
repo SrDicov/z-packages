@@ -1,0 +1,63 @@
+# Template file for 'singularity-desktop'
+pkgname=singularity-desktop
+version=0.1.0
+revision=1
+# No release tarballs (git + submodules): fetch the SrDicov fork carrying
+# the Void/runit port. Submodule changes ship as files/*.patch (post_patch)
+# until they are upstreamed repo by repo.
+_commit="2562284ce33bfdd8735dca7f14cb2cbde2b293f6"
+_repository="https://github.com/SrDicov/singularity-desktop.git"
+build_style=meson
+configure_args="--prefix=/usr --libdir=lib --buildtype=release
+ -Dinstaller=false"
+hostmakedepends="meson ninja vala pkg-config gettext git python3 curl
+ unzip glib-devel gobject-introspection sassc scdoc wayland-protocols"
+makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
+ gtksourceview5-devel libpeas2-devel libgee-devel NetworkManager-devel
+ upower-devel pulseaudio-devel gnome-online-accounts-devel polkit-devel
+ libsoup3-devel json-glib-devel libdbusmenu-glib-devel at-spi2-core-devel
+ tinysparql-devel eudev-libudev-devel pam-devel elogind-devel wayland-devel
+ libxkbcommon-devel cairo-devel pango-devel gdk-pixbuf-devel libxcb-devel
+ libpng-devel librsvg-devel libsfdo-devel libxml2-devel libsecret-devel
+ poppler-glib-devel gst-plugins-base1-devel gst-plugins-good1-devel
+ pipewire-devel libdisplay-info-devel libliftoff-devel libdrm-devel
+ MesaLib-devel libinput-devel libseat-devel xorg-server-xwayland"
+depends="labwc-singularity dbus elogind greetd xdg-desktop-portal
+ xdg-user-dirs hicolor-icon-theme desktop-file-utils tinysparql"
+short_desc="Singularity Desktop Environment (Wayland, GTK4)"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="GPL-3.0-only"
+homepage="https://github.com/singularityos-lab/singularity-desktop"
+
+if [ "$XBPS_TARGET_LIBC" = musl ]; then
+	# Gesture runtime blobs are glibc x86_64; musl port pending.
+	broken="needs glibc-only gesture runtime, no -Dgestures=false yet"
+fi
+
+do_fetch() {
+	msg_normal "Cloning ${_repository} @ ${_commit}...\n"
+	git clone --recurse-submodules "${_repository}" ${pkgname}-${version}
+	(cd ${pkgname}-${version} && git checkout -q ${_commit} \
+		&& git submodule update -q --init --recursive)
+}
+
+post_fetch() {
+	# Gesture runtime blobs must exist before meson setup.
+	msg_normal "Bootstrapping gesture runtime...\n"
+	(cd ${pkgname}-${version} && PYTHON=python3 \
+		bash subprojects/singularity-gestures/scripts/bootstrap-runtime.sh)
+}
+
+post_patch() {
+	for _s in libsingularity singularity-shell singularity-session \
+		singularity-gestures; do
+		patch -d subprojects/$_s -p1 -i "$FILESDIR"/$_s-void.patch
+	done
+}
+
+do_install() {
+	DESTDIR="${DESTDIR}" meson install -C build
+	glib-compile-schemas "${DESTDIR}"/usr/share/glib-2.0/schemas
+	vinstall scripts/deploy-to-host.sh 755 usr/share/doc/singularity-desktop
+	vinstall scripts/install-greeter.sh 755 usr/share/doc/singularity-desktop
+}

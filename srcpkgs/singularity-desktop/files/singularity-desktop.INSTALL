@@ -1,0 +1,25 @@
+case "${ACTION}" in
+post)
+	glib-compile-schemas /usr/share/glib-2.0/schemas 2>/dev/null || true
+	gtk-update-icon-cache -f /usr/share/icons/hicolor 2>/dev/null || true
+	update-desktop-database /usr/share/applications 2>/dev/null || true
+	cat <<EOF
+================================================================
+Singularity Desktop installed. To use it on Void (runit):
+
+  1. Enable the required services (as root):
+       ln -s /etc/sv/dbus /var/service/
+       ln -s /etc/sv/elogind /var/service/
+
+  2. Deploy host integration (works with sudo AND doas):
+       sudo SINGULARITY_PREFIX=/usr bash \
+         /usr/share/doc/singularity-desktop/deploy-to-host.sh
+
+  3. Set up the greeter (greetd + runit):
+       sudo bash /usr/share/doc/singularity-desktop/install-greeter.sh
+
+  4. Reboot and log in from the greeter.
+================================================================
+EOF
+	;;
+esac

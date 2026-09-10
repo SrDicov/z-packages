@@ -1,0 +1,25 @@
+diff --git i/scripts/install-session.sh w/scripts/install-session.sh
+index 1c79e6c..202ade8 100755
+--- i/scripts/install-session.sh
++++ w/scripts/install-session.sh
+@@ -4,6 +4,8 @@ set -e
+ 
+ if [ -n "$SUDO_USER" ]; then
+     TARGET_USER="$SUDO_USER"
++elif [ -n "$DOAS_USER" ]; then
++    TARGET_USER="$DOAS_USER"
+ elif [ -n "$PKEXEC_UID" ]; then
+     TARGET_USER=$(getent passwd "$PKEXEC_UID" | cut -d: -f1)
+ else
+@@ -17,6 +19,11 @@ if [ -x "/opt/local/bin/singularity-labwc-session" ]; then
+     LIB="/opt/local/lib"
+     LAUNCHER="$BIN/singularity-labwc-session"
+     echo "Using /opt/local installation..."
++elif [ -x "/usr/bin/singularity-labwc-session" ]; then
++    BIN="/usr/bin"
++    LIB="/usr/lib"
++    LAUNCHER="$BIN/singularity-labwc-session"
++    echo "Using /usr installation (distro package)..."
+ else
+     BIN="$TARGET_HOME/.local/singularity/bin"
+     LIB="$TARGET_HOME/.local/singularity/lib"

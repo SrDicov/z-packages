@@ -1,0 +1,25 @@
+diff --git i/scripts/bootstrap-runtime.sh w/scripts/bootstrap-runtime.sh
+index 20f420e..0f139b0 100755
+--- i/scripts/bootstrap-runtime.sh
++++ w/scripts/bootstrap-runtime.sh
+@@ -23,8 +23,10 @@ verify_file() {
+ }
+ 
+ mkdir -p "$runtime_dir/include"
++# Any python3 with venv works (/usr/bin/python3.12 was Fedora-specific).
++PYTHON="${PYTHON:-python3}"
+ if [[ ! -f "$runtime_dir/libmediapipe.so" ]]; then
+-    /usr/bin/python3.12 -m venv "$download_dir/venv"
++    "$PYTHON" -m venv "$download_dir/venv"
+     "$download_dir/venv/bin/python" -m pip download \
+         --disable-pip-version-check \
+         --only-binary=:all: \
+@@ -33,7 +35,7 @@ if [[ ! -f "$runtime_dir/libmediapipe.so" ]]; then
+         mediapipe==1.0.1
+ 
+     wheel=$(find "$download_dir" -name 'mediapipe-*.whl' -print -quit)
+-    /usr/bin/python3.12 - "$wheel" "$runtime_dir/libmediapipe.so" <<'PY'
++    "$PYTHON" - "$wheel" "$runtime_dir/libmediapipe.so" <<'PY'
+ import pathlib
+ import sys
+ import zipfile

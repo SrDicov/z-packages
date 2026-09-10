@@ -1,0 +1,41 @@
+diff --git i/src/components/sidebar/pages/system_page.vala w/src/components/sidebar/pages/system_page.vala
+index f90d52d..3e128ce 100644
+--- i/src/components/sidebar/pages/system_page.vala
++++ w/src/components/sidebar/pages/system_page.vala
+@@ -192,6 +192,8 @@ namespace Singularity.SidebarPages {
+         // interactive=true lets the polkit agent prompt for authorization, which
+         // hostnamed handles itself; setting the static name also updates the
+         // transient (kernel) hostname.
++        // Without hostnamed (e.g. Void/runit) fall back to writing /etc/hostname
++        // + the live kernel name via pkexec (agent prompts, same UX).
+         private async void set_hostname_async(string new_name) {
+             try {
+                 var conn = yield Bus.get(BusType.SYSTEM);
+@@ -202,6 +204,27 @@ namespace Singularity.SidebarPages {
+                     "SetStaticHostname",
+                     new Variant("(sb)", new_name, true),
+                     null, DBusCallFlags.NONE, -1, null);
++            } catch (Error e) {
++                if (e is DBusError.SERVICE_UNKNOWN || e is DBusError.NAME_HAS_NO_OWNER) {
++                    set_hostname_fallback(new_name);
++                } else {
++                    warning("Failed to set hostname: %s", e.message);
++                }
++            }
++        }
++
++        private void set_hostname_fallback(string new_name) {
++            try {
++                var rx = new Regex("^[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?$");
++                if (!rx.match(new_name)) {
++                    warning("Refusing invalid hostname '%s'", new_name);
++                    return;
++                }
++                // $1 carries the name (argv, no shell interpolation of it).
++                var proc = new Subprocess.newv(
++                    {"pkexec", "sh", "-c", "printf '%s\\n' \"$1\" > /etc/hostname && hostname \"$1\"", "_", new_name},
++                    SubprocessFlags.NONE);
++                proc.wait_check();
+             } catch (Error e) {
+                 warning("Failed to set hostname: %s", e.message);
+             }

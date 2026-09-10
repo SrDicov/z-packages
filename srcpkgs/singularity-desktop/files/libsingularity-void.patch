@@ -1,0 +1,145 @@
+diff --git i/src/system/datetime_manager.vala w/src/system/datetime_manager.vala
+index 6081733..94cc681 100644
+--- i/src/system/datetime_manager.vala
++++ w/src/system/datetime_manager.vala
+@@ -15,6 +15,10 @@ namespace Singularity {
+ 
+     public class DateTimeManager : Object {
+         private Timedate1? proxy;
++        // True when timedate1 is absent (e.g. Void/runit, no systemd daemons):
++        // state is read/written directly, privileged writes go through pkexec
++        // (the session polkit agent prompts, same as interactive=true above).
++        private bool use_local_fallback = false;
+ 
+         public string timezone { get; private set; default = "UTC"; }
+         public bool ntp_active { get; private set; default = false; }
+@@ -43,13 +47,103 @@ namespace Singularity {
+                 timezone = proxy.timezone;
+                 state_changed();
+             } catch (Error e) {
+-                warning("Failed to connect to timedate1: %s", e.message);
++                // No timedate1 on the system bus: fall back to direct
++                // /etc/localtime + runit service handling below.
++                use_local_fallback = true;
++                read_local_state();
++                state_changed();
++                message("DateTimeManager: no timedate1, using local fallback (%s)", e.message);
+             }
+         }
+ 
++        // Runs argv as root through pkexec (polkit agent prompts in-session).
++        private bool run_privileged(string[] argv) {
++            string[] full = {"pkexec"};
++            foreach (var arg in argv) {
++                full += arg;
++            }
++            try {
++                var proc = new Subprocess.newv(full, SubprocessFlags.NONE);
++                return proc.wait_check();
++            } catch (Error e) {
++                warning("Privileged helper failed: %s", e.message);
++                return false;
++            }
++        }
++
++        private void read_local_state() {
++            try {
++                // /etc/localtime is a symlink into /usr/share/zoneinfo/<TZ>.
++                var info = File.new_for_path("/etc/localtime").query_info(
++                    FileAttribute.STANDARD_SYMLINK_TARGET, FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
++                string? target = info.get_symlink_target();
++                const string prefix = "/usr/share/zoneinfo/";
++                if (target != null && target.has_prefix(prefix)) {
++                    timezone = target.substring(prefix.length);
++                }
++            } catch (Error e) {}
++            // runit NTP services (Void: openntpd provides /etc/sv/ntpd).
++            ntp_active = FileUtils.test("/var/service/ntpd", FileTest.IS_SYMLINK)
++                || FileUtils.test("/var/service/chronyd", FileTest.IS_SYMLINK);
++        }
++
++        private string? pick_ntp_service() {
++            if (FileUtils.test("/etc/sv/ntpd", FileTest.IS_DIR)) return "ntpd";
++            if (FileUtils.test("/etc/sv/chronyd", FileTest.IS_DIR)) return "chronyd";
++            return null;
++        }
++
++        private void set_ntp_fallback(bool active) {
++            string? svc = pick_ntp_service();
++            if (svc == null) {
++                warning("No runit NTP service (ntpd/chronyd) installed, cannot toggle NTP");
++                return;
++            }
++            bool ok;
++            if (active) {
++                ok = run_privileged({"sh", "-c", "ln -sfn /etc/sv/$1 /var/service/$1 && sv start $1", "_", svc});
++            } else {
++                ok = run_privileged({"sh", "-c", "sv stop $1; rm -f /var/service/$1", "_", svc});
++            }
++            if (ok) {
++                ntp_active = active;
++                state_changed();
++            }
++        }
++
++        private void update_timezone_fallback(string tz) {
++            // Only allow real zoneinfo names (what the UI offers) so the
++            // privileged symlink cannot escape /usr/share/zoneinfo.
++            bool known = false;
++            foreach (var candidate in TimezoneUtil.list()) {
++                if (candidate == tz) {
++                    known = true;
++                    break;
++                }
++            }
++            if (!known) {
++                warning("Refusing unknown timezone '%s'", tz);
++                return;
++            }
++            if (run_privileged({"ln", "-sfn", "/usr/share/zoneinfo/" + tz, "/etc/localtime"})) {
++                timezone = tz;
++                state_changed();
++            }
++        }
++
++        private void set_time_fallback(int64 usec_utc) {
++            int64 secs = usec_utc / 1000000;
++            if (run_privileged({"date", "-u", "-s", "@" + secs.to_string()})) {
++                // Keep the hardware clock in step (uses /etc/adjtime).
++                run_privileged({"hwclock", "--systohc"});
++            }
++        }
+ 
+         public void set_ntp(bool active) {
+-            if (proxy == null) return;
++            if (proxy == null) {
++                if (use_local_fallback) set_ntp_fallback(active);
++                return;
++            }
+             try {
+                 proxy.set_ntp(active, true);
+             } catch (Error e) {
+@@ -58,7 +152,10 @@ namespace Singularity {
+         }
+ 
+         public void update_timezone(string tz) {
+-            if (proxy == null) return;
++            if (proxy == null) {
++                if (use_local_fallback) update_timezone_fallback(tz);
++                return;
++            }
+             try {
+                 proxy.set_timezone(tz, true);
+             } catch (Error e) {
+@@ -67,7 +164,10 @@ namespace Singularity {
+         }
+ 
+         public void set_time(int64 usec_utc) {
+-            if (proxy == null) return;
++            if (proxy == null) {
++                if (use_local_fallback) set_time_fallback(usec_utc);
++                return;
++            }
+             try {
+                 proxy.set_time(usec_utc, false, true);
+             } catch (Error e) {
