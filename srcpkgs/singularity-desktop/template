@@ -80,6 +80,15 @@ post_patch() {
 do_install() {
 	DESTDIR="${DESTDIR}" meson install -C build
 	glib-compile-schemas "${DESTDIR}"/usr/share/glib-2.0/schemas
+	# xbps forbids ELF in /usr/share: the dlopen'd gesture blobs live in
+	# lib, the share dir keeps relative symlinks (resolver follows them).
+	mkdir -p "${DESTDIR}"/usr/lib/singularity/gestures/runtime
+	for _so in libmediapipe.so libonnxruntime.so; do
+		mv "${DESTDIR}"/usr/share/singularity/gestures/runtime/$_so \
+			"${DESTDIR}"/usr/lib/singularity/gestures/runtime/$_so
+		ln -s ../../../lib/singularity/gestures/runtime/$_so \
+			"${DESTDIR}"/usr/share/singularity/gestures/runtime/$_so
+	done
 	vinstall scripts/deploy-to-host.sh 755 usr/share/doc/singularity-desktop
 	vinstall scripts/install-greeter.sh 755 usr/share/doc/singularity-desktop
 }
