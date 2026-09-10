@@ -54,8 +54,9 @@ post_fetch() {
 }
 
 post_patch() {
-	for _s in libsingularity singularity-shell singularity-session \
-		singularity-gestures; do
+	# gestures needs no patch: post_fetch already neutralized its
+	# /usr/bin/python3.12 hardcode with sed.
+	for _s in libsingularity singularity-shell singularity-session; do
 		patch -d subprojects/$_s -p1 -i "$FILESDIR"/$_s-void.patch
 	done
 }
