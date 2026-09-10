@@ -307,7 +307,11 @@
       "MesaLib-devel",
       "libinput-devel",
       "libseat-devel",
-      "xorg-server-xwayland"
+      "xorg-server-xwayland",
+      "SDL2-devel",
+      "glu-devel",
+      "gstreamer1-devel",
+      "libX11-devel"
     ],
     "pkgname": "singularity-desktop",
     "provides": [],
