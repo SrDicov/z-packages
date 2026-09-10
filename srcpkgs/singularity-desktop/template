@@ -43,9 +43,13 @@ do_fetch() {
 }
 
 post_fetch() {
-	# Gesture runtime blobs must exist before meson setup.
+	# Gesture runtime blobs must exist before meson setup. The upstream
+	# script hardcodes /usr/bin/python3.12 (fixed upstream, but patches
+	# only land in post_patch), so neutralize it here as well.
 	msg_normal "Bootstrapping gesture runtime...\n"
-	(cd ${pkgname}-${version} && PYTHON=python3 \
+	(cd ${pkgname}-${version} && sed -i 's|/usr/bin/python3\.12|python3|' \
+		subprojects/singularity-gestures/scripts/bootstrap-runtime.sh \
+		&& PYTHON=python3 \
 		bash subprojects/singularity-gestures/scripts/bootstrap-runtime.sh)
 }
 
