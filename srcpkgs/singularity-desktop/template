@@ -21,7 +21,8 @@ makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
  libpng-devel librsvg-devel libsfdo-devel libxml2-devel libsecret-devel
  poppler-glib-devel gst-plugins-base1-devel pipewire-devel
  libdisplay-info-devel libliftoff-devel libdrm-devel
- MesaLib-devel libinput-devel libseat-devel xorg-server-xwayland"
+ MesaLib-devel libinput-devel libseat-devel xorg-server-xwayland
+ SDL2-devel glu-devel gstreamer1-devel libX11-devel"
 depends="labwc-singularity dbus elogind greetd xdg-desktop-portal
  xdg-user-dirs hicolor-icon-theme desktop-file-utils tinysparql
  gst-plugins-base1 gst-plugins-good1"
