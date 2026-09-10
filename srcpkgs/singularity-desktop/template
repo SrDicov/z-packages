@@ -52,6 +52,18 @@ post_fetch() {
 		subprojects/singularity-gestures/scripts/bootstrap-runtime.sh \
 		&& PYTHON=python3 \
 		bash subprojects/singularity-gestures/scripts/bootstrap-runtime.sh)
+	# vetro UI codegen tool (same binary + checksum as Containerfile).
+	if [ ! -x vetro/vetro ]; then
+		mkdir -p vetro
+		curl --fail --location --output vetro/vetro \
+			https://github.com/singularityos-lab/vetro/releases/download/v1.0.0/vetro-linux-amd64
+		(cd vetro && echo "b653a4b1b75a31a8a00a5d12b11eaafa3f22d6cf2b3417efde68a113b4c60700  vetro" | sha256sum --check -)
+		chmod 0755 vetro/vetro
+	fi
+}
+
+pre_configure() {
+	PATH="$XBPS_BUILDDIR/vetro:$PATH"
 }
 
 post_patch() {
