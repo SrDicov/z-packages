@@ -1,0 +1,29 @@
+# Template file for 'labwc-singularity'
+pkgname=labwc-singularity
+version=0.9.5
+revision=1
+# Singularity labwc fork, pinned to the exact commit the desktop builds
+# (its labwc submodule). Replaces stock labwc.
+_commit="7c6273a05545f10e8b7737a8de3c9d71ff3e743e"
+_repository="https://github.com/singularityos-lab/labwc.git"
+build_style=meson
+configure_args="--prefix=/usr --libdir=lib --buildtype=release
+ -Dxwayland=enabled --force-fallback-for=wlroots-0.20"
+hostmakedepends="meson ninja pkg-config gettext scdoc wayland-devel
+ wayland-protocols git"
+makedepends="cairo-devel glib-devel libpng-devel librsvg-devel
+ libsfdo-devel libxml2-devel pango-devel wlroots0.20-devel
+ xorg-server-xwayland libdisplay-info-devel libliftoff-devel libdrm-devel
+ libinput-devel libseat-devel libxkbcommon-devel eudev-libudev-devel"
+conflicts="labwc>=0"
+short_desc="Singularity fork of the labwc Wayland compositor"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="GPL-2.0-or-later"
+homepage="https://github.com/singularityos-lab/labwc"
+
+do_fetch() {
+	msg_normal "Cloning ${_repository} @ ${_commit}...\n"
+	git clone --recurse-submodules "${_repository}" ${pkgname}-${version}
+	(cd ${pkgname}-${version} && git checkout -q ${_commit} \
+		&& git submodule update -q --init --recursive)
+}
