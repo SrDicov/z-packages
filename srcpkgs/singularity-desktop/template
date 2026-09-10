@@ -11,7 +11,7 @@ build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
  -Dinstaller=false"
 hostmakedepends="meson ninja vala pkg-config gettext git python3 curl
- unzip glib-devel gobject-introspection sassc scdoc wayland-protocols"
+ unzip tar glib-devel gobject-introspection sassc scdoc wayland-protocols"
 makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
  gtksourceview5-devel libpeas2-devel libgee-devel NetworkManager-devel
  upower-devel pulseaudio-devel gnome-online-accounts-devel polkit-devel
