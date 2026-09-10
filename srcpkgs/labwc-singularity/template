@@ -7,8 +7,11 @@ revision=1
 _commit="7c6273a05545f10e8b7737a8de3c9d71ff3e743e"
 _repository="https://github.com/singularityos-lab/labwc.git"
 build_style=meson
+# NOTE: no --force-fallback-for=wlroots here (the Makefile uses it for
+# distros without a system wlroots): xbps builds with --wrap-mode=nodownload,
+# so meson must use the system wlroots0.20.
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
- -Dxwayland=enabled --force-fallback-for=wlroots-0.20"
+ -Dxwayland=enabled"
 hostmakedepends="meson ninja pkg-config gettext scdoc wayland-devel
  wayland-protocols git"
 makedepends="cairo-devel glib-devel libpng-devel librsvg-devel
