@@ -312,7 +312,8 @@
       "glu-devel",
       "gstreamer1-devel",
       "libX11-devel",
-      "libwebkitgtk60-devel"
+      "libwebkitgtk60-devel",
+      "libsodium-devel"
     ],
     "pkgname": "singularity-desktop",
     "provides": [],
