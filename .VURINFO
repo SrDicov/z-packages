@@ -311,7 +311,8 @@
       "SDL2-devel",
       "glu-devel",
       "gstreamer1-devel",
-      "libX11-devel"
+      "libX11-devel",
+      "libwebkitgtk60-devel"
     ],
     "pkgname": "singularity-desktop",
     "provides": [],
