@@ -1,11 +1,11 @@
 # Template file for 'singularity-desktop'
 pkgname=singularity-desktop
 version=0.1.0
-revision=1
+revision=2
 # No release tarballs (git + submodules): fetch the SrDicov fork carrying
 # the Void/runit port. Submodule changes ship as files/*.patch (post_patch)
 # until they are upstreamed repo by repo.
-_commit="2562284ce33bfdd8735dca7f14cb2cbde2b293f6"
+_commit="6b8b423221262eef49d16c0c18c581efd353ff07"
 _repository="https://github.com/SrDicov/singularity-desktop.git"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release

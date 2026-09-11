@@ -11,9 +11,9 @@ Singularity Desktop installed. To use it on Void (runit):
        ln -s /etc/sv/dbus /var/service/
        ln -s /etc/sv/elogind /var/service/
 
-  2. Deploy host integration (works with sudo AND doas):
-       sudo SINGULARITY_PREFIX=/usr bash \
-         /usr/share/doc/singularity-desktop/deploy-to-host.sh
+  2. Deploy host integration (sudo or doas, prefix auto-detected):
+       sudo bash /usr/share/doc/singularity-desktop/deploy-to-host.sh
+     (doas-only systems: doas bash ... — never `doas VAR=x cmd`)
 
   3. Set up the greeter (greetd + runit):
        sudo bash /usr/share/doc/singularity-desktop/install-greeter.sh
