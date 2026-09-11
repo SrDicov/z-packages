@@ -10,8 +10,10 @@ build_style=meson
 # NOTE: no --force-fallback-for=wlroots here (the Makefile uses it for
 # distros without a system wlroots): xbps builds with --wrap-mode=nodownload,
 # so meson must use the system wlroots0.20.
+# -D_GNU_SOURCE: several files use clock_gettime without feature-test
+# macros; glibc tolerates it, musl with -std=c99 does not.
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
- -Dxwayland=enabled"
+ -Dxwayland=enabled -Dc_args=-D_GNU_SOURCE"
 hostmakedepends="meson ninja pkg-config gettext scdoc wayland-devel
  wayland-protocols git"
 makedepends="cairo-devel glib-devel libpng-devel librsvg-devel
