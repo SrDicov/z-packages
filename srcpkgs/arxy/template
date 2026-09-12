@@ -1,20 +1,29 @@
 # Template file for 'arxy'
-# Fuentes: https://github.com/SrDicov/arxy
 pkgname=arxy
 version=0.2.0
 revision=1
-metapackage=yes
+build_style=fetch
 short_desc="Subsistema Arch minimalista: software glibc en Linux"
 maintainer="Dicov <srdicov@gmail.com>"
 license="MIT"
 homepage="https://github.com/SrDicov/arxy"
+distfiles="https://github.com/SrDicov/arxy/releases/download/v${version}/arxy-${version}.tar.gz"
+checksum=acf256e2a7e62c92945872d843f777172ec4bde8cfbb053ce89b67074ee91de2
 depends="bash bubblewrap curl tar zstd xz gzip file desktop-file-utils
  sudo"
 # No pisar la config del usuario al actualizar (puede anclar URL/SHA).
 conf_files="/etc/arxy/arxy.conf"
 
 do_install() {
-	vbin ${FILESDIR}/arxy
+	vbin ${wrksrc}/src/arxy
 	ln -sf arxy ${DESTDIR}/usr/bin/axy
-	vinstall ${FILESDIR}/arxy.conf 644 etc/arxy/
+	vinstall ${wrksrc}/config/arxy.conf 644 etc/arxy/
+	vlicense LICENSE
+}
+
+do_extract() {
+	# El tarball del release trae prefijo arxy-${version}/; aplanarlo.
+	mkdir -p "${wrksrc}"
+	bsdtar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/arxy-${version}.tar.gz" \
+		-C "${wrksrc}" --strip-components=1
 }
