@@ -1,7 +1,7 @@
 # Template file for 'labwc-singularity'
 pkgname=labwc-singularity
 version=0.9.5
-revision=1
+revision=2
 # Singularity labwc fork, pinned to the exact commit the desktop builds
 # (its labwc submodule). Replaces stock labwc.
 _commit="7c6273a05545f10e8b7737a8de3c9d71ff3e743e"
