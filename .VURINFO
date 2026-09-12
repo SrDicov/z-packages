@@ -3,6 +3,38 @@
     "archs": [
       "all"
     ],
+    "build_style": "meta",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "bash",
+      "bubblewrap",
+      "curl",
+      "tar",
+      "zstd",
+      "xz",
+      "gzip",
+      "file",
+      "desktop-file-utils",
+      "sudo"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <srdicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "arxy",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.2.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": null,
     "checkdepends": [],
     "checksum": [
