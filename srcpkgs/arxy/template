@@ -3,7 +3,7 @@
 pkgname=arxy
 version=0.2.0
 revision=1
-build_style=meta
+metapackage=yes
 short_desc="Subsistema Arch minimalista: software glibc en Linux"
 maintainer="Dicov <srdicov@gmail.com>"
 license="MIT"
