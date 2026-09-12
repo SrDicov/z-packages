@@ -1,0 +1,806 @@
+#!/usr/bin/env bash
+#
+# arxy — subsistema Arch minimalista para correr software glibc en cualquier distro.
+#
+# Sin sandbox y sin contenedorizar por app: un mount namespace minimo (bwrap)
+# para ver la raiz Arch como / siendo usuario normal. Rendimiento nativo.
+# Comparte /home, /tmp, /run, /dev y la GPU con el host. No toca nada del host
+# fuera de /var/lib/arxy y ~/.local/share/applications/arxy-*.desktop.
+#
+# Instalacion (Void): sudo xbps-install arxy -y
+# La imagen minima se descarga sola en el primer uso (setup automatico).
+# Para administrar dentro (pacman): sudo arxy shell
+
+set -uo pipefail
+
+HOME="${HOME:-/root}"
+export LC_ALL=C
+
+ARXY_VERSION="0.2.0"
+PROG="arxy"
+SELF="$(readlink -f "$0" 2>/dev/null || echo "$0")"
+
+# --- configuracion (precedencia: env > ~/.config/arxy/config > /etc/arxy/arxy.conf > defaults)
+ARXY_ROOT="${ARXY_ROOT:-/var/lib/arxy/root}"
+ARXY_IMAGE_URL="${ARXY_IMAGE_URL:-}"
+ARXY_IMAGE_SHA256="${ARXY_IMAGE_SHA256:-}"
+
+ARXY_SYS_CONF="/etc/arxy/arxy.conf"
+ARXY_USER_CONF="${XDG_CONFIG_HOME:-$HOME/.config}/arxy/config"
+# shellcheck source=/dev/null
+[[ -r "$ARXY_SYS_CONF" ]] && . "$ARXY_SYS_CONF"
+# shellcheck source=/dev/null
+[[ -r "$ARXY_USER_CONF" ]] && . "$ARXY_USER_CONF"
+
+ARXY_DATA="${ARXY_ROOT%/*}"              # /var/lib/arxy
+ARXY_VERSION_FILE="$ARXY_DATA/version"
+ARXY_BUILD="$ARXY_DATA/build"              # dir de compilacion AUR (1777)
+NS_BUILD="/arxy-build"                     # misma dir vista desde dentro
+
+ARXY_ARGV=("$@")
+
+# --- usuario real (los .desktop van a SU home aunque se use sudo/doas)
+if [[ "$(id -u)" -eq 0 ]]; then
+    REAL_USER="${SUDO_USER:-${DOAS_USER:-${USER:-$(id -un)}}}"
+else
+    REAL_USER="${USER:-$(id -un)}"
+fi
+REAL_HOME="$(getent passwd "$REAL_USER" 2>/dev/null | cut -d: -f6)"
+[[ -z "${REAL_HOME:-}" || ! -d "$REAL_HOME" ]] && REAL_HOME="$HOME"
+REAL_APPS="$REAL_HOME/.local/share/applications"
+
+# --- utilidades
+msg()  { echo "arxy: $*"; }
+die()  { echo "arxy: error: $*" >&2; exit 1; }
+
+need_cmd() {
+    local c
+    for c in "$@"; do
+        command -v "$c" >/dev/null 2>&1 || die "falta '$c' en el host"
+    done
+}
+
+# sudo/doas segun lo que traiga el host (Void minimo no trae ninguno por defecto).
+as_root() {
+    if command -v sudo >/dev/null 2>&1; then
+        sudo -- "$@"
+    else
+        doas "$@"
+    fi
+}
+
+# Re-ejecuta todo el argv original como root (los comandos que escriben lo exigen).
+need_root() {
+    [[ "$(id -u)" -eq 0 ]] && return 0
+    if command -v sudo >/dev/null 2>&1; then
+        exec sudo "ARXY_ROOT=$ARXY_ROOT" "ARXY_IMAGE_URL=$ARXY_IMAGE_URL" \
+            "ARXY_IMAGE_SHA256=$ARXY_IMAGE_SHA256" -- "$SELF" "${ARXY_ARGV[@]}"
+    elif command -v doas >/dev/null 2>&1; then
+        exec doas env "ARXY_ROOT=$ARXY_ROOT" "ARXY_IMAGE_URL=$ARXY_IMAGE_URL" \
+            "ARXY_IMAGE_SHA256=$ARXY_IMAGE_SHA256" "$SELF" "${ARXY_ARGV[@]}"
+    else
+        die "este comando necesita root y no hay sudo/doas. Ejecuta: sudo $PROG ${ARXY_ARGV[*]}"
+    fi
+}
+
+image_ok() {
+    [[ -x "$ARXY_ROOT/usr/bin/bash" && -x "$ARXY_ROOT/usr/bin/pacman" && -f "$ARXY_ROOT/etc/arch-release" ]]
+}
+
+# Sin tty (scripts, pipes) pacman no puede preguntar: confirmar solo.
+# Uso: nc_args <nombre-array>; luego "${arr[@]}".
+nc_args() {
+    local -n _nc=$1
+    _nc=()
+    [[ -t 0 ]] || _nc=(--noconfirm)
+}
+
+ensure_image() {
+    image_ok && return 0
+    msg "imagen no encontrada en $ARXY_ROOT, descargando..."
+    cmd_setup
+    image_ok || die "la instalacion de la imagen fallo"
+}
+
+# --- runtime: mount namespace minimo, cero aislamiento
+# Solo /home es passthrough persistente (datos del usuario; ningun paquete
+# instala ahi). /opt /srv /mnt /media /data NO se bindean: pacman escribe
+# ahi dentro y el bind desviaria los ficheros al HOST (paso con /opt).
+# Esas rutas del host se alcanzan via /host (ver resolve_target/inside_dir).
+VISIBLE_DIRS="/home"
+
+bwrap_base() {
+    local d resolv
+    printf '%s\n' --bind "$ARXY_ROOT" /
+    # NOTA: --bind de bwrap es recursivo (MS_REC): arrastra submontajes
+    # (/home en otra particion, /run/media, /dev/pts via --dev-bind).
+    # --bind-try ignora origenes inexistentes (ej. /data, /srv).
+    # El build dir AUR se expone en ruta fija dentro (ver aur_build).
+    for d in $VISIBLE_DIRS; do
+        printf '%s\n' --bind-try "$d" "$d"
+    done
+    [[ -d "$ARXY_BUILD" ]] && printf '%s\n' --bind "$ARXY_BUILD" "$NS_BUILD"
+    printf '%s\n' \
+        --bind /tmp /tmp \
+        --bind /run /run \
+        --dev-bind /dev /dev \
+        --proc /proc \
+        --ro-bind-try /sys /sys \
+        --bind / /host
+    resolv="$(readlink -f /etc/resolv.conf 2>/dev/null || echo /etc/resolv.conf)"
+    if [[ -f "$resolv" ]]; then
+        printf '%s\n' --ro-bind "$resolv" /etc/resolv.conf
+    else
+        msg "aviso: sin resolv.conf valido en el host, el DNS dentro puede fallar"
+    fi
+    [[ -f /etc/hosts ]] && printf '%s\n' --ro-bind /etc/hosts /etc/hosts
+    # La imagen trae /etc/machine-id Grennan ("uninitialized", 13 chars) y Qt/D-Bus
+    # abortan (viber exit 134). Se comparte el del host (ya se comparte el
+    # bus de sesion via /run); /var/lib/dbus/machine-id es symlink a este.
+    if [[ -s /etc/machine-id ]]; then
+        printf '%s\n' --ro-bind /etc/machine-id /etc/machine-id
+    else
+        msg "aviso: host sin machine-id valido, Qt/D-Bus dentro pueden abortar"
+    fi
+    [[ -f /etc/localtime ]] && printf '%s\n' --ro-bind-try /etc/localtime /etc/localtime
+}
+
+# in_bwrap <cmd...> : ejecuta dentro, devuelve codigo (no hace exec).
+# NOTA: sin '--' separador aqui: bwrap toma todo lo que sigue como comando,
+# asi que las opciones (--chdir, --setenv) van antes y el llamador pone
+# su propio '--' justo antes del binario.
+in_bwrap() {
+    local -a b
+    mapfile -t b < <(bwrap_base)
+    bwrap "${b[@]}" \
+        --setenv PATH "/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin" \
+        "$@"
+}
+
+# run_in <bwrap-opts...> -- <cmd...> : como in_bwrap pero con exec
+run_in() {
+    local -a b
+    mapfile -t b < <(bwrap_base)
+    exec bwrap "${b[@]}" \
+        --setenv PATH "/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin" \
+        "$@"
+}
+
+run_pacman() { in_bwrap /usr/bin/pacman "$@"; }
+
+# Si PWD no es visible dentro, entrar via /host (siempre bindeado).
+inside_dir() {
+    local d
+    for d in $VISIBLE_DIRS /tmp /run /dev /proc /sys; do
+        [[ "$PWD" == "$d" || "$PWD" == "$d"/* ]] && { echo "$PWD"; return 0; }
+    done
+    echo "/host$PWD"
+}
+
+# --- setup: descarga + verifica + extrae la imagen (corre como root)
+cmd_setup() {
+    need_root
+    need_cmd curl tar sha256sum zstd
+    [[ -n "$ARXY_IMAGE_URL" ]] || die "ARXY_IMAGE_URL vacio. Edita $ARXY_SYS_CONF y pon la URL del tarball."
+    mkdir -p "$ARXY_DATA" "$ARXY_ROOT"
+    install -d -m1777 "$ARXY_BUILD" # compilacion AUR como usuario (makepkg prohibe root)
+    local tmp sha_tmp
+    tmp="$(mktemp "$ARXY_DATA/.arxy-dl.XXXXXX")" || die "no pude crear temporal en $ARXY_DATA"
+    sha_tmp="$(mktemp "$ARXY_DATA/.arxy-sha.XXXXXX")" || die "no pude crear temporal en $ARXY_DATA"
+    # shellcheck disable=SC2064
+    trap "rm -f '$tmp' '$sha_tmp'" EXIT
+    msg "descargando imagen..."
+    curl -fL --retry 3 -o "$tmp" "$ARXY_IMAGE_URL" || die "descarga fallo"
+    if [[ -n "$ARXY_IMAGE_SHA256" ]]; then
+        [[ "$(sha256sum <"$tmp" | awk '{print $1}')" == "$ARXY_IMAGE_SHA256" ]] || die "sha256 no coincide, abortando"
+    else
+        # Sin hash fijado: intentar el .sha256 publicado junto al tarball
+        # en el release (arxy-image lo sube siempre). La URL puede traer
+        # ?query/#fragmento: se recortan antes de añadir .sha256.
+        # Si no existe, avisar y seguir sin verificar (historico).
+        local sha_url="${ARXY_IMAGE_URL%%\?*}"
+        sha_url="${sha_url%%\#*}.sha256"
+        if curl -fLs --retry 2 -o "$sha_tmp" "$sha_url" 2>/dev/null && [[ -s "$sha_tmp" ]]; then
+            local sha_rel
+            sha_rel="$(grep -Eo '[0-9a-f]{64}' "$sha_tmp" | head -n 1)"
+            [[ -n "$sha_rel" && "$(sha256sum <"$tmp" | awk '{print $1}')" == "$sha_rel" ]] \
+                || die "sha256 del release no coincide, abortando"
+            msg "verificado contra .sha256 del release"
+        else
+            msg "aviso: sin ARXY_IMAGE_SHA256 ni .sha256 en el release, omitiendo verificacion"
+        fi
+    fi
+    msg "extrayendo en $ARXY_ROOT..."
+    if ! tar -xpf "$tmp" -C "$ARXY_ROOT" 2>/dev/null; then
+        # busybox-tar sin soporte zstd: descomprimir con zstd primero
+        zstd -dc "$tmp" | tar -xp -C "$ARXY_ROOT" || die "extraccion fallo"
+    fi
+    rm -f "$tmp" "$sha_tmp"
+    trap - EXIT
+    # Destinos de bind que la imagen quiza no trae (bwrap exige que existan
+    # dentro): /host y el build dir AUR. Sin esto TODO falla en bwrap.
+    mkdir -p "$ARXY_ROOT/host" "$ARXY_ROOT$NS_BUILD"
+    {
+        echo "url=$ARXY_IMAGE_URL"
+        echo "date=$(date -u +%FT%TZ)"
+    } > "$ARXY_VERSION_FILE"
+    msg "sincronizando bases de pacman..."
+    run_pacman -Sy || die "pacman -Sy fallo"
+    msg "imagen lista en $ARXY_ROOT"
+}
+
+# --- instalacion / remocion / mantenimiento (corren como root)
+cmd_install() {
+    if [[ "${1:-}" == "--aur" ]]; then
+        shift
+        cmd_install_aur "$@"
+        return
+    fi
+    need_root
+    [[ $# -ge 1 ]] || die "uso: $PROG install <paquete...>  |  $PROG install --aur <paquete...>"
+    ensure_image
+    local -a nc
+    nc_args nc
+    run_pacman -S --needed "${nc[@]}" "$@" || die "pacman fallo"
+    local p
+    for p in "$@"; do
+        [[ "$p" == -* ]] && continue
+        cmd_export "$p" || true
+    done
+    update_desktop_db
+    msg "instalado: $*"
+}
+
+# --- AUR (solo precompilados -bin; motor: paru; makepkg prohibe root,
+# --- asi que se compila como usuario y se instala con sudo por separado)
+cmd_install_aur() {
+    [[ $# -ge 1 ]] || die "uso: $PROG install --aur <paquete...>"
+    ensure_image
+    ensure_aur_env
+    local p f failed=()
+    for p in "$@"; do
+        [[ "$p" == -* ]] && continue
+        f="$(aur_build "$p")"
+        if [[ -z "${f:-}" || ! -f "$f" ]]; then
+            msg "error: fallo al construir $p (sigo con el resto)"
+            failed+=("$p")
+            continue
+        fi
+        if ! as_root "$SELF" __install-file "$f"; then
+            msg "error: fallo al instalar $p (sigo con el resto)"
+            failed+=("$p")
+        fi
+    done
+    if [[ "${#failed[@]}" -gt 0 ]]; then
+        die "fallaron: ${failed[*]}"
+    fi
+    msg "instalado (AUR): $*"
+}
+
+# Dir de build + herramientas makepkg + paru (si funciona). Corre como usuario.
+# NOTA (2026-09): paru 2.1.0 enlaza libalpm.so.15 y Arch ya va por .16, asi
+# que esta roto en todo Arch hasta que upstream publique release. El flujo
+# usa git+RPC mientras tanto y adopta paru solo si responde (--version OK).
+ensure_aur_env() {
+    [[ -d "$ARXY_BUILD" ]] || die "falta $ARXY_BUILD: ejecuta 'sudo $PROG setup' para crearlo"
+    # Herramientas de build: las que falten se instalan solas (una vez).
+    # strip vive en binutils (nombre distinto al binario).
+    local t missing_tools=()
+    for t in fakeroot strip git curl pkgconf patch debugedit jq; do
+        in_bwrap "/usr/bin/$t" --version >/dev/null 2>&1 || {
+            [[ "$t" == "strip" ]] && missing_tools+=("binutils") || missing_tools+=("$t")
+        }
+    done
+    # makepkg viene con pacman (siempre presente si la imagen es valida).
+    in_bwrap /usr/bin/makepkg --version >/dev/null 2>&1 || \
+        die "imagen rota: sin makepkg"
+    if [[ "${#missing_tools[@]}" -gt 0 ]]; then
+        msg "herramientas AUR que faltan: ${missing_tools[*]}" >&2
+        as_root "$SELF" install "${missing_tools[@]}" >&2 || \
+            die "no pude instalar herramientas AUR"
+    fi
+    if in_bwrap /usr/bin/paru --version >/dev/null 2>&1; then
+        HAVE_PARU=1
+    else
+        HAVE_PARU=
+        msg "aviso: paru no usable (roto con pacman 7.1 hasta nuevo release); usando git+RPC"
+    fi
+}
+
+# Descarga el PKGBUILD con paru (-G) y compila con makepkg.
+# Imprime la ruta del .pkg.tar.zst resultante (en el host).
+# OJO: todo el ruido del build va a stderr; por stdout SOLO la ruta final,
+# porque el llamador captura con f="$(aur_build ...)" (un subshell).
+aur_build() { # <pkg> -> ruta paquete construido
+    local pkg="$1" f
+    local work_host="$ARXY_BUILD/aur/$pkg" work_ns="$NS_BUILD/aur/$pkg"
+    rm -rf "$work_host"
+    mkdir -p "$ARXY_BUILD/aur" || die "no puedo escribir en $ARXY_BUILD"
+    # OJO: dentro del namespace solo existe la ruta $work_ns ($work_host es del host).
+    if [[ -n "${HAVE_PARU:-}" ]]; then
+        in_bwrap /usr/bin/paru --noconfirm -G "$pkg" "$work_ns" >&2 2>/dev/null || \
+        in_bwrap /usr/bin/git clone --depth 1 "https://aur.archlinux.org/$pkg.git" "$work_ns" >&2 || \
+            die "no existe en AUR: $pkg (revisa el nombre con '$PROG search-aur $pkg')"
+    else
+        in_bwrap /usr/bin/git clone --depth 1 "https://aur.archlinux.org/$pkg.git" "$work_ns" >&2 || \
+            die "no existe en AUR: $pkg (revisa el nombre con '$PROG search-aur $pkg')"
+    fi
+    # makedepends/depends del AUR (los -bin casi siempre piden cosas
+    # oficiales sueltas como gcc): se instalan solos con el flujo oficial
+    # antes de compilar (makepkg los exige presentes; pacman -U los
+    # traeria igual justo despues, asi que no se instala nada de mas).
+    if [[ -f "$work_host/.SRCINFO" ]]; then
+        local md missing=() d selfpkgs
+        md="$(grep -E '^[[:space:]]*(makedepends?|depends?) =' "$work_host/.SRCINFO" 2>/dev/null | sed 's/^[^=]*=[[:space:]]*//' | sort -u || true)"
+        # Subpaquetes del mismo pkgbase (ej. bcompare -> bcompare-kde5) no
+        # estan en repos: se excluyen, makepkg/pacman arbitran el resto.
+        selfpkgs="$(grep -E '^[[:space:]]*pkgname =' "$work_host/.SRCINFO" 2>/dev/null | sed 's/.*=[[:space:]]*//' | sort -u || true)"
+        for d in $md; do
+            d="${d%%[<>=]*}" # quita restricciones de version (gcc>=13 -> gcc)
+            [[ -z "$d" ]] && continue
+            grep -qxF "$d" <<<"$selfpkgs" 2>/dev/null && continue
+            in_bwrap /usr/bin/pacman -Q "$d" >/dev/null 2>&1 || missing+=("$d")
+        done
+        if [[ "${#missing[@]}" -gt 0 ]]; then
+            # OJO: esto corre dentro de f="$(aur_build ...)": todo a stderr
+            # o el stdout (ruta del .pkg) se contamina y el install falla.
+            msg "deps de $pkg: ${missing[*]}" >&2
+            as_root "$SELF" install "${missing[@]}" >&2 || \
+                msg "aviso: alguna dep no esta en repos oficiales; sigo y que decida makepkg" >&2
+        fi
+    fi
+    # Precompilados -bin: el split de debug (gdb) es inutil y pesado;
+    # se compila con una copia del makepkg.conf sin debug ni lto.
+    cp "$ARXY_ROOT/etc/makepkg.conf" "$work_host/makepkg-arxy.conf" 2>/dev/null || \
+        die "falta /etc/makepkg.conf en la imagen"
+    printf '%s\n' 'OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto)' \
+        >> "$work_host/makepkg-arxy.conf"
+    # Los .deb/.rpm de los -bin traen ficheros de root:0 y bsdtar intenta
+    # chown dentro del userns (EINVAL fatal). Shim que lo desactiva solo
+    # durante este build (el paquete final lo crea makepkg igual).
+    mkdir -p "$work_host/bin"
+    # Shims: los .deb/.rpm de los -bin traen ficheros de root:0 y tanto
+    # bsdtar como tar intentan chown dentro del userns (EINVAL fatal).
+    # Se desactivan solo durante este build. El de bsdtar ademas normaliza
+    # llamadas estilo viejo ('xf f' sin guion, tipicas en PKGBUILDs).
+    cat > "$work_host/bin/bsdtar" <<'SHIM'
+#!/bin/sh
+case "$1" in
+  -*) exec /usr/bin/bsdtar --no-same-owner "$@" ;;
+  [xcrtu]*) b="$1"; shift; exec /usr/bin/bsdtar --no-same-owner "-$b" "$@" ;;
+  *) exec /usr/bin/bsdtar "$@" ;;
+esac
+SHIM
+    # (GNU tar no admite nada antes de la palabra de operacion estilo
+    # viejo, asi que va por delante solo si $1 ya empieza por '-'.)
+    cat > "$work_host/bin/tar" <<'SHIM'
+#!/bin/sh
+case "$1" in
+  -*) exec /usr/bin/tar --no-same-owner "$@" ;;
+  *) exec /usr/bin/tar "$@" --no-same-owner ;;
+esac
+SHIM
+    # Idem para cp: 'cp -a' sobre symlinks intenta lchown bajo fakeroot
+    # (EINVAL fatal en userns). Se añade --no-preserve=ownership salvo que
+    # el PKGBUILD ya mencione preserve (se respeta su criterio). OJO: va
+    # POSPUESTO porque '-a' equivale a --preserve=all y pisa lo anterior.
+    cat > "$work_host/bin/cp" <<'SHIM'
+#!/bin/sh
+for a in "$@"; do
+  case "$a" in *preserve*) exec /usr/bin/cp "$@" ;; esac
+done
+for a in "$@"; do
+  case "$a" in -*) case "$a" in *[ap]*) exec /usr/bin/cp "$@" --no-preserve=ownership ;; esac ;; esac
+done
+exec /usr/bin/cp "$@"
+SHIM
+    chmod +x "$work_host/bin/bsdtar" "$work_host/bin/tar" "$work_host/bin/cp"
+    in_bwrap /usr/bin/bash -c "export PATH='$work_ns/bin:$PATH'; cd '$work_ns' && exec /usr/bin/makepkg --config '$work_ns/makepkg-arxy.conf' --noconfirm --skippgpcheck" >&2 || \
+        die "fallo al compilar $pkg"
+    # Paquetes divididos (pkgbase con subpaquetes como bcompare-mate):
+    # elegir el .pkg del nombre pedido, excluyendo a los hermanos. El glob
+    # "$pkg-*" casaria tambien con "$pkg-<hermano>-*", asi que se filtra.
+    local sibs sib cand ok
+    sibs="$(grep -E '^[[:space:]]*pkgname =' "$work_host/.SRCINFO" 2>/dev/null | sed 's/.*=[[:space:]]*//' | sort -u || true)"
+    f=""
+    while IFS= read -r cand; do
+        ok=1
+        for sib in $sibs; do
+            [[ "$sib" == "$pkg" ]] && continue
+            [[ "${cand##*/}" == "$sib"-* ]] && { ok=0; break; }
+        done
+        [[ $ok -eq 1 ]] && { f="$cand"; break; }
+    done < <(ls -t "$work_host"/*.pkg.tar.zst 2>/dev/null || true)
+    [[ -n "${f:-}" && -f "$f" ]] || die "makepkg no produjo paquete para $pkg"
+    echo "$f"
+}
+
+# Paso privilegiado del flujo AUR (interno): instala un .pkg ya construido.
+# Deriva el nombre con pacman -Qp para etiquetar el .desktop.
+# OJO: el fichero llega con ruta del HOST; dentro del namespace el build
+# dir se ve en $NS_BUILD, asi que hay que traducirla.
+cmd_install_file() {
+    need_root
+    [[ $# -eq 1 && -f "${1:-}" ]] || die "uso interno: $PROG __install-file <paquete.pkg.tar.zst>"
+    ensure_image
+    local file="$1"
+    [[ "$file" == "$ARXY_BUILD"/* ]] && file="$NS_BUILD${file#$ARXY_BUILD}"
+    local -a nc
+    nc_args nc
+    run_pacman -U --needed "${nc[@]}" "$file" || die "pacman -U fallo"
+    local name
+    name="$(in_bwrap /usr/bin/pacman -Qp "$file" 2>/dev/null | awk '{print $1}')"
+    [[ -n "${name:-}" ]] && { cmd_export "$name" || true; }
+    update_desktop_db
+}
+
+cmd_remove() {
+    need_root
+    [[ $# -ge 1 ]] || die "uso: $PROG remove <paquete...>"
+    ensure_image
+    local -a nc
+    nc_args nc
+    run_pacman -Rns "${nc[@]}" "$@" || die "pacman fallo"
+    local p f
+    for p in "$@"; do
+        [[ "$p" == -* ]] && continue
+        while IFS= read -r f; do
+            rm -f "$f" && msg "lanzador borrado: ${f##*/}"
+        done < <(grep -rlxF "X-Arxy-Pkg=$p" "$REAL_APPS"/arxy-*.desktop 2>/dev/null || true)
+    done
+    update_desktop_db
+}
+
+cmd_update() {
+    need_root
+    ensure_image
+    local -a nc
+    nc_args nc
+    run_pacman -Syu "${nc[@]}" || die "pacman fallo"
+}
+
+cmd_clean() {
+    need_root
+    ensure_image
+    local -a nc
+    nc_args nc
+    run_pacman -Sc "${nc[@]}" || true
+    in_bwrap /usr/bin/paccache -rk2 2>/dev/null || true
+    msg "cache limpia"
+}
+
+# --- lectura (corre como usuario)
+cmd_info() {
+    [[ $# -ge 1 ]] || die "uso: $PROG info <paquete>"
+    ensure_image
+    in_bwrap /usr/bin/pacman -Qi "$1" 2>/dev/null || in_bwrap /usr/bin/pacman -Si "$1"
+}
+
+cmd_list() {
+    ensure_image
+    local exported line pkg
+    exported="$(grep -h '^X-Arxy-Pkg=' "$REAL_APPS"/arxy-*.desktop 2>/dev/null | cut -d= -f2- | sort -u || true)"
+    while IFS= read -r line; do
+        pkg="${line%% *}"
+        if grep -qxF "$pkg" <<<"$exported" 2>/dev/null; then
+            echo "$line  [desktop]"
+        else
+            echo "$line"
+        fi
+    done < <(in_bwrap /usr/bin/pacman -Q "$@")
+}
+
+cmd_search() {
+    [[ $# -ge 1 ]] || die "uso: $PROG search <texto>"
+    ensure_image
+    in_bwrap /usr/bin/pacman -Ss "$@"
+}
+
+cmd_search_aur() {
+    [[ $# -ge 1 ]] || die "uso: $PROG search-aur <texto>"
+    ensure_image
+    in_bwrap /usr/bin/jq --version >/dev/null 2>&1 || \
+        die "falta jq en la imagen: $PROG install jq"
+    if [[ -z "${HAVE_PARU_CHECKED:-}" ]]; then
+        in_bwrap /usr/bin/paru --version >/dev/null 2>&1 && HAVE_PARU=1 || HAVE_PARU=
+        HAVE_PARU_CHECKED=1
+    fi
+    if [[ -n "${HAVE_PARU:-}" ]]; then
+        in_bwrap /usr/bin/paru -Ss "$@"
+        return
+    fi
+    # Sin paru: RPC de AUR directo (https://wiki.archlinux.org/title/Aurweb_RPC_interface)
+    local q
+    q="$(printf '%s ' "$@" | sed 's/ $//')"
+    in_bwrap /usr/bin/curl -sfL --get --data-urlencode "v=5" --data-urlencode "type=search" \
+        --data-urlencode "by=name-desc" --data-urlencode "arg=$q" \
+        https://aur.archlinux.org/rpc/ 2>/dev/null | \
+    in_bwrap /usr/bin/jq -r '.results[] | "\(.Name) \(.Version) [votos:\(.NumVotes) popularidad:\(.Popularity|floor)]\n    \(.Description // "")"' 2>/dev/null || \
+        die "fallo la busqueda AUR (¿red?)"
+}
+
+pkg_desktops() { # <pkg> -> rutas /usr/share/applications/*.desktop dentro de la imagen
+    in_bwrap /usr/bin/pacman -Qlq "$1" 2>/dev/null | grep '^/usr/share/applications/[^/]*\.desktop$' || true
+}
+
+desk_field() { grep -m1 -E "^$2=" "$1" | cut -d= -f2-; }
+
+# cmd_export <pkg | archivo.desktop | --all>
+cmd_export() {
+    [[ $# -ge 1 ]] || die "uso: $PROG export <paquete | archivo.desktop | --all>"
+    ensure_image
+    local -a srcs=()
+    if [[ "$1" == "--all" ]]; then
+        mapfile -t srcs < <(find "$ARXY_ROOT/usr/share/applications" -maxdepth 1 -name '*.desktop' 2>/dev/null || true)
+    elif [[ "$1" == *.desktop ]]; then
+        local desk="${1##*/}"
+        if [[ -f "$ARXY_ROOT/usr/share/applications/$desk" ]]; then
+            srcs=("$ARXY_ROOT/usr/share/applications/$desk")
+        elif [[ -f "$1" ]]; then
+            srcs=("$1")
+        else
+            die "no existe: $1"
+        fi
+    else
+        local d
+        while IFS= read -r d; do
+            srcs+=("$ARXY_ROOT$d")
+        done < <(pkg_desktops "$1")
+        [[ "${#srcs[@]}" -gt 0 ]] || { msg "sin .desktop para '$1'"; return 0; }
+    fi
+    local s
+    for s in "${srcs[@]}"; do
+        export_one "$s" "$1"
+    done
+    update_desktop_db
+}
+
+export_one() { # <ruta.desktop del host> <pkg|nombre>
+    local src="$1" pkg="$2" base name exec bin codes icon term cats comment out
+    base="${src##*/}"
+    [[ -f "$src" ]] || return 0
+    name="$(desk_field "$src" Name)"
+    exec="$(desk_field "$src" Exec)"
+    [[ -n "$name" && -n "$exec" ]] || return 0
+    [[ "$(desk_field "$src" NoDisplay)" == "true" ]] && return 0
+    bin="${exec%% *}"
+    bin="${bin#\"}"; bin="${bin%\"}" # Exec="/ruta/con espacios" %F
+    bin="${bin#\'}"; bin="${bin%\'}"
+    if [[ "$bin" != /* ]]; then
+        for cand in "/usr/bin/$bin" "/usr/local/bin/$bin" "/bin/$bin" "/usr/sbin/$bin"; do
+            [[ -x "$ARXY_ROOT$cand" ]] && { bin="$cand"; break; }
+        done
+    fi
+    codes="$(grep -o '%[A-Za-z]' <<<"$exec" | tr '\n' ' ' | sed 's/ *$//' || true)"
+    local new_exec="$PROG run $bin"
+    [[ -n "${codes// /}" ]] && new_exec="$new_exec $codes"
+    icon="$(desk_field "$src" Icon)"
+    if [[ -n "$icon" ]]; then
+        if [[ "$icon" == /* && -f "$ARXY_ROOT$icon" ]]; then
+            icon="$ARXY_ROOT$icon"
+        elif [[ "$icon" != */* ]]; then
+            local found
+            found="$(find "$ARXY_ROOT/usr/share/icons" "$ARXY_ROOT/usr/share/pixmaps" \
+                -name "$icon.*" 2>/dev/null | head -n 1 || true)"
+            [[ -n "$found" ]] && icon="$found"
+        fi
+    fi
+    term="$(desk_field "$src" Terminal)"
+    cats="$(desk_field "$src" Categories)"
+    comment="$(desk_field "$src" Comment)"
+    mkdir -p "$REAL_APPS"
+    out="$REAL_APPS/arxy-$base"
+    {
+        echo "[Desktop Entry]"
+        echo "Name=$name"
+        [[ -n "$comment" ]] && echo "Comment=$comment"
+        echo "Exec=$new_exec"
+        echo "TryExec=$(command -v "$PROG" 2>/dev/null || echo "/usr/bin/$PROG")"
+        [[ -n "$icon" ]] && echo "Icon=$icon"
+        echo "Terminal=${term:-false}"
+        echo "Type=Application"
+        [[ -n "$cats" ]] && echo "Categories=$cats"
+        echo "X-Arxy-Pkg=$pkg"
+    } > "$out"
+    if [[ "$(id -u)" -eq 0 && "$REAL_USER" != "root" ]]; then
+        chown "$REAL_USER" "$out" 2>/dev/null || true
+    fi
+    msg "lanzador: ${out##*/}  ($name)"
+}
+
+cmd_unexport() {
+    [[ $# -ge 1 ]] || die "uso: $PROG unexport <nombre>"
+    local f base="$1"
+    base="${base##*/}"
+    base="${base%.desktop}"
+    f="$REAL_APPS/arxy-$base.desktop"
+    [[ -f "$f" ]] || die "no existe lanzador arxy-$base.desktop"
+    rm -f "$f" && msg "lanzador borrado: arxy-$base.desktop"
+    update_desktop_db
+}
+
+update_desktop_db() {
+    command -v update-desktop-database >/dev/null 2>&1 || return 0
+    [[ -d "$REAL_APPS" ]] || return 0
+    if [[ "$(id -u)" -eq 0 && "$REAL_USER" != "root" ]]; then
+        su -s /bin/sh "$REAL_USER" -c "update-desktop-database \"$REAL_APPS\"" >/dev/null 2>&1 || true
+    else
+        update-desktop-database "$REAL_APPS" >/dev/null 2>&1 || true
+    fi
+}
+
+# --- ejecucion (corre como usuario)
+RESOLVED_HOST="" # ruta equivalente en el host, si aplica (para chequeo musl)
+RESOLVED_TARGET="" # resultado de resolve_target (global: $() perderia RESOLVED_HOST)
+
+resolve_target() { # <bin|ruta> -> deja la ruta vista desde dentro en RESOLVED_TARGET
+    local t="$1" h
+    RESOLVED_HOST=""
+    RESOLVED_TARGET=""
+    if [[ "$t" == */* ]]; then
+        [[ "$t" != /* ]] && t="$PWD/$t"
+        # realpath -m no existe en busybox: degradar con gracia
+        t="$(realpath -m "$t" 2>/dev/null || readlink -f "$t" 2>/dev/null || echo "$t")"
+        case "$t" in
+            /host/*) RESOLVED_TARGET="$t"; return 0 ;;
+        esac
+        local vis=0 d
+        for d in $VISIBLE_DIRS /tmp /run /dev /proc /sys; do
+            [[ "$t" == "$d" || "$t" == "$d"/* ]] && { vis=1; break; }
+        done
+        if [[ "$t" == /usr/* || "$t" == /bin/* || "$t" == /sbin/* || "$t" == /etc/* ]] && [[ ! -e "$t" || $vis -eq 0 ]]; then
+            RESOLVED_TARGET="$t" # ruta del subsistema (ej. /usr/bin/...) aunque exista algo igual en el host
+        elif [[ -e "$t" ]]; then
+            RESOLVED_HOST="$t"
+            [[ $vis -eq 1 ]] && RESOLVED_TARGET="$t" || RESOLVED_TARGET="/host$t"
+        else
+            RESOLVED_TARGET="$t" # no existe en host: asumir ruta del subsistema y dejar que falle alli
+        fi
+    else
+        for cand in "/usr/bin/$t" "/usr/local/bin/$t" "/bin/$t" "/usr/sbin/$t"; do
+            # -L ademas de -x: los symlinks absolutos (/usr/bin/x -> /opt/...)
+            # cuelgan vistos desde el host aunque resuelvan bien dentro.
+            if [[ -x "$ARXY_ROOT$cand" || -L "$ARXY_ROOT$cand" ]]; then RESOLVED_TARGET="$cand"; return 0; fi
+        done
+        h="$(command -v "$t" 2>/dev/null || true)"
+        if [[ -n "$h" && -f "$h" ]]; then
+            h="$(realpath -m "$h" 2>/dev/null || readlink -f "$h" 2>/dev/null || echo "$h")"
+            RESOLVED_HOST="$h"
+            local vis=0 d
+            for d in $VISIBLE_DIRS /tmp /run /dev /proc /sys; do
+                [[ "$h" == "$d" || "$h" == "$d"/* ]] && { vis=1; break; }
+            done
+            [[ $vis -eq 1 ]] && RESOLVED_TARGET="$h" || RESOLVED_TARGET="/host$h"
+        else
+            die "'$t' no encontrado. Prueba: $PROG install $t  o  $PROG search $t"
+        fi
+    fi
+}
+
+check_musl() { # avisa/aborta si el binario del host no puede correr sobre glibc
+    [[ -z "$RESOLVED_HOST" || ! -f "$RESOLVED_HOST" ]] && return 0
+    command -v file >/dev/null 2>&1 || return 0
+    local info
+    info="$(file -b "$RESOLVED_HOST" 2>/dev/null || true)"
+    if grep -q 'ld-musl' <<<"$info"; then
+        die "binario dinamico musl ($RESOLVED_HOST): no puede correr sobre glibc. Ejecutalo nativo en el host o consigue la version glibc/estatica."
+    fi
+}
+
+cmd_run() {
+    [[ $# -ge 1 ]] || die "uso: $PROG run <programa|ruta> [args...]"
+    need_cmd bwrap
+    ensure_image
+    local target="$1"
+    shift
+    resolve_target "$target" # sin $(): el subshell perderia RESOLVED_HOST
+    target="$RESOLVED_TARGET"
+    check_musl
+    run_in --chdir "$(inside_dir)" -- "$target" "$@"
+}
+
+cmd_shell() {
+    need_cmd bwrap
+    ensure_image
+    if [[ "$(id -u)" -ne 0 ]]; then
+        msg "sesion de usuario (solo lectura del sistema; para administrar: sudo $PROG shell)"
+    fi
+    if [[ $# -ge 1 ]]; then
+        run_in --chdir "$(inside_dir)" --setenv PS1 "(arxy) \\u@\\h \\w\\$ " -- /bin/bash -c "$*"
+    else
+        run_in --chdir "$(inside_dir)" --setenv PS1 "(arxy) \\u@\\h \\w\\$ " --setenv ARXY_ACTIVE 1 -- /bin/bash
+    fi
+}
+
+# --- doctor / version / ayuda
+cmd_doctor() {
+    local ok=0
+    say() { if [[ "$1" -eq 0 ]]; then echo "[OK]   $2"; else echo "[FALTA] $2"; ok=1; fi; }
+    command -v bwrap >/dev/null 2>&1; say $? "bwrap en el host"
+    command -v curl >/dev/null 2>&1; say $? "curl en el host"
+    command -v tar >/dev/null 2>&1; say $? "tar en el host"
+    for _c in zstd sha256sum awk sed grep mktemp su; do
+        command -v "$_c" >/dev/null 2>&1; say $? "$_c en el host"
+    done
+    if command -v unshare >/dev/null 2>&1 && unshare --user --map-root-user true 2>/dev/null; then
+        say 0 "user namespaces (unshare -U)"
+    elif bwrap --ro-bind / / /bin/true 2>/dev/null; then
+        say 0 "user namespaces (bwrap)"
+    else
+        say 1 "user namespaces (necesarios para correr sin root)"
+    fi
+    image_ok; say $? "imagen en $ARXY_ROOT"
+    [[ -f "$ARXY_VERSION_FILE" ]] && msg "imagen: $(tr '\n' ' ' <"$ARXY_VERSION_FILE")"
+    [[ -n "$ARXY_IMAGE_URL" ]]; say $? "ARXY_IMAGE_URL configurada"
+    return $ok
+}
+
+cmd_version() {
+    echo "$PROG $ARXY_VERSION"
+    if [[ -f "$ARXY_VERSION_FILE" ]]; then
+        tr '\n' ' ' <"$ARXY_VERSION_FILE"; echo
+    fi
+}
+
+cmd_help() {
+    cat <<EOF
+$PROG $ARXY_VERSION — subsistema Arch minimalista (rápido, sin sandbox).
+
+Uso: $PROG <comando> [args...]   (axy es alias de $PROG)
+
+  install|i <pkg...>   instalar paquetes de Arch (+ crea lanzadores .desktop)
+  install --aur <pkg>  instalar de AUR (precompilados -bin, motor paru)
+  remove|rm <pkg...>   desinstalar (+ borra sus lanzadores)
+  update|up            actualizar todo el subsistema (pacman -Syu)
+  clean                limpiar cache de pacman
+  info <pkg>           info de un paquete (instalado o de repos)
+  list|l               paquetes instalados ([desktop] = tiene lanzador)
+  search|s <texto>     buscar en repos
+  search-aur|sa <txt>  buscar en AUR (requiere paru)
+  run <bin|ruta> [...] ejecutar programa del subsistema o binario suelto
+  shell [cmd...]       terminal Arch completa (admin: sudo $PROG shell)
+  export <pkg|f.desktop|--all>  (re)crear lanzadores .desktop
+  unexport <nombre>    borrar un lanzador
+  doctor               verifica requisitos e imagen
+  setup                (re)descarga e instala la imagen manualmente
+  version|help         muestra version / esta ayuda
+
+Atajos: i, rm, up, l, s. Si el comando no existe, se interpreta como 'run':
+  $PROG firefox   ==   $PROG run firefox
+
+Ejemplos:
+  $PROG install firefox gimp htop
+  $PROG run ./mi-binario-suelto --opcion
+  $PROG shell
+  sudo $PROG shell        # para pacman manual dentro
+
+Config: $ARXY_SYS_CONF, ~/.config/arxy/config (env manda).
+Imagen: $ARXY_ROOT  (se descarga sola en el primer uso).
+EOF
+}
+
+# --- dispatch
+[[ $# -ge 1 ]] || { cmd_help; exit 0; }
+cmd="$1"
+shift
+case "$cmd" in
+    install | i | add)          cmd_install "$@" ;;
+    remove | rm | uninstall)    cmd_remove "$@" ;;
+    update | up | upgrade)      cmd_update "$@" ;;
+    clean | clean-cache)        cmd_clean "$@" ;;
+    info | show)                cmd_info "$@" ;;
+    list | l | ls | installed)  cmd_list "$@" ;;
+    search | s | find)          cmd_search "$@" ;;
+    search-aur | sa)              cmd_search_aur "$@" ;;
+    __install-file)               cmd_install_file "$@" ;;
+    run | exec | x)             cmd_run "$@" ;;
+    shell | sh | enter)         cmd_shell "$@" ;;
+    export)                     cmd_export "$@" ;;
+    unexport)                   cmd_unexport "$@" ;;
+    doctor | check)             cmd_doctor "$@" ;;
+    setup | init)               cmd_setup "$@" ;;
+    version | -v | --version)   cmd_version "$@" ;;
+    help | -h | --help)         cmd_help "$@" ;;
+    -*)                         die "flag desconocida: $cmd. Prueba: $PROG help" ;;
+    *)                          cmd_run "$cmd" "$@" ;; # atajo: 'arxy firefox'
+esac
