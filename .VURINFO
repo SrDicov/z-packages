@@ -6,7 +6,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:55cd7dc7f0bf8e0fcc80a5af732521c3f1b42ab2a4065309be8202c04b0fe6e5"
+      "sha256:286cbe9ff6c9d6a59e4f767afc21b36cb423b1e3732db0a98d9c7abc12dfc767"
     ],
     "depends": [
       "bash",
@@ -33,7 +33,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.1"
+    "version": "0.4.0"
   },
   {
     "archs": [
