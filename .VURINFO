@@ -3,7 +3,7 @@
     "archs": [
       "all"
     ],
-    "build_style": "meta",
+    "build_style": null,
     "checkdepends": [],
     "checksum": [],
     "depends": [
