@@ -2,7 +2,6 @@
 pkgname=arxy
 version=0.5.0
 revision=2
-archs="noarch"
 build_style=meta
 short_desc="Subsistema Arch minimalista para correr software glibc en cualquier distro"
 maintainer="Dicov <srdicov@gmail.com>"
