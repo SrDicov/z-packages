@@ -28,9 +28,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.5.0"
+    "version": "0.6.0"
   },
   {
     "archs": [
