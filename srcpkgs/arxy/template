@@ -2,11 +2,11 @@
 pkgname=arxy
 version=0.6.0
 revision=1
-short_desc="Subsistema Arch minimalista para correr software glibc en cualquier distro"
+depends="bash bubblewrap curl tar zstd xz gzip file desktop-file-utils minisign sudo"
+short_desc="Subsistema Arch para correr software glibc en cualquier distro"
 maintainer="Dicov <srdicov@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/SrDicov/arxy"
-depends="bash bubblewrap curl tar zstd xz gzip file desktop-file-utils minisign sudo"
 # No pisar la config del usuario al actualizar (puede anclar URL/SHA).
 conf_files="/etc/arxy/arxy.conf"
 
