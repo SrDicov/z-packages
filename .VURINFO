@@ -1,13 +1,11 @@
 [
   {
     "archs": [
-      "all"
+      "noarch"
     ],
-    "build_style": "fetch",
+    "build_style": "meta",
     "checkdepends": [],
-    "checksum": [
-      "sha256:ee7a9a1b4b545ed24ea00aa9da4f273a8d254d2247ff9697e9ec829d9c2f95ad"
-    ],
+    "checksum": [],
     "depends": [
       "bash",
       "bubblewrap",
@@ -21,9 +19,7 @@
       "minisign",
       "sudo"
     ],
-    "distfiles": [
-      "https://github.com/SrDicov/arxy/releases/download/v${version}/arxy-${version}.tar.gz"
-    ],
+    "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [],
     "maintainer": "Dicov <srdicov@gmail.com>",
@@ -32,7 +28,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.5.0"
   },
