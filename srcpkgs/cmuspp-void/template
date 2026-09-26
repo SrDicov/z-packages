@@ -2,13 +2,14 @@
 # Z: mixto (glibc+musl).
 pkgname=cmuspp-void
 version=1.1.1
-revision=2
+revision=3
 short_desc="C++17 terminal music player with cover art, lyrics and themes"
 maintainer="Ars-byte <shaggyfino11@gmail.com>"
 license="MIT"
 homepage="https://github.com/Ars-byte/cmuspp"
-distfiles="https://github.com/Ars-byte/cmuspp/releases/download/v${version}/cmuspp-main.tar.gz"
-checksum="d48c6892a22d7755c34e020a9a9560c72a7186a21247be29235f4cf9c8caeac0"
+distfiles="https://github.com/Ars-byte/cmuspp/archive/refs/tags/v${version}.tar.gz"
+checksum="0138ff26ba531768d00bd045c777c1509447fc08f2f7bfac494aa0a0da9954cd"
+wrksrc="cmuspp-${version}"
 
 makedepends="libsndfile-devel alsa-lib-devel libjpeg-turbo-devel libpng-devel"
 depends="lame libmpg123 libogg opus libvorbis"
