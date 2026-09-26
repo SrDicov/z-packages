@@ -3,6 +3,71 @@
     "archs": [
       "all"
     ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:bf8006b9bfa67bba77163b8bee216e40a2feb7f15b4da2819b1c641fbe64444b"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/Neko-Kernel-Manager/archive/refs/tags/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "qt6-base",
+      "qt6-declarative"
+    ],
+    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "makedepends": [
+      "qt6-base-devel",
+      "qt6-declarative-devel",
+      "fmt-devel"
+    ],
+    "pkgname": "Neko-Kernel-Manager",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.4.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:051a97bd01f618f2360f8b512aef1a77fcfe040f1cff8af5c6d6b70b66b79850"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/Neko-Wizard/releases/download/9.0.15/Neko-Wizard-main.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "meson",
+      "ninja",
+      "cmake"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [
+      "gtk4-devel"
+    ],
+    "pkgname": "Neko-Wizard",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 7,
+    "subpackages": [],
+    "version": "9.0.15"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": null,
     "checkdepends": [],
     "checksum": [],
@@ -34,6 +99,57 @@
   },
   {
     "archs": [
+      "x86_64"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:04b0a84617efb3107d380c352ebb0af9eb2633ff4c1a8bfcb671d2a437247d5d",
+      "sha256:a327e89b244f24cecaa34eb37544bae00d447b96c583d26ed29d6a3ad2e8a8b8"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/aseprite/aseprite/releases/download/v${version}/Aseprite-v${version}-Source.zip",
+      "https://github.com/aseprite/skia/releases/download/m124-08a5439a6b/Skia-Linux-Release-x64.zip>skia-m124.zip"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "cmake",
+      "ninja",
+      "unzip"
+    ],
+    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "makedepends": [
+      "libX11-devel",
+      "libXcursor-devel",
+      "libXi-devel",
+      "libXext-devel",
+      "libXrandr-devel",
+      "libglvnd-devel",
+      "zlib-devel",
+      "libpng-devel",
+      "libcurl-devel",
+      "giflib-devel",
+      "libjpeg-turbo-devel",
+      "tinyxml2-devel",
+      "pixman-devel",
+      "freetype-devel",
+      "harfbuzz-devel",
+      "libwebp-devel",
+      "fontconfig-devel",
+      "alsa-lib-devel"
+    ],
+    "pkgname": "aseprite-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.3.18.5"
+  },
+  {
+    "archs": [
       "all"
     ],
     "build_style": null,
@@ -56,6 +172,250 @@
     "revision": 1,
     "subpackages": [],
     "version": "2.0.7"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:e09e3c3e9fc84f75e65048a0be830c7c4907744a402b5790530d2206b276426e"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "tar",
+      "xz"
+    ],
+    "maintainer": "Soanvig <soanvig@gmail.com>",
+    "makedepends": [],
+    "pkgname": "brave-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.95.104"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:d48c6892a22d7755c34e020a9a9560c72a7186a21247be29235f4cf9c8caeac0"
+    ],
+    "depends": [
+      "lame",
+      "libmpg123",
+      "libogg",
+      "opus",
+      "libvorbis"
+    ],
+    "distfiles": [
+      "https://github.com/Ars-byte/cmuspp/releases/download/v${version}/cmuspp-main.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Ars-byte <shaggyfino11@gmail.com>",
+    "makedepends": [
+      "libsndfile-devel",
+      "alsa-lib-devel",
+      "libjpeg-turbo-devel",
+      "libpng-devel"
+    ],
+    "pkgname": "cmuspp-void",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "1.1.1"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": "fetch",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:d27a9c02919cfe484dcc5f34584b9ea9fd0d7a65c69dcc872b5bdcfa0efb5983"
+    ],
+    "depends": [
+      "${sourcepkg}>=${version}_${revision}"
+    ],
+    "distfiles": [
+      "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_${version}_amd64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "tar",
+      "xz"
+    ],
+    "maintainer": "CrowRei <Ortal.christopher@outlook.com>",
+    "makedepends": [],
+    "pkgname": "codex",
+    "provides": [],
+    "replaces": [
+      "chatgpt>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "26.915.31945"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cargo",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:ea07bb13db7de8f2b810d91a3ca1ad75551063c98305514a675bcfb4160ec311"
+    ],
+    "depends": [
+      "alsa-lib",
+      "libpipewire",
+      "libva"
+    ],
+    "distfiles": [
+      "https://github.com/chojs23/concord/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "clang",
+      "cmake",
+      "nasm",
+      "rust",
+      "cargo"
+    ],
+    "maintainer": "Kevin <kevinzz@tutamail.com>",
+    "makedepends": [
+      "alsa-lib-devel",
+      "pipewire-devel",
+      "libva-devel",
+      "libzstd-devel"
+    ],
+    "pkgname": "concord",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.6.0"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": "fetch",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:1c842ae9eeccb071d948e2bf0360453f6b39edf011b585f3d0c4a77548c84b98",
+      "sha256:cc5ddf5fba5cbc9612b50cdb5fb9d5cfded3cd5d13297f1e8602b874f944aa40"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Containerpak/cpak/releases/download/v${version}/cpak-linux-amd64>cpak-${version}",
+      "https://github.com/Containerpak/cpak/releases/download/v${version}/cpak-storaged-linux-amd64>cpak-storaged-${version}"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "cpak",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.13.3"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984"
+    ],
+    "depends": [
+      "dbus",
+      "scx"
+    ],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/falcond/releases/download/2.0.14/falcond-2.0.14.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "zig-nk",
+      "git"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "falcond",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 9,
+    "subpackages": [],
+    "version": "2.0.14"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:172ab4c81bf657f7b0af26dc92ce4a8157e57a3a885bc047239f6b543d648a0d"
+    ],
+    "depends": [
+      "python3-gobject",
+      "python3-Pillow",
+      "python3-yaml",
+      "libadwaita",
+      "python3-requests",
+      "python3-filelock",
+      "python3-psutil",
+      "ImageMagick",
+      "python3-icoextract",
+      "python3-vdf",
+      "libayatana-appindicator"
+    ],
+    "distfiles": [
+      "https://github.com/Faugus/faugus-launcher/archive/refs/tags/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "python3",
+      "gettext",
+      "glib-devel",
+      "desktop-file-utils",
+      "ImageMagick"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [
+      "python3-devel",
+      "libadwaita-devel",
+      "libayatana-appindicator-devel"
+    ],
+    "pkgname": "faugus-launcher",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.3.0"
   },
   {
     "archs": [
@@ -85,6 +445,185 @@
     "revision": 2,
     "subpackages": [],
     "version": "4.1"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:b2f81ed6ced15a2ebc9950ec60bd765a104938e29fd463567761247d1c875ec3"
+    ],
+    "depends": [
+      "MangoHud",
+      "qt6-base",
+      "qt6-declarative",
+      "gamemode",
+      "nerd-fonts",
+      "libqt6pas-bin",
+      "python3"
+    ],
+    "distfiles": [
+      "https://github.com/benjamimgois/goverlay/releases/download/${version}/goverlay-${version}-x86_64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "tar",
+      "xz"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "goverlay-bin",
+    "provides": [
+      "goverlay-${version}_${revision}"
+    ],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "1.9.2"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:95d7293acc2fb068ecbcd4b961c9ab385ee3667d99a8867b3577369cdaea6cf0"
+    ],
+    "depends": [
+      "xwayland-satellite",
+      "dbus",
+      "seatd"
+    ],
+    "distfiles": [
+      "https://github.com/mikuri12/halley/releases/download/v${version}/halley-binaries-v${version}-x86_64.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "mikuri12 <https://github.com/mikuri12>",
+    "makedepends": [],
+    "pkgname": "halley",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.5.6"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:2a639df54e3d05f413cfbb4622a4d1a68584b31da5a7aaf58ee3cd83c7c3e299"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/imputnet/helium-linux/releases/download/${version}/${_realname}-${version}-x86_64_linux.tar.xz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "YuG <https://codeberg.org/YuG>",
+    "makedepends": [],
+    "pkgname": "helium-browser-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.17.2.1"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": "fetch",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:7382d719a5114c5f0761eea05cdb22f73f58fe98ec840d16b3d85a054d0d3efd"
+    ],
+    "depends": [
+      "gtk+3",
+      "libnotify",
+      "nss",
+      "libXScrnSaver",
+      "libXtst",
+      "xdg-utils",
+      "at-spi2-core",
+      "libuuid",
+      "libsecret"
+    ],
+    "distfiles": [
+      "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v${version}/Heroic-${version}-linux-x64.tar.xz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "tar",
+      "xz"
+    ],
+    "maintainer": "Javiercplus",
+    "makedepends": [],
+    "pkgname": "heroic-games",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.22.3"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:73dfe7d1586658a0bfe9df942bd2d2a0643d468523def6c050fdbeb9bf0c931c"
+    ],
+    "depends": [
+      "gtk+3",
+      "nss",
+      "alsa-lib",
+      "nspr",
+      "at-spi2-core",
+      "libsecret",
+      "libnotify",
+      "libXtst",
+      "libXScrnSaver",
+      "eudev-libudev",
+      "libcups",
+      "libXrandr",
+      "libXcomposite",
+      "libXdamage",
+      "mesa-dri",
+      "xrandr",
+      "hicolor-icon-theme",
+      "p7zip",
+      "python3",
+      "libtorrent-rasterbar-python3"
+    ],
+    "distfiles": [
+      "https://github.com/hydralauncher/hydra/releases/download/v${version}/hydralauncher_${version}_amd64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "bsdtar"
+    ],
+    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "makedepends": [],
+    "pkgname": "hydra-launcher",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "4.1.4"
   },
   {
     "archs": [
@@ -124,6 +663,157 @@
     "revision": 1,
     "subpackages": [],
     "version": "0.1.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-configure",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:af0037c3a91b7aa40235ef92eefe06917a842a3d57e11936bb877d430b49af11"
+    ],
+    "depends": [
+      "python3",
+      "python3-gobject",
+      "gtk+3",
+      "alsa-utils",
+      "jwm"
+    ],
+    "distfiles": [
+      "https://codeberg.org/Neko-Void/jwmkit-neko/archive/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "jwmkit-neko",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "26.5"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-configure",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:b0cd5e30c5bec53e669f7a8c36c52d4e27e883bcf2d24cd07249dc1e79a753de"
+    ],
+    "depends": [
+      "bash",
+      "grub",
+      "sed",
+      "cryptsetup",
+      "xxd"
+    ],
+    "distfiles": [
+      "https://codeberg.org/javiercplus/Kasha-Installer/archive/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "xxd"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [
+      "gtk+3-devel"
+    ],
+    "pkgname": "kasha-installer",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 5,
+    "subpackages": [],
+    "version": "7.4"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": "gnu-configure",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:f3aea794dcf4eaf26de42f3750417be370d59dd9bcfa4789bdcbed341e83d17c"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/ezequielgk/Kore-Package-Manager/releases/download/v${version}/kpm-linux-x86_64.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "kpm",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "3.2.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "zig-build",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:13b96b345dd8a2209fbe3a7eb3f617b7c8effbe98c27c889b634beaec4ace04c"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://codeberg.org/javiercplus/kyoz/archive/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "zig"
+    ],
+    "maintainer": "Javierc",
+    "makedepends": [],
+    "pkgname": "kyoz",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "2026"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:5c66b12234aa7d5797a4d3ebbf7011ea29ad7d66b26ff4c250df08700fdc630d"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/labwc/labwc-menu-generator/archive/refs/tags/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "cmake",
+      "ninja",
+      "scdoc"
+    ],
+    "maintainer": "zenobit <zen@osowoso.org>",
+    "makedepends": [
+      "glib-devel"
+    ],
+    "pkgname": "labwc-menu-generator",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "0.2.0"
   },
   {
     "archs": [
@@ -171,6 +861,66 @@
     "revision": 2,
     "subpackages": [],
     "version": "0.9.5"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:a742250c7e8ea363758a024688226a4296a6798adc57abe0903d580ab195b749"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/labwc/labwc-tweaks/archive/refs/tags/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "cmake",
+      "qt6-tools",
+      "qt6-base",
+      "perl"
+    ],
+    "maintainer": "Fabian Constantinescu <fabian.constantinescu@protonmail.com>",
+    "makedepends": [
+      "qt6-base-devel",
+      "libxml2-devel",
+      "glib-devel"
+    ],
+    "pkgname": "labwc-tweaks-qt",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "0.1.0"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:28c677a5eb6f260b32a8ee30bbed97d927f22607174bc520474c94a137d7c494"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/davidbannon/libqt6pas/releases/download/v6.2.10/libqt6pas_6_2_10-1_amd64.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "libqt6pas-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 4,
+    "subpackages": [],
+    "version": "6.2.10"
   },
   {
     "archs": [
@@ -237,6 +987,195 @@
     "archs": [
       "all"
     ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:5f619b42ae3f7db887d6d04cd012f009137e8b20f7eaea865c92199b061ca135"
+    ],
+    "depends": [
+      "libva",
+      "libdrm"
+    ],
+    "distfiles": [
+      "https://github.com/irql-notlessorequal/intel-vaapi-driver/archive/0b648be50cd80e16469c135c76ff61bbd2f2d12b.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "python2"
+    ],
+    "maintainer": "Kevin <kevinzz@tutamail.com>",
+    "makedepends": [
+      "libva-devel",
+      "libdrm-devel",
+      "libva-devel",
+      "libdrm-devel",
+      "libX11-devel"
+    ],
+    "pkgname": "libva-intel-driver-irql",
+    "provides": [
+      "libva-intel-driver-${version}_1"
+    ],
+    "replaces": [
+      "libva-intel-driver"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.4.5"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:d1c0e44f684393be1ac7c4b99c6142e6d2a0db039d6d34656893a68977fed2c5"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/neko-kernel-void-7.3.0-cachy-bore+.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "linux-cachy-void",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 9,
+    "subpackages": [],
+    "version": "7.3"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:f221f7c82e365342ba513c96a184a51d765c4f6ada78cba303249c5d4acf5ffd"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/neko-kernel-void-7.3.0-rt-neko+.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "linux-neko-rt",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 4,
+    "subpackages": [],
+    "version": "7.3.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:15fc2161eeaa165e6347f5025d118d8740a41ac77b72436508639cbb605295b6"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/zen-kernel-void-7.2.6-zen-neko+.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "linux-neko-zen",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 7,
+    "subpackages": [],
+    "version": "7.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:8dd5554b420598437b5456ff1f41d40bae93a6f59b5f39771498305b59b8ce37"
+    ],
+    "depends": [
+      "brightnessctl",
+      "xauth"
+    ],
+    "distfiles": [
+      "https://github.com/javiercplus/ly-xbps/releases/download/1.5.0.1/ly-v1.5.0-rc1.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "zig-nk"
+    ],
+    "maintainer": "Haris <plavpxl@proton.me>",
+    "makedepends": [
+      "libxcb-devel",
+      "pam-devel"
+    ],
+    "pkgname": "ly",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 15,
+    "subpackages": [],
+    "version": "1.5.0.1"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:73a105ca1927eaf04a5aba673eba062aa3307035a41407f8deee1a8a088c574d"
+    ],
+    "depends": [
+      "$(vopt_if",
+      "xwayland",
+      "xorg-server-xwayland)"
+    ],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/mango/releases/download/latest/mango-main.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "wayland-devel"
+    ],
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
+    "makedepends": [
+      "cJSON-devel",
+      "wlroots0.20-devel",
+      "pcre2-devel",
+      "pango-devel",
+      "scenefx-latest-devel",
+      "cairo-devel"
+    ],
+    "pkgname": "mangowc-latest",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.17.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": "configure",
     "checkdepends": [],
     "checksum": [
@@ -259,6 +1198,850 @@
     "revision": 2,
     "subpackages": [],
     "version": "0.1.8.2"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:4f9479074ea6d8da2711ec5767ccff2dbfb6d1e884fb1ab82521846f1fac1e82"
+    ],
+    "depends": [
+      "gtk+3",
+      "dbus-glib",
+      "libXtst",
+      "libXScrnSaver",
+      "nss",
+      "alsa-lib",
+      "libgbm",
+      "libdrm"
+    ],
+    "distfiles": [
+      "https://github.com/mullvad/mullvad-browser/releases/download/${version}/mullvad-browser_${version}-1_amd64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "bsdtar"
+    ],
+    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "makedepends": [],
+    "pkgname": "mullvad-browser",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "15.0.21"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:f1d758079e1dc90fff0c8d48256599b717e1de9879682c861a6776851c59453b"
+    ],
+    "depends": [
+      "wireguard-tools"
+    ],
+    "distfiles": [
+      "https://github.com/mullvad/mullvadvpn-app/releases/download/${version}/MullvadVPN-${version}_amd64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "tar",
+      "xz",
+      "curl",
+      "gnupg2"
+    ],
+    "maintainer": "JavierC <tu@email.com>",
+    "makedepends": [],
+    "pkgname": "mullvad-vpn",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2026.4"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:5ea7496ea3238c5836ce6652b9f3c6c86663a477854fc79961fdcc9d46568b77"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/neko-backgrounds/releases/download/7.1/neko-backgrounds-main.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "neko-backgrounds",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "7.1"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "base-files>=0.77",
+      "ncurses",
+      "coreutils",
+      "findutils",
+      "diffutils",
+      "libgcc",
+      "dash",
+      "bash",
+      "grep",
+      "gzip",
+      "file",
+      "sed",
+      "gawk",
+      "less",
+      "util-linux",
+      "which",
+      "tar",
+      "man-pages",
+      "mdocml>=1.13.3",
+      "shadow",
+      "e2fsprogs",
+      "btrfs-progs",
+      "xfsprogs",
+      "f2fs-tools",
+      "dosfstools",
+      "procps-ng",
+      "tzdata",
+      "pciutils",
+      "usbutils",
+      "iana-etc",
+      "openssh",
+      "dhcpcd",
+      "kbd",
+      "iproute2",
+      "iputils",
+      "iw",
+      "wpa_supplicant",
+      "xbps",
+      "nvi",
+      "sudo",
+      "wifi-firmware",
+      "void-artwork",
+      "traceroute",
+      "ethtool",
+      "kmod",
+      "acpid",
+      "eudev",
+      "runit-void",
+      "removed-packages"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC <javiercyt@atomicmail.io",
+    "makedepends": [],
+    "pkgname": "neko-base",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "2026"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:0bdbc2829527536ba6ea56c0057621f520f24d156ffa30e2f23483dc862f22d7"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/neko-fonts/releases/download/7.0/neko-fonts-7.0.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "neko-fonts",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "7.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:4255609ae0a35b34eb3ca831044bf3e7ccf0ed46ab09a2878072733e255213c0"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://codeberg.org/Neko-Void/neko-icons/archive/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "neko-icons",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "6.5"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:1d6a5e4c3b6d7e1d97fb308d55fc2f60f74530f4ca9b01b9b4ad73edd8ece39d"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/neko-themes/releases/download/7.1/neko-themes-7.1.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "neko-themes",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "7.1"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:616d763fea8657ae2b922f2f75cd7d2bc708c9fcccfcfdf1413e4b60c8c51692"
+    ],
+    "depends": [
+      "niri",
+      "python3-pyqt6",
+      "python3-pyqt6-gui",
+      "python3-pyqt6-widgets",
+      "qt6-wayland"
+    ],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/niri-settings/releases/download/${version}/${pkgname}-${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "niri-settings",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 4,
+    "subpackages": [],
+    "version": "2026"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:3b30d38af75ff9fdd871a4ab2f20874131dd8c39fe1c16ad460b359f690657eb"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/noctalia/releases/download/5.11/noctalia-5.11.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "git",
+      "cmake",
+      "wayland-devel",
+      "wayland-protocols"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [
+      "base-devel",
+      "cairo-devel",
+      "fontconfig-devel",
+      "freetype-devel",
+      "harfbuzz-devel",
+      "jemalloc-devel",
+      "json-c++",
+      "libcurl-devel",
+      "libepoxy-devel",
+      "libglvnd-devel",
+      "libmd4c-devel",
+      "libqalculate-devel",
+      "librsvg-devel",
+      "libsodium-devel",
+      "libwebp-devel",
+      "libxkbcommon-devel",
+      "libxml2-devel",
+      "libsecret-devel",
+      "libjxl-devel",
+      "MesaLib-devel",
+      "pam-devel",
+      "pango-devel",
+      "libsndfile-devel",
+      "pipewire-devel",
+      "polkit-devel",
+      "sdbus-c++-devel",
+      "stb",
+      "tomlplusplus-devel",
+      "libical-devel",
+      "wayland-devel",
+      "wayland-protocols",
+      "wireplumber-devel"
+    ],
+    "pkgname": "noctalia",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 8,
+    "subpackages": [],
+    "version": "5.11.1"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:e5b8c3ff4b8acadf3760c359e3c7cb655ff92b202c0759f95a34e61012ffcdc5"
+    ],
+    "depends": [
+      "cage",
+      "dbus",
+      "greetd",
+      "polkit",
+      "wlr-randr"
+    ],
+    "distfiles": [
+      "${homepage}/archive/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "git",
+      "pkg-config"
+    ],
+    "maintainer": "Haris <plavpxl@proton.me>",
+    "makedepends": [
+      "cairo-devel",
+      "fontconfig-devel",
+      "freetype-devel",
+      "json-c++",
+      "libepoxy-devel",
+      "libglvnd-devel",
+      "librsvg-devel",
+      "libwebp-devel",
+      "libxkbcommon-devel",
+      "MesaLib-devel",
+      "pango-devel",
+      "stb",
+      "wayland-devel",
+      "wayland-protocols",
+      "tomlplusplus-devel",
+      "wlroots0.20-devel"
+    ],
+    "pkgname": "noctalia-greeter-latest",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.3.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-makefile",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:ea0aca856e86276e42fa7300ed2b1a96404720cc8c6ef65754bdd87e5b6ac753"
+    ],
+    "depends": [
+      "ncurses"
+    ],
+    "distfiles": [
+      "https://github.com/Derszi65g/not-st/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "make"
+    ],
+    "maintainer": "Derszi65g",
+    "makedepends": [
+      "libX11-devel",
+      "libXft-devel",
+      "libXrender-devel",
+      "fontconfig-devel",
+      "freetype-devel",
+      "harfbuzz-devel",
+      "imlib2-devel",
+      "zlib-devel"
+    ],
+    "pkgname": "not-st",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 3,
+    "subpackages": [],
+    "version": "0.9.3"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:e9312be75ed803b7415fc2aeabda1f4fe938912a39673762dc0c38c0e11ebde4"
+    ],
+    "depends": [
+      "ripgrep"
+    ],
+    "distfiles": [
+      "https://github.com/anomalyco/opencode/releases/download/v${version}/opencode-linux-x64.tar.gz>opencode-bin_${version}_x86_64.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "tar"
+    ],
+    "maintainer": "Soanvig <soanvig@gmail.com>",
+    "makedepends": [],
+    "pkgname": "opencode-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.18.31"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:d12fb8c8eac1aecd2dfb6377acd48f994f8fa439ed5292fa532dd82880f029fd"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v${version}/OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Christopher <tu_correo@ejemplo.com>",
+    "makedepends": [],
+    "pkgname": "orcaslicer-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.4.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-makefile",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "gtk+3",
+      "libpulseaudio"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "gettext",
+      "git"
+    ],
+    "maintainer": "Kevin <kevinzz@tutamail.com>",
+    "makedepends": [
+      "gtk+3-devel",
+      "pulseaudio-devel"
+    ],
+    "pkgname": "pavoldcontrol-git",
+    "provides": [
+      "pavucontrol-${version}_${revision}"
+    ],
+    "replaces": [],
+    "restricted": false,
+    "revision": 3,
+    "subpackages": [],
+    "version": "r1.676d599"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:c661bf92f79cd6df32311cf7dedb1f64fe33dfe4b77e5bb2fcafaf98c82791bd"
+    ],
+    "depends": [
+      "cabextract",
+      "p7zip",
+      "curl",
+      "jq",
+      "yad",
+      "xdpyinfo",
+      "xrandr",
+      "setxkbmap",
+      "xterm",
+      "Vulkan-Tools",
+      "mesa-demos",
+      "usbutils",
+      "hwids",
+      "exiftool",
+      "squashfs-tools",
+      "ocl-icd",
+      "vulkan-loader",
+      "libpulseaudio",
+      "gstreamer1",
+      "gst-plugins-base1",
+      "alsa-lib",
+      "dbus",
+      "freetype",
+      "libpng",
+      "libjpeg-turbo",
+      "tiff",
+      "lcms2",
+      "libgphoto2",
+      "libxcb",
+      "libXext",
+      "libXfixes",
+      "libXrender",
+      "libXrandr",
+      "libXinerama",
+      "libXcursor",
+      "libXi",
+      "libXcomposite",
+      "libXdamage",
+      "libXtst",
+      "libXScrnSaver",
+      "libXxf86vm",
+      "libXv",
+      "libxkbcommon",
+      "libdrm",
+      "libglvnd",
+      "mesa",
+      "libpciaccess",
+      "libusb",
+      "v4l-utils",
+      "libsamplerate",
+      "libsndfile",
+      "audiofile",
+      "libopenal",
+      "zlib",
+      "ncurses",
+      "glib",
+      "gtk+3",
+      "cairo",
+      "fontconfig",
+      "libICE",
+      "libSM",
+      "libXft",
+      "pcre2",
+      "libvorbis",
+      "samba",
+      "perl"
+    ],
+    "distfiles": [
+      "https://codeberg.org/javiercplus/PortProton_ALT-void-patch/archive/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "desktop-file-utils",
+      "gtk-update-icon-cache"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "portproton",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "1.7.5.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "python3-pep517",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:7028c0f3451fcb69f384ba0687b58a973b35fab2b0a64d5435eb1f782f09ea08"
+    ],
+    "depends": [
+      "python3-pyside6",
+      "python3-pyside6-gui",
+      "python3-pyside6-widgets",
+      "python3-pyside6-network",
+      "python3-pyside6-ui-tools",
+      "python3-pyside6-dbus",
+      "python3-requests",
+      "python3-vdf",
+      "python3-inputs",
+      "python3-xdg",
+      "python3-steam",
+      "python3-yaml",
+      "python3-zstandard"
+    ],
+    "distfiles": [
+      "https://github.com/DavidoTek/ProtonUp-Qt/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "python3-setuptools",
+      "python3-wheel"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "protonup-qt",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.15.1"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "python3-pep517",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:d8e8a4b54747e102c4ab27f9eff0e6d64207690d7dbc75d2f6c6364881066fee"
+    ],
+    "depends": [
+      "python3"
+    ],
+    "distfiles": [
+      "https://github.com/zeth/inputs/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "python3-setuptools",
+      "python3-wheel"
+    ],
+    "maintainer": "Javierc",
+    "makedepends": [],
+    "pkgname": "python3-inputs",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.5"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "python3-pep517",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:6447a3c97248885b44b73fec3bdcaee0421fe3e6e062d1bb195b9de3acc7eb0a"
+    ],
+    "depends": [
+      "python3-pycryptodomex",
+      "python3-requests",
+      "python3-cachetools",
+      "python3-vdf",
+      "python3-gevent",
+      "python3-protobuf",
+      "python3-gevent",
+      "python3-wsproto",
+      "python3-zstandard"
+    ],
+    "distfiles": [
+      "https://github.com/solsticegamestudios/steam/archive/refs/tags/${_tag}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "python3-setuptools",
+      "python3-wheel"
+    ],
+    "maintainer": "Tu Nombre <tu.email@ejemplo.com>",
+    "makedepends": [],
+    "pkgname": "python3-steam",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.0.0alpha1"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "python3-pep517",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:1d778663f1158be0f70aa1cdd5b2685ae6eee14e4d11a0d96684b7ed86e89c93"
+    ],
+    "depends": [
+      "python3"
+    ],
+    "distfiles": [
+      "https://github.com/solsticegamestudios/vdf/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "python3-setuptools",
+      "python3-wheel"
+    ],
+    "maintainer": "Tu Nombre <tu.email@ejemplo.com>",
+    "makedepends": [],
+    "pkgname": "python3-vdf-dev",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "4.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "polkit",
+      "qt6-base"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "ninja",
+      "pkg-config",
+      "git"
+    ],
+    "maintainer": "Kevin <kevinzz@tutamail.com>",
+    "makedepends": [
+      "qt6-base-devel",
+      "qt6-tools-devel"
+    ],
+    "pkgname": "qrunsvmgr-git",
+    "provides": [
+      "qrunsvmgr-${version}_${revision}"
+    ],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "r14.e3a3023"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-makefile",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:cd06e74d736082791b5c6f6e8a41b942c352d900cb64a1a773b5d9fa39fa7cfc"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/raven-polkit/releases/download/${version}/raven-polkit-exp-flicker-free-retries.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [
+      "gtk+3-devel",
+      "dbus-devel",
+      "polkit-devel"
+    ],
+    "pkgname": "raven-polkit",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "0.1.4"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:0fa8ecca0e310f813efd052624c5ed7d9153d6a0fdead5cc957d34c07f9a86c6"
+    ],
+    "depends": [
+      "${sourcepkg}>=${version}_${revision}"
+    ],
+    "distfiles": [
+      "https://github.com/wlrfx/scenefx/archive/refs/tags/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "wayland-devel",
+      "scdoc"
+    ],
+    "maintainer": "Christopher K. 'Shmish' Schmitt <me@shmish.dev>",
+    "makedepends": [
+      "wlroots0.20-devel"
+    ],
+    "pkgname": "scenefx-latest",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.5"
   },
   {
     "archs": [
@@ -360,6 +2143,266 @@
     "archs": [
       "all"
     ],
+    "build_style": "go",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:2e17c15a92093c62d011acd863f36148f8d5880292cadf41949eda320fd033c3"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/spicetify/cli/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "go"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "spicetify",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.45.0"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "libcurl",
+      "nss",
+      "libXtst",
+      "libXScrnSaver",
+      "libxml2",
+      "libxslt",
+      "libglvnd",
+      "gtk+3",
+      "alsa-lib",
+      "desktop-file-utils",
+      "hicolor-icon-theme",
+      "xdg-utils",
+      "libnotify",
+      "libgcrypt"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "bsdtar",
+      "curl"
+    ],
+    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "makedepends": [],
+    "pkgname": "spotify",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.2.92.147"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:b44634a6a604ca7c8b23809d0f2a921a0348bb2081c8cb8944116d0799872b70"
+    ],
+    "depends": [
+      "desktop-file-utils",
+      "hicolor-icon-theme",
+      "xdg-utils",
+      "zenity",
+      "bubblewrap",
+      "libgcc-32bit",
+      "libstdc++-32bit",
+      "libdrm-32bit",
+      "libglvnd-32bit",
+      "libibus",
+      "libibus-32bit",
+      "vulkan-loader-32bit",
+      "libopenal-32bit",
+      "libXrandr-32bit",
+      "libnm-32bit",
+      "dbus-glib",
+      "libXtst",
+      "libdrm",
+      "libpciaccess",
+      "libxshmfence",
+      "nss-32bit",
+      "nss",
+      "p11-kit",
+      "p11-kit-32bit",
+      "gtk+-32bit",
+      "gdk-pixbuf-32bit",
+      "libcurl",
+      "gtk+-32bit",
+      "libpipewire-32bit",
+      "libva-32bit",
+      "libvdpau-32bit",
+      "libvdpau",
+      "mesa-dri",
+      "mesa-dri-32bit",
+      "steam-udev-rules",
+      "SDL2",
+      "SDL2-32bit",
+      "libpulseaudio-32bit",
+      "alsa-plugins-pulseaudio-32bit"
+    ],
+    "distfiles": [
+      "https://codeberg.org/javiercplus/STEAM-ALT-VOID/releases/download/deb-build/steam_latest.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "tar",
+      "xz"
+    ],
+    "maintainer": "Javiercplus",
+    "makedepends": [],
+    "pkgname": "steam-bin",
+    "provides": [
+      "steam-${version}_${revision}"
+    ],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "1.0.0.85"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:b44634a6a604ca7c8b23809d0f2a921a0348bb2081c8cb8944116d0799872b70"
+    ],
+    "depends": [
+      "desktop-file-utils",
+      "hicolor-icon-theme",
+      "xdg-utils",
+      "zenity",
+      "bubblewrap",
+      "libgcc-32bit",
+      "libstdc++-32bit",
+      "libdrm-32bit",
+      "libglvnd-32bit",
+      "libibus",
+      "libibus-32bit",
+      "vulkan-loader-32bit",
+      "libopenal-32bit",
+      "libXrandr-32bit",
+      "xauth",
+      "libnm-32bit",
+      "dbus-glib",
+      "libXtst",
+      "libdrm",
+      "libpciaccess",
+      "libxshmfence",
+      "nss-32bit",
+      "nss",
+      "p11-kit",
+      "p11-kit-32bit",
+      "xhost",
+      "gtk+-32bit",
+      "gdk-pixbuf-32bit",
+      "libcurl",
+      "gtk+-32bit",
+      "libpipewire-32bit",
+      "libva-32bit",
+      "libvdpau-32bit",
+      "libvdpau",
+      "mesa-dri",
+      "mesa-dri-32bit",
+      "steam-udev-rules",
+      "SDL2",
+      "SDL2-32bit",
+      "libpulseaudio-32bit",
+      "alsa-plugins-pulseaudio-32bit"
+    ],
+    "distfiles": [
+      "https://codeberg.org/Neko-Void/STEAM-ALT-VOID/releases/download/deb-build/steam_latest.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "tar",
+      "xz"
+    ],
+    "maintainer": "Javiercplus",
+    "makedepends": [],
+    "pkgname": "steam-nk",
+    "provides": [
+      "steam-${version}_${revision}"
+    ],
+    "replaces": [],
+    "restricted": false,
+    "revision": 15,
+    "subpackages": [],
+    "version": "1.0.0.85"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:d3ee77a9fb40cdb5e2233b5db71471fa57dc433f7d3cb663a00396c7c6529413"
+    ],
+    "depends": [
+      "gtk+3",
+      "libnotify",
+      "nss",
+      "xdg-utils",
+      "at-spi2-core",
+      "libdrm",
+      "mesa",
+      "libxcb",
+      "ca-certificates",
+      "gnupg",
+      "libXScrnSaver",
+      "libXtst",
+      "libuuid",
+      "libsecret",
+      "tar",
+      "zip",
+      "unzip",
+      "alsa-lib",
+      "desktop-file-utils",
+      "glib"
+    ],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/Neko-Wizard/releases/download/debs/UnityHubSetup-amd64.deb>unityhub-${version}.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "tar",
+      "zstd",
+      "xz"
+    ],
+    "maintainer": "Javierc <javiercyt@atomicmail.io>",
+    "makedepends": [],
+    "pkgname": "unityhub",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "3.21.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
@@ -387,6 +2430,164 @@
   },
   {
     "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:0204a3fcf8861d11debf72a9be70423d2dca6d4698766b6fda7cfe39beea6a61"
+    ],
+    "depends": [
+      "gtk+3",
+      "libnotify",
+      "nss",
+      "libXScrnSaver",
+      "libXtst",
+      "xdg-utils",
+      "at-spi2-core",
+      "util-linux-libs",
+      "libsecret"
+    ],
+    "distfiles": [
+      "https://github.com/Vencord/Vesktop/releases/download/v${version}/vesktop_${version}_amd64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "tar",
+      "xz"
+    ],
+    "maintainer": "Wizzard <rich@bandaholics.cash>",
+    "makedepends": [],
+    "pkgname": "vesktop",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.6.7"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:afe35c7869a7cd87fae194992d6797df56522d0f430a7a0ade9909feaee931c1"
+    ],
+    "depends": [
+      "xtools",
+      "git",
+      "curl",
+      "bash",
+      "sudo",
+      "xbps"
+    ],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/vouru/releases/download/${version}/vouru.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "vouru",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "3.3"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:2bab551c3677d33010e317a7845e61d2f0fa0c80f8518399c42e0f941f64f18f"
+    ],
+    "depends": [
+      "libXtst",
+      "nss",
+      "alsa-lib",
+      "gtk+3",
+      "libsecret",
+      "libnotify",
+      "libXScrnSaver",
+      "xdg-utils",
+      "desktop-file-utils"
+    ],
+    "distfiles": [
+      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/88e44fa0e00b08f7758b4f6d05632e4fd5e4df6f/code-stable-x64-1788561485.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "tar"
+    ],
+    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "makedepends": [],
+    "pkgname": "vscode-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [],
+    "version": "1.136.2"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:d8f77d34394764358b4ac365473389b46b80aef59156bf9e0f72b9f61cacd22f"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://cdn1.waterfox.net/waterfox/releases/${version}/Linux_x86_64/waterfox-${version}.tar.bz2"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Seremegu <Sere@sere.nekoweb.org>",
+    "makedepends": [],
+    "pkgname": "waterfox",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "6.7.3"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": "fetch",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:ac58048238ad2c3c59cb22b0c8ea0741f7583d90baa2ec258acc04c70632c225"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://codeberg.org/javiercplus/Windscribe-void/releases/download/deb/windscribe_${version}_amd64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Javiercplus",
+    "makedepends": [],
+    "pkgname": "windscribe-desktop",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.22.10"
+  },
+  {
+    "archs": [
       "all"
     ],
     "build_style": null,
@@ -405,6 +2606,33 @@
     "revision": 1,
     "subpackages": [],
     "version": "0.131"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-makefile",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:4c0c0214b7ee3ceb4611ea2d7aa2ff746f8ed995ecae7b8e2284396be7ce06e1"
+    ],
+    "depends": [],
+    "distfiles": [
+      "${homepage}/archive/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
+    "makedepends": [
+      "libXrender-devel"
+    ],
+    "pkgname": "xwinwrap-nk",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 3,
+    "subpackages": [],
+    "version": "1.0"
   },
   {
     "archs": [
@@ -434,5 +2662,66 @@
     "revision": 1,
     "subpackages": [],
     "version": "1.0.4"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:126b4f9f5762aa98ddc615f6a65b53c9c11b046c4a6b618e703a9c096ea0ad40"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/franckey02/ZeroTierOne-Void/archive/refs/tags/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "gcc",
+      "make",
+      "git"
+    ],
+    "maintainer": "JavierC <franckeycool@gmail.com>",
+    "makedepends": [
+      "openssl-devel",
+      "libffi-devel",
+      "rust",
+      "cargo",
+      "linux-headers"
+    ],
+    "pkgname": "zerotierone",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.16.2"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:70e49664a74374b48b51e6f3fdfbf437f6395d42509050588bd49abe52ba3d00"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://ziglang.org/download/0.16.0/zig-x86_64-linux-0.16.0.tar.xz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
+    "makedepends": [],
+    "pkgname": "zig-nk",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.16.0"
   }
 ]
