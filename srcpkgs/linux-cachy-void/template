@@ -1,13 +1,13 @@
 # Z: mixto (glibc+musl).
 pkgname=linux-cachy-void
 version=7.3
-revision=9
+revision=10
 short_desc="Cachyos kernel precompiled for Void Linux + headers"
 maintainer="JavierC"
 license="GPL-2.0-only"
 homepage="https://github.com/javiercplus/kernel-neko-void/"
 distfiles="https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/neko-kernel-void-7.3.0-cachy-bore+.tar.gz"
-checksum="d1c0e44f684393be1ac7c4b99c6142e6d2a0db039d6d34656893a68977fed2c5"
+checksum="e7c435b28e1653c8603458d7673f3840e8dba4a5a3887001a0efbc1e2eb7a196"
 create_wrksrc=yes
 triggers="kernel-hooks"
 kernel_hooks_version="7.3.0-cachy-bore+"
