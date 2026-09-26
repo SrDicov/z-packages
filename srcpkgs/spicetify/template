@@ -1,0 +1,22 @@
+# Z: mixto (glibc+musl).
+pkgname=spicetify
+version=2.45.0
+revision=1
+build_style=go
+go_import_path="github.com/spicetify/cli"
+hostmakedepends="go"
+short_desc="Command-line tool to customize Spotify client"
+maintainer="JavierC"
+license="LGPL-2.1-only"
+homepage="https://spicetify.app/"
+distfiles="https://github.com/spicetify/cli/archive/refs/tags/v${version}.tar.gz"
+checksum=2e17c15a92093c62d011acd863f36148f8d5880292cadf41949eda320fd033c3
+
+post_install() {
+	vmkdir usr/share/spicetify-cli
+	for d in Themes Extensions CustomApps jsHelper css-map.json globals.d.ts; do
+		vcopy "$d" usr/share/spicetify-cli
+	done
+
+	mv ${DESTDIR}/usr/bin/cli ${DESTDIR}/usr/bin/spicetify
+}
