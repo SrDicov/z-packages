@@ -4,9 +4,9 @@ version=2.4.5
 revision=1
 wrksrc="intel-vaapi-driver-0b648be50cd80e16469c135c76ff61bbd2f2d12b"
 build_style=meson
-conflicts="libva-intel-driver"
+conflicts="libva-intel-driver>=0"
 provides="libva-intel-driver-${version}_1"
-replaces="libva-intel-driver"
+replaces="libva-intel-driver>=0"
 hostmakedepends="pkg-config python2"
 makedepends="libva-devel libdrm-devel libva-devel libdrm-devel libX11-devel"
 depends="libva libdrm"
