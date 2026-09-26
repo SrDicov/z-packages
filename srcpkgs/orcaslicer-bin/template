@@ -1,0 +1,41 @@
+# Z: glibc-only (binarios precompilados x86_64).
+pkgname=orcaslicer-bin
+version=2.4.2
+revision=1
+archs="x86_64"
+short_desc="Feature-rich slicer for FDM 3D printers (official AppImage build)"
+maintainer="Christopher <tu_correo@ejemplo.com>"
+license="AGPL-3.0-only"
+homepage="https://www.orcaslicer.com"
+distfiles="https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v${version}/OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
+checksum="d12fb8c8eac1aecd2dfb6377acd48f994f8fa439ed5292fa532dd82880f029fd"
+skip_extraction="OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
+nostrip=yes
+noshlibprovides=yes
+
+post_extract() {
+	cp "${XBPS_SRCDISTDIR}/${pkgname}-${version}/OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage" .
+}
+
+do_install() {
+	local appimg="OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
+
+	chmod +x "${appimg}"
+	"./${appimg}" --appimage-extract >/dev/null
+
+	vmkdir opt/orcaslicer
+	vcopy "squashfs-root/*" opt/orcaslicer
+
+	vmkdir usr/bin
+	ln -sf /opt/orcaslicer/AppRun "${DESTDIR}/usr/bin/orcaslicer"
+
+    vsed -i squashfs-root/com.orcaslicer.OrcaSlicer.desktop \
+    		-e 's|^Exec=.*|Exec=orcaslicer %F|' \
+    		-e 's|^Name=.*|Name=Orca Slicer|' \
+    		-e 's|^Icon=.*|Icon=orcaslicer|'
+
+	vinstall squashfs-root/com.orcaslicer.OrcaSlicer.desktop 644 \
+		usr/share/applications orcaslicer.desktop
+    vinstall squashfs-root/OrcaSlicer.png 644 \
+    		usr/share/icons/hicolor/128x128/apps orcaslicer.png
+}
