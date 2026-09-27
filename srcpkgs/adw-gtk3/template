@@ -1,0 +1,16 @@
+# Z: mixto (glibc+musl).
+pkgname=adw-gtk3
+version=6.5
+revision=1
+wrksrc="adw-gtk3"
+short_desc="Libadwaita theme for GTK3 and GTK4 applications"
+maintainer="JavierC"
+license="LGPL-2.1-or-later"
+homepage="https://github.com/lassekongo83/adw-gtk3"
+distfiles="https://github.com/lassekongo83/adw-gtk3/releases/download/v${version}/adw-gtk3v${version}.tar.xz"
+checksum=a81780fadfc432be0fc3d89c4ebb41aa28e4f032d42c36f9789c57dd10cfa41c
+
+do_install() {
+	vcopy adw-gtk3 usr/share/themes
+	vcopy adw-gtk3-dark usr/share/themes
+}
