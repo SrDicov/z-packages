@@ -2,7 +2,7 @@
 pkgname=goverlay-bin
 version=1.9.2
 revision=2
-only_for_archs="x86_64"
+archs="x86_64"
 depends="MangoHud qt6-base qt6-declarative gamemode nerd-fonts libqt6pas-bin python3"
 hostmakedepends="tar xz" 
 short_desc="Modern Qt6 GUI application to configure MangoHud, vkBasalt, and more"
