@@ -1,16 +1,24 @@
 # Z: mixto (glibc+musl).
 pkgname=Neko-Wizard
-version=9.0.15
-revision=7
+version=9.0.16
+revision=1
+# Unified glibc+musl tree (SrDicov fork, PR #1 merged). No releases/tags:
+# pin the merge commit like labwc-singularity does.
+_commit="e75c481c78856747473e3e673f33137432152465"
+_repository="https://github.com/SrDicov/Neko-Wizard.git"
 build_style=meson
-hostmakedepends="pkg-config meson ninja cmake"
+hostmakedepends="pkg-config meson ninja cmake git"
 makedepends="gtk4-devel"
 short_desc="Wizard Post Install for NEKO VOID"
 maintainer="JavierC"
 license="WTFPL"
-homepage="https://github.com/Neko-Void-Linux/Neko-Wizard"
-distfiles="https://github.com/Neko-Void-Linux/Neko-Wizard/releases/download/9.0.15/Neko-Wizard-main.tar.gz"
-checksum="051a97bd01f618f2360f8b512aef1a77fcfe040f1cff8af5c6d6b70b66b79850"
+homepage="https://github.com/SrDicov/Neko-Wizard"
+
+do_fetch() {
+	msg_normal "Cloning ${_repository} @ ${_commit}...\n"
+	git clone "${_repository}" ${pkgname}-${version}
+	(cd ${pkgname}-${version} && git checkout -q ${_commit})
+}
 
 do_install() {
 	vmkdir usr/lib/Neko-Wizard
