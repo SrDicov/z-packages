@@ -1,7 +1,7 @@
 # Z: mixto (glibc+musl).
 pkgname=Neko-Kernel-Manager
 version=1.4.2
-revision=1
+revision=2
 build_style=meson
 configure_args="-Db_lto=false"
 hostmakedepends="pkg-config qt6-base qt6-declarative"
