@@ -446,35 +446,6 @@
   },
   {
     "archs": [
-      "all"
-    ],
-    "build_style": null,
-    "checkdepends": [],
-    "checksum": [
-      "sha256:9883fdd4a49d4fb66bd8177ba6625ef9a64aa45899767dde3d36aa425756b11e"
-    ],
-    "depends": [
-      "font-util"
-    ],
-    "distfiles": [
-      "https://github.com/rsms/inter/releases/download/v${version}/Inter-${version}.zip"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [],
-    "maintainer": "Robin Lundgren <linkert@onan.in>",
-    "makedepends": [],
-    "pkgname": "font-inter",
-    "provides": [
-      "font:sans-serif-0_1"
-    ],
-    "replaces": [],
-    "restricted": false,
-    "revision": 2,
-    "subpackages": [],
-    "version": "4.1"
-  },
-  {
-    "archs": [
       "x86_64"
     ],
     "build_style": null,
@@ -816,38 +787,6 @@
     "revision": 2,
     "subpackages": [],
     "version": "2026"
-  },
-  {
-    "archs": [
-      "all"
-    ],
-    "build_style": "meson",
-    "checkdepends": [],
-    "checksum": [
-      "sha256:5c66b12234aa7d5797a4d3ebbf7011ea29ad7d66b26ff4c250df08700fdc630d"
-    ],
-    "depends": [],
-    "distfiles": [
-      "https://github.com/labwc/labwc-menu-generator/archive/refs/tags/${version}.tar.gz"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [
-      "pkg-config",
-      "cmake",
-      "ninja",
-      "scdoc"
-    ],
-    "maintainer": "zenobit <zen@osowoso.org>",
-    "makedepends": [
-      "glib-devel"
-    ],
-    "pkgname": "labwc-menu-generator",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 2,
-    "subpackages": [],
-    "version": "0.2.0"
   },
   {
     "archs": [
@@ -1205,33 +1144,6 @@
     "revision": 1,
     "subpackages": [],
     "version": "0.17.2"
-  },
-  {
-    "archs": [
-      "all"
-    ],
-    "build_style": "configure",
-    "checkdepends": [],
-    "checksum": [
-      "sha256:23e242d70492b5381cab2227dd5b5407f748e52fe7a5df919a352c8dae26919d"
-    ],
-    "depends": [],
-    "distfiles": [
-      "https://github.com/skarnet/mdevd/archive/refs/tags/v${version}.tar.gz"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [],
-    "maintainer": "Dicov <SrDicov@gmail.com>",
-    "makedepends": [
-      "skalibs-devel"
-    ],
-    "pkgname": "mdevd",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 2,
-    "subpackages": [],
-    "version": "0.1.8.2"
   },
   {
     "archs": [
@@ -2206,45 +2118,6 @@
     ],
     "build_style": null,
     "checkdepends": [],
-    "checksum": [],
-    "depends": [
-      "libcurl",
-      "nss",
-      "libXtst",
-      "libXScrnSaver",
-      "libxml2",
-      "libxslt",
-      "libglvnd",
-      "gtk+3",
-      "alsa-lib",
-      "desktop-file-utils",
-      "hicolor-icon-theme",
-      "xdg-utils",
-      "libnotify",
-      "libgcrypt"
-    ],
-    "distfiles": [],
-    "format_version": 1,
-    "hostmakedepends": [
-      "bsdtar",
-      "curl"
-    ],
-    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
-    "makedepends": [],
-    "pkgname": "spotify",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 1,
-    "subpackages": [],
-    "version": "1.2.92.147"
-  },
-  {
-    "archs": [
-      "x86_64"
-    ],
-    "build_style": null,
-    "checkdepends": [],
     "checksum": [
       "sha256:b44634a6a604ca7c8b23809d0f2a921a0348bb2081c8cb8944116d0799872b70"
     ],
@@ -2619,27 +2492,6 @@
     "revision": 1,
     "subpackages": [],
     "version": "2.22.10"
-  },
-  {
-    "archs": [
-      "all"
-    ],
-    "build_style": null,
-    "checkdepends": [],
-    "checksum": [],
-    "depends": [],
-    "distfiles": [],
-    "format_version": 1,
-    "hostmakedepends": [],
-    "maintainer": "Enno Boland <gottox@voidlinux.org>",
-    "makedepends": [],
-    "pkgname": "xbps-triggers",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 1,
-    "subpackages": [],
-    "version": "0.131"
   },
   {
     "archs": [
