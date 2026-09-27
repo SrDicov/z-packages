@@ -1,7 +1,11 @@
 # Z: mixto (glibc+musl).
 pkgname=ly
 version=1.5.0.1
-revision=15
+revision=16
+# nopie: on musl zig links statically and the vendored static luajit
+# objects cannot relocate into a PIE (909 relocation errors); non-PIE
+# links fine. glibc unaffected (still builds PIE, check just skipped).
+nopie=yes
 hostmakedepends="pkg-config zig-nk"
 makedepends="libxcb-devel pam-devel"
 depends="brightnessctl xauth"
@@ -27,7 +31,12 @@ pre_build() {
 
 post_patch() {
     vsed -i build.zig -e '/zig-out\/bin\/ly/d'
-    vsed -i build.zig -e '/b.installArtifact(exe);/i \    exe.pie = true;'
+    if [ "$XBPS_TARGET_LIBC" = musl ]; then
+        # musl+static luajit+PIE does not link; build non-PIE on musl.
+        vsed -i build.zig -e '/b.installArtifact(exe);/i \    exe.pie = false;'
+    else
+        vsed -i build.zig -e '/b.installArtifact(exe);/i \    exe.pie = true;'
+    fi
 }
 
 do_build() {
