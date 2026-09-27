@@ -70,6 +70,31 @@
     ],
     "build_style": null,
     "checkdepends": [],
+    "checksum": [
+      "sha256:a81780fadfc432be0fc3d89c4ebb41aa28e4f032d42c36f9789c57dd10cfa41c"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/lassekongo83/adw-gtk3/releases/download/v${version}/adw-gtk3v${version}.tar.xz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "adw-gtk3",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "6.5"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
     "checksum": [],
     "depends": [
       "bash",
