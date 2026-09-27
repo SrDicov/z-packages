@@ -11,6 +11,7 @@ distfiles="https://github.com/lassekongo83/adw-gtk3/releases/download/v${version
 checksum=a81780fadfc432be0fc3d89c4ebb41aa28e4f032d42c36f9789c57dd10cfa41c
 
 do_install() {
+	vmkdir usr/share/themes
 	vcopy adw-gtk3 usr/share/themes
 	vcopy adw-gtk3-dark usr/share/themes
 }
