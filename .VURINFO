@@ -424,6 +424,33 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
+      "sha256:6f6376c6ed2960ea8a963cd7387ec9d76e3f629125bc33d1fdcd7eb7012f7bbf"
+    ],
+    "depends": [
+      "font-util"
+    ],
+    "distfiles": [
+      "https://github.com/JetBrains/JetBrainsMono/releases/download/v${version}/JetBrainsMono-${version}.zip"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "JavierC",
+    "makedepends": [],
+    "pkgname": "font-JetBrainsMono",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.304"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
       "sha256:9883fdd4a49d4fb66bd8177ba6625ef9a64aa45899767dde3d36aa425756b11e"
     ],
     "depends": [
@@ -663,6 +690,38 @@
     "revision": 1,
     "subpackages": [],
     "version": "0.1.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:44c1d70be02cf2fbca9adf7106042fe3163adaa93b86d42cb2792c7e861343d4"
+    ],
+    "depends": [
+      "hicolor-icon-theme"
+    ],
+    "distfiles": [
+      "https://github.com/javiercplus/iruka-xbps/archive/refs/tags/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "gettext"
+    ],
+    "maintainer": "JavierC",
+    "makedepends": [
+      "gtk+3-devel"
+    ],
+    "pkgname": "iruka-xbps",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.0"
   },
   {
     "archs": [
