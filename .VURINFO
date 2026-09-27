@@ -28,7 +28,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.4.2"
   },
@@ -208,7 +208,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:d48c6892a22d7755c34e020a9a9560c72a7186a21247be29235f4cf9c8caeac0"
+      "sha256:0138ff26ba531768d00bd045c777c1509447fc08f2f7bfac494aa0a0da9954cd"
     ],
     "depends": [
       "lame",
@@ -218,7 +218,7 @@
       "libvorbis"
     ],
     "distfiles": [
-      "https://github.com/Ars-byte/cmuspp/releases/download/v${version}/cmuspp-main.tar.gz"
+      "https://github.com/Ars-byte/cmuspp/archive/refs/tags/v${version}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
@@ -233,7 +233,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "1.1.1"
   },
@@ -733,31 +733,6 @@
   },
   {
     "archs": [
-      "x86_64"
-    ],
-    "build_style": "gnu-configure",
-    "checkdepends": [],
-    "checksum": [
-      "sha256:f3aea794dcf4eaf26de42f3750417be370d59dd9bcfa4789bdcbed341e83d17c"
-    ],
-    "depends": [],
-    "distfiles": [
-      "https://github.com/ezequielgk/Kore-Package-Manager/releases/download/v${version}/kpm-linux-x86_64.tar.gz"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [],
-    "maintainer": "JavierC",
-    "makedepends": [],
-    "pkgname": "kpm",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 1,
-    "subpackages": [],
-    "version": "3.2.2"
-  },
-  {
-    "archs": [
       "all"
     ],
     "build_style": "zig-build",
@@ -1017,7 +992,7 @@
       "libva-intel-driver-${version}_1"
     ],
     "replaces": [
-      "libva-intel-driver"
+      "libva-intel-driver>=0"
     ],
     "restricted": false,
     "revision": 1,
@@ -1031,7 +1006,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:d1c0e44f684393be1ac7c4b99c6142e6d2a0db039d6d34656893a68977fed2c5"
+      "sha256:e7c435b28e1653c8603458d7673f3840e8dba4a5a3887001a0efbc1e2eb7a196"
     ],
     "depends": [],
     "distfiles": [
@@ -1045,7 +1020,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 9,
+    "revision": 10,
     "subpackages": [],
     "version": "7.3"
   },
@@ -1129,7 +1104,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 15,
+    "revision": 16,
     "subpackages": [],
     "version": "1.5.0.1"
   },
@@ -1718,7 +1693,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:c661bf92f79cd6df32311cf7dedb1f64fe33dfe4b77e5bb2fcafaf98c82791bd"
+      "sha256:1ede1cd54042ee0b2a3ecdba19ac7dc028dacb68f8bfb4e7f20d247fc99518fc"
     ],
     "depends": [
       "cabextract",
@@ -1802,7 +1777,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "1.7.5.0"
   },
@@ -2039,7 +2014,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.5"
   },
