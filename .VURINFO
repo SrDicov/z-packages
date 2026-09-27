@@ -2515,6 +2515,27 @@
     "archs": [
       "all"
     ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Enno Boland <gottox@voidlinux.org>",
+    "makedepends": [],
+    "pkgname": "xbps-triggers",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.131"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": "gnu-makefile",
     "checkdepends": [],
     "checksum": [
