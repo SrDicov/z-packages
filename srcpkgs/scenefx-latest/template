@@ -1,7 +1,7 @@
 # Z: mixto (glibc+musl).
 pkgname=scenefx-latest
 version=0.5
-revision=1
+revision=2
 wrksrc="scenefx-${version}"
 build_style=meson
 configure_args="-Dwerror=false -Db_ndebug=false"
