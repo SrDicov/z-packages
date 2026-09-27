@@ -38,19 +38,16 @@
     ],
     "build_style": "meson",
     "checkdepends": [],
-    "checksum": [
-      "sha256:051a97bd01f618f2360f8b512aef1a77fcfe040f1cff8af5c6d6b70b66b79850"
-    ],
+    "checksum": [],
     "depends": [],
-    "distfiles": [
-      "https://github.com/Neko-Void-Linux/Neko-Wizard/releases/download/9.0.15/Neko-Wizard-main.tar.gz"
-    ],
+    "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [
       "pkg-config",
       "meson",
       "ninja",
-      "cmake"
+      "cmake",
+      "git"
     ],
     "maintainer": "JavierC",
     "makedepends": [
@@ -60,9 +57,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 7,
+    "revision": 1,
     "subpackages": [],
-    "version": "9.0.15"
+    "version": "9.0.16"
   },
   {
     "archs": [
@@ -1447,13 +1444,9 @@
     ],
     "build_style": "meson",
     "checkdepends": [],
-    "checksum": [
-      "sha256:3b30d38af75ff9fdd871a4ab2f20874131dd8c39fe1c16ad460b359f690657eb"
-    ],
+    "checksum": [],
     "depends": [],
-    "distfiles": [
-      "https://github.com/Neko-Void-Linux/noctalia/releases/download/5.11/noctalia-5.11.tar.gz"
-    ],
+    "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [
       "pkg-config",
@@ -1501,7 +1494,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 8,
+    "revision": 9,
     "subpackages": [],
     "version": "5.11.1"
   },
