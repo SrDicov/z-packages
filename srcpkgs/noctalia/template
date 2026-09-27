@@ -1,7 +1,12 @@
 # Z: mixto (glibc+musl).
 pkgname=noctalia
+# Source is the test branch (VERSION 5.2.0 there). version stays 5.11.1
+# on purpose: the fork's own numbering, and 5.2.0 would downgrade
+# installed 5.11.1 users (xbps compares versions).
 version=5.11.1
-revision=8
+revision=9
+_commit="1ce6d9df59f58ca40534e2d881308bc20fb353b3"
+_repository="https://github.com/Neko-Void-Linux/noctalia.git"
 build_style=meson
 configure_args="-Dnative_optimizations=false -Db_sanitize=none"
 hostmakedepends="pkg-config git cmake wayland-devel wayland-protocols"
@@ -11,11 +16,13 @@ makedepends="base-devel cairo-devel fontconfig-devel freetype-devel harfbuzz-dev
 	libxml2-devel libsecret-devel libjxl-devel MesaLib-devel pam-devel pango-devel
 	libsndfile-devel pipewire-devel polkit-devel sdbus-c++-devel stb tomlplusplus-devel
 	libical-devel wayland-devel wayland-protocols wireplumber-devel"
-short_desc="Noctalia desktop shell"
 short_desc="Noctalia - Wayland compositor and desktop environment"
 maintainer="JavierC"
 license="MIT"
 homepage="https://github.com/noctalia-dev/noctalia"
-distfiles="https://github.com/Neko-Void-Linux/noctalia/releases/download/5.11/noctalia-5.11.tar.gz"
-checksum="3b30d38af75ff9fdd871a4ab2f20874131dd8c39fe1c16ad460b359f690657eb"
-patches="disable-native-optimizations.patch"
+
+do_fetch() {
+	msg_normal "Cloning ${_repository} @ ${_commit} (test branch)...\n"
+	git clone --branch test "${_repository}" ${pkgname}-${version}
+	(cd ${pkgname}-${version} && git checkout -q ${_commit})
+}
