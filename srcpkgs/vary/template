@@ -1,6 +1,6 @@
 # Template file for 'vary'
 pkgname=vary
-version=0.2.5
+version=0.4.1
 revision=1
 wrksrc="Vary-${version}"
 build_style=cargo
@@ -11,7 +11,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/SrDicov/Vary"
 distfiles="https://github.com/SrDicov/Vary/archive/refs/tags/v${version}.tar.gz"
-checksum=2ccbb6fd9574771bcaca3cf14066d96046adcce94357e170469f8f9d3444abd2
+checksum=b718becb0b8e61ac579433762609def22737465eb947074d0d5bb407ed73640c0
 
 # upstream releases without relocking Cargo.lock, so --locked from
 # build_style=cargo fails; build like upstream CI does and let cargo
