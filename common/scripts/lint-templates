@@ -1,0 +1,294 @@
+#!/usr/bin/env python3
+"""Pre-flight linter for z-packages templates.
+
+Catches, before a CI run burns 30-40 minutes, the five failure classes
+that actually bit us. All static: templates are parsed, never sourced.
+
+  1. dep-not-in-void   depends/makedepends/hostmakedepends/checkdepends
+                       naming a package that exists neither in Void nor in
+                       z-packages. Usually an AUR/Debian name copied over
+                       (gstreamer->gstreamer1, java-runtime->openjdk17...).
+  2. dep-autodetected  listing a lib that common/shlibs already resolves
+                       from an ELF soname. xbps-src adds it automatically;
+                       listing it is a no-op at best and a broken name at
+                       worst.
+  3. missing-hostdep    a command used by the template's functions that no
+                       hostmakedepends provides.
+  4. stale-distfile    do_extract/do_install referencing a filename that
+                       the current distfiles/checksum entries cannot
+                       produce (typically after a URL change).
+  5. bad-checksum      checksum entry that is not 64 hex chars (counted
+                       across multi-line checksum blocks).
+
+Usage (from the z-packages repo root):
+    common/scripts/lint-templates [srcpkgs_dir] [--void=<void-packages-dir>]
+
+Exit non-zero on any finding. --quiet prints only failures.
+"""
+
+import os
+import re
+import subprocess
+import sys
+
+# Commands that live in packages every Void host/base-devel already has.
+# Only extras worth checking are listed.
+HOSTDEP_FOR_CMD = {
+    'msgfmt': 'gettext', 'msgmerge': 'gettext', 'xgettext': 'gettext',
+    'ar': 'binutils', 'strip': 'binutils', 'objcopy': 'binutils',
+    'patch': 'patch', 'cmake': 'cmake', 'ninja': 'ninja',
+    'nasm': 'nasm', 'yasm': 'yasm', 'cargo': 'cargo', 'rustc': 'rust',
+    'pnpm': 'pnpm', 'npm': 'nodejs', 'node': 'nodejs',
+    'wayland-scanner': 'wayland-devel', 'desktop-file-validate': None,
+}
+
+# Arch/Debian names that do not exist in Void, with the Void equivalent.
+# Reported even if the package happens to be missing, because the
+# translation is the actual intent.
+NAME_HINTS = {
+    'gstreamer': 'gstreamer1',
+    'gst-plugins-base-libs': 'gst-plugins-base1',
+    'gst-plugins-ugly': 'gst-plugins-ugly1',
+    'gst-plugins-good': 'gst-plugins-good1',
+    'gstreamer1.0-libav': 'gst-libav',
+    'gstreamer1.0-plugins-ugly': 'gst-plugins-ugly1',
+    'libpulse': 'libpulseaudio',
+    'libasound2': 'alsa-lib', 'libpulse.so.0': 'libpulseaudio',
+    'java-runtime': 'openjdk17', 'java8-runtime': 'openjdk17',
+    'libx11': 'libX11', 'libxext': 'libXext', 'libxfixes': 'libXfixes',
+    'libxrandr': 'libXrandr', 'libxdamage': 'libXdamage',
+    'libxcomposite': 'libXcomposite', 'libxss1': 'libXScrnSaver',
+    'libxkbcommon-x11-0': 'libxkbcommon', 'libnotify4': 'libnotify',
+    'libatk1.0-0': 'at-spi2-core', 'libgtk-3-0': 'gtk+3',
+    'libcairo2': 'cairo', 'libglib2.0': 'glib',
+    'liberation-fonts': 'liberation-fonts-ttf',
+    'ttf-font': 'liberation-fonts-ttf',
+    'x11-common': '(drop it: Void does not ship xorg.conf)',
+    'mesa-utils': '(drop it: unused at runtime)',
+    'ffmpeg': 'ffmpeg48', 'jack': 'jack',
+}
+
+# Void's ffmpeg is unversioned upstream; do not flag it.
+NAME_HINTS.pop('ffmpeg', None)
+
+# Verified empirically against the CI chroot: arxy, neko-base, pear-desktop
+# and unityhub all run tar/gzip/xz/ar today WITHOUT declaring them, so the
+# masterdir chroot does have them. Only gettext-style tools have actually
+# broken, so that is the only class reported here.
+BUILTIN_HOSTDEPS = {
+    'binutils', 'patch', 'tar', 'xz', 'gzip', 'bzip2', 'zstd', 'git',
+    'cargo', 'rust', 'gcc', 'cc', 'make', 'perl', 'python3', 'grep',
+    'sed', 'awk', 'find', 'install', 'cp', 'mv', 'ln', 'chmod', 'mkdir',
+}
+
+# Not packages: parts of the base system / base-devel, so they are
+# always satisfiable and must never be reported as missing.
+NOT_PACKAGES = BUILTIN_HOSTDEPS | {
+    'base-devel', 'shadow', 'util-linux', 'coreutils', 'which', 'bash',
+    'glibc-devel', 'libtool', 'autoconf', 'automake', 'libtool',
+}
+
+DEP_VARS = ('depends', 'makedepends', 'hostmakedepends', 'checkdepends')
+
+# Sonames common/shlibs resolves; listing the Void package by name is
+# redundant because xbps-src scans the ELF and adds the right package.
+SHLIBS_SONAME_RE = re.compile(r'^(lib[\w.+-]*\.so[.\d]*)(\s|$)')
+
+
+def parse_template(path):
+    """Extract top-level VAR assignments (same static rules as
+    check_outdated.py: plain assignments, first occurrence wins)."""
+    vals = {}
+    assign = re.compile(r'^([A-Za-z_][A-Za-z_0-9]*)="?([^"\n]*)"?\s*$')
+    with open(path) as fh:
+        for line in fh:
+            m = assign.match(line.rstrip('\n'))
+            if m and m.group(1) not in vals:
+                vals[m.group(1)] = m.group(2)
+    return vals
+
+
+def multiline(path, var):
+    """Return the full value of a var that may span multiple lines."""
+    out, capturing = [], False
+    with open(path) as fh:
+        for line in fh:
+            s = line.rstrip('\n')
+            if capturing:
+                out.append(s)
+                if s.rstrip().endswith('"'):
+                    capturing = False
+            elif s.startswith(var + '='):
+                if not s.rstrip().endswith('"'):
+                    capturing = True
+                out.append(s)
+    return '\n'.join(out)
+
+
+def shlibs_map(repo_root):
+    """soname -> package, from common/shlibs."""
+    path = os.path.join(repo_root, 'common', 'shlibs')
+    m = {}
+    if not os.path.isfile(path):
+        return m
+    with open(path) as fh:
+        for line in fh:
+            parts = line.split()
+            if len(parts) >= 2:
+                m[parts[0]] = parts[1]
+    return m
+
+
+def void_packages(void_dir):
+    """Package names in a void-packages checkout, or empty when absent."""
+    if not void_dir or not os.path.isdir(os.path.join(void_dir, 'srcpkgs')):
+        return set()
+    return set(os.listdir(os.path.join(void_dir, 'srcpkgs')))
+
+
+def ours(srcpkgs):
+    out = set()
+    for e in os.listdir(srcpkgs):
+        if os.path.isfile(os.path.join(srcpkgs, e, 'template')):
+            out.add(e)
+    return out
+
+
+def distfile_targets(distfiles):
+    """Local names xbps-src will produce for each distfile entry.
+
+    A '>localname' suffix renames it; without one the URL basename is
+    used verbatim. Either way, expand ${version} so the comparison
+    against do_extract references is meaningful.
+    """
+    names = set()
+    # strip the surrounding quotes/newlines, keep entry separators
+    body = distfiles.replace('>', ' > ').replace('"', ' ')
+    cur = []
+    for tok in body.split():
+        if '>' in tok:
+            names.add(tok.split('>', 1)[1].strip())
+        elif tok.startswith('http') or tok in ('>',):
+            if cur:
+                names.add(cur.pop().rstrip('/').split('/')[-1])
+        else:
+            cur.append(tok)
+    if cur:
+        names.add(cur[-1].rstrip('/').split('/')[-1])
+    # also accept the bare basename of any http URL we saw
+    for url in re.findall(r'https?://[^\s>"]+', distfiles):
+        names.add(url.split('>')[0].split('/')[-1])
+    return {n for n in names if n and '=' not in n}
+
+
+def check_template(path, pkgdir, known, shlibs, findings, have_index):
+    vals = parse_template(path)
+    name = vals.get('pkgname', pkgdir)
+    rel = os.path.relpath(path, 'srcpkgs')
+
+    def add(rule, msg):
+        findings.append((rel, rule, msg))
+
+    # 1 + 2: dependency names.
+    for var in DEP_VARS:
+        block = multiline(path, var)
+        if not block:
+            continue
+        for tok in block.split('"')[1].split() if '"' in block else []:
+            tok = tok.strip('"\'')
+            if not tok or tok.startswith(('virtual', 'py3:', 'file',
+                                          'lib32:', 'run')):
+                continue
+            base = re.split(r'[><=]', tok)[0]
+            if not base:
+                continue
+            if base in NAME_HINTS:
+                add('dep-arch-name',
+                    f'{var}: {base!r} is not a Void package '
+                    f'(use {NAME_HINTS[base]})')
+            elif base in NOT_PACKAGES:
+                pass
+            elif have_index and base not in known:
+                add('dep-not-in-void', f'{var}: {base!r} not found in Void')
+            elif base in shlibs.values():
+                add('dep-autodetected',
+                    f'{var}: {base!r} is resolved from an ELF soname by '
+                    f'xbps-src; remove it')
+
+    # 3: commands used vs hostmakedepends.
+    hostdeps = set(multiline(path, 'hostmakedepends').split('"')[1].split()) \
+        if '"' in multiline(path, 'hostmakedepends') else set()
+    if not hostdeps:
+        hostdeps = set(vals.get('hostmakedepends', '').split())
+    body = open(path).read()
+    for cmd, dep in HOSTDEP_FOR_CMD.items():
+        if not dep or dep in hostdeps or dep in BUILTIN_HOSTDEPS:
+            continue
+        # Rough usage check: word-boundary command in the body.
+        if re.search(r'(^|[;&|\s(])' + re.escape(cmd) + r'\s', body, re.M):
+            add('missing-hostdep',
+                f'uses {cmd!r} but {dep!r} is not in hostmakedepends')
+
+    # 4: distfile references. Use the full multi-line block: the local
+    # name is either the '>localname' suffix or, absent that, the URL
+    # basename (which is what xbps-src stores under XBPS_SRCDISTDIR).
+    df = multiline(path, 'distfiles')
+    if df:
+        targets = distfile_targets(df)
+        for m in re.finditer(
+                r'\${XBPS_SRCDISTDIR\}[^\s"\']*?/([\w.\-]+\.(?:tar\.\w+|'
+                r'zip|tgz|tar\.gz|deb|zst|pkg\.tar\.zst|xz|gz|bz2))', body):
+            ref = m.group(1)
+            if ref not in targets:
+                add('stale-distfile',
+                    f'references {ref!r} but distfiles produce '
+                    f'{sorted(targets) or "nothing matching"}')
+
+    # 5: checksum shape.
+    cs = multiline(path, 'checksum')
+    if cs:
+        for h in re.findall(r'\b([0-9a-fA-F]{16,})\b', cs):
+            if len(h) != 64:
+                add('bad-checksum',
+                    f'checksum entry has {len(h)} hex chars, expected 64')
+
+
+def main():
+    args = [a for a in sys.argv[1:] if not a.startswith('-')]
+    quiet = '--quiet' in sys.argv
+    srcpkgs = args[0] if args else 'srcpkgs'
+    void = next((a.split('=', 1)[1] for a in sys.argv[1:]
+                 if a.startswith('--void=')), None)
+
+    root = os.getcwd()
+    if void is None:
+        void = os.environ.get('VOID_PACKAGES', '')
+    shlibs = shlibs_map(root)
+    known = ours(srcpkgs) | void_packages(void)
+    if not void_packages(void):
+        print('NOTE: no void-packages tree; dep rules limited to '
+              'known Arch/Debian name mistakes', file=sys.stderr)
+
+    findings = []
+    if not shlibs:
+        print('WARNING: common/shlibs not found; '
+              'dep-autodetected rule disabled', file=sys.stderr)
+    for entry in sorted(os.listdir(srcpkgs)):
+        tpl = os.path.join(srcpkgs, entry, 'template')
+        if os.path.islink(os.path.join(srcpkgs, entry)) or not os.path.isfile(tpl):
+            continue
+        check_template(tpl, entry, known, shlibs, findings,
+                        bool(void_packages(void)))
+
+    if findings:
+        for rel, rule, msg in findings:
+            print(f'{rel}: [{rule}] {msg}')
+        print(f'\n{len(findings)} finding(s)', file=sys.stderr)
+        return 1
+    if not quiet:
+        print('lint-templates: no findings')
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
