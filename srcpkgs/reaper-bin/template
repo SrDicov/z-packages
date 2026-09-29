@@ -30,7 +30,10 @@ do_extract() {
 
 do_install() {
 	vmkdir usr/lib/reaper
-	vcopy "REAPER" usr/lib/reaper
+	# vcopy == cp -a <files> <target>: the CONTENTS of REAPER/ land
+	# directly in usr/lib/reaper (no extra REAPER/ level).
+	vcopy "REAPER/." usr/lib/reaper
+	vmkdir usr/share/licenses/reaper
 	vinstall REAPER/EULA.txt 644 usr/share/licenses/reaper
 
 	vmkdir usr/bin
