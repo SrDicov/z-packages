@@ -11,12 +11,19 @@ license="GPL-3.0-only"
 homepage="https://pineconemc.ru"
 # Upstream ships a makepkg-built Arch package tarball: usr/bin holds the
 # real Qt binary, usr/share/ElyPrismLauncher the jars it loads at runtime.
-# It is used as-is (same approach as unityhub) so xbps-src finds the ELF
-# in PKGDESTDIR and can resolve its shlibs; stripping the makepkg
-# metadata made the staging inconsistent and aborted with
-# "cannot guess required shlibs".
-distfiles="https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst>pineconemc-${version}.zst"
-checksum=707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0
+#
+# The binary links libcmark.so.0.31.2 (cmark_markdown_to_html is really
+# used, verified with nm -D: not overlinking) but Void only ships cmark
+# 0.24 (libcmark.so.0), so xbps-src aborts with "cannot guess required
+# shlibs". The second distfile is Arch's prebuilt cmark 0.31.2 package;
+# only its versioned .so is used. Because the .so ships inside PKGDESTDIR,
+# the shlibs hook ignores it ("Ignore libs by current pkg"), and at
+# runtime the files/pineconemc-wrapper exposes it via LD_LIBRARY_PATH
+# (same approach as helium-browser-bin's helium-wrapper).
+distfiles="https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst>pineconemc-${version}.zst
+ https://archive.archlinux.org/packages/c/cmark/cmark-0.31.2-1-x86_64.pkg.tar.zst"
+checksum="707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0
+ 20aa066e2f2051eca725f3f700580813a2d357814fd53c76d916ab641afa1fa8"
 # java-runtime (Arch) does not exist in Void; openjdk17 is the runtime.
 depends="desktop-file-utils hicolor-icon-theme libarchive openjdk17
  pciutils qrencode qt6-base qt6-imageformats qt6-networkauth qt6-svg
@@ -27,21 +34,43 @@ replaces="elyprismlauncher>=0 pineconemc>=0"
 nostrip=yes
 nopie=yes
 
-do_install() {
-	vmkdir ${DESTDIR}/usr
-	cp -a usr/. ${DESTDIR}/usr/
+do_extract() {
+	mkdir -p "${wrksrc}"
+	tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/pineconemc-${version}.zst" \
+		-C "${wrksrc}" \
+		--exclude=.BUILDINFO --exclude=.MTREE --exclude=.PKGINFO
+	mkdir -p "${wrksrc}/cmroot"
+	tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/cmark-0.31.2-1-x86_64.pkg.tar.zst" \
+		-C "${wrksrc}/cmroot" usr/lib/libcmark.so.0.31.2
+}
 
+do_install() {
 	# The binary resolves its jars via ../share/ElyPrismLauncher relative
 	# to argv[0], so the upstream usr/{bin,share} layout is preserved.
-	ln -sf elyprismlauncher ${DESTDIR}/usr/bin/pineconemc
+	vmkdir usr/bin
+	vcopy usr/bin/elyprismlauncher usr/bin
+	chmod 755 "${DESTDIR}/usr/bin/elyprismlauncher"
+	# pineconemc is the wrapper (sets LD_LIBRARY_PATH for the bundled
+	# libcmark); elyprismlauncher stays the real binary.
+	vinstall "${FILESDIR}/pineconemc-wrapper" 755 usr/bin pineconemc
 
-	vinstall ${FILESDIR}/pineconemc.desktop 644 usr/share/applications
-	rm -f ${DESTDIR}/usr/share/applications/io.github.elyprismlauncher.ElyPrismLauncher.desktop
+	vcopy "usr/share/ElyPrismLauncher" usr/share
 
-	vinstall usr/share/icons/hicolor/256x256/apps/io.github.elyprismlauncher.ElyPrismLauncher.png \
-		644 usr/share/icons/hicolor/256x256/apps pineconemc.png
+	# Bundled libcmark.so.0.31.2 (see header): satisfies the shlibs hook
+	# and the runtime loader via the wrapper.
+	vmkdir usr/lib/pineconemc
+	vcopy cmroot/usr/lib/libcmark.so.0.31.2 usr/lib/pineconemc
+
+	for s in 256; do
+		f="usr/share/icons/hicolor/${s}x${s}/apps/io.github.elyprismlauncher.ElyPrismLauncher.png"
+		[ -f "$f" ] && vinstall "$f" 644 \
+			usr/share/icons/hicolor/${s}x${s}/apps pineconemc.png
+	done
 	vinstall usr/share/icons/hicolor/scalable/apps/io.github.elyprismlauncher.ElyPrismLauncher.svg \
 		644 usr/share/icons/hicolor/scalable/apps pineconemc.svg
-	rm -f ${DESTDIR}/usr/share/icons/hicolor/256x256/apps/io.github.elyprismlauncher.ElyPrismLauncher.png
-	rm -f ${DESTDIR}/usr/share/icons/hicolor/scalable/apps/io.github.elyprismlauncher.ElyPrismLauncher.svg
+
+	vinstall ${FILESDIR}/pineconemc.desktop 644 usr/share/applications
+	rm -f "${DESTDIR}/usr/share/applications/io.github.elyprismlauncher.ElyPrismLauncher.desktop"
+	rm -f "${DESTDIR}/usr/share/icons/hicolor/256x256/apps/io.github.elyprismlauncher.ElyPrismLauncher.png"
+	rm -f "${DESTDIR}/usr/share/icons/hicolor/scalable/apps/io.github.elyprismlauncher.ElyPrismLauncher.svg"
 }
