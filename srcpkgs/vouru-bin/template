@@ -1,7 +1,8 @@
 # Z: mixto (glibc+musl).
-pkgname=vouru
+pkgname=vouru-bin
 version=3.3
 revision=1
+replaces="vouru>=0"
 depends="xtools git curl bash sudo xbps"
 short_desc="Void User Repository helper - build/install from void-packages"
 maintainer="JavierC"
