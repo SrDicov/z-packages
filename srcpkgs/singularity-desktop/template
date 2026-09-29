@@ -1,11 +1,17 @@
 # Template file for 'singularity-desktop'
 pkgname=singularity-desktop
 version=0.1.0
-revision=3
+revision=4
 # No release tarballs (git + submodules): fetch the SrDicov fork carrying
 # the Void/runit port. Submodule changes ship as files/*.patch (post_patch)
 # until they are upstreamed repo by repo.
-_commit="5c75e563d10e9c6142519f8a976f307742c34c32"
+#
+# NOTE: pin MUST be a commit reachable from a ref this clone fetches
+# (master / void-glibc). Upstream 5c75e56 lives 35 commits past the fork
+# head and is only in singularityos-lab, so git checkout died with 128.
+# labwc-singularity is bumped independently (6fe073c); the desktop does
+# not build labwc, it depends on the package, so the pins need not match.
+_commit="d642160a3c438f1fd4a535ed7e53584c7c065236"
 _repository="https://github.com/SrDicov/singularity-desktop.git"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
