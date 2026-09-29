@@ -1627,6 +1627,7 @@
     "format_version": 1,
     "hostmakedepends": [
       "binutils",
+      "tar",
       "xz"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
