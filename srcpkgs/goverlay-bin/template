@@ -1,7 +1,7 @@
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=goverlay-bin
-version=1.9.2
-revision=2
+version=1.9.3
+revision=1
 archs="x86_64"
 depends="MangoHud qt6-base qt6-declarative gamemode nerd-fonts libqt6pas-bin python3"
 hostmakedepends="tar xz" 
@@ -10,7 +10,7 @@ maintainer="JavierC"
 license="GPL-3.0-or-later"
 homepage="https://github.com/benjamimgois/Goverlay"
 distfiles="https://github.com/benjamimgois/goverlay/releases/download/${version}/goverlay-${version}-x86_64.deb"
-checksum=b2f81ed6ced15a2ebc9950ec60bd765a104938e29fd463567761247d1c875ec3
+checksum="1e3e1034427e58e7d0443d7163ec390f65d5e02a26e61f198c86431db46093f8"
 nopie=yes
 conflicts="goverlay>=0"
 provides="goverlay-${version}_${revision}"
