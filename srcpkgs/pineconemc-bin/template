@@ -1,0 +1,52 @@
+# Z: glibc-only (binarios precompilados x86_64).
+pkgname=pineconemc-bin
+version=11.1.0
+revision=1
+archs="x86_64"
+create_wrksrc=yes
+hostmakedepends="binutils zstd"
+short_desc="Minecraft launcher with integrated Ely.by accounts support"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="GPL-3.0-only"
+homepage="https://pineconemc.ru"
+# Upstream ships a makepkg-built Arch package tarball: usr/bin holds the
+# real Qt binary, usr/share/ElyPrismLauncher the jars it loads at runtime.
+distfiles="https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst>pineconemc-${version}.zst"
+checksum=707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0
+depends="desktop-file-utils hicolor-icon-theme java-runtime libarchive
+ libGL mesa-utils pciutils qrencode qt6-base qt6-imageformats
+ qt6-networkauth qt6-svg zlib"
+conflicts="elyprismlauncher>=0 pineconemc>=0"
+provides="elyprismlauncher-${version}_${revision} pineconemc-${version}_${revision}"
+replaces="elyprismlauncher>=0 pineconemc>=0"
+nostrip=yes
+nopie=yes
+noshlibprovides=yes
+
+do_extract() {
+	mkdir -p "${wrksrc}"
+	tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/pineconemc-${version}.zst" \
+		-C "${wrksrc}" \
+		--exclude=.BUILDINFO --exclude=.MTREE --exclude=.PKGINFO
+}
+
+do_install() {
+	# Binary looks for its jars in ../share/ElyPrismLauncher relative to
+	# argv[0]; keep that layout instead of relocating to usr/lib.
+	vmkdir usr/bin
+	vcopy usr/bin/elyprismlauncher usr/bin
+	chmod 755 "${DESTDIR}/usr/bin/elyprismlauncher"
+	ln -sf elyprismlauncher "${DESTDIR}/usr/bin/pineconemc"
+
+	vcopy "usr/share/ElyPrismLauncher" usr/share
+
+	vinstall usr/share/icons/hicolor/256x256/apps/io.github.elyprismlauncher.ElyPrismLauncher.png \
+		644 usr/share/icons/hicolor/256x256/apps/pineconemc.png
+	vinstall usr/share/icons/hicolor/scalable/apps/io.github.elyprismlauncher.ElyPrismLauncher.svg \
+		644 usr/share/icons/hicolor/scalable/apps/pineconemc.svg
+	rm -f "${DESTDIR}/usr/share/icons/hicolor/256x256/apps/io.github.elyprismlauncher.ElyPrismLauncher.png"
+	rm -f "${DESTDIR}/usr/share/icons/hicolor/scalable/apps/io.github.elyprismlauncher.ElyPrismLauncher.svg"
+
+	vinstall ${FILESDIR}/pineconemc.desktop 644 usr/share/applications
+	rm -f "${DESTDIR}/usr/share/applications/io.github.elyprismlauncher.ElyPrismLauncher.desktop"
+}
