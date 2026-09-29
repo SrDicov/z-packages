@@ -1,7 +1,8 @@
 # Z: mixto (glibc+musl).
-pkgname=linux-cachy-void
+pkgname=linux-cachy-void-bin
 version=7.3
 revision=10
+replaces="linux-cachy-void>=0"
 short_desc="Cachyos kernel precompiled for Void Linux + headers"
 maintainer="JavierC"
 license="GPL-2.0-only"
