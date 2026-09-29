@@ -11,7 +11,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/SrDicov/Vary"
 distfiles="https://github.com/SrDicov/Vary/archive/refs/tags/v${version}.tar.gz"
-checksum=b718becb0b8e61ac579433762609def22737465eb947074d0d5bb407ed73640c0
+checksum=b718becb0b8e61ac579433762609def22737465eb947074d0d5bb407ed73640c
 
 # upstream releases without relocking Cargo.lock, so --locked from
 # build_style=cargo fails; build like upstream CI does and let cargo
