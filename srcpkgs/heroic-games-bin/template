@@ -1,7 +1,8 @@
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=heroic-games
+pkgname=heroic-games-bin
 version=2.22.3
 revision=1
+replaces="heroic-games>=0"
 archs="x86_64"
 build_style=fetch
 short_desc="Open Source Launcher for GOG, Epic Games and Amazon Games"
