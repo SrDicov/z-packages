@@ -4,7 +4,7 @@ version=11.1.0
 revision=1
 archs="x86_64"
 create_wrksrc=yes
-hostmakedepends="binutils zstd"
+hostmakedepends="binutils tar zstd"
 short_desc="Minecraft launcher with integrated Ely.by accounts support"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-only"
@@ -15,8 +15,10 @@ distfiles="https://github.com/ElyPrismLauncher/Launcher/releases/download/${vers
 checksum=707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0
 # mesa-utils (glxinfo) is Arch-only and unused at runtime; libGL is
 # autodetected from the ELF soname.
-depends="desktop-file-utils hicolor-icon-theme java-runtime libarchive
- pciutils qrencode qt6-base qt6-imageformats qt6-networkauth qt6-svg zlib"
+# java-runtime (Arch) does not exist in Void; openjdk17 is the runtime.
+depends="desktop-file-utils hicolor-icon-theme libarchive openjdk17
+ pciutils qrencode qt6-base qt6-imageformats qt6-networkauth qt6-svg
+ zlib"
 conflicts="elyprismlauncher>=0 pineconemc>=0"
 provides="elyprismlauncher-${version}_${revision} pineconemc-${version}_${revision}"
 replaces="elyprismlauncher>=0 pineconemc>=0"
