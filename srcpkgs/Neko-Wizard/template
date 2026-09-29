@@ -1,10 +1,10 @@
 # Z: mixto (glibc+musl).
 pkgname=Neko-Wizard
-version=9.0.21
+version=9.0.22
 revision=1
 # Unified glibc+musl tree (SrDicov fork). No releases/tags:
 # pin the merge commit like labwc-singularity does.
-_commit="f63279dd4e83b3f641c48cad70bf399e12cb456d"
+_commit="46d518068c9d16b30fff1b9af6ece89573e30287"
 _repository="https://github.com/SrDicov/Neko-Wizard.git"
 build_style=meson
 hostmakedepends="pkg-config meson ninja cmake git"
