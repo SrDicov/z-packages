@@ -1,0 +1,60 @@
+# Z: glibc-only (binarios precompilados x86_64).
+pkgname=zen-browser-bin
+version=1.22.3b
+revision=1
+archs="x86_64"
+wrksrc="zen"
+nodebug=yes
+depends="desktop-file-utils hicolor-icon-theme ca-certificates ffmpeg
+ gtk+3 libXtst libpulseaudio nss"
+short_desc="Calmer internet browser based on Firefox"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="MPL-2.0"
+homepage="https://zen-browser.app"
+distfiles="https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz>zen-linux-${version}.tar.xz"
+checksum=0aaee1b3f67f074aebf7fc6c2fe824441bcafd431e9991336479c16370519dd0
+conflicts="zen-browser>=0"
+provides="zen-browser-${version}_${revision}"
+replaces="zen-browser>=0"
+nostrip=yes
+
+do_install() {
+	vmkdir usr/lib/zen-browser
+	vcopy "*" usr/lib/zen-browser
+
+	vmkdir usr/bin
+	printf '#!/bin/sh\nexec /usr/lib/zen-browser/zen "$@"\n' \
+		> ${DESTDIR}/usr/bin/zen
+	chmod 755 ${DESTDIR}/usr/bin/zen
+	# replace duplicate binary with symlink (mozilla#658850)
+	rm -f ${DESTDIR}/usr/lib/zen-browser/zen-bin
+	ln -s /usr/bin/zen ${DESTDIR}/usr/lib/zen-browser/zen-bin
+
+	# system dictionaries + distributor identity (same as librewolf-bin)
+	mkdir -p ${DESTDIR}/usr/lib/zen-browser/browser/defaults/preferences \
+		${DESTDIR}/usr/lib/zen-browser/distribution
+	cat > ${DESTDIR}/usr/lib/zen-browser/browser/defaults/preferences/vendor.js \
+		<<-EOF
+	// Use system-provided dictionaries
+	pref("spellchecker.dictionary_path", "/usr/share/hunspell");
+	EOF
+	cat > ${DESTDIR}/usr/lib/zen-browser/distribution/distribution.ini <<-EOF
+	[Global]
+	id=app.zen_browser
+	version=1.0
+	about=Zen Browser
+
+	[Preferences]
+	app.distributor="Zen Browser"
+	app.distributor.channel=zen
+	EOF
+
+	for s in 16 32 48 64 128; do
+		vinstall browser/chrome/icons/default/default${s}.png 644 \
+			usr/share/icons/hicolor/${s}x${s}/apps zen-browser.png
+	done
+	vinstall browser/chrome/icons/default/default16.png 644 \
+		usr/share/icons/hicolor/symbolic/apps zen-browser-symbolic.png
+
+	vinstall ${FILESDIR}/zen.desktop 644 usr/share/applications
+}
