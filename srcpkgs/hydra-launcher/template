@@ -1,6 +1,6 @@
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=hydra-launcher
-version=4.1.4
+version=4.1.5
 revision=1
 archs="x86_64"
 create_wrksrc=yes
@@ -13,7 +13,7 @@ maintainer="ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>"
 license="MIT"
 homepage="https://github.com/hydralauncher/hydra"
 distfiles="https://github.com/hydralauncher/hydra/releases/download/v${version}/hydralauncher_${version}_amd64.deb"
-checksum=73dfe7d1586658a0bfe9df942bd2d2a0643d468523def6c050fdbeb9bf0c931c
+checksum=ece79330d33fcf6d7c86df31deab75aacde5befac5111c1e21cac17284508836
 
 nostrip=yes
 noshlibextract=yes
