@@ -1,6 +1,6 @@
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=mullvad-browser
-version=15.0.21
+version=15.0.23
 revision=1
 archs="x86_64"
 create_wrksrc=no
@@ -13,7 +13,7 @@ maintainer="ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>"
 license="MPL-2.0"
 homepage="https://mullvad.net/browser"
 distfiles="https://github.com/mullvad/mullvad-browser/releases/download/${version}/mullvad-browser_${version}-1_amd64.deb"
-checksum=4f9479074ea6d8da2711ec5767ccff2dbfb6d1e884fb1ab82521846f1fac1e82
+checksum=bb86d94ddf7ee65e90ff3617a350cc665e23d418ec6f4f1942946bd275f0f71c
 
 do_extract() {
     mkdir -p ${wrksrc}
