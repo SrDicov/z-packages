@@ -1,8 +1,9 @@
 # Template file for 'brave-origin'
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=brave-origin
+pkgname=brave-origin-bin
 version=1.96.59
 revision=1
+replaces="brave-origin>=0"
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="unzip"
