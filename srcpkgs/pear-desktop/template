@@ -1,0 +1,37 @@
+# Z: glibc-only (binarios precompilados x86_64).
+pkgname=pear-desktop
+version=3.12.0
+revision=1
+archs="x86_64"
+create_wrksrc=yes
+hostmakedepends="binutils xz"
+short_desc="YouTube Music Desktop App - including custom plugins"
+maintainer="datfooldive <datfooldive@gmail.com>"
+license="MIT"
+homepage="https://github.com/pear-devs/pear-desktop"
+distfiles="https://github.com/pear-devs/pear-desktop/releases/download/v${version}/youtube-music_${version}_amd64.deb"
+checksum=cbf8996f565cbe01cd3a37cc9df0e52da3dcc3b889541117b512be7e4f2afde3
+depends="gtk+3 libnotify nss libXScrnSaver libXtst xdg-utils alsa-lib
+ libgbm libuuid at-spi2-core util-linux-libs libsecret"
+nostrip=yes
+nopie=yes
+noshlibprovides=yes
+
+do_extract() {
+	ar x "${XBPS_SRCDISTDIR}/${pkgname}-${version}/youtube-music_${version}_amd64.deb"
+}
+
+do_install() {
+	# Upstream layout is /opt/YouTube Music + /usr/share; the .desktop
+	# Exec and the wrapper both point into /opt, so it is kept verbatim.
+	tar xf data.tar.xz -C "${DESTDIR}"
+
+	# Chromium zygote sandbox: upstream ships it non-setuid.
+	if [ -f "${DESTDIR}/opt/YouTube Music/chrome-sandbox" ]; then
+		chmod 4755 "${DESTDIR}/opt/YouTube Music/chrome-sandbox"
+	fi
+
+	vmkdir usr/bin
+	ln -sf "/opt/YouTube Music/youtube-music" "${DESTDIR}/usr/bin/pear-desktop"
+	ln -sf "/opt/YouTube Music/youtube-music" "${DESTDIR}/usr/bin/youtube-music"
+}
