@@ -1,10 +1,10 @@
 # Template file for 'labwc-singularity'
 pkgname=labwc-singularity
 version=0.9.5
-revision=2
+revision=3
 # Singularity labwc fork, pinned to the exact commit the desktop builds
 # (its labwc submodule). Replaces stock labwc.
-_commit="7c6273a05545f10e8b7737a8de3c9d71ff3e743e"
+_commit="6fe073cb94dde9eefa2039671671139839ea5c91"
 _repository="https://github.com/singularityos-lab/labwc.git"
 build_style=meson
 # NOTE: no --force-fallback-for=wlroots here (the Makefile uses it for
