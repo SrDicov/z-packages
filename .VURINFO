@@ -1775,7 +1775,8 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0"
+      "sha256:707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0",
+      "sha256:20aa066e2f2051eca725f3f700580813a2d357814fd53c76d916ab641afa1fa8"
     ],
     "depends": [
       "desktop-file-utils",
@@ -1791,7 +1792,8 @@
       "zlib"
     ],
     "distfiles": [
-      "https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst>pineconemc-${version}.zst"
+      "https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst>pineconemc-${version}.zst",
+      "https://archive.archlinux.org/packages/c/cmark/cmark-0.31.2-1-x86_64.pkg.tar.zst"
     ],
     "format_version": 1,
     "hostmakedepends": [
