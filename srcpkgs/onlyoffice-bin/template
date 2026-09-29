@@ -1,0 +1,42 @@
+# Z: glibc-only (binarios precompilados x86_64).
+pkgname=onlyoffice-bin
+version=9.4.0
+revision=1
+archs="x86_64"
+create_wrksrc=yes
+hostmakedepends="binutils xz"
+short_desc="Desktop office suite for text, spreadsheet and presentations"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="AGPL-3.0-only"
+homepage="https://www.onlyoffice.com"
+distfiles="https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb"
+checksum=4271434e81be42b1559fd989d24bf6d413482f278dc6a5e328202a4fc1a18649
+depends="alsa-lib at-spi2-core cairo curl dbus desktop-file-utils expat
+ fontconfig freetype glib gtk+3 gstreamer gst-plugins-base-libs
+ gst-plugins-ugly hicolor-icon-theme libcups libdrm libGL libnotify
+ libpulse libx11 libxcomposite libxdamage libxext libxfixes libxkbcommon
+ libxrandr nss xdg-utils"
+nostrip=yes
+nopie=yes
+noshlibprovides=yes
+
+do_extract() {
+	ar x "${XBPS_SRCDISTDIR}/${pkgname}-${version}/onlyoffice-desktopeditors_amd64.deb"
+}
+
+do_install() {
+	# The payload is already laid out as /opt/onlyoffice + /usr/bin
+	# wrapper + desktop entry + icons, and the wrapper hardcodes
+	# APP_PATH=/opt/onlyoffice/desktopeditors, so it is taken verbatim.
+	tar xf data.tar.xz -C "${DESTDIR}"
+
+	# Chromium sandbox: upstream ships it non-setuid, needed for the
+	# zygote process to work.
+	if [ -f "${DESTDIR}/opt/onlyoffice/desktopeditors/chrome-sandbox" ]; then
+		chmod 4755 "${DESTDIR}/opt/onlyoffice/desktopeditors/chrome-sandbox"
+	fi
+
+	# /usr/bin/desktopeditors is the upstream alias; xbps wants a real
+	# name for the "onlyoffice" generic command.
+	ln -sf onlyoffice-desktopeditors "${DESTDIR}/usr/bin/onlyoffice"
+}
