@@ -1,7 +1,8 @@
 # Z: glibc-only (requiere wine (ausente en musl)).
-pkgname=portproton
+pkgname=portproton-bin
 version=1.7.5.0
 revision=3
+replaces="portproton>=0"
 archs="x86_64"
 short_desc="PortProton - a tool for installing Windows games and software on Linux"
 maintainer="JavierC"
