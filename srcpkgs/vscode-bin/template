@@ -19,7 +19,7 @@ distfiles="https://vscode.download.prss.microsoft.com/dbazure/download/stable/04
 checksum=0c9cbcea070e9a0fc62de5c78fee01a80f8e32f78ada664d9731f6c517503b7e
 
 do_extract() {
-    tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/code-stable-x64-1788561485.tar.gz" -C "${wrksrc}" --strip-components=1
+    tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/code-stable-x64-1790309351.tar.gz" -C "${wrksrc}" --strip-components=1
 }
 
 do_install() {
