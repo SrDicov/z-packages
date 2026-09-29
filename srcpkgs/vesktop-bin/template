@@ -1,7 +1,8 @@
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=vesktop
+pkgname=vesktop-bin
 version=1.6.7
 revision=1
+replaces="vesktop>=0"
 archs="x86_64"
 short_desc="Custom Discord desktop client"
 maintainer="Wizzard <rich@bandaholics.cash>"
