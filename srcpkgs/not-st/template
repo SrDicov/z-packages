@@ -1,8 +1,8 @@
 # Template file for 'not-st'
 # Z: mixto (glibc+musl).
 pkgname=not-st
-version=0.9.3
-revision=3
+version=0.9.3.1
+revision=1
 build_style=gnu-makefile
 make_use_env=compliant
 hostmakedepends="pkg-config make"
@@ -13,7 +13,7 @@ maintainer="Derszi65g"
 license="MIT"
 homepage="https://github.com/Derszi65g/not-st"
 distfiles="https://github.com/Derszi65g/not-st/archive/refs/tags/v${version}.tar.gz"
-checksum=ea0aca856e86276e42fa7300ed2b1a96404720cc8c6ef65754bdd87e5b6ac753
+checksum=61f6787b605c1a60c7fd44a2a52e05fa3b2091208caaad6a9c30166cf000aeb4
 
 do_build() {
     make
