@@ -1611,13 +1611,12 @@
       "freetype",
       "glib",
       "gtk+3",
-      "gstreamer",
-      "gst-plugins-base-libs",
-      "gst-plugins-ugly",
+      "gstreamer1",
+      "gst-plugins-base1",
+      "gst-plugins-ugly1",
       "hicolor-icon-theme",
       "libcups",
       "libdrm",
-      "libGL",
       "libnotify",
       "libpulse",
       "libx11",
@@ -1749,8 +1748,6 @@
       "hicolor-icon-theme",
       "java-runtime",
       "libarchive",
-      "libGL",
-      "mesa-utils",
       "pciutils",
       "qrencode",
       "qt6-base",
@@ -1975,7 +1972,6 @@
       "python3-tabulate",
       "protonvpn-core",
       "protonvpn-api-core",
-      "proton-keyring-linux",
       "protonvpn-local-agent"
     ],
     "distfiles": [
@@ -2065,6 +2061,41 @@
     "revision": 1,
     "subpackages": [],
     "version": "4.18.5"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:2558807482dcd56c1fb35535698292f1198706bf9f9286c9afd0ad4c8567081c"
+    ],
+    "depends": [
+      "python3"
+    ],
+    "distfiles": [
+      "https://github.com/ProtonVPN/local-agent-rs/archive/refs/tags/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "python3-packaging-bootstrap",
+      "git",
+      "cargo"
+    ],
+    "maintainer": "Voiders <repo@voiders.dev>",
+    "makedepends": [
+      "python3-devel"
+    ],
+    "pkgname": "protonvpn-local-agent",
+    "provides": [
+      "py3:proton-vpn-local-agent-${version}_${revision}"
+    ],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.6.3"
   },
   {
     "archs": [
@@ -2270,6 +2301,7 @@
     "format_version": 1,
     "hostmakedepends": [
       "binutils",
+      "tar",
       "xz"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
@@ -2374,7 +2406,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -2462,7 +2494,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:b718becb0b8e61ac579433762609def22737465eb947074d0d5bb407ed73640c0"
+      "sha256:b718becb0b8e61ac579433762609def22737465eb947074d0d5bb407ed73640c"
     ],
     "depends": [
       "git"
@@ -2626,7 +2658,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:cf30003c0dddd09bd759b1312360fdc42508596db882b51582a0e6ad908c8c2d"
+      "sha256:ac58048238ad2c3c59cb22b0c8ea0741f7583d90baa2ec258acc04c70632c225"
     ],
     "depends": [],
     "distfiles": [
@@ -2640,7 +2672,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "2.22.10"
   },
