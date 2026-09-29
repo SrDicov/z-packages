@@ -1,6 +1,6 @@
 # Z: mixto (glibc+musl).
 pkgname=spicetify
-version=2.45.0
+version=2.45.1
 revision=1
 build_style=go
 go_import_path="github.com/spicetify/cli"
@@ -10,7 +10,7 @@ maintainer="JavierC"
 license="LGPL-2.1-only"
 homepage="https://spicetify.app/"
 distfiles="https://github.com/spicetify/cli/archive/refs/tags/v${version}.tar.gz"
-checksum=2e17c15a92093c62d011acd863f36148f8d5880292cadf41949eda320fd033c3
+checksum=b20a6aa0e2e54491fb4b39a2329a793ec745a068071c4a1644cae61a4307cfa1
 
 post_install() {
 	vmkdir usr/share/spicetify-cli
