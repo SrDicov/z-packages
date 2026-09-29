@@ -1,6 +1,6 @@
 # Z: glibc-only (binario precompilado, libc sin verificar).
 pkgname=cpak
-version=2.13.3
+version=2.13.4
 revision=1
 archs="x86_64"
 build_style=fetch
@@ -10,7 +10,7 @@ license="GPL-3.0-or-later"
 homepage="https://github.com/Containerpak/cpak"
 distfiles="https://github.com/Containerpak/cpak/releases/download/v${version}/cpak-linux-amd64>cpak-${version}
  https://github.com/Containerpak/cpak/releases/download/v${version}/cpak-storaged-linux-amd64>cpak-storaged-${version}"
-checksum="1c842ae9eeccb071d948e2bf0360453f6b39edf011b585f3d0c4a77548c84b98
+checksum="6dd2b082e408e2cd1aa37ae9dd8c9063b593346e8b27b0571ed5c97fe206df2f
  cc5ddf5fba5cbc9612b50cdb5fb9d5cfded3cd5d13297f1e8602b874f944aa40"
 
 do_install() {
