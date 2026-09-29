@@ -1,7 +1,8 @@
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=codex
+pkgname=codex-bin
 version=26.915.31945
 revision=1
+replaces="codex>=0"
 archs="x86_64"
 build_style=fetch
 hostmakedepends="binutils tar xz"
