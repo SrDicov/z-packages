@@ -1,7 +1,8 @@
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=mullvad-browser
+pkgname=mullvad-browser-bin
 version=15.0.23
 revision=1
+replaces="mullvad-browser>=0"
 archs="x86_64"
 create_wrksrc=no
 nopie=yes
