@@ -1,7 +1,8 @@
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=mullvad-vpn
+pkgname=mullvad-vpn-bin
 version=2026.5
 revision=1
+replaces="mullvad-vpn>=0"
 archs="x86_64"
 short_desc="Mullvad VPN client for Linux (unofficial Void package)"
 maintainer="JavierC <tu@email.com>"
