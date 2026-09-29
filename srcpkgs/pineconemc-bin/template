@@ -13,9 +13,10 @@ homepage="https://pineconemc.ru"
 # real Qt binary, usr/share/ElyPrismLauncher the jars it loads at runtime.
 distfiles="https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst>pineconemc-${version}.zst"
 checksum=707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0
+# mesa-utils (glxinfo) is Arch-only and unused at runtime; libGL is
+# autodetected from the ELF soname.
 depends="desktop-file-utils hicolor-icon-theme java-runtime libarchive
- libGL mesa-utils pciutils qrencode qt6-base qt6-imageformats
- qt6-networkauth qt6-svg zlib"
+ pciutils qrencode qt6-base qt6-imageformats qt6-networkauth qt6-svg zlib"
 conflicts="elyprismlauncher>=0 pineconemc>=0"
 provides="elyprismlauncher-${version}_${revision} pineconemc-${version}_${revision}"
 replaces="elyprismlauncher>=0 pineconemc>=0"
