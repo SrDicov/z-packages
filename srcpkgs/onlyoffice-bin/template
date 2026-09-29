@@ -11,14 +11,13 @@ license="AGPL-3.0-only"
 homepage="https://www.onlyoffice.com"
 distfiles="https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb"
 checksum=4271434e81be42b1559fd989d24bf6d413482f278dc6a5e328202a4fc1a18649
-# Arch dep names mapped to Void: gstreamer->gstreamer1,
-# gst-plugins-base-libs->gst-plugins-base1, gst-plugins-ugly->gst-plugins-ugly1.
-# libGL is autodetected from the ELF soname, so it is not listed.
-depends="alsa-lib at-spi2-core cairo curl dbus desktop-file-utils expat
- fontconfig freetype glib gtk+3 gstreamer1 gst-plugins-base1
- gst-plugins-ugly1 hicolor-icon-theme libcups libdrm libnotify libpulse
- libx11 libxcomposite libxdamage libxext libxfixes libxkbcommon libxrandr
- nss xdg-utils"
+# Derived from the .deb Depends, mapped to Void names. Everything the ELF
+# sonames resolve to (Qt5, X11, glib, cups, icu...) is autodetected by
+# xbps-src, so it is intentionally NOT listed here.
+depends="alsa-lib at-spi2-core cairo curl desktop-file-utils expat
+ fontconfig freetype glib gtk+3 gst-libav gst-plugins-base1
+ gst-plugins-ugly1 hicolor-icon-theme libcups libXScrnSaver libnotify
+ libxkbcommon liberation-fonts-ttf xdg-utils"
 nostrip=yes
 nopie=yes
 noshlibprovides=yes
@@ -28,18 +27,17 @@ do_extract() {
 }
 
 do_install() {
-	# The payload is already laid out as /opt/onlyoffice + /usr/bin
+	# The payload is already laid out as /opt/onlyoffice + a /usr/bin
 	# wrapper + desktop entry + icons, and the wrapper hardcodes
 	# APP_PATH=/opt/onlyoffice/desktopeditors, so it is taken verbatim.
 	tar xf data.tar.xz -C "${DESTDIR}"
 
-	# Chromium sandbox: upstream ships it non-setuid, needed for the
-	# zygote process to work.
+	# Chromium zygote sandbox: upstream ships it non-setuid, which
+	# breaks the zygote process.
 	if [ -f "${DESTDIR}/opt/onlyoffice/desktopeditors/chrome-sandbox" ]; then
 		chmod 4755 "${DESTDIR}/opt/onlyoffice/desktopeditors/chrome-sandbox"
 	fi
 
-	# /usr/bin/desktopeditors is the upstream alias; xbps wants a real
-	# name for the "onlyoffice" generic command.
+	# Upstream ships desktopeditors as an alias; expose the generic name.
 	ln -sf onlyoffice-desktopeditors "${DESTDIR}/usr/bin/onlyoffice"
 }
