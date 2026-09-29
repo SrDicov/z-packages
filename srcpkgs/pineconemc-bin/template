@@ -24,6 +24,9 @@ provides="elyprismlauncher-${version}_${revision} pineconemc-${version}_${revisi
 replaces="elyprismlauncher>=0 pineconemc>=0"
 nostrip=yes
 nopie=yes
+# No .so anywhere in the payload (single static-ish Qt binary), so
+# xbps cannot guess shlibs; depends are declared explicitly instead.
+nodebug=yes
 noshlibprovides=yes
 
 do_extract() {
