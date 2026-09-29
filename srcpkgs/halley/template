@@ -1,6 +1,6 @@
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=halley
-version=0.5.6
+version=0.5.7
 revision=1
 archs="x86_64"
 depends="xwayland-satellite dbus seatd"
@@ -9,7 +9,7 @@ maintainer="mikuri12 <https://github.com/mikuri12>"
 license="GPL-3.0-only"
 homepage="https://github.com/mikuri12/halley"
 distfiles="https://github.com/mikuri12/halley/releases/download/v${version}/halley-binaries-v${version}-x86_64.tar.gz"
-checksum="95d7293acc2fb068ecbcd4b961c9ab385ee3667d99a8867b3577369cdaea6cf0"
+checksum=9953e18283040309b86af7b64c5f84586aa684d9dc9aa965021ff891c283ae9c
 wrksrc="halley-binaries"
 
 do_build() {
