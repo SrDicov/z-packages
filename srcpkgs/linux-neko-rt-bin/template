@@ -1,7 +1,8 @@
 # Z: mixto (glibc+musl).
-pkgname=linux-neko-rt
+pkgname=linux-neko-rt-bin
 version=7.3.0
 revision=4
+replaces="linux-neko-rt>=0"
 short_desc="Custom RT kernel precompiled for Void Linux + HEADERS"
 maintainer="JavierC"
 license="GPL-2.0-only"
