@@ -1604,29 +1604,21 @@
       "at-spi2-core",
       "cairo",
       "curl",
-      "dbus",
       "desktop-file-utils",
       "expat",
       "fontconfig",
       "freetype",
       "glib",
       "gtk+3",
-      "gstreamer1",
+      "gst-libav",
       "gst-plugins-base1",
       "gst-plugins-ugly1",
       "hicolor-icon-theme",
       "libcups",
-      "libdrm",
+      "libXScrnSaver",
       "libnotify",
-      "libpulse",
-      "libx11",
-      "libxcomposite",
-      "libxdamage",
-      "libxext",
-      "libxfixes",
       "libxkbcommon",
-      "libxrandr",
-      "nss",
+      "liberation-fonts-ttf",
       "xdg-utils"
     ],
     "distfiles": [
@@ -1787,8 +1779,8 @@
     "depends": [
       "desktop-file-utils",
       "hicolor-icon-theme",
-      "java-runtime",
       "libarchive",
+      "openjdk17",
       "pciutils",
       "qrencode",
       "qt6-base",
@@ -1803,6 +1795,7 @@
     "format_version": 1,
     "hostmakedepends": [
       "binutils",
+      "tar",
       "zstd"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
@@ -2090,7 +2083,9 @@
       "https://github.com/ProtonVPN/proton-vpn-gtk-app/archive/refs/tags/v${version}.tar.gz"
     ],
     "format_version": 1,
-    "hostmakedepends": [],
+    "hostmakedepends": [
+      "gettext"
+    ],
     "maintainer": "Voiders <repo@voiders.dev>",
     "makedepends": [
       "python3-setuptools"
