@@ -1,8 +1,10 @@
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=vscode-bin
 version=1.136.2
-revision=2
+revision=3
 archs="x86_64"
+conflicts="vscode>=0"
+provides="vscode-${version}_${revision}"
 create_wrksrc=yes
 nostrip=yes
 nopie=yes
