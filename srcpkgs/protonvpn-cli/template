@@ -5,7 +5,11 @@ revision=1
 archs="x86_64*"
 build_style=python3-module
 makedepends="python3-setuptools"
-depends="python3-click python3-dbus-fast python3-tabulate protonvpn-core protonvpn-api-core proton-keyring-linux protonvpn-local-agent"
+# NOTE: upstream setup.py also lists proton-keyring-linux, but that PyPI
+# module is not packaged for Void and nothing in cli 1.0.5 imports it
+# (only comments mention a keyring). Dropped rather than shipping a
+# stub package.
+depends="python3-click python3-dbus-fast python3-tabulate protonvpn-core protonvpn-api-core protonvpn-local-agent"
 short_desc="ProtonVPN CLI"
 maintainer="Voiders <repo@voiders.dev>"
 license="GPL-3.0-or-later"
