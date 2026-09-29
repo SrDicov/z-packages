@@ -1,7 +1,8 @@
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=hydra-launcher
+pkgname=hydra-launcher-bin
 version=4.1.5
 revision=1
+replaces="hydra-launcher>=0"
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="bsdtar"
