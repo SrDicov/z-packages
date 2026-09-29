@@ -1741,6 +1741,47 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
+      "sha256:cbf8996f565cbe01cd3a37cc9df0e52da3dcc3b889541117b512be7e4f2afde3"
+    ],
+    "depends": [
+      "gtk+3",
+      "libnotify",
+      "nss",
+      "libXScrnSaver",
+      "libXtst",
+      "xdg-utils",
+      "alsa-lib",
+      "libgbm",
+      "libuuid",
+      "at-spi2-core",
+      "util-linux-libs",
+      "libsecret"
+    ],
+    "distfiles": [
+      "https://github.com/pear-devs/pear-desktop/releases/download/v${version}/youtube-music_${version}_amd64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "xz"
+    ],
+    "maintainer": "datfooldive <datfooldive@gmail.com>",
+    "makedepends": [],
+    "pkgname": "pear-desktop",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "3.12.0"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
       "sha256:707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0"
     ],
     "depends": [
