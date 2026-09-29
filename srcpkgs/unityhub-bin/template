@@ -1,7 +1,8 @@
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=unityhub
+pkgname=unityhub-bin
 version=3.21.2
 revision=1
+replaces="unityhub>=0"
 archs="x86_64"
 hostmakedepends="tar zstd xz"
 depends="gtk+3 libnotify nss xdg-utils at-spi2-core libdrm mesa libxcb ca-certificates gnupg libXScrnSaver libXtst libuuid libsecret tar zip unzip alsa-lib desktop-file-utils glib"
