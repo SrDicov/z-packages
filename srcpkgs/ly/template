@@ -6,7 +6,7 @@ revision=16
 # objects cannot relocate into a PIE (909 relocation errors); non-PIE
 # links fine. glibc unaffected (still builds PIE, check just skipped).
 nopie=yes
-hostmakedepends="pkg-config zig-nk"
+hostmakedepends="pkg-config zig-nk-bin"
 makedepends="libxcb-devel pam-devel"
 depends="brightnessctl xauth"
 short_desc="Lightweight TUI display manager"
