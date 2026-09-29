@@ -581,7 +581,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:2a639df54e3d05f413cfbb4622a4d1a68584b31da5a7aaf58ee3cd83c7c3e299"
+      "sha256:9f4d35239eea18b290846221874265ac2a8637adff954df69fdef77d6b15042c"
     ],
     "depends": [],
     "distfiles": [
@@ -597,7 +597,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.17.2.1"
+    "version": "0.18.1.1"
   },
   {
     "archs": [
@@ -645,7 +645,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:73dfe7d1586658a0bfe9df942bd2d2a0643d468523def6c050fdbeb9bf0c931c"
+      "sha256:ece79330d33fcf6d7c86df31deab75aacde5befac5111c1e21cac17284508836"
     ],
     "depends": [
       "gtk+3",
@@ -684,7 +684,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "4.1.4"
+    "version": "4.1.5"
   },
   {
     "archs": [
@@ -1176,7 +1176,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:4f9479074ea6d8da2711ec5767ccff2dbfb6d1e884fb1ab82521846f1fac1e82"
+      "sha256:bb86d94ddf7ee65e90ff3617a350cc665e23d418ec6f4f1942946bd275f0f71c"
     ],
     "depends": [
       "gtk+3",
@@ -1203,7 +1203,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "15.0.21"
+    "version": "15.0.23"
   },
   {
     "archs": [
@@ -1212,7 +1212,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:f1d758079e1dc90fff0c8d48256599b717e1de9879682c861a6776851c59453b"
+      "sha256:aa6bd00452588597f50e8ca2f02bb91e9c295c4f01b0ae907354552e7428e7ab"
     ],
     "depends": [
       "wireguard-tools"
@@ -1236,7 +1236,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2026.4"
+    "version": "2026.5"
   },
   {
     "archs": [
@@ -1597,6 +1597,64 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
+      "sha256:4271434e81be42b1559fd989d24bf6d413482f278dc6a5e328202a4fc1a18649"
+    ],
+    "depends": [
+      "alsa-lib",
+      "at-spi2-core",
+      "cairo",
+      "curl",
+      "dbus",
+      "desktop-file-utils",
+      "expat",
+      "fontconfig",
+      "freetype",
+      "glib",
+      "gtk+3",
+      "gstreamer",
+      "gst-plugins-base-libs",
+      "gst-plugins-ugly",
+      "hicolor-icon-theme",
+      "libcups",
+      "libdrm",
+      "libGL",
+      "libnotify",
+      "libpulse",
+      "libx11",
+      "libxcomposite",
+      "libxdamage",
+      "libxext",
+      "libxfixes",
+      "libxkbcommon",
+      "libxrandr",
+      "nss",
+      "xdg-utils"
+    ],
+    "distfiles": [
+      "https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "xz"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "onlyoffice-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "9.4.0"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
       "sha256:e546123213ae47909a4268692aa4b94950d011afe9cac9938753a2194f1c16d5"
     ],
     "depends": [
@@ -1676,6 +1734,54 @@
     "revision": 3,
     "subpackages": [],
     "version": "r1.676d599"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0"
+    ],
+    "depends": [
+      "desktop-file-utils",
+      "hicolor-icon-theme",
+      "java-runtime",
+      "libarchive",
+      "libGL",
+      "mesa-utils",
+      "pciutils",
+      "qrencode",
+      "qt6-base",
+      "qt6-imageformats",
+      "qt6-networkauth",
+      "qt6-svg",
+      "zlib"
+    ],
+    "distfiles": [
+      "https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst>pineconemc-${version}.zst"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "zstd"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "pineconemc-bin",
+    "provides": [
+      "elyprismlauncher-${version}_${revision}",
+      "pineconemc-${version}_${revision}"
+    ],
+    "replaces": [
+      "elyprismlauncher>=0",
+      "pineconemc>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "11.1.0"
   },
   {
     "archs": [
@@ -2124,6 +2230,60 @@
   },
   {
     "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:d5654868a0f4f31a30b251b54fffc32ca9ac578d99815e87c00903d4b9f788b9"
+    ],
+    "depends": [
+      "alsa-lib",
+      "at-spi2-core",
+      "cairo",
+      "dbus",
+      "desktop-file-utils",
+      "fontconfig",
+      "freetype",
+      "gdk-pixbuf",
+      "glib",
+      "gtk+3",
+      "libX11",
+      "libXcomposite",
+      "libXcursor",
+      "libXext",
+      "libXfixes",
+      "libXi",
+      "libXinerama",
+      "libXrandr",
+      "libXrender",
+      "libXScrnSaver",
+      "libXt",
+      "libXtst",
+      "pango",
+      "pulseaudio",
+      "xdg-utils"
+    ],
+    "distfiles": [
+      "https://www.reaper.fm/files/7.x/reaper781_linux_x86_64.tar.xz>reaper-${version}-linux-x86_64.tar.xz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "xz"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "reaper-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "7.81"
+  },
+  {
+    "archs": [
       "all"
     ],
     "build_style": "meson",
@@ -2402,7 +2562,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:2bab551c3677d33010e317a7845e61d2f0fa0c80f8518399c42e0f941f64f18f"
+      "sha256:0c9cbcea070e9a0fc62de5c78fee01a80f8e32f78ada664d9731f6c517503b7e"
     ],
     "depends": [
       "libXtst",
@@ -2416,7 +2576,7 @@
       "desktop-file-utils"
     ],
     "distfiles": [
-      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/88e44fa0e00b08f7758b4f6d05632e4fd5e4df6f/code-stable-x64-1788561485.tar.gz"
+      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/04c0d99f4fb0d8afe6ce4f0c58e31e183ac3e4b1/code-stable-x64-1790309351.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -2430,9 +2590,9 @@
     ],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.136.2"
+    "version": "1.139.1"
   },
   {
     "archs": [
@@ -2441,7 +2601,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:d8f77d34394764358b4ac365473389b46b80aef59156bf9e0f72b9f61cacd22f"
+      "sha256:2ab63d678d200a13dbcbd56df9d70b4e182c508dcb013f1d39304d63908dd482"
     ],
     "depends": [],
     "distfiles": [
@@ -2457,7 +2617,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "6.7.3"
+    "version": "6.7.4"
   },
   {
     "archs": [
@@ -2560,6 +2720,44 @@
     "revision": 1,
     "subpackages": [],
     "version": "1.0.4"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:0aaee1b3f67f074aebf7fc6c2fe824441bcafd431e9991336479c16370519dd0"
+    ],
+    "depends": [
+      "desktop-file-utils",
+      "hicolor-icon-theme",
+      "ca-certificates",
+      "ffmpeg",
+      "gtk+3",
+      "libXtst",
+      "libpulseaudio",
+      "nss"
+    ],
+    "distfiles": [
+      "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz>zen-linux-${version}.tar.xz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "zen-browser-bin",
+    "provides": [
+      "zen-browser-${version}_${revision}"
+    ],
+    "replaces": [
+      "zen-browser>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.22.3b"
   },
   {
     "archs": [
