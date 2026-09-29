@@ -1,10 +1,11 @@
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=pear-desktop
+pkgname=pear-desktop-bin
 version=3.12.0
 revision=1
+replaces="pear-desktop>=0"
 archs="x86_64"
 create_wrksrc=yes
-hostmakedepends="binutils xz"
+hostmakedepends="binutils tar xz"
 short_desc="YouTube Music Desktop App - including custom plugins"
 maintainer="datfooldive <datfooldive@gmail.com>"
 license="MIT"
