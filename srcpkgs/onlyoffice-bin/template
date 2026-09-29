@@ -11,11 +11,14 @@ license="AGPL-3.0-only"
 homepage="https://www.onlyoffice.com"
 distfiles="https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb"
 checksum=4271434e81be42b1559fd989d24bf6d413482f278dc6a5e328202a4fc1a18649
+# Arch dep names mapped to Void: gstreamer->gstreamer1,
+# gst-plugins-base-libs->gst-plugins-base1, gst-plugins-ugly->gst-plugins-ugly1.
+# libGL is autodetected from the ELF soname, so it is not listed.
 depends="alsa-lib at-spi2-core cairo curl dbus desktop-file-utils expat
- fontconfig freetype glib gtk+3 gstreamer gst-plugins-base-libs
- gst-plugins-ugly hicolor-icon-theme libcups libdrm libGL libnotify
- libpulse libx11 libxcomposite libxdamage libxext libxfixes libxkbcommon
- libxrandr nss xdg-utils"
+ fontconfig freetype glib gtk+3 gstreamer1 gst-plugins-base1
+ gst-plugins-ugly1 hicolor-icon-theme libcups libdrm libnotify libpulse
+ libx11 libxcomposite libxdamage libxext libxfixes libxkbcommon libxrandr
+ nss xdg-utils"
 nostrip=yes
 nopie=yes
 noshlibprovides=yes
