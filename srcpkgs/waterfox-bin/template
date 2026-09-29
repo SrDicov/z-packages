@@ -1,7 +1,8 @@
 # Z: glibc-only (binarios precompilados x86_64).
-pkgname=waterfox
+pkgname=waterfox-bin
 version=6.7.4
 revision=1
+replaces="waterfox>=0"
 archs="x86_64"
 short_desc="Fast and Private Web Browser"
 maintainer="Seremegu <Sere@sere.nekoweb.org>"
