@@ -1,6 +1,6 @@
 # Z: mixto (glibc+musl).
 pkgname=Neko-Wizard
-version=9.0.16
+version=9.0.17
 revision=1
 # Unified glibc+musl tree (SrDicov fork, PR #1 merged). No releases/tags:
 # pin the merge commit like labwc-singularity does.
