@@ -311,7 +311,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:d27a9c02919cfe484dcc5f34584b9ea9fd0d7a65c69dcc872b5bdcfa0efb5983"
+      "sha256:4586dc1a6c8698982ca859f86aaa16835f33832a09e24042dfa75571aa60d8d1"
     ],
     "depends": [
       "${sourcepkg}>=${version}_${revision}"
@@ -333,9 +333,9 @@
       "chatgpt>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
-    "version": "26.915.31945"
+    "version": "26.928.20755"
   },
   {
     "archs": [
@@ -2512,7 +2512,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:d3ee77a9fb40cdb5e2233b5db71471fa57dc433f7d3cb663a00396c7c6529413"
+      "sha256:36e9c34c3b759cfd4d624889af3bfa3d6cddefd11183097e35036a26890b702f"
     ],
     "depends": [
       "gtk+3",
@@ -2537,7 +2537,7 @@
       "glib"
     ],
     "distfiles": [
-      "https://github.com/Neko-Void-Linux/Neko-Wizard/releases/download/debs/UnityHubSetup-amd64.deb>unityhub-${version}.deb"
+      "https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup-amd64.deb>unityhub-${version}.deb"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -2553,9 +2553,9 @@
       "unityhub>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
-    "version": "3.21.2"
+    "version": "3.22.0"
   },
   {
     "archs": [
