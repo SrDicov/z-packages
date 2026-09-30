@@ -162,9 +162,11 @@
       "fontconfig-devel",
       "alsa-lib-devel"
     ],
-    "pkgname": "aseprite-bin",
+    "pkgname": "aseprite",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "aseprite-bin>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -256,9 +258,11 @@
     ],
     "maintainer": "datfooldive <datfooldive@gmail.com>",
     "makedepends": [],
-    "pkgname": "brave-origin",
+    "pkgname": "brave-origin-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "brave-origin>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -323,7 +327,7 @@
     ],
     "maintainer": "CrowRei <Ortal.christopher@outlook.com>",
     "makedepends": [],
-    "pkgname": "codex",
+    "pkgname": "codex-bin",
     "provides": [],
     "replaces": [
       "chatgpt>=0"
@@ -393,9 +397,11 @@
     "hostmakedepends": [],
     "maintainer": "JavierC",
     "makedepends": [],
-    "pkgname": "cpak",
+    "pkgname": "cpak-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "cpak>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -419,7 +425,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "zig-nk",
+      "zig-nk-bin",
       "git"
     ],
     "maintainer": "JavierC",
@@ -566,9 +572,11 @@
     "hostmakedepends": [],
     "maintainer": "mikuri12 <https://github.com/mikuri12>",
     "makedepends": [],
-    "pkgname": "halley",
+    "pkgname": "halley-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "halley>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -630,9 +638,11 @@
     ],
     "maintainer": "Javiercplus",
     "makedepends": [],
-    "pkgname": "heroic-games",
+    "pkgname": "heroic-games-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "heroic-games>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -678,9 +688,11 @@
     ],
     "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
     "makedepends": [],
-    "pkgname": "hydra-launcher",
+    "pkgname": "hydra-launcher-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "hydra-launcher>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -982,9 +994,11 @@
     "hostmakedepends": [],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [],
-    "pkgname": "librewolf",
+    "pkgname": "librewolf-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "librewolf>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -1077,9 +1091,11 @@
     "hostmakedepends": [],
     "maintainer": "JavierC",
     "makedepends": [],
-    "pkgname": "linux-cachy-void",
+    "pkgname": "linux-cachy-void-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "linux-cachy-void>=0"
+    ],
     "restricted": false,
     "revision": 10,
     "subpackages": [],
@@ -1102,9 +1118,11 @@
     "hostmakedepends": [],
     "maintainer": "JavierC",
     "makedepends": [],
-    "pkgname": "linux-neko-rt",
+    "pkgname": "linux-neko-rt-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "linux-neko-rt>=0"
+    ],
     "restricted": false,
     "revision": 4,
     "subpackages": [],
@@ -1127,9 +1145,11 @@
     "hostmakedepends": [],
     "maintainer": "JavierC",
     "makedepends": [],
-    "pkgname": "linux-neko-zen",
+    "pkgname": "linux-neko-zen-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "linux-neko-zen>=0"
+    ],
     "restricted": false,
     "revision": 7,
     "subpackages": [],
@@ -1154,7 +1174,7 @@
     "format_version": 1,
     "hostmakedepends": [
       "pkg-config",
-      "zig-nk"
+      "zig-nk-bin"
     ],
     "maintainer": "Haris <plavpxl@proton.me>",
     "makedepends": [
@@ -1197,9 +1217,11 @@
     ],
     "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
     "makedepends": [],
-    "pkgname": "mullvad-browser",
+    "pkgname": "mullvad-browser-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "mullvad-browser>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -1230,9 +1252,11 @@
     ],
     "maintainer": "JavierC <tu@email.com>",
     "makedepends": [],
-    "pkgname": "mullvad-vpn",
+    "pkgname": "mullvad-vpn-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "mullvad-vpn>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -1756,13 +1780,16 @@
     "format_version": 1,
     "hostmakedepends": [
       "binutils",
+      "tar",
       "xz"
     ],
     "maintainer": "datfooldive <datfooldive@gmail.com>",
     "makedepends": [],
-    "pkgname": "pear-desktop",
+    "pkgname": "pear-desktop-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "pear-desktop>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -1904,9 +1931,11 @@
     ],
     "maintainer": "JavierC",
     "makedepends": [],
-    "pkgname": "portproton",
+    "pkgname": "portproton-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "portproton>=0"
+    ],
     "restricted": false,
     "revision": 3,
     "subpackages": [],
@@ -2518,9 +2547,11 @@
     ],
     "maintainer": "Javierc <javiercyt@atomicmail.io>",
     "makedepends": [],
-    "pkgname": "unityhub",
+    "pkgname": "unityhub-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "unityhub>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -2586,9 +2617,11 @@
     ],
     "maintainer": "Wizzard <rich@bandaholics.cash>",
     "makedepends": [],
-    "pkgname": "vesktop",
+    "pkgname": "vesktop-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "vesktop>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -2618,9 +2651,11 @@
     "hostmakedepends": [],
     "maintainer": "JavierC",
     "makedepends": [],
-    "pkgname": "vouru",
+    "pkgname": "vouru-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "vouru>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -2682,9 +2717,11 @@
     "hostmakedepends": [],
     "maintainer": "Seremegu <Sere@sere.nekoweb.org>",
     "makedepends": [],
-    "pkgname": "waterfox",
+    "pkgname": "waterfox-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "waterfox>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -2707,9 +2744,11 @@
     "hostmakedepends": [],
     "maintainer": "Javiercplus",
     "makedepends": [],
-    "pkgname": "windscribe-desktop",
+    "pkgname": "windscribe-desktop-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "windscribe-desktop>=0"
+    ],
     "restricted": false,
     "revision": 3,
     "subpackages": [],
@@ -2883,9 +2922,11 @@
     "hostmakedepends": [],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
-    "pkgname": "zig-nk",
+    "pkgname": "zig-nk-bin",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "zig-nk>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
