@@ -1,7 +1,7 @@
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=unityhub-bin
-version=3.21.2
-revision=1
+version=3.22.0
+revision=2
 replaces="unityhub>=0"
 archs="x86_64"
 hostmakedepends="tar zstd xz"
@@ -10,8 +10,11 @@ short_desc="The Official Unity Hub"
 maintainer="Javierc <javiercyt@atomicmail.io>"
 license="custom:Unity Terms of Service"
 homepage="https://unity.com/hub"
-distfiles="https://github.com/Neko-Void-Linux/Neko-Wizard/releases/download/debs/UnityHubSetup-amd64.deb>unityhub-${version}.deb"
-checksum=d3ee77a9fb40cdb5e2233b5db71471fa57dc433f7d3cb663a00396c7c6529413
+# Official Unity CDN. The version is the one advertised by the
+# electron-builder feed public-cdn.cloud.unity3d.com/hub/prod/latest-linux.yml
+# (this deb is the unversioned prod file, so the version comes from the feed).
+distfiles="https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup-amd64.deb>unityhub-${version}.deb"
+checksum=36e9c34c3b759cfd4d624889af3bfa3d6cddefd11183097e35036a26890b702f
 nostrip=yes
 
 do_extract() {
