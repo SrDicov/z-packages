@@ -2509,6 +2509,34 @@
     "archs": [
       "x86_64"
     ],
+    "build_style": "fetch",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:bc046ee2b02e6a17e9a1752a102aedb8d781426829cb3f9b83691a11ed45f4c1"
+    ],
+    "depends": [
+      "hicolor-icon-theme",
+      "util-linux"
+    ],
+    "distfiles": [
+      "https://github.com/Trinity-LA/Trinity-Launcher/releases/download/latest/Trinity_Launcher-x86_64.AppImage"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "trinity-launcher-ap",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "20261002"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
     "build_style": null,
     "checkdepends": [],
     "checksum": [
