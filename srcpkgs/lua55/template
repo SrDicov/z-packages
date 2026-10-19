@@ -16,15 +16,17 @@ do_build() {
 		-e '/^LUA_(SO|A|T)=/ s;lua;lua5.5;' \
 		-e '/^LUAC_T=/ s;luac;luac5.5;'
 	make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" \
-		CC="$CC" RANLIB="$RANLIB" \
-		INSTALL_DATA="cp -d" LUA_SO=liblua5.5.so ${makejobs} linux
+		CC="$CC" RANLIB="$RANLIB" ${makejobs} linux
+	${CC} -shared -Wl,-soname,liblua5.5.so.5.5 \
+		-o liblua5.5.so.5.5.1 liblua5.5.a
+	ln -sf liblua5.5.so.5.5.1 liblua5.5.so.5.5
+	ln -sf liblua5.5.so.5.5 liblua5.5.so
 }
 
 do_install() {
-	local so=liblua5.5.so
 	make INSTALL_DATA="cp -d" INSTALL_TOP="${DESTDIR}/usr" \
 		TO_BIN="lua5.5 luac5.5" \
-		TO_LIB="liblua5.5.a ${so} ${so}.${version%.*} ${so}.${version}" \
+		TO_LIB="liblua5.5.a liblua5.5.so liblua5.5.so.5.5 liblua5.5.so.5.5.1" \
 		INSTALL_INC="${DESTDIR}/usr/include/lua5.5" \
 		INSTALL_MAN="${DESTDIR}/usr/share/man/man1" install
 

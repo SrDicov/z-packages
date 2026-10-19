@@ -18,6 +18,6 @@ do_install() {
 	vmkdir usr/lib/waifu2x-ncnn-vulkan
 	vcopy "waifu2x-ncnn-vulkan-${version}-linux/*" \
 		usr/lib/waifu2x-ncnn-vulkan
-	vbin usr/lib/waifu2x-ncnn-vulkan/waifu2x-ncnn-vulkan
-	vlicense usr/lib/waifu2x-ncnn-vulkan/LICENSE
+	vbin "waifu2x-ncnn-vulkan-${version}-linux/waifu2x-ncnn-vulkan"
+	vlicense "waifu2x-ncnn-vulkan-${version}-linux/LICENSE"
 }

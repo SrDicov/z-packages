@@ -19,10 +19,8 @@ checksum="683683ef66de6616e415efa7f7893873d7f8d5bfe4b2b05ce3cf3e467d4733d5
 do_install() {
 	local src="${XBPS_SRCDISTDIR}/${pkgname}-${version}"
 	vmkdir usr/lib/voxtype
-	gzip -dc "${src}/voxtype.gz" > ${DESTDIR}/usr/lib/voxtype/voxtype
-	gzip -dc "${src}/voxtype-osd.gz" > ${DESTDIR}/usr/lib/voxtype/voxtype-osd
-	chmod 755 ${DESTDIR}/usr/lib/voxtype/voxtype \
-		${DESTDIR}/usr/lib/voxtype/voxtype-osd
-	vbin usr/lib/voxtype/voxtype
-	vbin usr/lib/voxtype/voxtype-osd
+	vinstall "${src}/voxtype.gz" 755 usr/lib/voxtype voxtype
+	vinstall "${src}/voxtype-osd.gz" 755 usr/lib/voxtype voxtype-osd
+	vbin voxtype
+	vbin voxtype-osd
 }
