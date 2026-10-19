@@ -900,7 +900,7 @@
       "gdk-pixbuf-devel",
       "libdrm-devel",
       "libjpeg-turbo-devel",
-      "libmagic-devel",
+      "file-devel",
       "librsvg-devel",
       "libwebp-devel",
       "pango-devel",
@@ -974,6 +974,7 @@
     "makedepends": [
       "aquamarine-devel",
       "gdk-pixbuf-devel",
+      "glib-devel",
       "hyprcursor-devel",
       "hyprgraphics-devel",
       "hyprlang-devel",
@@ -2880,7 +2881,9 @@
       "pkg-config"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
-    "makedepends": [],
+    "makedepends": [
+      "abseil-cpp-devel"
+    ],
     "pkgname": "re2",
     "provides": [],
     "replaces": [],
@@ -3291,8 +3294,8 @@
       "wireplumber"
     ],
     "distfiles": [
-      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-onnx-avx2>voxtype",
-      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-quickshell>voxtype-osd"
+      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-onnx-avx2>voxtype.gz",
+      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-quickshell>voxtype-osd.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
