@@ -974,7 +974,10 @@
       "ninja",
       "glslang-devel",
       "hyprwayland-scanner",
+      "hyprwire",
+      "hyprwire-devel",
       "python3",
+      "readline-devel",
       "SPIRV-Tools-devel",
       "ca-certificates",
       "git"
@@ -1107,6 +1110,37 @@
     "revision": 3,
     "subpackages": [],
     "version": "0.14.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:92a673d40ae6a7d66fbcd0a34ec071e026e17eaeeb0040c3375e4b2a80dba737"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://codeload.github.com/hyprwm/hyprwire/tar.gz/v${version}"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "hyprutils-devel",
+      "libffi-devel",
+      "pugixml-devel"
+    ],
+    "pkgname": "hyprwire",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.3.1"
   },
   {
     "archs": [
