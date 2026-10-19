@@ -1556,7 +1556,7 @@ libdfs-server-ad-private-samba.so samba-libs-4.20.1_1
 libdhash.so.1 ding-libs-0.5.0_1
 libdiscid.so.0 libdiscid-0.2.2_1
 libdispatch.so libdispatch-5.10.1_1
-libdisplay-info.so.2 libdisplay-info-0.2.0_1
+libdisplay-info.so.3 libdisplay-info-0.3.0_1
 libdjvulibre.so.21 libdjvulibre-3.5.24_1
 libdkimverifyconfigure.so.6 kdepim-addons-24.02.0_1
 libdl.so.2 glibc-2.41_1
@@ -2338,7 +2338,7 @@ libhyphen.so.0 hyphen-2.8.8_1
 libhyprcursor.so.0 hyprcursor-0.1.13_1
 libhyprgraphics.so.4 hyprgraphics-0.5.1_1
 libhyprlang.so.2 hyprlang-0.6.8_1
-libhyprutils.so.13 hyprutils-0.14.2_2
+libhyprutils.so.13 hyprutils-0.14.2_3
 libi2c.so.0 i2c-tools-4.0_1
 libi3ipc-glib-1.0.so.0 i3ipc-glib-0.6.0_1
 libibmad.so.5 rdma-core-22.1_1
