@@ -15,6 +15,12 @@ makedepends="
  libxkbcommon-devel librsvg-devel lua55-devel MesaLib-devel muparser-devel
  pango-devel pixman-devel re2-devel udis86-devel wayland-devel
  wayland-protocols xcb-util-errors-devel xcb-util-wm-devel"
+do_patch() {
+	# std::string + std::string_view is C++26, Void ships libstdc++ 14
+	sed -i 's|+ "/" + filename;|+ "/" + std::string(filename);|' \
+		hyprctl/src/main.cpp
+}
+
 short_desc="Dynamic tiling Wayland compositor with animated visuals"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
