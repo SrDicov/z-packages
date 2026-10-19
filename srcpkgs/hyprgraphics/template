@@ -1,0 +1,31 @@
+# Template file for 'hyprgraphics'
+pkgname=hyprgraphics
+version=0.5.1
+revision=1
+build_style=cmake
+hostmakedepends="pkg-config"
+makedepends="
+ hyprutils-devel cairo-devel gdk-pixbuf-devel libdrm-devel
+ libjpeg-turbo-devel libmagic-devel librsvg-devel libwebp-devel
+ pango-devel pixman-devel"
+short_desc="Library for rendering graphics"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="BSD-3-Clause"
+homepage="https://github.com/hyprwm/hyprgraphics"
+distfiles="https://github.com/hyprwm/hyprgraphics/archive/refs/tags/v${version}.tar.gz"
+checksum=861ecaad872835922dd5745a612d7a4cc7bfc4babb1d06bc92bc63c2ac013b74
+configure_args="-DBUILD_TESTING=OFF"
+
+post_install() {
+	vlicense LICENSE
+}
+
+hyprgraphics-devel_package() {
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
+	}
+}
