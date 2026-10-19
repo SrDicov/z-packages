@@ -1,0 +1,16 @@
+# Template file for 'vimix-cursor-theme'
+pkgname=vimix-cursor-theme
+version=2020.02.24
+revision=1
+short_desc="Material design inspired cursor theme with many variants"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="GPL-3.0-only"
+homepage="https://github.com/vinceliuice/Vimix-cursors"
+distfiles="https://github.com/vinceliuice/Vimix-cursors/archive/${version}.tar.gz"
+checksum=69298d02264b5b15239c340f8fa899f91574c0eac49ad5745e8e588315423618
+
+do_install() {
+	vmkdir usr/share/icons
+	vcopy "dist*" usr/share/icons
+	vlicense LICENSE
+}
