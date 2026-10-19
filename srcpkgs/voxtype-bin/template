@@ -18,6 +18,7 @@ checksum="683683ef66de6616e415efa7f7893873d7f8d5bfe4b2b05ce3cf3e467d4733d5
 
 do_install() {
 	local src="${XBPS_SRCDISTDIR}/${pkgname}-${version}"
+	vmkdir usr/bin
 	install -Dm755 "${src}/voxtype.gz" ${DESTDIR}/usr/lib/voxtype/voxtype
 	install -Dm755 "${src}/voxtype-osd.gz" ${DESTDIR}/usr/lib/voxtype/voxtype-osd
 	ln -s /usr/lib/voxtype/voxtype ${DESTDIR}/usr/bin/voxtype
