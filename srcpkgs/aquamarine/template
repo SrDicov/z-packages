@@ -4,10 +4,9 @@ version=0.15.1
 revision=1
 build_style=cmake
 hostmakedepends="pkg-config"
-makedepends="
- hwids hyprutils-devel hyprwayland-scanner libdrm-devel
- libdisplay-info-devel libinput-devel libseat-devel pixman-devel
- wayland-devel wayland-protocols"
+makedepends="MesaLib-devel hwids hyprutils-devel hyprwayland-scanner
+ libdrm-devel libdisplay-info-devel libinput-devel libseat-devel
+ pixman-devel wayland-devel wayland-protocols"
 short_desc="Library for compositing and rendering"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"

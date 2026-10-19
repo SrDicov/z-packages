@@ -18,9 +18,9 @@ do_build() {
 	make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" \
 		CC="$CC" RANLIB="$RANLIB" ${makejobs} linux
 	${CC} -shared -Wl,-soname,liblua5.5.so.5.5 \
-		-o liblua5.5.so.5.5.1 liblua5.5.a
-	ln -sf liblua5.5.so.5.5.1 liblua5.5.so.5.5
-	ln -sf liblua5.5.so.5.5 liblua5.5.so
+		-o src/liblua5.5.so.5.5.1 src/liblua5.5.a
+	ln -sf liblua5.5.so.5.5.1 src/liblua5.5.so.5.5
+	ln -sf liblua5.5.so.5.5 src/liblua5.5.so
 }
 
 do_install() {

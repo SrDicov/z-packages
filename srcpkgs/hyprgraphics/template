@@ -4,10 +4,9 @@ version=0.5.1
 revision=1
 build_style=cmake
 hostmakedepends="pkg-config"
-makedepends="
- hyprutils-devel cairo-devel gdk-pixbuf-devel libdrm-devel
- libjpeg-turbo-devel file-devel librsvg-devel libwebp-devel
- pango-devel pixman-devel"
+makedepends="MesaLib-devel cairo-devel file-devel gdk-pixbuf-devel
+ hyprutils-devel libdrm-devel libjpeg-turbo-devel libwebp-devel
+ librsvg-devel pango-devel pixman-devel"
 short_desc="Library for rendering graphics"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
