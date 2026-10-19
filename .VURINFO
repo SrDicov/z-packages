@@ -998,6 +998,7 @@
       "libXcursor-devel",
       "libdrm-devel",
       "libjpeg-turbo-devel",
+      "libxcb-devel",
       "libxkbcommon-devel",
       "librsvg-devel",
       "lua55-devel",
@@ -1008,7 +1009,8 @@
       "re2-devel",
       "udis86-devel",
       "wayland-devel",
-      "wayland-protocols"
+      "wayland-protocols",
+      "xcb-util-errors-devel"
     ],
     "pkgname": "hyprland",
     "provides": [],
