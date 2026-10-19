@@ -1,0 +1,16 @@
+# Template file for 'font-maple-mono-nf'
+pkgname=font-maple-mono-nf
+version=7.9
+revision=1
+depends="font-util"
+short_desc="Monospace typeface with Nerd Font glyphs and ligatures"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="OFL-1.1"
+homepage="https://github.com/subframe7536/maple-font"
+distfiles="https://github.com/subframe7536/maple-font/releases/download/v${version}/MapleMono-NF.zip"
+checksum=59098b87c895d871635d37680e88000ae2b2b25b55428195b228ec589e35fb89
+
+do_install() {
+	vmkdir usr/share/fonts/TTF/maple-mono-nf
+	vcopy "*.ttf" usr/share/fonts/TTF/maple-mono-nf
+}
