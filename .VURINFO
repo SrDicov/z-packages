@@ -1010,7 +1010,8 @@
       "udis86-devel",
       "wayland-devel",
       "wayland-protocols",
-      "xcb-util-errors-devel"
+      "xcb-util-errors-devel",
+      "xcb-util-wm-devel"
     ],
     "pkgname": "hyprland",
     "provides": [],
