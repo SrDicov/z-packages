@@ -3,7 +3,7 @@ pkgname=xdg-desktop-portal-hyprland
 version=1.4.1
 revision=1
 build_style=meson
-hostmakedepends="meson ninja pkg-config"
+hostmakedepends="hyprwayland-scanner meson ninja pkg-config"
 makedepends="
 hyprland-devel libdrm-devel pixman-devel pugixml-devel wayland-devel
 "

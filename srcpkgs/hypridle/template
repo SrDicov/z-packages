@@ -3,7 +3,7 @@ pkgname=hypridle
 version=0.1.8
 revision=1
 build_style=cmake
-hostmakedepends="pkg-config pixman-devel"
+hostmakedepends="pkg-config hyprwayland-scanner pixman-devel"
 makedepends="hyprland-protocols hyprlang-devel hyprutils-devel sdbus-c++-devel
  wayland-devel wayland-protocols"
 short_desc="Idle management daemon for Hyprland"

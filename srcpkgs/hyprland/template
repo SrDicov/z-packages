@@ -4,7 +4,8 @@ version=0.56.2
 revision=1
 build_style=cmake
 nodebug=yes
-hostmakedepends="pkg-config cmake ninja glslang hyprwayland-scanner python3"
+hostmakedepends="pkg-config cmake ninja glslang-devel
+ hyprwayland-scanner python3"
 makedepends="
  aquamarine-devel gdk-pixbuf-devel glib-devel hyprcursor-devel
  hyprgraphics-devel hyprlang-devel hyprutils-devel hwids libei-devel
