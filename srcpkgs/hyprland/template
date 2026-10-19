@@ -13,7 +13,7 @@ makedepends="
  libXcursor-devel libdrm-devel libjpeg-turbo-devel libxcb-devel
  libxkbcommon-devel librsvg-devel lua55-devel MesaLib-devel muparser-devel
  pango-devel pixman-devel re2-devel udis86-devel wayland-devel
- wayland-protocols xcb-util-errors-devel"
+ wayland-protocols xcb-util-errors-devel xcb-util-wm-devel"
 short_desc="Dynamic tiling Wayland compositor with animated visuals"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
