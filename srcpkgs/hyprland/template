@@ -1,0 +1,35 @@
+# Template file for 'hyprland'
+pkgname=hyprland
+version=0.56.2
+revision=1
+build_style=cmake
+nodebug=yes
+hostmakedepends="pkg-config cmake ninja glslang hyprwayland-scanner python3"
+makedepends="
+ aquamarine-devel gdk-pixbuf-devel hyprcursor-devel
+ hyprgraphics-devel hyprlang-devel hyprutils-devel hwids libei-devel
+ libinput-devel libuuid-devel libwebp-devel libXcursor-devel
+ libdrm-devel libjpeg-turbo-devel librsvg-devel lua55-devel
+ MesaLib-devel muparser-devel pango-devel pixman-devel re2-devel
+ udis86-devel wayland-devel wayland-protocols"
+short_desc="Dynamic tiling Wayland compositor with animated visuals"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="BSD-3-Clause"
+homepage="https://github.com/hyprwm/Hyprland"
+distfiles="https://github.com/hyprwm/Hyprland/releases/download/v${version}/source-v${version}.tar.gz"
+checksum=03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e
+configure_args="-DCMAKE_BUILD_TYPE=None -DNO_HYPRPM=ON"
+
+post_install() {
+	vlicense LICENSE
+}
+
+hyprland-devel_package() {
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
+		vmove usr/share/hyprland
+	}
+}
