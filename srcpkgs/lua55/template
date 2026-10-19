@@ -24,7 +24,7 @@ do_install() {
 	local so=liblua5.5.so
 	make INSTALL_DATA="cp -d" INSTALL_TOP="${DESTDIR}/usr" \
 		TO_BIN="lua5.5 luac5.5" \
-		TO_LIB="${so}.a ${so} ${so}.${version%.*} ${so}.${version}" \
+		TO_LIB="liblua5.5.a ${so} ${so}.${version%.*} ${so}.${version}" \
 		INSTALL_INC="${DESTDIR}/usr/include/lua5.5" \
 		INSTALL_MAN="${DESTDIR}/usr/share/man/man1" install
 

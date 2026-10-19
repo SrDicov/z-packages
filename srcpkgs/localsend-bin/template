@@ -16,6 +16,6 @@ checksum=287690a9a8eb6da9c83cc97b3e3030ac67daf32a7331fcf307d0939300658d16
 
 do_install() {
 	vmkdir usr/lib/localsend
-	vcopy data lib localsend_app usr/lib/localsend
+	vcopy "*" usr/lib/localsend
 	vbin localsend_app localsend
 }

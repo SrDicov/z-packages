@@ -15,7 +15,7 @@ checksum=848e0fba55657d34da90b775b8139e9806dc754798b029f95e106ba8850a731f
 
 do_install() {
 	vmkdir usr/lib/waifu2x-ncnn-vulkan
-	vcopy "waifu2x-ncnn-vulkan-${version}-linux/*" usr/lib/waifu2x-ncnn-vulkan
+	vcopy "*" usr/lib/waifu2x-ncnn-vulkan
 	vbin usr/lib/waifu2x-ncnn-vulkan/waifu2x-ncnn-vulkan
 	vlicense usr/lib/waifu2x-ncnn-vulkan/LICENSE
 }
