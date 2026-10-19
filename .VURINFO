@@ -90,6 +90,44 @@
     "archs": [
       "all"
     ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:2f9de98c0bd1b7b1b09c576e390a2fef436449762fb334163c414f0c300296f2"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/aquamarine/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "hwids",
+      "hyprutils-devel",
+      "hyprwayland-scanner",
+      "libdrm-devel",
+      "libdisplay-info-devel",
+      "libinput-devel",
+      "libseat-devel",
+      "pixman-devel",
+      "wayland-devel",
+      "wayland-protocols"
+    ],
+    "pkgname": "aquamarine",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.15.1"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": null,
     "checkdepends": [],
     "checksum": [],
@@ -515,6 +553,114 @@
   },
   {
     "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:8d8b81dfaeb89433f5c908e1d8d0a4b202bd627bd80d4cd5ff56f311fdcad19f"
+    ],
+    "depends": [
+      "font-util"
+    ],
+    "distfiles": [
+      "https://github.com/undercasetype/Fraunces/releases/download/${version}/UnderCaseType_Fraunces_${version}.zip"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "font-fraunces",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.000"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:59098b87c895d871635d37680e88000ae2b2b25b55428195b228ec589e35fb89"
+    ],
+    "depends": [
+      "font-util"
+    ],
+    "distfiles": [
+      "https://github.com/subframe7536/maple-font/releases/download/v${version}/MapleMono-NF.zip"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "font-maple-mono-nf",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "7.9"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:53b415577d4139248555300710bea0d268c7a5be67b93de53b716a9736cabffd"
+    ],
+    "depends": [
+      "font-util"
+    ],
+    "distfiles": [
+      "https://github.com/floriankarsten/space-grotesk/releases/download/${version}/SpaceGrotesk-${version}.zip"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "font-space-grotesk",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.0.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:56527bb4f6f33563c8879f0ba140a9baacf282bf6481b22737b04998dbe7f7af"
+    ],
+    "depends": [
+      "base-files"
+    ],
+    "distfiles": [
+      "https://codeberg.org/fabiscafe/game-devices-udev/archive/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "game-devices-udev",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.1"
+  },
+  {
+    "archs": [
       "x86_64"
     ],
     "build_style": null,
@@ -697,6 +843,254 @@
     "revision": 1,
     "subpackages": [],
     "version": "4.1.5"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:82af8b2ce27242ffdd6baebaa71b3f6c8665dc25c52bfcfccc16912622896af8"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/hyprcursor/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "hyprlang-devel",
+      "libzip-devel",
+      "librsvg-devel",
+      "tomlplusplus-devel"
+    ],
+    "pkgname": "hyprcursor",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.13"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:861ecaad872835922dd5745a612d7a4cc7bfc4babb1d06bc92bc63c2ac013b74"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/hyprgraphics/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "hyprutils-devel",
+      "cairo-devel",
+      "gdk-pixbuf-devel",
+      "libdrm-devel",
+      "libjpeg-turbo-devel",
+      "libmagic-devel",
+      "librsvg-devel",
+      "libwebp-devel",
+      "pango-devel",
+      "pixman-devel"
+    ],
+    "pkgname": "hyprgraphics",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.5.1"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:08703613cc33cc796c2179bcaa6076e8618113f67b938daaf7535f90c7d39595"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/hypridle/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "hyprland-protocols",
+      "hyprlang-devel",
+      "hyprutils-devel",
+      "sdbus-c++-devel",
+      "wayland-devel",
+      "wayland-protocols"
+    ],
+    "pkgname": "hypridle",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.8"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/Hyprland/releases/download/v${version}/source-v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "cmake",
+      "ninja",
+      "glslang",
+      "hyprwayland-scanner",
+      "python3"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "aquamarine-devel",
+      "gdk-pixbuf-devel",
+      "hyprcursor-devel",
+      "hyprgraphics-devel",
+      "hyprlang-devel",
+      "hyprutils-devel",
+      "hwids",
+      "libei-devel",
+      "libinput-devel",
+      "libuuid-devel",
+      "libwebp-devel",
+      "libXcursor-devel",
+      "libdrm-devel",
+      "libjpeg-turbo-devel",
+      "librsvg-devel",
+      "lua55-devel",
+      "MesaLib-devel",
+      "muparser-devel",
+      "pango-devel",
+      "pixman-devel",
+      "re2-devel",
+      "udis86-devel",
+      "wayland-devel",
+      "wayland-protocols"
+    ],
+    "pkgname": "hyprland",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.56.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:e41ab206d89259fdf2059fdc523c39133e23ed9efa8b0ef0de9aeed61be96e72"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/hyprland-protocols/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "hyprland-protocols",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.8.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:d10a0778b646e04d83e8b90cc0f764fb96958c01a15c3c0678d95a40fc647ed5"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/hyprlang/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "hyprutils-devel"
+    ],
+    "pkgname": "hyprlang",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.6.8"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:2061b7b08c8104fb02a609553b28f6c8580e5ec38633015845f1c4553980175b"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/hyprutils/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "pixman-devel"
+    ],
+    "pkgname": "hyprutils",
+    "provides": [],
+    "replaces": [
+      "hyprutils<0.14.2_1"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.14.2"
   },
   {
     "archs": [
@@ -1154,6 +1548,62 @@
     "revision": 7,
     "subpackages": [],
     "version": "7.2"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:287690a9a8eb6da9c83cc97b3e3030ac67daf32a7331fcf307d0939300658d16"
+    ],
+    "depends": [
+      "gtk+3",
+      "desktop-file-utils",
+      "hicolor-icon-theme"
+    ],
+    "distfiles": [
+      "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}-linux-x86-64.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "localsend-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.18.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:1c4b4068d67061f2a2231ad2b5422e77acea1487ea9890f6320af614f4373dce"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://www.lua.org/ftp/lua-${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "readline-devel"
+    ],
+    "pkgname": "lua55",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "5.5.1"
   },
   {
     "archs": [
@@ -1621,6 +2071,34 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
+      "sha256:d60a080b52e4a16e16d16a7d4b6405a32a3fe1b8ee0df65dc3685213ef0393e8"
+    ],
+    "depends": [
+      "python3",
+      "python3-packaging"
+    ],
+    "distfiles": [
+      "https://github.com/Tremeschin/nvibrant/releases/download/v${version}/nvibrant-${version}-py3-none-manylinux_2_17_x86_64.whl"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "nvibrant",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.3.0"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
       "sha256:4271434e81be42b1559fd989d24bf6d413482f278dc6a5e328202a4fc1a18649"
     ],
     "depends": [
@@ -1722,6 +2200,38 @@
     "archs": [
       "all"
     ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:1357941b400100c9086d2cbedcb97e08d5f5ee94d9f875fe288feab36a4cdb72"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/furbyhaxx/pam-fprint-grosshack/archive/37005210381f3a55fffb784dfec703c6b2a64df2.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "meson",
+      "ninja",
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "elogind-devel",
+      "pam-devel"
+    ],
+    "pkgname": "pam-fprint-grosshack",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.4.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": "gnu-makefile",
     "checkdepends": [],
     "checksum": [],
@@ -1794,6 +2304,31 @@
     "revision": 1,
     "subpackages": [],
     "version": "3.12.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:46d4cfc30a38c19cada3339027b5a78f7b0bf74f3220eba7001c4fdd9d5a6e56"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/phisch/phinger-cursors/releases/download/v${version}/phinger-cursors-variants.tar.bz2"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "phinger-cursor-theme",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2.2"
   },
   {
     "archs": [
@@ -2329,6 +2864,33 @@
   },
   {
     "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:87f6029d2f6de8aa023654240a03ada90e876ce9a4676e258dd01ea4c26ffd67"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/google/re2/releases/download/${version}/re2-${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "re2",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2025.11.05"
+  },
+  {
+    "archs": [
       "x86_64"
     ],
     "build_style": null,
@@ -2662,6 +3224,31 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
+      "sha256:69298d02264b5b15239c340f8fa899f91574c0eac49ad5745e8e588315423618"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/vinceliuice/Vimix-cursors/archive/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "vimix-cursor-theme",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "2020.02.24"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
       "sha256:afe35c7869a7cd87fae194992d6797df56522d0f430a7a0ade9909feaee931c1"
     ],
     "depends": [
@@ -2688,6 +3275,36 @@
     "revision": 1,
     "subpackages": [],
     "version": "3.3"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:683683ef66de6616e415efa7f7893873d7f8d5bfe4b2b05ce3cf3e467d4733d5",
+      "sha256:8947b7ea576096f327e97a488bb6245ba34a71d93ced46fb3b7800e97cca6905"
+    ],
+    "depends": [
+      "pipewire",
+      "wireplumber"
+    ],
+    "distfiles": [
+      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-onnx-avx2",
+      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-quickshell"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "voxtype-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.1.1"
   },
   {
     "archs": [
@@ -2727,6 +3344,33 @@
     "revision": 1,
     "subpackages": [],
     "version": "1.139.1"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:848e0fba55657d34da90b775b8139e9806dc754798b029f95e106ba8850a731f"
+    ],
+    "depends": [
+      "vulkan-loader"
+    ],
+    "distfiles": [
+      "https://github.com/nihui/waifu2x-ncnn-vulkan/releases/download/${version}/waifu2x-ncnn-vulkan-${version}-linux.zip"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "waifu2x-ncnn-vulkan",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "20250915"
   },
   {
     "archs": [
@@ -2802,6 +3446,41 @@
     "revision": 1,
     "subpackages": [],
     "version": "0.131"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:3652c14f63a9666acea2c841e196782dbc0f74ea5b4783622dd04a32f08b709f"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/xdg-desktop-portal-hyprland/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "meson",
+      "ninja",
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "hyprland-devel",
+      "libdrm-devel",
+      "pixman-devel",
+      "pugixml-devel",
+      "wayland-devel"
+    ],
+    "pkgname": "xdg-desktop-portal-hyprland",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.4.1"
   },
   {
     "archs": [
