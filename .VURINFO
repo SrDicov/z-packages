@@ -1091,7 +1091,7 @@
       "hyprutils<0.14.2_1"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.14.2"
   },
