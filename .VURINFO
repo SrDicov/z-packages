@@ -975,7 +975,9 @@
       "glslang-devel",
       "hyprwayland-scanner",
       "python3",
-      "SPIRV-Tools-devel"
+      "SPIRV-Tools-devel",
+      "ca-certificates",
+      "git"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
