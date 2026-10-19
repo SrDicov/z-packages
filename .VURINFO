@@ -105,6 +105,7 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
+      "MesaLib-devel",
       "hwids",
       "hyprutils-devel",
       "hyprwayland-scanner",
@@ -895,14 +896,15 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
-      "hyprutils-devel",
+      "MesaLib-devel",
       "cairo-devel",
+      "file-devel",
       "gdk-pixbuf-devel",
+      "hyprutils-devel",
       "libdrm-devel",
       "libjpeg-turbo-devel",
-      "file-devel",
-      "librsvg-devel",
       "libwebp-devel",
+      "librsvg-devel",
       "pango-devel",
       "pixman-devel"
     ],
