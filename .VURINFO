@@ -973,6 +973,7 @@
       "cmake",
       "ninja",
       "glslang-devel",
+      "clang",
       "hyprwayland-scanner",
       "hyprwire",
       "hyprwire-devel",
