@@ -1,0 +1,15 @@
+# Template file for 'phinger-cursor-theme'
+pkgname=phinger-cursor-theme
+version=2.2
+revision=1
+short_desc="Simple and clean cursor theme with light and dark variants"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="CC-BY-SA-4.0"
+homepage="https://github.com/phisch/phinger-cursors"
+distfiles="https://github.com/phisch/phinger-cursors/releases/download/v${version}/phinger-cursors-variants.tar.bz2"
+checksum=46d4cfc30a38c19cada3339027b5a78f7b0bf74f3220eba7001c4fdd9d5a6e56
+
+do_install() {
+	vmkdir usr/share/icons
+	vcopy "phinger-cursors-*" usr/share/icons
+}
