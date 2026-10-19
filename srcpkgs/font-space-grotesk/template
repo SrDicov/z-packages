@@ -1,0 +1,18 @@
+# Template file for 'font-space-grotesk'
+pkgname=font-space-grotesk
+version=2.0.0
+revision=1
+create_wrksrc=yes
+depends="font-util"
+short_desc="Proportional sans typeface for low vision"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="OFL-1.1"
+homepage="https://github.com/floriankarsten/space-grotesk"
+distfiles="https://github.com/floriankarsten/space-grotesk/releases/download/${version}/SpaceGrotesk-${version}.zip"
+checksum=53b415577d4139248555300710bea0d268c7a5be67b93de53b716a9736cabffd
+
+do_install() {
+	vmkdir usr/share/fonts/TTF/space-grotesk
+	vcopy "SpaceGrotesk-${version}/ttf/*.ttf" usr/share/fonts/TTF/space-grotesk
+	vlicense "SpaceGrotesk-${version}/OFL.txt"
+}
