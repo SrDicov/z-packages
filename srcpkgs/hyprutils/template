@@ -16,7 +16,9 @@ replaces="hyprutils<0.14.2_1"
 post_install() {
 	vlicense LICENSE
 	for pc in "$XBPS_DESTDIR"/usr/lib{,64}/pkgconfig/hyprutils.pc; do
-		[ -f "$pc" ] && echo 'Requires: pixman-1' >>"$pc"
+		if [ -f "$pc" ]; then
+			echo 'Requires: pixman-1' >>"$pc"
+		fi
 	done
 }
 
