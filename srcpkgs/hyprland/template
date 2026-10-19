@@ -5,7 +5,7 @@ revision=1
 build_style=cmake
 nodebug=yes
 hostmakedepends="pkg-config cmake ninja glslang-devel
- hyprwayland-scanner hyprwire hyprwire-devel python3 readline-devel
+ clang hyprwayland-scanner hyprwire hyprwire-devel python3 readline-devel
  SPIRV-Tools-devel ca-certificates git"
 makedepends="
  abseil-cpp-devel aquamarine-devel gdk-pixbuf-devel glib-devel
@@ -15,6 +15,9 @@ makedepends="
  libxkbcommon-devel librsvg-devel lua55-devel MesaLib-devel muparser-devel
  pango-devel pixman-devel re2-devel udis86-devel wayland-devel
  wayland-protocols xcb-util-errors-devel xcb-util-wm-devel"
+export CC=clang
+export CXX=clang++
+
 do_patch() {
 	# std::string + std::string_view is C++26, Void ships libstdc++ 14
 	sed -i 's|+ "/" + filename;|+ "/" + std::string(filename);|' \
