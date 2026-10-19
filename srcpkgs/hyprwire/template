@@ -9,7 +9,7 @@ short_desc="Wire protocol library and code generator for the Hyprland IPC"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="MIT"
 homepage="https://github.com/hyprwm/hyprwire"
-distfiles="https://codeload.github.com/hyprwm/hyprwire/tar.gz/v${version}"
+distfiles="https://github.com/hyprwm/hyprwire/archive/refs/tags/v${version}.tar.gz"
 checksum="92a673d40ae6a7d66fbcd0a34ec071e026e17eaeeb0040c3375e4b2a80dba737"
 
 post_install() {
