@@ -16,6 +16,14 @@ post_install() {
 	vlicense LICENSE
 }
 
+do_patch() {
+	# std::vector::append_range is C++26 and Void ships libstdc++ 14
+	find src -name '*.cpp' -exec sed -i -E \
+		-e 's/^(\s*)([A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*)\.append_range\(([A-Za-z_][A-Za-z0-9_]*)\);$/\1\2.insert(\2.end(), \4.begin(), \4.end());/' \
+		-e 's/^(\s*)([A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*)\.append_range\((.*)\);$/\1{ auto tmp_ = \4; \2.insert(\2.end(), tmp_.begin(), tmp_.end()); }/' \
+		{} +
+}
+
 hyprwire-devel_package() {
 	short_desc+=" - development files"
 	pkg_install() {
