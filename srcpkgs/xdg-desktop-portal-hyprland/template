@@ -1,0 +1,20 @@
+# Template file for 'xdg-desktop-portal-hyprland'
+pkgname=xdg-desktop-portal-hyprland
+version=1.4.1
+revision=1
+build_style=meson
+hostmakedepends="meson ninja pkg-config"
+makedepends="
+hyprland-devel libdrm-devel pixman-devel pugixml-devel wayland-devel
+"
+short_desc="xdg-desktop-portal backend for Hyprland"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="BSD-3-Clause"
+homepage="https://github.com/hyprwm/xdg-desktop-portal-hyprland"
+distfiles="https://github.com/hyprwm/xdg-desktop-portal-hyprland/archive/refs/tags/v${version}.tar.gz"
+checksum=3652c14f63a9666acea2c841e196782dbc0f74ea5b4783622dd04a32f08b709f
+configure_args="-Dsystemd=false -Dcpp_std=c++23"
+
+post_install() {
+	vlicense LICENSE
+}
