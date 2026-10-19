@@ -101,7 +101,8 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "pkg-config"
+      "pkg-config",
+      "pixman-devel"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
@@ -860,7 +861,8 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "pkg-config"
+      "pkg-config",
+      "pixman-devel"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
@@ -931,7 +933,8 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "pkg-config"
+      "pkg-config",
+      "pixman-devel"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
@@ -1050,7 +1053,8 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "pkg-config"
+      "pkg-config",
+      "pixman-devel"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
@@ -1079,19 +1083,18 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "pkg-config"
-    ],
-    "maintainer": "Dicov <SrDicov@gmail.com>",
-    "makedepends": [
+      "pkg-config",
       "pixman-devel"
     ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
     "pkgname": "hyprutils",
     "provides": [],
     "replaces": [
       "hyprutils<0.14.2_1"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "0.14.2"
   },
