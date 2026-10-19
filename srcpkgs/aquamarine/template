@@ -3,7 +3,7 @@ pkgname=aquamarine
 version=0.15.1
 revision=1
 build_style=cmake
-hostmakedepends="pkg-config"
+hostmakedepends="pkg-config pixman-devel"
 makedepends="MesaLib-devel hwids hyprutils-devel hyprwayland-scanner
  libdrm-devel libdisplay-info-devel libinput-devel libseat-devel
  pixman-devel wayland-devel wayland-protocols"
