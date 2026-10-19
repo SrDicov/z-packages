@@ -1,10 +1,9 @@
 # Template file for 'hyprutils'
 pkgname=hyprutils
 version=0.14.2
-revision=2
+revision=3
 build_style=cmake
-hostmakedepends="pkg-config"
-makedepends="pixman-devel"
+hostmakedepends="pkg-config pixman-devel"
 short_desc="Hyprland utilities library used across the ecosystem"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
@@ -16,6 +15,9 @@ replaces="hyprutils<0.14.2_1"
 
 post_install() {
 	vlicense LICENSE
+	# upstream omits pixman from hyprutils.pc, so linking any consumer leaves
+	# the pixman symbols of libhyprutils itself unresolved
+	echo 'Requires: pixman-1' >>usr/lib/pkgconfig/hyprutils.pc
 }
 
 hyprutils-devel_package() {
