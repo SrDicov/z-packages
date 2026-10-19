@@ -934,6 +934,7 @@
     "format_version": 1,
     "hostmakedepends": [
       "pkg-config",
+      "hyprwayland-scanner",
       "pixman-devel"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
@@ -971,7 +972,7 @@
       "pkg-config",
       "cmake",
       "ninja",
-      "glslang",
+      "glslang-devel",
       "hyprwayland-scanner",
       "python3"
     ],
@@ -3470,6 +3471,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
+      "hyprwayland-scanner",
       "meson",
       "ninja",
       "pkg-config"
