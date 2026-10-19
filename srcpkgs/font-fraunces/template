@@ -1,0 +1,17 @@
+# Template file for 'font-fraunces'
+pkgname=font-fraunces
+version=1.000
+revision=1
+depends="font-util"
+short_desc="Old-style serif typeface with optical sizing and wonk"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="OFL-1.1"
+homepage="https://github.com/undercasetype/Fraunces"
+distfiles="https://github.com/undercasetype/Fraunces/releases/download/${version}/UnderCaseType_Fraunces_${version}.zip"
+checksum=8d8b81dfaeb89433f5c908e1d8d0a4b202bd627bd80d4cd5ff56f311fdcad19f
+
+do_install() {
+	vmkdir usr/share/fonts/TTF/fraunces
+	vcopy "UnderCaseType_Fraunces_${version}/Fonts - Desktop/*.ttf" \
+		usr/share/fonts/TTF/fraunces
+}
