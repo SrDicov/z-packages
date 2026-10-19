@@ -30,7 +30,8 @@ license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/Hyprland"
 distfiles="https://github.com/hyprwm/Hyprland/releases/download/v${version}/source-v${version}.tar.gz"
 checksum=03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e
-configure_args="-DCMAKE_BUILD_TYPE=None -DNO_HYPRPM=ON"
+configure_args="-DCMAKE_BUILD_TYPE=None -DNO_HYPRPM=ON
+ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++"
 
 post_install() {
 	vlicense LICENSE
