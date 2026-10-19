@@ -2078,7 +2078,7 @@
       "python3-packaging"
     ],
     "distfiles": [
-      "https://github.com/Tremeschin/nvibrant/releases/download/v${version}/nvibrant-${version}-py3-none-manylinux_2_17_x86_64.whl"
+      "https://github.com/Tremeschin/nvibrant/releases/download/v${version}/nvibrant-${version}-py3-none-manylinux_2_17_x86_64.whl>nvibrant-${version}.zip"
     ],
     "format_version": 1,
     "hostmakedepends": [],
@@ -2873,7 +2873,7 @@
     ],
     "depends": [],
     "distfiles": [
-      "https://github.com/google/re2/releases/download/${version}/re2-${version}.tar.gz"
+      "https://github.com/google/re2/releases/download/2025-11-05/re2-2025-11-05.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -3228,7 +3228,7 @@
     ],
     "depends": [],
     "distfiles": [
-      "https://github.com/vinceliuice/Vimix-cursors/archive/${version}.tar.gz"
+      "https://github.com/vinceliuice/Vimix-cursors/archive/2020-02-24.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
@@ -3291,8 +3291,8 @@
       "wireplumber"
     ],
     "distfiles": [
-      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-onnx-avx2",
-      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-quickshell"
+      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-onnx-avx2>voxtype",
+      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-quickshell>voxtype-osd"
     ],
     "format_version": 1,
     "hostmakedepends": [],
