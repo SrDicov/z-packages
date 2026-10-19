@@ -12,6 +12,6 @@ checksum=8d8b81dfaeb89433f5c908e1d8d0a4b202bd627bd80d4cd5ff56f311fdcad19f
 
 do_install() {
 	vmkdir usr/share/fonts/TTF/fraunces
-	cp -a "UnderCaseType_Fraunces_${version}/Fonts - Desktop"/*.ttf \
+	cp -a "Fonts - Desktop"/*.ttf \
 		${DESTDIR}/usr/share/fonts/TTF/fraunces/
 }

@@ -11,7 +11,8 @@ license="MIT"
 homepage="https://github.com/Tremeschin/nvibrant"
 distfiles="https://github.com/Tremeschin/nvibrant/releases/download/v${version}/nvibrant-${version}-py3-none-manylinux_2_17_x86_64.whl>nvibrant-${version}.zip"
 checksum=d60a080b52e4a16e16d16a7d4b6405a32a3fe1b8ee0df65dc3685213ef0393e8
-pyinst_dir="/usr/lib/python$(python_get_version)/site-packages"
+python_version=3.14
+pyinst_dir="/usr/lib/python${python_version}/site-packages"
 
 do_install() {
 	vmkdir "${pyinst_dir}"

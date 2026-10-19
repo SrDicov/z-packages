@@ -4,6 +4,7 @@ version=2025.11.05
 revision=1
 build_style=cmake
 hostmakedepends="pkg-config"
+makedepends="abseil-cpp-devel"
 short_desc="RE2 is a fast, safe, thread-friendly regular expression library"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
@@ -20,7 +21,6 @@ re2-devel_package() {
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
-		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"
 		vmove usr/lib/pkgconfig
 	}

@@ -5,20 +5,24 @@ revision=1
 archs="x86_64"
 nodebug=yes
 nostrip=yes
+skip_extraction="voxtype.gz voxtype-osd.gz"
 depends="pipewire wireplumber"
 short_desc="Offline speech-to-text daemon for Wayland compositors"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="MIT"
 homepage="https://github.com/peteonrails/voxtype"
-distfiles="https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-onnx-avx2>voxtype
- https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-quickshell>voxtype-osd"
+distfiles="https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-onnx-avx2>voxtype.gz
+ https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-quickshell>voxtype-osd.gz"
 checksum="683683ef66de6616e415efa7f7893873d7f8d5bfe4b2b05ce3cf3e467d4733d5
  8947b7ea576096f327e97a488bb6245ba34a71d93ced46fb3b7800e97cca6905"
 
 do_install() {
+	local src="${XBPS_SRCDISTDIR}/${pkgname}-${version}"
 	vmkdir usr/lib/voxtype
-	vcopy voxtype usr/lib/voxtype
-	vcopy voxtype-osd usr/lib/voxtype
+	gzip -dc "${src}/voxtype.gz" > ${DESTDIR}/usr/lib/voxtype/voxtype
+	gzip -dc "${src}/voxtype-osd.gz" > ${DESTDIR}/usr/lib/voxtype/voxtype-osd
+	chmod 755 ${DESTDIR}/usr/lib/voxtype/voxtype \
+		${DESTDIR}/usr/lib/voxtype/voxtype-osd
 	vbin usr/lib/voxtype/voxtype
 	vbin usr/lib/voxtype/voxtype-osd
 }
