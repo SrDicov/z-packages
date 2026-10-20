@@ -1,0 +1,34 @@
+# Template file for 'ryoku-keysounds-profiles'
+pkgname=ryoku-keysounds-profiles
+version=0.1.0
+revision=1
+build_style=none
+hostmakedepends="git python3"
+depends="python3"
+short_desc="Ryoku key sound profiles: real switch recordings"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://ryoku.dev"
+
+do_fetch() {
+	# the profile recipe lives in the Ryoku tree, next to the importer
+	local repo="${XBPS_BUILDDIR}/ryoku-repo"
+	git clone --depth 1 --filter=blob:none --sparse \
+		https://github.com/SrDicov/ryoku-void.git "${repo}"
+	cd "${repo}"
+	git sparse-checkout set ryoku/keysounds \
+		release/packages/ryoku-keysounds-profiles
+}
+
+do_build() {
+	RYOKU_SRC="${XBPS_BUILDDIR}/ryoku-repo" RYOKU_PKGVER="${version}" \
+		RYOKU_BUILD_DIR="${wrksrc}/.xbps-build" \
+		"${wrksrc}/release/packages/ryoku-keysounds-profiles/payload.sh" build
+}
+
+do_install() {
+	RYOKU_SRC="${XBPS_BUILDDIR}/ryoku-repo" RYOKU_PKGVER="${version}" \
+		RYOKU_BUILD_DIR="${wrksrc}/.xbps-build" \
+		"${wrksrc}/release/packages/ryoku-keysounds-profiles/payload.sh" \
+		install "${DESTDIR}"
+}

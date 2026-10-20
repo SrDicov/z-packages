@@ -4,6 +4,10 @@ version=0.11.0
 revision=1
 build_style=gnu-makefile
 hostmakedepends="git pkg-config"
+
+# the compositor headers reach into pixman and Lua, which live in their own
+# include directories and are not carried by the compositor's pkg-config
+export CPATH="/usr/include/pixman-1:/usr/include/lua5.5"
 makedepends="
  aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
  glslang-devel hyprland-devel hyprlang-devel hyprutils-devel

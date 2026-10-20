@@ -1,0 +1,54 @@
+# Template file for 'ryoku-keysounds'
+pkgname=ryoku-keysounds
+version=0.1.0
+revision=1
+build_style=gnu-makefile
+hostmakedepends="git pkg-config"
+makedepends="
+ aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
+ hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-devel
+ libcanberra-devel libdrm-devel libinput-devel libxcb-devel
+ libxkbcommon-devel MesaLib-devel pango-devel pixman-devel wayland-devel
+ xcb-util-errors-devel xcb-util-wm-devel
+"
+depends="hyprland libcanberra ryoku-keysounds-profiles"
+short_desc="Hyprland plugin: a keyboard sound on every key press"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://ryoku.dev"
+
+do_fetch() {
+	# the plugin lives in the Ryoku tree, next to the compositor config
+	local repo="${XBPS_BUILDDIR}/ryoku-repo"
+	git clone --depth 1 --filter=blob:none --sparse \
+		https://github.com/SrDicov/ryoku-void.git "${repo}"
+	cd "${repo}"
+	git sparse-checkout set ryoku/hyprland/plugins/keysounds
+	cp -a ryoku/hyprland/plugins/keysounds/. \
+		"${XBPS_BUILDDIR}/${pkgname}-${version}/"
+}
+
+do_build() {
+	make keysounds.so
+}
+
+do_install() {
+	# Hyprland loads plugins from its own directory
+	install -Dm755 keysounds.so \
+		"${DESTDIR}/usr/lib/hyprland/plugins/keysounds.so"
+}
+
+post_install() {
+	vlicense README.md
+	# the receipt records the compositor ABI the plugin was built for
+	local h=/usr/include/hyprland/src/version.h
+	local abi v
+	abi="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' "$h")"
+	for v in AQUAMARINE:aq HYPRUTILS:hu HYPRGRAPHICS:hg HYPRCURSOR:hc \
+		HYPRLANG:hlg; do
+		abi="${abi}_${v#*:}_$(sed -n "s/^#define ${v%:*}_VERSION *\"\([^\"]*\)\".*/\1/p" \
+			"$h" | sed 's/\.[^.]*$//')"
+	done
+	printf '%s\n' "$abi" \
+		>"${PKGDESTDIR}/usr/lib/hyprland/plugins/keysounds.abi"
+}

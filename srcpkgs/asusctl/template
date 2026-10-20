@@ -1,0 +1,29 @@
+# Template file for 'asusctl'
+pkgname=asusctl
+version=6.4.0
+revision=1
+build_style=cargo
+make_cmd=cargo
+hostmakedepends="cargo clang llvm rust"
+makedepends="libusb-devel"
+depends="libusb"
+short_desc="ASUS laptop control daemon and Aura lighting CLI"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="MPL-2.0"
+homepage="https://github.com/OpenGamingCollective/asusctl"
+distfiles="https://github.com/OpenGamingCollective/asusctl/archive/refs/tags/${version}.tar.gz"
+checksum="ba19565a1ed313cbb17b0d8926780023856fe85b9490f6b4fe65b7ede14ee434"
+wrksrc="asusctl-${version}"
+
+do_build() {
+	cargo build --release --locked -p asusctl -p asusd -p asus-shutdown
+}
+
+do_install() {
+	make DESTDIR="${DESTDIR}" install-asusctl install-asusd install-asus-shutdown \
+		install-data-asusd
+}
+
+post_install() {
+	vlicense LICENSE
+}
