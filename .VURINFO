@@ -222,6 +222,7 @@
       "sha256:ba19565a1ed313cbb17b0d8926780023856fe85b9490f6b4fe65b7ede14ee434"
     ],
     "depends": [
+      "eudev",
       "libusb"
     ],
     "distfiles": [
@@ -230,12 +231,12 @@
     "format_version": 1,
     "hostmakedepends": [
       "cargo",
-      "clang",
-      "llvm",
-      "rust"
+      "rust",
+      "pkg-config"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
+      "eudev-libudev-devel",
       "libusb-devel"
     ],
     "pkgname": "asusctl",
