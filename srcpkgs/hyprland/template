@@ -21,6 +21,9 @@ export CXX=clang++
 CXXFLAGS+=" -include ${XBPS_BUILDDIR}/${pkgname}-${version}/hyprland_compat.hpp"
 
 do_patch() {
+	# vector::insert_range is C++23, Void ships libstdc++ 14
+	sed -i 's#requestedModes\.insert_range(requestedModes\.end(), sortedModes | std::views::reverse);#requestedModes.insert(requestedModes.end(), sortedModes.rbegin(), sortedModes.rend());#' \
+		src/output/Monitor.cpp
 	# std::string + std::string_view is C++26, Void ships libstdc++ 14
 	cat >hyprland_compat.hpp <<_EOF
 #ifndef HYPRLAND_COMPAT_HPP
