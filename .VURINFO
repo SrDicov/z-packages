@@ -963,7 +963,9 @@
     "checksum": [
       "sha256:03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e"
     ],
-    "depends": [],
+    "depends": [
+      "${sourcepkg}>=${version}_${revision}"
+    ],
     "distfiles": [
       "https://github.com/hyprwm/Hyprland/releases/download/v${version}/source-v${version}.tar.gz"
     ],
