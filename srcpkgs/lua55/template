@@ -1,7 +1,7 @@
 # Template file for 'lua55'
 pkgname=lua55
 version=5.5.1
-revision=1
+revision=2
 makedepends="readline-devel"
 short_desc="Powerful, fast, lightweight scripting language (5.5.x)"
 maintainer="Dicov <SrDicov@gmail.com>"
@@ -18,7 +18,8 @@ do_build() {
 	make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" \
 		CC="$CC" RANLIB="$RANLIB" ${makejobs} linux
 	${CC} -shared -Wl,-soname,liblua5.5.so.5.5 \
-		-o src/liblua5.5.so.5.5.1 src/liblua5.5.a
+		-Wl,--whole-archive src/liblua5.5.a -Wl,--no-whole-archive \
+		${LDFLAGS} -ldl -lm -o src/liblua5.5.so.5.5.1
 	ln -sf liblua5.5.so.5.5.1 src/liblua5.5.so.5.5
 	ln -sf liblua5.5.so.5.5 src/liblua5.5.so
 }
