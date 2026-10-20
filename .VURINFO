@@ -1997,7 +1997,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "5.5.1"
   },
@@ -3349,7 +3349,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "SKIP"
+      "sha256:08dedd672a6ad5f8d26c49972ed16f9eacd5946339efab85540856d176e4fb4a"
     ],
     "depends": [
       "hyprland",
@@ -3365,7 +3365,7 @@
       "hyprsunset"
     ],
     "distfiles": [
-      "https://repo.ryoku.dev/sources/ryoku-${version}.tar.gz"
+      "https://codeload.github.com/SrDicov/ryoku-void/tar.gz/${_repo_hash}>ryoku-${version}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
