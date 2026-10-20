@@ -18,6 +18,8 @@ makedepends="
 export CC=clang
 export CXX=clang++
 
+CXXFLAGS+=" -include ${XBPS_BUILDDIR}/${pkgname}-${version}/hyprland_compat.hpp"
+
 do_patch() {
 	# std::string + std::string_view is C++26, Void ships libstdc++ 14
 	cat >hyprland_compat.hpp <<_EOF
@@ -35,7 +37,6 @@ std::basic_string<C, T, A> operator+(std::basic_string_view<C, T> lhs, const std
 }
 #endif
 _EOF
-	CXXFLAGS+=" -include ${PWD}/hyprland_compat.hpp"
 }
 
 short_desc="Dynamic tiling Wayland compositor with animated visuals"
