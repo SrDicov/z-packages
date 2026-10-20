@@ -739,7 +739,7 @@ libQt6XcbQpa.so.6 qt6-gui-6.11.1_1
 libQt6Xdg.so.4 libqtxdg-4.0.0_1
 libQt6XdgIconLoader.so.4 libqtxdg-4.0.0_1
 libQt6Xml.so.6 qt6-xml-6.11.1_1
-libQt_6_PRIVATE_API.6.11.1 qt6-core-6.11.1_1
+libQt_6_PRIVATE_API.6.11.2 qt6-core-6.11.2_1
 libQuickCharts.so.1 kf6-kquickcharts-6.19.0_1
 libQuickChartsControls.so.1 kf6-kquickcharts-6.19.0_1
 libQuotient.so.0.9 libQuotient-0.9.1_1
