@@ -4,12 +4,15 @@ version=0.1.0
 revision=1
 build_style=gnu-makefile
 hostmakedepends="git pkg-config"
+# the compositor headers reach into pixman and Lua, which live in their own
+# include directories and are not carried by the compositor's pkg-config
+export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm"
 makedepends="
  aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
  hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-devel
  libcanberra-devel libdrm-devel libinput-devel libxcb-devel
- libxkbcommon-devel MesaLib-devel pango-devel pixman-devel wayland-devel
- xcb-util-errors-devel xcb-util-wm-devel
+ libxkbcommon-devel lua55-devel MesaLib-devel pango-devel pixman-devel
+ wayland-devel xcb-util-errors-devel xcb-util-wm-devel
 "
 depends="hyprland libcanberra ryoku-keysounds-profiles"
 short_desc="Hyprland plugin: a keyboard sound on every key press"
@@ -18,14 +21,16 @@ license="GPL-3.0-or-later"
 homepage="https://ryoku.dev"
 
 do_fetch() {
-	# the plugin lives in the Ryoku tree, next to the compositor config
+	# the plugin is one corner of the Ryoku tree: take a sparse checkout
 	local repo="${XBPS_BUILDDIR}/ryoku-repo"
 	git clone --depth 1 --filter=blob:none --sparse \
 		https://github.com/SrDicov/ryoku-void.git "${repo}"
 	cd "${repo}"
-	git sparse-checkout set ryoku/hyprland/plugins/keysounds
+	git sparse-checkout set --skip-checks ryoku/hyprland/plugins/keysounds \
+		LICENSE
 	cp -a ryoku/hyprland/plugins/keysounds/. \
 		"${XBPS_BUILDDIR}/${pkgname}-${version}/"
+	cp -a LICENSE "${XBPS_BUILDDIR}/${pkgname}-${version}/"
 }
 
 do_build() {
@@ -39,15 +44,15 @@ do_install() {
 }
 
 post_install() {
-	vlicense README.md
+	vlicense LICENSE
 	# the receipt records the compositor ABI the plugin was built for
 	local h=/usr/include/hyprland/src/version.h
-	local abi v
+	local abi v ver
 	abi="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' "$h")"
 	for v in AQUAMARINE:aq HYPRUTILS:hu HYPRGRAPHICS:hg HYPRCURSOR:hc \
 		HYPRLANG:hlg; do
-		abi="${abi}_${v#*:}_$(sed -n "s/^#define ${v%:*}_VERSION *\"\([^\"]*\)\".*/\1/p" \
-			"$h" | sed 's/\.[^.]*$//')"
+		ver="$(sed -n "s/^#define ${v%:*}_VERSION *\"\([^\"]*\)\".*/\1/p" "$h")"
+		abi="${abi}_${v#*:}_${ver%.*}"
 	done
 	printf '%s\n' "$abi" \
 		>"${PKGDESTDIR}/usr/lib/hyprland/plugins/keysounds.abi"

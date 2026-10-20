@@ -4,23 +4,22 @@ version=0.2.1
 revision=1
 build_style=cargo
 make_cmd=cargo
-hostmakedepends="cargo git rust"
-makedepends="gtk4-devel gtk4-layer-shell hyprland-devel wayland-devel"
-depends="gtk4 gtk4-layer-shell hyprland xdg-desktop-portal-hyprland slurp wayland"
+hostmakedepends="cargo git pkg-config rust"
+makedepends="gtk4-devel gtk4-layer-shell-devel"
+depends="gtk4 gtk4-layer-shell hyprland xdg-desktop-portal-hyprland slurp"
 short_desc="Preview-based screen-share source picker for Hyprland"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="MIT"
 homepage="https://github.com/WhySoBad/hyprland-preview-share-picker"
 
 do_fetch() {
-	git clone --depth 1 https://github.com/WhySoBad/hyprland-preview-share-picker.git \
-		"${wrksrc}"
+	git clone --depth 1 "${homepage}.git" "${wrksrc}"
 	cd "${wrksrc}"
 	git fetch --depth 1 origin e2f30ff85486e557018523da45ccbc846e3a499c
 	git checkout -q e2f30ff85486e557018523da45ccbc846e3a499c
-	# the protocols live in a submodule: take them from a local clone so the
-	# build never reaches out to the forge twice
-	git clone --depth 1 https://github.com/hyprwm/hyprland-protocols.git \
+	# the protocols submodule is pinned some commits behind its main branch
+	# and a shallow clone cannot serve that commit: take the full history
+	git clone https://github.com/hyprwm/hyprland-protocols.git \
 		"${wrksrc}-protocols"
 	git config submodule.lib/hyprland-protocols.url "${wrksrc}-protocols"
 	git -c protocol.file.allow=always submodule update
@@ -31,5 +30,13 @@ do_configure() {
 }
 
 post_install() {
+	# the schema subcommand hides in --help: the PKGBUILD ships it beside
+	# the binary for users to pin their config against
+	local bin
+	bin="$(find target -name hyprland-preview-share-picker \
+		-path '*release/*' -type f -executable -print -quit)"
+	"$bin" schema > schema.json
+	vmkdir usr/share/hyprland-preview-share-picker
+	vinstall schema.json 644 usr/share/hyprland-preview-share-picker
 	vlicense LICENSE
 }
