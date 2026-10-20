@@ -5,7 +5,12 @@ revision=1
 build_style=meson
 wrksrc="hyprgrass"
 hostmakedepends="git meson ninja pkg-config"
-makedepends="cairo-devel hyprland-devel libdrm-devel pango-devel pixman-devel"
+makedepends="
+ aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
+ hyprland-devel hyprlang-devel hyprutils-devel libdrm-devel
+ libinput-devel libxcb-devel libxkbcommon-devel MesaLib-devel pango-devel
+ pixman-devel wayland-devel xcb-util-errors-devel xcb-util-wm-devel
+"
 depends="hyprland"
 short_desc="Hyprland plugin: touchscreen gestures for windows and workspaces"
 maintainer="Dicov <SrDicov@gmail.com>"
