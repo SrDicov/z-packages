@@ -1,7 +1,7 @@
 # Template file for 'hyprutils'
 pkgname=hyprutils
 version=0.14.2
-revision=5
+revision=6
 build_style=cmake
 hostmakedepends="pkg-config pixman-devel"
 short_desc="Hyprland utilities library used across the ecosystem"
@@ -15,16 +15,16 @@ replaces="hyprutils<0.14.2_1"
 
 post_install() {
 	vlicense LICENSE
-	for pc in "$XBPS_DESTDIR"/usr/lib{,64}/pkgconfig/hyprutils.pc; do
+	for pc in "$PKGDESTDIR"/usr/lib{,64}/pkgconfig/hyprutils.pc; do
 		if [ -f "$pc" ]; then
 			echo 'Requires: pixman-1' >>"$pc"
-			sed -i 's|^libdir=.*|libdir=/usr/lib|' "$pc"
 		fi
 	done
 }
 
 
 hyprutils-devel_package() {
+	depends="hyprutils-${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
