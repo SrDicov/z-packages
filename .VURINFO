@@ -3282,9 +3282,9 @@
     "makedepends": [
       "aquamarine-devel",
       "cairo-devel",
+      "glslang-devel",
       "hyprcursor-devel",
       "hyprgraphics-devel",
-      "glslang-devel",
       "hyprland-devel",
       "hyprlang-devel",
       "hyprutils-devel",
@@ -3292,6 +3292,7 @@
       "libinput-devel",
       "libxcb-devel",
       "libxkbcommon-devel",
+      "lua55-devel",
       "MesaLib-devel",
       "pango-devel",
       "pixman-devel",
