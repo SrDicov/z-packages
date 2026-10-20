@@ -1,7 +1,7 @@
 # Template file for 'hyprgraphics'
 pkgname=hyprgraphics
 version=0.5.1
-revision=2
+revision=3
 build_style=cmake
 hostmakedepends="pkg-config"
 makedepends="MesaLib-devel cairo-devel file-devel gdk-pixbuf-devel
