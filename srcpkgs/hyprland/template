@@ -25,6 +25,7 @@ do_patch() {
 	cat >hyprland_compat.hpp <<_EOF
 #ifndef HYPRLAND_COMPAT_HPP
 #define HYPRLAND_COMPAT_HPP
+#include <ranges>
 #include <string>
 #include <string_view>
 template<typename C, typename T, typename A>
@@ -34,6 +35,19 @@ std::basic_string<C, T, A> operator+(const std::basic_string<C, T, A>& lhs, std:
 template<typename C, typename T, typename A>
 std::basic_string<C, T, A> operator+(std::basic_string_view<C, T> lhs, const std::basic_string<C, T, A>& rhs) {
     return std::basic_string<C, T>(lhs) + rhs;
+}
+namespace std::ranges {
+template<input_range R, typename T>
+constexpr bool starts_with(R&& r, const T& t) {
+    auto it = ranges::begin(r);
+    auto tb = ranges::begin(t);
+    const auto te = ranges::end(t);
+    for (; tb != te; ++tb, ++it) {
+        if (it == ranges::end(r) || !(*it == *tb))
+            return false;
+    }
+    return true;
+}
 }
 #endif
 _EOF
