@@ -850,6 +850,50 @@
     "archs": [
       "all"
     ],
+    "build_style": "gnu-makefile",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "hyprland"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "git",
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "aquamarine-devel",
+      "cairo-devel",
+      "hyprcursor-devel",
+      "hyprgraphics-devel",
+      "hyprland-devel",
+      "hyprlang-devel",
+      "hyprutils-devel",
+      "libdrm-devel",
+      "libinput-devel",
+      "libxcb-devel",
+      "libxkbcommon-devel",
+      "MesaLib-devel",
+      "pango-devel",
+      "pixman-devel",
+      "wayland-devel",
+      "xcb-util-errors-devel",
+      "xcb-util-wm-devel"
+    ],
+    "pkgname": "hypr-dynamic-cursors",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
@@ -878,6 +922,50 @@
     "revision": 3,
     "subpackages": [],
     "version": "0.1.13"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-makefile",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "hyprland"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "git",
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "aquamarine-devel",
+      "cairo-devel",
+      "hyprcursor-devel",
+      "hyprgraphics-devel",
+      "hyprland-devel",
+      "hyprlang-devel",
+      "hyprutils-devel",
+      "libdrm-devel",
+      "libinput-devel",
+      "libxcb-devel",
+      "libxkbcommon-devel",
+      "MesaLib-devel",
+      "pango-devel",
+      "pixman-devel",
+      "wayland-devel",
+      "xcb-util-errors-devel",
+      "xcb-util-wm-devel"
+    ],
+    "pkgname": "hyprglass",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.11.0"
   },
   {
     "archs": [
@@ -1235,6 +1323,54 @@
     "revision": 1,
     "subpackages": [],
     "version": "0.1.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:48187e72ca62fc0b8d12809ca02082b8d27016516d84527a19abb3ff007d6a7d"
+    ],
+    "depends": [
+      "hyprland"
+    ],
+    "distfiles": [
+      "https://raw.githubusercontent.com/SrDicov/ryoku-void/main/release/packages/imgborders/imgborders.bundle"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "git",
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "aquamarine-devel",
+      "cairo-devel",
+      "hyprcursor-devel",
+      "hyprgraphics-devel",
+      "hyprland-devel",
+      "hyprlang-devel",
+      "hyprutils-devel",
+      "libdrm-devel",
+      "libinput-devel",
+      "libxcb-devel",
+      "libxkbcommon-devel",
+      "MesaLib-devel",
+      "pango-devel",
+      "pixman-devel",
+      "wayland-devel",
+      "xcb-util-errors-devel",
+      "xcb-util-wm-devel"
+    ],
+    "pkgname": "imgborders",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.0.2"
   },
   {
     "archs": [
