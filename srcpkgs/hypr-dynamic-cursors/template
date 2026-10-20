@@ -9,11 +9,11 @@ hostmakedepends="git pkg-config"
 # include directories and are not carried by the compositor's pkg-config
 export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm"
 makedepends="
- aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
- glslang-devel hyprland-devel hyprlang-devel hyprutils-devel
- libdrm-devel
- libinput-devel libxcb-devel libxkbcommon-devel MesaLib-devel pango-devel
- pixman-devel wayland-devel xcb-util-errors-devel xcb-util-wm-devel
+ aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
+ hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-devel
+ libdrm-devel libinput-devel libxcb-devel libxkbcommon-devel lua55-devel
+ MesaLib-devel pango-devel pixman-devel wayland-devel
+ xcb-util-errors-devel xcb-util-wm-devel
 "
 depends="hyprland"
 short_desc="Hyprland plugin: cursors that follow the pointer shape"

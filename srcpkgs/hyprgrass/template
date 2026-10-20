@@ -72,7 +72,8 @@ post_install() {
 	vlicense LICENSE
 	# Hyprland loads plugins from its own directory, meson installs them flat
 	vmkdir usr/lib/hyprland/plugins
-	vmove usr/lib/libhyprgrass.so usr/lib/hyprland/plugins/hyprgrass.so
+	vinstall ${DESTDIR}/usr/lib/libhyprgrass.so 755 \
+	 usr/lib/hyprland/plugins hyprgrass.so
 	# the receipt records the compositor ABI the plugin was built for
 	local h=/usr/include/hyprland/src/version.h
 	local abi v

@@ -44,7 +44,8 @@ post_install() {
 	vlicense LICENSE
 	# Hyprland loads plugins from its own directory, cmake installs them flat
 	vmkdir usr/lib/hyprland/plugins
-	vmove usr/lib/libimgborders.so usr/lib/hyprland/plugins/imgborders.so
+	vinstall ${DESTDIR}/usr/lib/libimgborders.so 755 \
+	 usr/lib/hyprland/plugins imgborders.so
 	# the receipt records the compositor ABI the plugin was built for
 	local h=/usr/include/hyprland/src/version.h
 	local abi v
