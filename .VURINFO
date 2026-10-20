@@ -922,6 +922,40 @@
     "archs": [
       "all"
     ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "hyprland"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "git",
+      "meson",
+      "ninja",
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "cairo-devel",
+      "hyprland-devel",
+      "libdrm-devel",
+      "pango-devel",
+      "pixman-devel"
+    ],
+    "pkgname": "hyprgrass",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.8.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
