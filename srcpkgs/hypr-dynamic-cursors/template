@@ -1,0 +1,57 @@
+# Template file for 'hypr-dynamic-cursors'
+pkgname=hypr-dynamic-cursors
+version=0.1.0
+revision=1
+build_style=gnu-makefile
+hostmakedepends="git pkg-config"
+makedepends="
+ aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
+ hyprland-devel hyprlang-devel hyprutils-devel libdrm-devel
+ libinput-devel libxcb-devel libxkbcommon-devel MesaLib-devel pango-devel
+ pixman-devel wayland-devel xcb-util-errors-devel xcb-util-wm-devel
+"
+depends="hyprland"
+short_desc="Hyprland plugin: cursors that follow the pointer shape"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/VirtCode/hypr-dynamic-cursors"
+
+do_fetch() {
+	git clone --depth 1 https://github.com/VirtCode/hypr-dynamic-cursors.git \
+		"${wrksrc}"
+	cd "${wrksrc}"
+	# the plugin is ABI-locked to the compositor: take the commit hyprpm
+	# pins for the Hyprland this build links against
+	local commit
+	commit="$(grep -F "# v$(pkg-config --modversion hyprland)" hyprpm.toml \
+		| grep -oE '[0-9a-f]{40}' | sed -n 2p)"
+	if [ -n "$commit" ]; then
+		git fetch --depth 1 origin "$commit"
+		git checkout -q "$commit"
+	fi
+}
+
+do_build() {
+	make all
+}
+
+do_install() {
+	# Hyprland loads plugins from its own directory
+	install -Dm755 out/dynamic-cursors.so \
+		"${DESTDIR}/usr/lib/hyprland/plugins/dynamic-cursors.so"
+}
+
+post_install() {
+	vlicense LICENSE.md
+	# the receipt records the compositor ABI the plugin was built for
+	local h=/usr/include/hyprland/src/version.h
+	local abi v
+	abi="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' "$h")"
+	for v in AQUAMARINE:aq HYPRUTILS:hu HYPRGRAPHICS:hg HYPRCURSOR:hc \
+		HYPRLANG:hlg; do
+		abi="${abi}_${v#*:}_$(sed -n "s/^#define ${v%:*}_VERSION *\"\([^\"]*\)\".*/\1/p" \
+			"$h" | sed 's/\.[^.]*$//')"
+	done
+	printf '%s\n' "$abi" \
+		>"${PKGDESTDIR}/usr/lib/hyprland/plugins/dynamic-cursors.abi"
+}

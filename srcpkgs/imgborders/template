@@ -1,0 +1,52 @@
+# Template file for 'imgborders'
+pkgname=imgborders
+version=1.0.2
+revision=1
+build_style=cmake
+hostmakedepends="git pkg-config"
+makedepends="
+ aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
+ hyprland-devel hyprlang-devel hyprutils-devel libdrm-devel
+ libinput-devel libxcb-devel libxkbcommon-devel MesaLib-devel pango-devel
+ pixman-devel wayland-devel xcb-util-errors-devel xcb-util-wm-devel
+"
+depends="hyprland"
+short_desc="Hyprland plugin: image borders around windows"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://codeberg.org/zacoons/imgborders"
+distfiles="https://raw.githubusercontent.com/SrDicov/ryoku-void/main/release/packages/imgborders/imgborders.bundle"
+checksum="48187e72ca62fc0b8d12809ca02082b8d27016516d84527a19abb3ff007d6a7d"
+skip_extraction=yes
+
+do_fetch() {
+	# the upstream repository is vendored as a git bundle, so the build
+	# never reaches out to the forge
+	git clone -q "${XBPS_SRCDISTDIR}/imgborders.bundle" "${wrksrc}"
+	cd "${wrksrc}"
+	# the plugin is ABI-locked to the compositor: take the commit hyprpm
+	# pins for the Hyprland this build links against
+	local commit
+	commit="$(grep -F "# v$(pkg-config --modversion hyprland)" hyprpm.toml \
+		| grep -oE '[0-9a-f]{40}' | sed -n 2p)"
+	if [ -n "$commit" ]; then
+		git checkout -q "$commit"
+	fi
+}
+
+post_install() {
+	vlicense LICENSE
+	# Hyprland loads plugins from its own directory, cmake installs them flat
+	vmkdir usr/lib/hyprland/plugins
+	vmove usr/lib/libimgborders.so usr/lib/hyprland/plugins/imgborders.so
+	# the receipt records the compositor ABI the plugin was built for
+	local h=/usr/include/hyprland/src/version.h
+	local abi v
+	abi="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' "$h")"
+	for v in AQUAMARINE:aq HYPRUTILS:hu HYPRGRAPHICS:hg HYPRCURSOR:hc \
+		HYPRLANG:hlg; do
+		abi="${abi}_${v#*:}_$(sed -n "s/^#define ${v%:*}_VERSION *\"\([^\"]*\)\".*/\1/p" \
+			"$h" | sed 's/\.[^.]*$//')"
+	done
+	printf '%s\n' "$abi" >"${PKGDESTDIR}/usr/lib/hyprland/plugins/imgborders.abi"
+}
