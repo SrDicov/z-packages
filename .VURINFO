@@ -1219,22 +1219,20 @@
       "gtk4-layer-shell",
       "hyprland",
       "xdg-desktop-portal-hyprland",
-      "slurp",
-      "wayland"
+      "slurp"
     ],
     "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [
       "cargo",
       "git",
+      "pkg-config",
       "rust"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
       "gtk4-devel",
-      "gtk4-layer-shell",
-      "hyprland-devel",
-      "wayland-devel"
+      "gtk4-layer-shell-devel"
     ],
     "pkgname": "hyprland-preview-share-picker",
     "provides": [],
@@ -3342,6 +3340,7 @@
       "libinput-devel",
       "libxcb-devel",
       "libxkbcommon-devel",
+      "lua55-devel",
       "MesaLib-devel",
       "pango-devel",
       "pixman-devel",
@@ -3365,11 +3364,13 @@
     "checkdepends": [],
     "checksum": [],
     "depends": [
+      "ffmpeg",
       "python3"
     ],
     "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [
+      "ffmpeg",
       "git",
       "python3"
     ],
