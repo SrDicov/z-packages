@@ -95,7 +95,9 @@
     "checksum": [
       "sha256:2f9de98c0bd1b7b1b09c576e390a2fef436449762fb334163c414f0c300296f2"
     ],
-    "depends": [],
+    "depends": [
+      "aquamarine-${version}_${revision}"
+    ],
     "distfiles": [
       "https://github.com/hyprwm/aquamarine/archive/refs/tags/v${version}.tar.gz"
     ],
@@ -122,7 +124,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 5,
     "subpackages": [],
     "version": "0.15.1"
   },
@@ -936,7 +938,9 @@
     "checksum": [
       "sha256:82af8b2ce27242ffdd6baebaa71b3f6c8665dc25c52bfcfccc16912622896af8"
     ],
-    "depends": [],
+    "depends": [
+      "hyprcursor-${version}_${revision}"
+    ],
     "distfiles": [
       "https://github.com/hyprwm/hyprcursor/archive/refs/tags/v${version}.tar.gz"
     ],
@@ -956,7 +960,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 5,
+    "revision": 6,
     "subpackages": [],
     "version": "0.1.13"
   },
@@ -1015,7 +1019,9 @@
     "checksum": [
       "sha256:861ecaad872835922dd5745a612d7a4cc7bfc4babb1d06bc92bc63c2ac013b74"
     ],
-    "depends": [],
+    "depends": [
+      "hyprgraphics-${version}_${revision}"
+    ],
     "distfiles": [
       "https://github.com/hyprwm/hyprgraphics/archive/refs/tags/v${version}.tar.gz"
     ],
@@ -1041,7 +1047,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "0.5.1"
   },
@@ -1278,7 +1284,9 @@
     "checksum": [
       "sha256:d10a0778b646e04d83e8b90cc0f764fb96958c01a15c3c0678d95a40fc647ed5"
     ],
-    "depends": [],
+    "depends": [
+      "hyprlang-${version}_${revision}"
+    ],
     "distfiles": [
       "https://github.com/hyprwm/hyprlang/archive/refs/tags/v${version}.tar.gz"
     ],
@@ -1295,7 +1303,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "0.6.8"
   },
@@ -1377,7 +1385,9 @@
     "checksum": [
       "sha256:2061b7b08c8104fb02a609553b28f6c8580e5ec38633015845f1c4553980175b"
     ],
-    "depends": [],
+    "depends": [
+      "hyprutils-${version}_${revision}"
+    ],
     "distfiles": [
       "https://github.com/hyprwm/hyprutils/archive/refs/tags/v${version}.tar.gz"
     ],
@@ -1394,7 +1404,7 @@
       "hyprutils<0.14.2_1"
     ],
     "restricted": false,
-    "revision": 5,
+    "revision": 6,
     "subpackages": [],
     "version": "0.14.2"
   },
@@ -1407,7 +1417,9 @@
     "checksum": [
       "sha256:92a673d40ae6a7d66fbcd0a34ec071e026e17eaeeb0040c3375e4b2a80dba737"
     ],
-    "depends": [],
+    "depends": [
+      "hyprwire-${version}_${revision}"
+    ],
     "distfiles": [
       "https://github.com/hyprwm/hyprwire/archive/refs/tags/v${version}.tar.gz"
     ],
@@ -1425,7 +1437,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "0.3.1"
   },
