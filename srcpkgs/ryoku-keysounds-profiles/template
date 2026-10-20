@@ -2,7 +2,6 @@
 pkgname=ryoku-keysounds-profiles
 version=0.1.0
 revision=1
-build_style=none
 # the payload clones the recorded packs and runs the importer: python3 is
 # its interpreter and ffmpeg is what it cuts the recordings with
 hostmakedepends="ffmpeg git python3"
