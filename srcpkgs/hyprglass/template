@@ -21,9 +21,10 @@ do_fetch() {
 	cd "${wrksrc}"
 	# the plugin is ABI-locked to the compositor: take the commit hyprpm
 	# pins for the Hyprland this build links against
-	local commit
-	commit="$(grep -F "# v$(pkg-config --modversion hyprland)" hyprpm.toml \
-		| grep -oE '[0-9a-f]{40}' | sed -n 2p)"
+	local hv commit
+	hv="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' \
+		/usr/include/hyprland/src/version.h)"
+	commit="$(grep -F "\"$hv\"" hyprpm.toml | grep -oE '[0-9a-f]{40}' | sed -n 2p)"
 	if [ -n "$commit" ]; then
 		git fetch --depth 1 origin "$commit"
 		git checkout -q "$commit"

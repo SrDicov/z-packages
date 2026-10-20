@@ -24,9 +24,10 @@ do_fetch() {
 	cd "${wrksrc}"
 	# the plugin is ABI-locked to the compositor: take the commit hyprpm
 	# pins for the Hyprland this build links against
-	local commit
-	commit="$(grep -F "# v$(pkg-config --modversion hyprland)" hyprpm.toml \
-		| grep -oE '[0-9a-f]{40}' | sed -n 2p)"
+	local hv commit
+	hv="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' \
+		/usr/include/hyprland/src/version.h)"
+	commit="$(grep -F "\"$hv\"" hyprpm.toml | grep -oE '[0-9a-f]{40}' | sed -n 2p)"
 	if [ -n "$commit" ]; then
 		git fetch --depth 1 origin "$commit"
 		git checkout -q "$commit"
@@ -39,7 +40,7 @@ do_patch() {
 	mkdir -p "${XBPS_BUILDDIR}/shim-pc"
 	cat >"${XBPS_BUILDDIR}/shim-pc/glm.pc" <<_EOF
 prefix=/usr
-includedir=${prefix}/include
+includedir=/usr/include
 
 Name: glm
 Description: C++ OpenGL math library (header-only)
@@ -50,9 +51,9 @@ _EOF
 	# and Void's lua is 5.3, so the build resolves the 5.5 headers instead
 	cat >"${XBPS_BUILDDIR}/shim-pc/lua.pc" <<_EOF
 prefix=/usr
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include/lua5.5
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include/lua5.5
 
 Name: Lua
 Description: An Extensible Extension Language
