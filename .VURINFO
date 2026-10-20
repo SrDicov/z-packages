@@ -875,7 +875,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "0.1.13"
   },
@@ -1014,6 +1014,7 @@
       "pango-devel",
       "pixman-devel",
       "re2-devel",
+      "tomlplusplus-devel",
       "udis86-devel",
       "wayland-devel",
       "wayland-protocols",
