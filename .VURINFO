@@ -3507,35 +3507,53 @@
     "archs": [
       "all"
     ],
-    "build_style": "meson",
+    "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
       "sha256:3652c14f63a9666acea2c841e196782dbc0f74ea5b4783622dd04a32f08b709f"
     ],
-    "depends": [],
+    "depends": [
+      "hyprlang",
+      "hyprutils",
+      "hyprland-protocols",
+      "hyprwayland-scanner",
+      "sdbus-c++",
+      "xdg-desktop-portal",
+      "pipewire",
+      "qt6-base",
+      "qt6-wayland"
+    ],
     "distfiles": [
       "https://github.com/hyprwm/xdg-desktop-portal-hyprland/archive/refs/tags/v${version}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "hyprwayland-scanner",
-      "meson",
+      "cmake",
+      "clang",
       "ninja",
       "pkg-config"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
-      "hyprland-devel",
+      "elogind-devel",
+      "hyprland-protocols",
+      "hyprlang-devel",
+      "hyprutils-devel",
+      "hyprwayland-scanner",
       "libdrm-devel",
-      "pixman-devel",
+      "libgbm-devel",
+      "pipewire-devel",
       "pugixml-devel",
-      "wayland-devel"
+      "qt6-base-devel",
+      "sdbus-c++-devel",
+      "wayland-devel",
+      "wayland-protocols"
     ],
     "pkgname": "xdg-desktop-portal-hyprland",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.4.1"
   },
