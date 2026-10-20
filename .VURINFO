@@ -1171,6 +1171,43 @@
     "archs": [
       "all"
     ],
+    "build_style": "cargo",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "gtk4",
+      "gtk4-layer-shell",
+      "hyprland",
+      "xdg-desktop-portal-hyprland",
+      "slurp",
+      "wayland"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "cargo",
+      "git",
+      "rust"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "gtk4-devel",
+      "gtk4-layer-shell",
+      "hyprland-devel",
+      "wayland-devel"
+    ],
+    "pkgname": "hyprland-preview-share-picker",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.2.1"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
@@ -3186,6 +3223,50 @@
     "revision": 1,
     "subpackages": [],
     "version": "7.81"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-makefile",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "hyprland"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "git",
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "aquamarine-devel",
+      "cairo-devel",
+      "hyprcursor-devel",
+      "hyprgraphics-devel",
+      "hyprland-devel",
+      "hyprlang-devel",
+      "hyprutils-devel",
+      "libdrm-devel",
+      "libinput-devel",
+      "libxcb-devel",
+      "libxkbcommon-devel",
+      "MesaLib-devel",
+      "pango-devel",
+      "pixman-devel",
+      "wayland-devel",
+      "xcb-util-errors-devel",
+      "xcb-util-wm-devel"
+    ],
+    "pkgname": "ryoku-hypr-plugins",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.0"
   },
   {
     "archs": [
