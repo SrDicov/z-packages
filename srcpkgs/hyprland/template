@@ -14,7 +14,8 @@ makedepends="
  libuuid-devel libwebp-devel libzip-devel
  libXcursor-devel libdrm-devel libjpeg-turbo-devel libxcb-devel
  libxkbcommon-devel librsvg-devel lua55-devel MesaLib-devel muparser-devel
- pango-devel pixman-devel re2-devel udis86-devel wayland-devel
+ pango-devel pixman-devel re2-devel tomlplusplus-devel udis86-devel
+ wayland-devel
  wayland-protocols xcb-util-errors-devel xcb-util-wm-devel"
 export CC=clang
 export CXX=clang++

@@ -1,7 +1,7 @@
 # Template file for 'hyprcursor'
 pkgname=hyprcursor
 version=0.1.13
-revision=2
+revision=3
 build_style=cmake
 hostmakedepends="pkg-config pixman-devel"
 makedepends="hyprlang-devel libzip-devel librsvg-devel tomlplusplus-devel"
@@ -17,7 +17,7 @@ post_install() {
 	vlicense LICENSE
 	for pc in "$XBPS_DESTDIR"/usr/lib{,64}/pkgconfig/hyprcursor.pc; do
 		if [ -f "$pc" ]; then
-			echo 'Requires: libzip' >>"$pc"
+			echo 'Requires: libzip tomlplusplus' >>"$pc"
 		fi
 	done
 }

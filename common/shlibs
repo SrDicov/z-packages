@@ -2335,7 +2335,7 @@ libhwasan.so.0 libsanitizer-13.2.0_1
 libhwloc.so.15 libhwloc-2.0.4_1
 libhwy.so.1 highway-1.2.0_1
 libhyphen.so.0 hyphen-2.8.8_1
-libhyprcursor.so.0 hyprcursor-0.1.13_2
+libhyprcursor.so.0 hyprcursor-0.1.13_3
 libhyprgraphics.so.4 hyprgraphics-0.5.1_1
 libhyprlang.so.2 hyprlang-0.6.8_1
 libhyprutils.so.13 hyprutils-0.14.2_3
