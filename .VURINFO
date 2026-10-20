@@ -216,6 +216,40 @@
     "archs": [
       "all"
     ],
+    "build_style": "cargo",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:ba19565a1ed313cbb17b0d8926780023856fe85b9490f6b4fe65b7ede14ee434"
+    ],
+    "depends": [
+      "libusb"
+    ],
+    "distfiles": [
+      "https://github.com/OpenGamingCollective/asusctl/archive/refs/tags/${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "cargo",
+      "clang",
+      "llvm",
+      "rust"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "libusb-devel"
+    ],
+    "pkgname": "asusctl",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "6.4.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
     "build_style": null,
     "checkdepends": [],
     "checksum": [
@@ -3265,6 +3299,80 @@
       "xcb-util-wm-devel"
     ],
     "pkgname": "ryoku-hypr-plugins",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-makefile",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "hyprland",
+      "libcanberra",
+      "ryoku-keysounds-profiles"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "git",
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "aquamarine-devel",
+      "cairo-devel",
+      "glslang-devel",
+      "hyprcursor-devel",
+      "hyprgraphics-devel",
+      "hyprland-devel",
+      "hyprlang-devel",
+      "hyprutils-devel",
+      "libcanberra-devel",
+      "libdrm-devel",
+      "libinput-devel",
+      "libxcb-devel",
+      "libxkbcommon-devel",
+      "MesaLib-devel",
+      "pango-devel",
+      "pixman-devel",
+      "wayland-devel",
+      "xcb-util-errors-devel",
+      "xcb-util-wm-devel"
+    ],
+    "pkgname": "ryoku-keysounds",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "none",
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [
+      "python3"
+    ],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "git",
+      "python3"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "ryoku-keysounds-profiles",
     "provides": [],
     "replaces": [],
     "restricted": false,
