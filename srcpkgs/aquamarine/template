@@ -1,7 +1,7 @@
 # Template file for 'aquamarine'
 pkgname=aquamarine
 version=0.15.1
-revision=4
+revision=5
 build_style=cmake
 hostmakedepends="pkg-config pixman-devel"
 makedepends="MesaLib-devel hwids hyprutils-devel hyprwayland-scanner
@@ -17,16 +17,16 @@ configure_args="-DBUILD_TESTING=OFF"
 
 post_install() {
 	vlicense LICENSE
-	for pc in "$XBPS_DESTDIR"/usr/lib{,64}/pkgconfig/aquamarine.pc; do
+	for pc in "$PKGDESTDIR"/usr/lib{,64}/pkgconfig/aquamarine.pc; do
 		if [ -f "$pc" ]; then
 			echo 'Requires: libseat libdisplay-info' >>"$pc"
-			sed -i 's|^libdir=.*|libdir=/usr/lib|' "$pc"
 		fi
 	done
 }
 
 
 aquamarine-devel_package() {
+	depends="aquamarine-${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
