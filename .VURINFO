@@ -3470,7 +3470,7 @@
     "archs": [
       "all"
     ],
-    "build_style": "none",
+    "build_style": null,
     "checkdepends": [],
     "checksum": [],
     "depends": [
