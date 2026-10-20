@@ -3,21 +3,21 @@ pkgname=hyprgrass
 version=0.8.2
 revision=1
 build_style=meson
-wrksrc="hyprgrass"
 hostmakedepends="git meson ninja pkg-config"
 makedepends="
  aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
  hyprland-devel hyprlang-devel hyprutils-devel libdrm-devel
- libinput-devel libxcb-devel libxkbcommon-devel MesaLib-devel pango-devel
- pixman-devel wayland-devel xcb-util-errors-devel xcb-util-wm-devel
+ libinput-devel libxcb-devel libxkbcommon-devel lua55-devel MesaLib-devel
+ pango-devel pixman-devel wayland-devel xcb-util-errors-devel
+ xcb-util-wm-devel
 "
-depends="hyprland"
+depends="hyprland lua55"
 short_desc="Hyprland plugin: touchscreen gestures for windows and workspaces"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="Apache-2.0"
 homepage="https://github.com/horriblename/hyprgrass"
 
-export PKG_CONFIG_PATH="${XBPS_BUILDDIR}/glm-pc${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+export PKG_CONFIG_PATH="${XBPS_BUILDDIR}/shim-pc${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
 
 do_fetch() {
 	git clone --depth 1 https://github.com/horriblename/hyprgrass.git "${wrksrc}"
@@ -36,14 +36,29 @@ do_fetch() {
 
 do_patch() {
 	# Void's glm is header only and ships no glm.pc, and meson asks for one
-	mkdir -p "${XBPS_BUILDDIR}/glm-pc"
-	cat >"${XBPS_BUILDDIR}/glm-pc/glm.pc" <<_EOF
+	mkdir -p "${XBPS_BUILDDIR}/shim-pc"
+	cat >"${XBPS_BUILDDIR}/shim-pc/glm.pc" <<_EOF
 prefix=/usr
 includedir=${prefix}/include
 
 Name: glm
 Description: C++ OpenGL math library (header-only)
 Version: 1.0.3
+Cflags: -I${includedir}
+_EOF
+	# the plugin asks for the plain lua module, but Hyprland runs on Lua 5.5
+	# and Void's lua is 5.3, so the build resolves the 5.5 headers instead
+	cat >"${XBPS_BUILDDIR}/shim-pc/lua.pc" <<_EOF
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/lua5.5
+
+Name: Lua
+Description: An Extensible Extension Language
+Version: 5.5.1
+Libs: -L${libdir} -llua5.5
+Libs.private: -lm -ldl
 Cflags: -I${includedir}
 _EOF
 }
