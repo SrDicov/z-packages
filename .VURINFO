@@ -926,7 +926,8 @@
     "checkdepends": [],
     "checksum": [],
     "depends": [
-      "hyprland"
+      "hyprland",
+      "lua55"
     ],
     "distfiles": [],
     "format_version": 1,
@@ -949,6 +950,7 @@
       "libinput-devel",
       "libxcb-devel",
       "libxkbcommon-devel",
+      "lua55-devel",
       "MesaLib-devel",
       "pango-devel",
       "pixman-devel",
