@@ -1404,17 +1404,14 @@
     ],
     "build_style": "cmake",
     "checkdepends": [],
-    "checksum": [
-      "sha256:48187e72ca62fc0b8d12809ca02082b8d27016516d84527a19abb3ff007d6a7d"
-    ],
+    "checksum": [],
     "depends": [
       "hyprland"
     ],
-    "distfiles": [
-      "https://raw.githubusercontent.com/SrDicov/ryoku-void/main/release/packages/imgborders/imgborders.bundle"
-    ],
+    "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [
+      "curl",
       "git",
       "pkg-config"
     ],
@@ -1422,6 +1419,7 @@
     "makedepends": [
       "aquamarine-devel",
       "cairo-devel",
+      "glslang-devel",
       "hyprcursor-devel",
       "hyprgraphics-devel",
       "hyprland-devel",
@@ -1431,6 +1429,7 @@
       "libinput-devel",
       "libxcb-devel",
       "libxkbcommon-devel",
+      "lua55-devel",
       "MesaLib-devel",
       "pango-devel",
       "pixman-devel",
