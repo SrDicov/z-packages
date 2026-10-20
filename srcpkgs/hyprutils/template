@@ -1,7 +1,7 @@
 # Template file for 'hyprutils'
 pkgname=hyprutils
 version=0.14.2
-revision=3
+revision=4
 build_style=cmake
 hostmakedepends="pkg-config pixman-devel"
 short_desc="Hyprland utilities library used across the ecosystem"
@@ -18,9 +18,11 @@ post_install() {
 	for pc in "$XBPS_DESTDIR"/usr/lib{,64}/pkgconfig/hyprutils.pc; do
 		if [ -f "$pc" ]; then
 			echo 'Requires: pixman-1' >>"$pc"
+			sed -i 's|^libdir=.*|libdir=/usr/lib|' "$pc"
 		fi
 	done
 }
+
 
 hyprutils-devel_package() {
 	short_desc+=" - development files"

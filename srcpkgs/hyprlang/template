@@ -1,7 +1,7 @@
 # Template file for 'hyprlang'
 pkgname=hyprlang
 version=0.6.8
-revision=1
+revision=2
 build_style=cmake
 hostmakedepends="pkg-config pixman-devel"
 makedepends="hyprutils-devel"
@@ -15,6 +15,11 @@ configure_args="-DBUILD_TESTING=OFF"
 
 post_install() {
 	vlicense LICENSE
+	for pc in "$XBPS_DESTDIR"/usr/lib{,64}/pkgconfig/hyprlang.pc; do
+		if [ -f "$pc" ]; then
+			sed -i 's|^libdir=.*|libdir=/usr/lib|' "$pc"
+		fi
+	done
 }
 
 hyprlang-devel_package() {

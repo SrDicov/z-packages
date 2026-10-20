@@ -1,7 +1,7 @@
 # Template file for 'hyprwire'
 pkgname=hyprwire
 version=0.3.1
-revision=1
+revision=2
 build_style=cmake
 hostmakedepends="pkg-config"
 makedepends="hyprutils-devel libffi-devel pugixml-devel"
@@ -14,6 +14,11 @@ checksum="92a673d40ae6a7d66fbcd0a34ec071e026e17eaeeb0040c3375e4b2a80dba737"
 
 post_install() {
 	vlicense LICENSE
+	for pc in "$XBPS_DESTDIR"/usr/lib{,64}/pkgconfig/hyprwire.pc; do
+		if [ -f "$pc" ]; then
+			sed -i 's|^libdir=.*|libdir=/usr/lib|' "$pc"
+		fi
+	done
 }
 
 do_patch() {
