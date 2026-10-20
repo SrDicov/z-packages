@@ -17,7 +17,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="Apache-2.0"
 homepage="https://github.com/horriblename/hyprgrass"
 
-export PKG_CONFIG_PATH="${XBPS_BUILDDIR}/${wrksrc}/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+export PKG_CONFIG_PATH="${XBPS_BUILDDIR}/glm-pc${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
 
 do_fetch() {
 	git clone --depth 1 https://github.com/horriblename/hyprgrass.git "${wrksrc}"
@@ -36,8 +36,8 @@ do_fetch() {
 
 do_patch() {
 	# Void's glm is header only and ships no glm.pc, and meson asks for one
-	mkdir -p pkgconfig
-	cat >pkgconfig/glm.pc <<_EOF
+	mkdir -p "${XBPS_BUILDDIR}/glm-pc"
+	cat >"${XBPS_BUILDDIR}/glm-pc/glm.pc" <<_EOF
 prefix=/usr
 includedir=${prefix}/include
 
