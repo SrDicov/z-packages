@@ -6,7 +6,8 @@ build_style=gnu-makefile
 hostmakedepends="git pkg-config"
 makedepends="
  aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
- hyprland-devel hyprlang-devel hyprutils-devel libdrm-devel
+ glslang-devel hyprland-devel hyprlang-devel hyprutils-devel
+ libdrm-devel
  libinput-devel libxcb-devel libxkbcommon-devel MesaLib-devel pango-devel
  pixman-devel wayland-devel xcb-util-errors-devel xcb-util-wm-devel
 "

@@ -6,7 +6,7 @@ build_style=meson
 hostmakedepends="git meson ninja pkg-config"
 makedepends="
  aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
- hyprland-devel hyprlang-devel hyprutils-devel libdrm-devel
+ glm hyprland-devel hyprlang-devel hyprutils-devel libdrm-devel
  libinput-devel libxcb-devel libxkbcommon-devel lua55-devel MesaLib-devel
  pango-devel pixman-devel wayland-devel xcb-util-errors-devel
  xcb-util-wm-devel

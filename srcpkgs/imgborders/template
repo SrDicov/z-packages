@@ -19,11 +19,11 @@ distfiles="https://raw.githubusercontent.com/SrDicov/ryoku-void/main/release/pac
 checksum="48187e72ca62fc0b8d12809ca02082b8d27016516d84527a19abb3ff007d6a7d"
 skip_extraction=yes
 
-do_fetch() {
+do_patch() {
 	# the upstream repository is vendored as a git bundle, so the build
-	# never reaches out to the forge
-	git clone -q "${XBPS_SRCDISTDIR}/imgborders.bundle" "${wrksrc}"
-	cd "${wrksrc}"
+	# never reaches out to the forge. the bundle lands in the source
+	# directory after the fetch step, so the clone waits for it.
+	git clone -q "${XBPS_SRCDISTDIR}/imgborders.bundle" .
 	# the plugin is ABI-locked to the compositor: take the commit hyprpm
 	# pins for the Hyprland this build links against
 	local hv commit
