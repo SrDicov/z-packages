@@ -129,6 +129,13 @@ jobs:
           set -o pipefail
           sudo -Eu builder ./xbps-src -Q pkg "$PKG" 2>&1 | tee /tmp/build.log
 
+      - name: Format the template
+        # El CI corre xlint sobre el template tocado: se normaliza antes de
+        # commitear (header, orden de variables, tabs).
+        shell: bash
+        run: |
+          python3 .github/scripts/format-template.py "srcpkgs/$DIR/template"
+
       - name: Push and open PR
         id: pr
         shell: bash
