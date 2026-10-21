@@ -23,7 +23,7 @@ jobs:
     name: Plan
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/void-linux/void-musl-full
+      image: ghcr.io/void-linux/void-glibc-full
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
     steps:
@@ -59,7 +59,7 @@ jobs:
     if: "needs.plan.outputs.matrix != '[]'"
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/void-linux/void-musl-full
+      image: ghcr.io/void-linux/void-glibc-full
     strategy:
       fail-fast: false
       matrix:

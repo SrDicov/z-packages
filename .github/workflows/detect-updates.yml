@@ -21,7 +21,7 @@ jobs:
     name: Detect
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/void-linux/void-musl-full
+      image: ghcr.io/void-linux/void-glibc-full
     steps:
       - uses: actions/checkout@v4
 
