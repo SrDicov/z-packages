@@ -130,18 +130,21 @@ jobs:
         id: pr
         shell: bash
         run: |
-          set -ex
-          cd "$GITHUB_WORKSPACE"
-          pwd
-          ls -a | head -5
-          ls -ld .git || echo "NO HAY .git"
+          set -e
           branch="update/$PKG-$VER"
+          # Se trabaja sobre un clon propio: el workspace no siempre conserva
+          # el .git (el build se lleva por delante el arbol de trabajo).
+          rm -rf /tmp/pushrepo
+          git clone --depth 1 --no-tags \
+            "https://x-access-token:$TOKEN@github.com/$REPO.git" /tmp/pushrepo
+          cd /tmp/pushrepo
           git config user.name "z-packages bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
+          cp "$GITHUB_WORKSPACE/srcpkgs/$DIR/template" "srcpkgs/$DIR/template"
           git add "srcpkgs/$DIR"
           git commit -m "$PKG: update to $VER."
-          git push --force origin "HEAD:refs/heads/$branch"
+          git push origin "HEAD:refs/heads/$branch"
           python3 - <<'PY' > /tmp/pr.json
           import json, os
           print(json.dumps({
