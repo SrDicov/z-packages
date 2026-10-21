@@ -1,15 +1,16 @@
 # Template file for 'imgborders'
 pkgname=imgborders
 version=1.0.2
-revision=1
+revision=2
 build_style=cmake
 hostmakedepends="curl git pkg-config"
 makedepends="
  aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
  hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-devel
- libdrm-devel libinput-devel libxcb-devel libxkbcommon-devel lua55-devel
- MesaLib-devel pango-devel pixman-devel wayland-devel xcb-util-errors-devel
- xcb-util-wm-devel
+ libdisplay-info-devel libdrm-devel libinput-devel libseat-devel
+ libxcb-devel libxkbcommon-devel libzip-devel lua55-devel
+ MesaLib-devel pango-devel pixman-devel tomlplusplus-devel wayland-devel
+ xcb-util-errors-devel xcb-util-wm-devel
 "
 depends="hyprland"
 short_desc="Hyprland plugin: image borders around windows"
@@ -17,7 +18,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://codeberg.org/zacoons/imgborders"
 
-export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm"
+export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm:/usr/include/hyprland/src"
 
 bundle_url="https://raw.githubusercontent.com/SrDicov/ryoku-void/main/release/packages/imgborders/imgborders.bundle"
 bundle_sha256="48187e72ca62fc0b8d12809ca02082b8d27016516d84527a19abb3ff007d6a7d"
