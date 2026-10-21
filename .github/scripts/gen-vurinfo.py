@@ -112,7 +112,7 @@ def parse_template(text):
     return variables
 
 
-def to_vurinfo(pkg_vars):
+def to_vurinfo(pkg_vars, subpackages=None):
     pkgname = pkg_vars.get("pkgname", "")
     if not pkgname:
         return None, "template sin pkgname"
@@ -144,7 +144,7 @@ def to_vurinfo(pkg_vars):
         "version": version,
         "revision": revision,
         "archs": archs,
-        "subpackages": [],
+        "subpackages": subpackages or [],
         "depends": split_list("depends"),
         "hostmakedepends": split_list("hostmakedepends"),
         "makedepends": split_list("makedepends"),
@@ -191,8 +191,14 @@ def main(argv):
         if not os.path.isfile(tmpl):
             continue
         with open(tmpl, encoding="utf-8", errors="replace") as handle:
-            variables = parse_template(handle.read())
-        info, err = to_vurinfo(variables)
+            text = handle.read()
+        variables = parse_template(text)
+        # Los subpaquetes se declaran con funciones <nombre>_package(), no
+        # con una variable: hay que leerlas del template para indexarlas.
+        subpkgs = [m for m in re.findall(r"^([A-Za-z0-9_+.-]+)_package\(\)", text,
+                                         re.M)
+                   if m != variables.get("pkgname")]
+        info, err = to_vurinfo(variables, subpkgs)
         if err is not None:
             warn("{}: {}".format(tmpl, err))
             continue
