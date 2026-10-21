@@ -107,6 +107,10 @@ TABLE = {
 # Tags con forma de fecha (jwmkit-neko usa 20240327). Compararlos contra un
 # version= normal daria "26.5 -> 20240327": un tag de 2024 contado como nuevo.
 DATE_RE = re.compile(r"^\d{6,8}$")
+# xbps-src rechaza una version con guion o guion bajo ("version contains
+# invalid character"). Halley etiqueta sus releases 0.8.0-mikuri.20: es una
+# version valida para upstream pero imposible de meter en un template.
+VALID_VERSION_RE = re.compile(r"^[0-9][0-9A-Za-z.+~]*$")
 # Sin automatismo posible. El motivo va al reporte: no es un hueco, es una
 # decision. Si alguno se vuelve automatizable, sale de aqui.
 #
@@ -520,6 +524,9 @@ def best(current, candidates):
         # Un tag-fecha nunca es comparable con un version= normal, ni al reves.
         if bool(DATE_RE.match(v)) != want_date:
             continue
+        # Una version que xbps-src no acepta no se puede proponer.
+        if not VALID_VERSION_RE.match(v):
+            continue
         c = cmpver(v, current)
         if c is None or c <= 0:
             continue
@@ -587,6 +594,8 @@ def selftest():
         assert best("1.0.0rc1", ["1.1.0rc2"]) == ("1.1.0rc2", 1)
         # Un tag-fecha no es comparable con una version normal.
         assert best("1.0.0", ["20240327"]) == (None, 0)
+        # Una version con guion no vale para xbps-src: no se propone.
+        assert best("0.5.7", ["0.8.0-mikuri.20"]) == (None, 0)
     finally:
         cmpver = real
     print("selftest: OK")
@@ -640,8 +649,12 @@ def main():
                 repo, cur_sha = detail
                 head = git_ls_remote_head(repo)
                 if not head:
-                    row.update(status="error", why=f"no se pudo leer HEAD de {repo}")
-                    counts["error"] += 1
+                    # El _repository no es un repositorio git clonable: el
+                    # pin no se puede verificar, asi que no es automatizable.
+                    row.update(status="manual",
+                               why="el _repository no es un repo git: el pin "
+                                   "no se puede verificar")
+                    counts["manual"] += 1
                 elif head == cur_sha:
                     row.update(status="current")
                     counts["current"] += 1
