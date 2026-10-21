@@ -1,3 +1,4 @@
+# Template file for 'soar-git'
 pkgname=soar-git
 version=0.13.4
 revision=1
