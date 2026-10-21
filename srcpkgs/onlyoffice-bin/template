@@ -1,6 +1,6 @@
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=onlyoffice-bin
-version=9.4.0
+version=10.0.0
 revision=1
 archs="x86_64"
 create_wrksrc=yes
@@ -9,8 +9,10 @@ short_desc="Desktop office suite for text, spreadsheet and presentations"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="AGPL-3.0-only"
 homepage="https://www.onlyoffice.com"
+# Canal rodante: el .deb no lleva version en el nombre. La version viene de
+# lo que publica ONLYOFFICE (10.0.0 al verificar este checksum).
 distfiles="https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb"
-checksum=4271434e81be42b1559fd989d24bf6d413482f278dc6a5e328202a4fc1a18649
+checksum=2190edb4022a2ac2f6eee0f78815520f0e4ece1e8a1097c645a6f9b225c8b59c
 # Derived from the .deb Depends, mapped to Void names. Everything the ELF
 # sonames resolve to (Qt5, X11, glib, cups, icu...) is autodetected by
 # xbps-src, so it is intentionally NOT listed here.
