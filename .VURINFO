@@ -424,7 +424,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:ad71abea5326d15bbe813a1e9592bcf2383f2ecc083a432313ca80b4436d3797"
+      "sha256:138b85d05f8e225e0d6bc71da0b616f72a194e461883df5fd7e35aef3af75325"
     ],
     "depends": [
       "alsa-lib",
@@ -458,7 +458,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.96.59"
+    "version": "1.97.59"
   },
   {
     "archs": [
@@ -579,8 +579,8 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:6dd2b082e408e2cd1aa37ae9dd8c9063b593346e8b27b0571ed5c97fe206df2f",
-      "sha256:cc5ddf5fba5cbc9612b50cdb5fb9d5cfded3cd5d13297f1e8602b874f944aa40"
+      "sha256:0b7f6cade93802ef0578fda1bc0752e97fd22beb64f0382da0184e17f6a6a209",
+      "sha256:f06beab8172842e6347d22b2ae955a3e486a10305c697d1aeb3db71b440c7b18"
     ],
     "depends": [],
     "distfiles": [
@@ -599,7 +599,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.13.4"
+    "version": "2.14.8"
   },
   {
     "archs": [
@@ -4153,7 +4153,7 @@
     "build_style": "go",
     "checkdepends": [],
     "checksum": [
-      "sha256:b20a6aa0e2e54491fb4b39a2329a793ec745a068071c4a1644cae61a4307cfa1"
+      "sha256:f4251e342851d2a9edf01c3cee6a66501ee9a29c58b4adf79a0ca548b1044da5"
     ],
     "depends": [],
     "distfiles": [
@@ -4171,7 +4171,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.45.1"
+    "version": "2.46.2"
   },
   {
     "archs": [
@@ -4923,7 +4923,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:0aaee1b3f67f074aebf7fc6c2fe824441bcafd431e9991336479c16370519dd0"
+      "sha256:ba81dd70af70d645f2f0a692f7fa4510f819290abfd8d8e60273d3d5a60d0536"
     ],
     "depends": [
       "desktop-file-utils",
@@ -4952,7 +4952,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.22.3b"
+    "version": "1.23.4b"
   },
   {
     "archs": [
