@@ -1,7 +1,9 @@
+# Template file for 'stremio-bin'
 pkgname=stremio-bin
 version=4.4.183
 revision=1
-only_for_archs="x86_64"
+archs="x86_64"
+_base="https://dl.strem.io/shell-linux/v${version}"
 hostmakedepends="bsdtar patchelf"
 depends="nodejs qt5-declarative qt5-quickcontrols qt5-quickcontrols2
  qt5-webchannel qt5-webengine"
@@ -10,14 +12,14 @@ maintainer="JavierC <javiercyt@atomicmail.io>"
 license="MIT"
 homepage="https://www.stremio.com/"
 changelog="https://github.com/Stremio/stremio-shell/releases"
-nostrip=yes
-_base="https://dl.strem.io/shell-linux/v${version}"
 distfiles="${_base}/stremio_${version}-1_amd64.deb"
 checksum=836c36c8a4dc13909f559c4a26844e7d7bba04b72142f15eae6e377fe9f07286
+nostrip=yes
 
 do_extract() {
 	local _data
-	bsdtar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/stremio_${version}-1_amd64.deb"
+	bsdtar -xf \
+		"${XBPS_SRCDISTDIR}/${pkgname}-${version}/stremio_${version}-1_amd64.deb"
 	_data=$(ls data.tar.* 2>/dev/null | head -n1)
 	if [ -z "${_data}" ]; then
 		msg_error "No data.tar.* inside the .deb\n"
@@ -46,4 +48,5 @@ do_install() {
 	vinstall opt/stremio/smartcode-stremio.desktop 644 usr/share/applications
 	vmkdir usr/bin
 	ln -sf /opt/stremio/stremio "${DESTDIR}/usr/bin/stremio"
+	vlicense "${FILESDIR}/LICENSE"
 }
