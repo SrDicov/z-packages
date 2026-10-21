@@ -33,7 +33,7 @@ jobs:
         run: |
           # La imagen base no trae bash y el mirror de CI (repo-ci) no lo
           # publica: se instala antes de cambiar el mirror.
-          xbps-install -y bash
+          xbps-install -Sy bash
           mkdir -p /etc/xbps.d
           cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
@@ -82,7 +82,7 @@ jobs:
         run: |
           # La imagen base no trae bash y el mirror de CI (repo-ci) no lo
           # publica: se instala antes de cambiar el mirror.
-          xbps-install -y bash
+          xbps-install -Sy bash
           mkdir -p /etc/xbps.d
           cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
