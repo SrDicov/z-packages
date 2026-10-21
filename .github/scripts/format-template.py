@@ -70,6 +70,37 @@ def to_tabs(line):
     return "\t" * (spaces // 4 + tabs) + " " * (spaces % 4) + line[len(ind):]
 
 
+# Licencias que upstream escribe en texto plano y xlint quiere en SPDX.
+LICENSE_MAP = {
+    "Mozilla Public License Version 2.0": "MPL-2.0",
+    "Proprietary": "custom:Proprietary",
+}
+
+
+def strip_quotes(v):
+    v = v.strip()
+    if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'":
+        return v[1:-1]
+    return v
+
+
+def fix_short_desc(value):
+    """xlint: sin punto final y sin articulo inicial."""
+    v = strip_quotes(value).strip().rstrip(".")
+    for art in ("The ", "A ", "An "):
+        if v.startswith(art):
+            v = v[len(art):]
+            break
+    return v
+
+
+def fix_license(value):
+    """xlint: identificador SPDX (o custom:*)."""
+    parts = [LICENSE_MAP.get(p.strip(), p.strip())
+             for p in strip_quotes(value).split(",")]
+    return ", ".join(parts)
+
+
 def split_entries(lines):
     """-> (cabecera, entradas, resto). Una entrada es una asignacion con sus
     lineas de continuacion.
@@ -142,6 +173,13 @@ def process(path):
     keyed = []
     for pos, entry in enumerate(entries):
         idx, name = entry_index(entry)
+        # short_desc y license tienen reglas propias del linter.
+        if name == "short_desc":
+            entry = [f'short_desc="{fix_short_desc(entry[0].split("=", 1)[1])}"'] \
+                + entry[1:]
+        elif name == "license":
+            entry = [f'license="{fix_license(entry[0].split("=", 1)[1])}"'] \
+                + entry[1:]
         keyed.append((idx, pos, entry))
     keyed.sort(key=lambda t: (t[0], t[1]))
 

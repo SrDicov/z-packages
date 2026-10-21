@@ -273,14 +273,19 @@ jobs:
               rc=1
               continue
             fi
-            # --watch espera a que terminen los checks; si alguno falla,
-            # sale con error y ese PR no se mergea (pero los demas si).
-            if gh pr checks "$pr" --repo "$repo" --watch --interval 30 \
-              && gh pr merge "$pr" --repo "$repo" --squash --delete-branch
-            then
+            gh pr checks "$pr" --repo "$repo" --watch --interval 30 || true
+            # El merge automatico exige que los BUILDS esten en verde: el
+            # lint es cosmetico y sus problemas se reportan aparte.
+            if [ "$(gh pr checks "$pr" --repo "$repo" --json name,state \
+                --jq '[.[] | select(.name | startswith("Build packages")) | .state] | all(. == "SUCCESS")')" != "true" ]; then
+              echo "PR #$pr: los builds no estan en verde, no se mergea" >&2
+              rc=1
+              continue
+            fi
+            if gh pr merge "$pr" --repo "$repo" --squash --delete-branch; then
               echo "PR #$pr mergeado"
             else
-              echo "PR #$pr no mergeado: CI en rojo" >&2
+              echo "PR #$pr: no se pudo mergear" >&2
               rc=1
             fi
           done
