@@ -10,7 +10,7 @@ short_desc="Advanced Linux Gaming Performance Daemon"
 maintainer="JavierC"
 license="MIT"
 homepage="https://github.com/PikaOS-Linux/falcond"
-distfiles="https://github.com/Neko-Void-Linux/falcond/releases/download/2.0.14/falcond-2.0.14.tar.gz"
+distfiles="https://github.com/Neko-Void-Linux/falcond/releases/download/${version}/falcond-${version}.tar.gz"
 checksum=cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984
 nopie=yes
 
