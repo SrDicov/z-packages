@@ -589,7 +589,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Javierc <javiercyt@atomicmail.io>",
     "makedepends": [],
     "pkgname": "cpak-bin",
     "provides": [],
