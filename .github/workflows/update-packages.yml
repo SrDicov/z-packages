@@ -144,7 +144,7 @@ jobs:
           cp "$GITHUB_WORKSPACE/srcpkgs/$DIR/template" "srcpkgs/$DIR/template"
           git add "srcpkgs/$DIR"
           git commit -m "$PKG: update to $VER."
-          git push origin "HEAD:refs/heads/$branch"
+          git push --force origin "HEAD:refs/heads/$branch"
           python3 - <<'PY' > /tmp/pr.json
           import json, os
           print(json.dumps({
