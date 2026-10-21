@@ -148,7 +148,9 @@ jobs:
           git checkout -b "$branch"
           cp "$GITHUB_WORKSPACE/srcpkgs/$DIR/template" "srcpkgs/$DIR/template"
           git add "srcpkgs/$DIR"
-          git commit -m "$PKG: update to $VER."
+          # --allow-empty: si la rama ya estaba actualizada, el commit sin
+          # cambios no debe tumbar el job.
+          git commit --allow-empty -m "$PKG: update to $VER."
           git push --force origin "HEAD:refs/heads/$branch"
           python3 - <<'PY' > /tmp/pr.json
           import json, os
