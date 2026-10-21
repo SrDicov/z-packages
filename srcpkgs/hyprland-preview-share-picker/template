@@ -1,7 +1,7 @@
 # Template file for 'hyprland-preview-share-picker'
 pkgname=hyprland-preview-share-picker
 version=0.2.1
-revision=1
+revision=2
 build_style=cargo
 make_cmd=cargo
 hostmakedepends="cargo git pkg-config rust"
@@ -13,12 +13,16 @@ license="MIT"
 homepage="https://github.com/WhySoBad/hyprland-preview-share-picker"
 
 do_fetch() {
+	rm -rf "$wrksrc" "$wrksrc-protocols"
 	git clone --depth 1 "${homepage}.git" "${wrksrc}"
 	cd "${wrksrc}"
 	git fetch --depth 1 origin e2f30ff85486e557018523da45ccbc846e3a499c
 	git checkout -q e2f30ff85486e557018523da45ccbc846e3a499c
-	# the protocols submodule is pinned some commits behind its main branch
+	# shallow clone has no tags: build.rs slices git describe output,
+	# which panics on the empty string
+	git tag -f "v${version}"	# the protocols submodule is pinned some commits behind its main branch
 	# and a shallow clone cannot serve that commit: take the full history
+	rm -rf "${wrksrc}-protocols"
 	git clone https://github.com/hyprwm/hyprland-protocols.git \
 		"${wrksrc}-protocols"
 	git config submodule.lib/hyprland-protocols.url "${wrksrc}-protocols"
