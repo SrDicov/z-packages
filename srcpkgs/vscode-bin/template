@@ -1,6 +1,6 @@
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=vscode-bin
-version=1.139.1
+version=1.143.0
 revision=1
 archs="x86_64"
 conflicts="vscode>=0"
@@ -15,11 +15,11 @@ short_desc="Visual Studio Code (official Microsoft binary release)"
 maintainer="ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>"
 license="custom:Unfree"
 homepage="https://code.visualstudio.com"
-distfiles="https://vscode.download.prss.microsoft.com/dbazure/download/stable/04c0d99f4fb0d8afe6ce4f0c58e31e183ac3e4b1/code-stable-x64-1790309351.tar.gz"
-checksum=0c9cbcea070e9a0fc62de5c78fee01a80f8e32f78ada664d9731f6c517503b7e
+distfiles="https://vscode.download.prss.microsoft.com/dbazure/download/stable/2d0b7506a36c1d6db9a466440131a8e01eab2289/code-stable-x64-1792533330.tar.gz"
+checksum=89302bd9631307a49f3b18a570ce588bf7c53aa4169bf4fb36051a6e76f5e205
 
 do_extract() {
-    tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/code-stable-x64-1790309351.tar.gz" -C "${wrksrc}" --strip-components=1
+    tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/code-stable-x64-1792533330.tar.gz" -C "${wrksrc}" --strip-components=1
 }
 
 do_install() {
