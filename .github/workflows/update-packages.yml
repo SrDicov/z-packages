@@ -141,8 +141,10 @@ jobs:
           git clone --depth 1 --no-tags \
             "https://x-access-token:$TOKEN@github.com/$REPO.git" /tmp/pushrepo
           cd /tmp/pushrepo
-          git config user.name "z-packages bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # xlint rechaza los commits con email noreply: el bot firma con la
+          # identidad del maintainer del repo.
+          git config user.name "Dicov"
+          git config user.email "SrDicov@gmail.com"
           git checkout -b "$branch"
           cp "$GITHUB_WORKSPACE/srcpkgs/$DIR/template" "srcpkgs/$DIR/template"
           git add "srcpkgs/$DIR"
