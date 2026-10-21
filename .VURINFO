@@ -1329,6 +1329,7 @@
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
       "hyprutils-devel",
+      "pixman-devel",
       "polkit-devel",
       "polkit-qt6-devel",
       "qt6-base-devel",
@@ -1338,7 +1339,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.1.3"
   },
@@ -1365,6 +1366,7 @@
       "hyprland-protocols",
       "hyprlang-devel",
       "hyprutils-devel",
+      "pixman-devel",
       "wayland-devel",
       "wayland-protocols"
     ],
@@ -1372,7 +1374,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.4.0"
   },
@@ -1404,7 +1406,7 @@
       "hyprutils<0.14.2_1"
     ],
     "restricted": false,
-    "revision": 6,
+    "revision": 7,
     "subpackages": [],
     "version": "0.14.2"
   },
@@ -1431,13 +1433,14 @@
     "makedepends": [
       "hyprutils-devel",
       "libffi-devel",
+      "pixman-devel",
       "pugixml-devel"
     ],
     "pkgname": "hyprwire",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 5,
     "subpackages": [],
     "version": "0.3.1"
   },
@@ -1997,7 +2000,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "5.5.1"
   },
@@ -4048,6 +4051,7 @@
       "hyprwayland-scanner",
       "libdrm-devel",
       "libgbm-devel",
+      "pixman-devel",
       "pipewire-devel",
       "pugixml-devel",
       "qt6-base-devel",
@@ -4059,7 +4063,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "1.4.1"
   },
