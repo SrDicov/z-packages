@@ -2149,7 +2149,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": null,
     "checkdepends": [],
@@ -2158,11 +2158,11 @@
     ],
     "depends": [],
     "distfiles": [
-      "https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/neko-kernel-void-7.3.0-cachy-bore+.tar.gz"
+      "https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/neko-kernel-void-${version}-cachy-bore+.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <franckeycool@gmail.com>",
     "makedepends": [],
     "pkgname": "linux-cachy-void-bin",
     "provides": [],
@@ -2170,13 +2170,13 @@
       "linux-cachy-void>=0"
     ],
     "restricted": false,
-    "revision": 10,
+    "revision": 11,
     "subpackages": [],
-    "version": "7.3"
+    "version": "7.3.0"
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": null,
     "checkdepends": [],
@@ -2185,11 +2185,11 @@
     ],
     "depends": [],
     "distfiles": [
-      "https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/neko-kernel-void-7.3.0-rt-neko+.tar.gz"
+      "https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/neko-kernel-void-${version}-rt-neko+.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <franckeycool@gmail.com>",
     "makedepends": [],
     "pkgname": "linux-neko-rt-bin",
     "provides": [],
@@ -2197,13 +2197,13 @@
       "linux-neko-rt>=0"
     ],
     "restricted": false,
-    "revision": 4,
+    "revision": 5,
     "subpackages": [],
     "version": "7.3.0"
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": null,
     "checkdepends": [],
@@ -2212,11 +2212,11 @@
     ],
     "depends": [],
     "distfiles": [
-      "https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/zen-kernel-void-7.2.6-zen-neko+.tar.gz"
+      "https://github.com/Neko-Void-Linux/kernel-neko-void/releases/download/latest/zen-kernel-void-${version}-zen-neko+.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <franckeycool@gmail.com>",
     "makedepends": [],
     "pkgname": "linux-neko-zen-bin",
     "provides": [],
@@ -2224,9 +2224,9 @@
       "linux-neko-zen>=0"
     ],
     "restricted": false,
-    "revision": 7,
+    "revision": 8,
     "subpackages": [],
-    "version": "7.2"
+    "version": "7.2.6"
   },
   {
     "archs": [
@@ -3818,7 +3818,7 @@
   },
   {
     "archs": [
-      "x86_64"
+      "all"
     ],
     "build_style": null,
     "checkdepends": [],
