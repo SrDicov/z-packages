@@ -918,7 +918,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:9f4d35239eea18b290846221874265ac2a8637adff954df69fdef77d6b15042c"
+      "sha256:6ca6e4a00fef5916821fb1af8a9607cc6b386f678a7eb422e55f19116ba30469"
     ],
     "depends": [],
     "distfiles": [
@@ -934,7 +934,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.18.1.1"
+    "version": "0.19.4.1"
   },
   {
     "archs": [
@@ -2485,7 +2485,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:bb86d94ddf7ee65e90ff3617a350cc665e23d418ec6f4f1942946bd275f0f71c"
+      "sha256:c579692f1f9e4175d0b52eaf848837baf7e5939240f841218e72e0600a09f2a0"
     ],
     "depends": [
       "gtk+3",
@@ -2514,7 +2514,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "15.0.23"
+    "version": "15.0.26"
   },
   {
     "archs": [
@@ -2988,7 +2988,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:e546123213ae47909a4268692aa4b94950d011afe9cac9938753a2194f1c16d5"
+      "sha256:13a8fb2978302071b86f9d7e00da9c8895f9cd846978379c3bdc6a5333536c9b"
     ],
     "depends": [
       "ripgrep"
@@ -3008,7 +3008,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.18.33"
+    "version": "1.19.3"
   },
   {
     "archs": [
