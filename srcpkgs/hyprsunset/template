@@ -1,11 +1,11 @@
 # Template file for 'hyprsunset'
 pkgname=hyprsunset
 version=0.4.0
-revision=1
+revision=2
 build_style=cmake
 hostmakedepends="pkg-config hyprwayland-scanner"
-makedepends="hyprland-protocols hyprlang-devel hyprutils-devel wayland-devel
- wayland-protocols"
+makedepends="hyprland-protocols hyprlang-devel hyprutils-devel pixman-devel
+ wayland-devel wayland-protocols"
 short_desc="Blue light filter utility for Hyprland"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
