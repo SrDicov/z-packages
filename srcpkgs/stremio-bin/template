@@ -1,0 +1,32 @@
+pkgname=stremio-bin
+version=4.4.183
+revision=1
+only_for_archs="x86_64"
+hostmakedepends="patchelf"
+depends="nodejs qt5-declarative qt5-quickcontrols qt5-quickcontrols2
+ qt5-webchannel qt5-webengine"
+short_desc="Stremio media center (official prebuilt binary)"
+maintainer="JavierC <javiercyt@atomicmail.io>"
+license="MIT"
+homepage="https://www.stremio.com/"
+changelog="https://github.com/Stremio/stremio-shell/releases"
+nostrip=yes
+_base="https://dl.strem.io/shell-linux/v${version}"
+distfiles="${_base}/stremio_${version}-1_amd64.deb"
+checksum=836c36c8a4dc13909f559c4a26844e7d7bba04b72142f15eae6e377fe9f07286
+
+do_install() {
+	vcopy opt /
+	for size in 16 22 24 32 64 128; do
+		vinstall opt/stremio/icons/smartcode-stremio_${size}.png 644 \
+			usr/share/icons/hicolor/${size}x${size}/apps smartcode-stremio.png
+		vinstall opt/stremio/icons/smartcode-stremio-tray_${size}.png 644 \
+			usr/share/icons/hicolor/${size}x${size}/apps \
+			smartcode-stremio-tray.png
+	done
+	vinstall opt/stremio/smartcode-stremio.desktop 644 usr/share/applications
+	patchelf --replace-needed libmpv.so.1 libmpv.so.2 \
+		"${DESTDIR}/opt/stremio/stremio"
+	vmkdir usr/bin
+	ln -sf /opt/stremio/stremio "${DESTDIR}/usr/bin/stremio"
+}
