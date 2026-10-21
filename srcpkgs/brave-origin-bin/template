@@ -1,9 +1,9 @@
+# Template file for 'brave-origin-bin'
 # Template file for 'brave-origin'
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=brave-origin-bin
-version=1.96.59
+version=1.97.59
 revision=1
-replaces="brave-origin>=0"
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="unzip"
@@ -14,7 +14,8 @@ maintainer="datfooldive <datfooldive@gmail.com>"
 license="MPL-2.0"
 homepage="https://brave.com"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-origin-${version}-linux-amd64.zip"
-checksum=ad71abea5326d15bbe813a1e9592bcf2383f2ecc083a432313ca80b4436d3797
+checksum=138b85d05f8e225e0d6bc71da0b616f72a194e461883df5fd7e35aef3af75325
+replaces="brave-origin>=0"
 nostrip=yes
 nopie=yes
 noshlibprovides=yes
