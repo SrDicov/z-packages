@@ -99,10 +99,12 @@ jobs:
 
       - name: Checksum
         # xgensum es la unica fuente de verdad del sha256: no se inventa.
+        # XBPS_DISTDIR lo necesita para encontrar el arbol de paquetes, y el
+        # template se pasa como argumento (no el directorio actual).
         shell: bash
         run: |
-          cd "srcpkgs/$DIR"
-          sudo -Eu builder /usr/local/bin/xgensum -i
+          sudo -Eu builder env XBPS_DISTDIR="$GITHUB_WORKSPACE" \
+            /usr/local/bin/xgensum -i "srcpkgs/$DIR/template"
 
       - name: Lint
         shell: bash
