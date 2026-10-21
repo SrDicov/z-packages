@@ -1,11 +1,11 @@
 # Template file for 'hyprpolkitagent'
 pkgname=hyprpolkitagent
 version=0.1.3
-revision=1
+revision=2
 build_style=cmake
 hostmakedepends="pkg-config"
-makedepends="hyprutils-devel polkit-devel polkit-qt6-devel qt6-base-devel
- qt6-declarative-devel"
+makedepends="hyprutils-devel pixman-devel polkit-devel polkit-qt6-devel
+ qt6-base-devel qt6-declarative-devel"
 depends="polkit"
 short_desc="Polkit authentication agent for Hyprland"
 maintainer="Dicov <SrDicov@gmail.com>"
