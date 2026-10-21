@@ -2,7 +2,7 @@
 pkgname=matrix-asm
 version=2.0
 revision=1
-archs="x86_64"
+archs="x86_64*"
 _base="https://github.com/javiercplus/MATRIx-ASM/releases/download/${version}"
 short_desc="Matrix Terminal in assembly"
 maintainer="JavierC <javiercyt@atomicmail.io>"
