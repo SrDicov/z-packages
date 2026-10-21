@@ -1,7 +1,7 @@
 # Template file for 'lua55'
 pkgname=lua55
 version=5.5.1
-revision=2
+revision=3
 makedepends="readline-devel"
 short_desc="Powerful, fast, lightweight scripting language (5.5.x)"
 maintainer="Dicov <SrDicov@gmail.com>"
@@ -9,7 +9,6 @@ license="MIT"
 homepage="https://www.lua.org"
 distfiles="https://www.lua.org/ftp/lua-${version}.tar.gz"
 checksum=1c4b4068d67061f2a2231ad2b5422e77acea1487ea9890f6320af614f4373dce
-conflicts="lua55-devel>=0"
 
 do_build() {
 	sed -i src/Makefile -r \
