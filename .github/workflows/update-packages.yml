@@ -77,7 +77,10 @@ jobs:
       VER: ${{ matrix.version }}
       DISTFILES: ${{ matrix.distfiles }}
       REPO: ${{ github.repository }}
-      TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Un PAT (secret PR_TOKEN) es lo que hace que el CI del PR se dispare:
+      # los workflows lanzados con GITHUB_TOKEN no activan otros workflows,
+      # y el PR se queda sin checks para siempre.
+      TOKEN: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -278,4 +281,8 @@ jobs:
           gh issue create \
             --title "[autoupdate] el CI de un PR de actualizacion quedo en rojo" \
             --body "El merge automatico no se hizo porque el CI quedo en rojo. Revisa los PR abiertos." \
+            || true
+          gh issue create \
+            --title "[autoupdate] los PR de actualizacion no tienen checks" \
+            --body "Si el CI no se dispara en los PR, falta el secret PR_TOKEN (un PAT con permisos de contents y pull_requests): los workflows lanzados con GITHUB_TOKEN no activan otros workflows." \
             || true
