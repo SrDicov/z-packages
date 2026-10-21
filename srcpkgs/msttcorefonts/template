@@ -45,7 +45,7 @@ do_extract() {
 
 do_install() {
 	vlicense Licen.TXT
-	mkdir -p ${DESTDIR}/usr/share/fonts/TTF
+	vmkdir usr/share/fonts/TTF
 	vcopy *.TTF usr/share/fonts/TTF
 	vcopy *.ttf usr/share/fonts/TTF
 }
