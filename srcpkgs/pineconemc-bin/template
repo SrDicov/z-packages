@@ -1,6 +1,6 @@
 # Z: glibc-only (binarios precompilados x86_64).
 pkgname=pineconemc-bin
-version=11.1.0
+version=11.1.1
 revision=1
 archs="x86_64"
 create_wrksrc=yes
@@ -22,7 +22,7 @@ homepage="https://pineconemc.ru"
 # (same approach as helium-browser-bin's helium-wrapper).
 distfiles="https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst>pineconemc-${version}.zst
  https://archive.archlinux.org/packages/c/cmark/cmark-0.31.2-1-x86_64.pkg.tar.zst"
-checksum="707c449ab75dd94c3fa59b256028108bdc462822a678fd544ac5da4392821ae0
+checksum="7707f48da4f8eb48accc352b325ae0e3b93ed2c9d56071ce0b74b8a0dab0be7a
  20aa066e2f2051eca725f3f700580813a2d357814fd53c76d916ab641afa1fa8"
 # java-runtime (Arch) does not exist in Void; openjdk17 is the runtime.
 depends="desktop-file-utils hicolor-icon-theme libarchive openjdk17
