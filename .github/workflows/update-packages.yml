@@ -30,8 +30,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Prepare container
-        shell: bash
         run: |
+          # La imagen base no trae bash: se instala aqui para los pasos
+          # siguientes, que lo declaran como shell.
+          xbps-install -y bash
           mkdir -p /etc/xbps.d
           cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
@@ -77,8 +79,10 @@ jobs:
           fetch-depth: 0
 
       - name: Prepare container
-        shell: bash
         run: |
+          # La imagen base no trae bash: se instala aqui para los pasos
+          # siguientes, que lo declaran como shell.
+          xbps-install -y bash
           mkdir -p /etc/xbps.d
           cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
