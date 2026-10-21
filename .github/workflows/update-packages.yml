@@ -273,7 +273,15 @@ jobs:
               rc=1
               continue
             fi
-            gh pr checks "$pr" --repo "$repo" --watch --interval 30 || true
+            # Espera a que terminen los checks, con limite de tiempo: un
+            # --watch se queda esperando si algun check se queda en un estado
+            # que no avanza (action_required, por ejemplo).
+            for _ in $(seq 1 120); do
+                pending=$(gh pr checks "$pr" --repo "$repo" --json state \
+                    --jq '[.[] | select(.state != "SUCCESS" and .state != "FAILURE" and .state != "SKIPPED")] | length')
+                [ "${pending:-0}" -eq 0 ] && break
+                sleep 30
+            done
             # El merge automatico exige que los BUILDS esten en verde: el
             # lint es cosmetico y sus problemas se reportan aparte.
             if [ "$(gh pr checks "$pr" --repo "$repo" --json name,state \
