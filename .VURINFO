@@ -1479,6 +1479,44 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
+      "sha256:cde02b92abe372187c9d59a7cb2ca07ede5c3e1a8c81ed8b209dc0d3ac5f0339"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/hyprwm/hyprpicker/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "cmake",
+      "ninja",
+      "pkg-config",
+      "hyprwayland-scanner"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "cairo-devel",
+      "hyprutils-devel",
+      "libjpeg-turbo-devel",
+      "libxkbcommon-devel",
+      "pango-devel",
+      "wayland-devel",
+      "wayland-protocols"
+    ],
+    "pkgname": "hyprpicker",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 3,
+    "subpackages": [],
+    "version": "0.4.7"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
       "sha256:a8fa714b92d47331f056b608cb731dd1f5cc3845a9109cb22c6e6eb55b4eac84"
     ],
     "depends": [
