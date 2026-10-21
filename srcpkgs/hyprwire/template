@@ -1,10 +1,10 @@
 # Template file for 'hyprwire'
 pkgname=hyprwire
 version=0.3.1
-revision=4
+revision=5
 build_style=cmake
 hostmakedepends="pkg-config"
-makedepends="hyprutils-devel libffi-devel pugixml-devel"
+makedepends="hyprutils-devel libffi-devel pixman-devel pugixml-devel"
 short_desc="Wire protocol library and code generator for the Hyprland IPC"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="MIT"
