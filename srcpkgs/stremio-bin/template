@@ -15,6 +15,17 @@ _base="https://dl.strem.io/shell-linux/v${version}"
 distfiles="${_base}/stremio_${version}-1_amd64.deb"
 checksum=836c36c8a4dc13909f559c4a26844e7d7bba04b72142f15eae6e377fe9f07286
 
+do_extract() {
+	local _data
+	ar x "${XBPS_SRCDISTDIR}/${pkgname}-${version}/stremio_${version}-1_amd64.deb"
+	_data=$(ls data.tar.* 2>/dev/null | head -n1)
+	if [ -z "${_data}" ]; then
+		msg_error "No data.tar.* inside the .deb\n"
+	fi
+	tar xf "${_data}"
+	rm -f data.tar.* control.tar.* debian-binary
+}
+
 do_install() {
 	vcopy opt /
 	for size in 16 22 24 32 64 128; do
