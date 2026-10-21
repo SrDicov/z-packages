@@ -62,6 +62,11 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/void-linux/void-glibc-full
+      # El bootstrap monta /private y /dev dentro del masterdir: sin
+      # privilegios el build se cae. Es lo que hace build.yaml.
+      options: --privileged
+      volumes:
+        - /dev:/dev
     strategy:
       fail-fast: false
       matrix:
