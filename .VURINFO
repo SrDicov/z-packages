@@ -396,7 +396,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:b05129c6907670b2029e2f01773d192c8b87c3075b25873ea3bc226bb0f15f1e"
+      "sha256:666f817b640a3284fbb5c9b34917b78854e2acd92fa7febad704dc2b29349be5"
     ],
     "depends": [],
     "distfiles": [
@@ -415,7 +415,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.96.59"
+    "version": "1.97.59"
   },
   {
     "archs": [
