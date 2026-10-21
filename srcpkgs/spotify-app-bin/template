@@ -13,6 +13,8 @@ short_desc="Proprietary music streaming client"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="custom:Proprietary"
 homepage="https://www.spotify.com"
+# spotify-bin instala el mismo /usr/bin/spotify: no pueden coexistir.
+conflicts="spotify-bin"
 _site="https://repository.spotify.com/pool/non-free/s/spotify-client"
 distfiles="${_site}/spotify-client_${version}.${_subver}_amd64.deb"
 checksum=20f327441d11b202c82e65b69ec990ef631eb66605da15f41076c049acb718e4
