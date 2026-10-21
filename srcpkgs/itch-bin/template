@@ -1,0 +1,62 @@
+# Z: glibc-only (binario precompilado x86_64).
+pkgname=itch-bin
+version=26.22.0
+revision=1
+archs="x86_64"
+nostrip=yes
+noshlibprovides=yes
+depends="gtk+3 nss libXScrnSaver alsa-lib libgbm libnotify xdg-utils
+ at-spi2-core hicolor-icon-theme desktop-file-utils"
+short_desc="Installer and launcher for itch.io games"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="MIT"
+homepage="https://itch.io/app"
+changelog="https://github.com/itchio/itch/releases"
+_gh="https://github.com/itchio/itch/releases/download/v${version}"
+distfiles="${_gh}/itch-v${version}-linux-amd64.tar.gz"
+checksum=462408b2ef3dbebcd3c110040e0e58bd2ac8e12b0bd7995be87d393c6df0bda2
+
+do_install() {
+    vmkdir opt/itch
+    vcopy ./. opt/itch
+    chmod 0755 "${DESTDIR}/opt/itch/itch"
+
+    vmkdir usr/bin
+    ln -sf /opt/itch/itch "${DESTDIR}/usr/bin/itch"
+
+    local _icon=""
+    for cand in \
+        resources/app/src/static/images/tray/itch.png \
+        resources/app/src/static/images/window/itch/icon.png \
+        itch.png; do
+        if [ -f "$cand" ]; then
+            _icon="$cand"
+            break
+        fi
+    done
+
+    if [ -n "$_icon" ]; then
+        vinstall "$_icon" 644 usr/share/icons/hicolor/256x256/apps itch.png
+    fi
+
+    vmkdir usr/share/applications
+    cat > "${DESTDIR}/usr/share/applications/itch.desktop" << 'EOF'
+[Desktop Entry]
+Name=itch
+Comment=Installer and launcher for itch.io games
+Exec=itch %U
+Icon=itch
+Terminal=false
+Type=Application
+StartupWMClass=itch
+Categories=Game;Utility;
+MimeType=x-scheme-handler/itchio;x-scheme-handler/itch;
+EOF
+
+    if [ -f LICENSE.electron.txt ]; then
+        vlicense LICENSE.electron.txt
+    fi
+    if [ -f LICENSE ]; then
+        vlicense LICENSE
+    fi
+}
