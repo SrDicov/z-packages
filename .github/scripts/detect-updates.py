@@ -296,10 +296,13 @@ def classify(t):
     if m:
         return "tags", (f"{m.group(1)}/{m.group(2)}/{m.group(3)}", m.group(4))
     m = re.match(
-        r"^(https?://[^/]+)/([^/]+)/([^/]+)/releases/download/(v?)\$\{version\}/", url
+        r"^(https?://[^/]+)/([^/]+)/([^/]+)/releases/download/(v?)\$\{version\}/(.+)$",
+        url,
     )
     if m:
-        return "release", (m.group(2), m.group(3), m.group(4))
+        # El grupo 5 es el nombre del asset: se usa para comprobar que la
+        # release lo publica de verdad.
+        return "release", (m.group(2), m.group(3), m.group(4), m.group(5))
     if "${version}" not in url:
         return "none", f"URL sin ${{version}}, no se puede versionar: {url[:70]}"
     return "none", f"forma de URL no reconocida: {url[:70]}"
@@ -352,27 +355,42 @@ def tags(repo, prefix):
     return seen
 
 
-def releases(owner, repo, prefix, token):
+def releases(owner, repo, prefix, token, asset=None):
     """-> (versiones, error). error != "" significa que no se pudo consultar:
     marcar eso como 'al dia' seria el peor fallo posible, un repo renombrado
-    pareceria no tener releases nuevas."""
+    pareceria no tener releases nuevas.
+
+    asset: nombre del fichero que se espera en la release. Sin esta
+    comprobacion el detector propone versiones cuyo asset no existe (las
+    nightlies de Brave se etiquetan v1.100.7 pero no publican el binario) y
+    el actualizador se queda atascado en un 404 cada noche.
+    """
     raw, err = _api_releases(owner, repo, token)
     if err:
         return [], err
     out = []
-    for tag in raw:
+    for tag, assets in raw:
         if prefix and not tag.startswith(prefix):
             continue
         v = tag[len(prefix):]
-        if v and re.match(r"^\d", v):
-            out.append(v)
+        if not v or not re.match(r"^\d", v):
+            continue
+        if asset:
+            want = asset.replace("${version}", v)
+            if want not in assets:
+                continue
+        out.append(v)
     if not out:
+        if asset:
+            # Hay releases pero ninguna publica este asset: el paquete no
+            # se puede versionar solo. No es un fallo del detector.
+            return [], "NO_ASSET"
         return [], "GitHub API respondio pero no hay ninguna release no-prerelease"
     return out, ""
 
 
 def _api_releases(owner, repo, token):
-    """-> (tags de las releases, error). Cacheado por repo: brave-bin y
+    """-> ([(tag, [assets])], error). Cacheado por repo: brave-bin y
     brave-origin-bin consultan el mismo repo.
 
     Devuelve SIEMPRE una tupla: un return distinto en cada rama es como se
@@ -408,8 +426,10 @@ def _api_releases(owner, repo, token):
                 if rel.get("draft") or rel.get("prerelease"):
                     continue
                 tag = (rel.get("tag_name") or "").strip()
-                if tag:
-                    out.append(tag)
+                if not tag:
+                    continue
+                assets = [a.get("name", "") for a in rel.get("assets", [])]
+                out.append((tag, assets))
             if not out:
                 err = ("GitHub API respondio pero no hay ninguna release "
                        "no-prerelease")
@@ -642,13 +662,21 @@ def main():
                 repo, prefix = detail
                 cands = tags(repo, prefix)
             elif kind == "release":
-                owner, repo, prefix = detail
-                cands, err = releases(owner, repo, prefix, token)
+                owner, repo, prefix, asset = detail
+                # El asset puede venir con ${pkgname} en vez de ${version}.
+                asset = asset.replace("${pkgname}", t.pkgname)
+                cands, err = releases(owner, repo, prefix, token, asset)
             else:
                 cands, new_dist = from_table(detail, t.version)
             if err:
-                row.update(status="error", why=err)
-                counts["error"] += 1
+                if err == "NO_ASSET":
+                    row.update(status="manual",
+                               why="ninguna release publica el asset que usa "
+                                   "el distfile: no se puede versionar solo")
+                    counts["manual"] += 1
+                else:
+                    row.update(status="error", why=err)
+                    counts["error"] += 1
                 rows.append(row)
                 continue
             new, behind = best(t.version, cands)
