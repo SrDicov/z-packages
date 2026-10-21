@@ -2,7 +2,7 @@ pkgname=stremio-bin
 version=4.4.183
 revision=1
 only_for_archs="x86_64"
-hostmakedepends="patchelf"
+hostmakedepends="bsdtar patchelf"
 depends="nodejs qt5-declarative qt5-quickcontrols qt5-quickcontrols2
  qt5-webchannel qt5-webengine"
 short_desc="Stremio media center (official prebuilt binary)"
@@ -17,17 +17,25 @@ checksum=836c36c8a4dc13909f559c4a26844e7d7bba04b72142f15eae6e377fe9f07286
 
 do_extract() {
 	local _data
-	ar x "${XBPS_SRCDISTDIR}/${pkgname}-${version}/stremio_${version}-1_amd64.deb"
+	bsdtar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/stremio_${version}-1_amd64.deb"
 	_data=$(ls data.tar.* 2>/dev/null | head -n1)
 	if [ -z "${_data}" ]; then
 		msg_error "No data.tar.* inside the .deb\n"
 	fi
-	tar xf "${_data}"
+	bsdtar -xf "${_data}"
 	rm -f data.tar.* control.tar.* debian-binary
 }
 
 do_install() {
 	vcopy opt /
+	# El binario de stremio enlaza con libcrypto.so.1.1 (OpenSSL 1.1) y con
+	# libmpv.so.1, y Void solo tiene libcrypto.so.3 y libmpv.so.2. Se parchea
+	# el NEEDED antes de que el hook de shlibs escanee el paquete.
+	# Ojo: opt/stremio/node es un symlink a /usr/bin/node, no se toca.
+	patchelf --replace-needed libcrypto.so.1.1 libcrypto.so.3 \
+		"${DESTDIR}/opt/stremio/stremio"
+	patchelf --replace-needed libmpv.so.1 libmpv.so.2 \
+		"${DESTDIR}/opt/stremio/stremio"
 	for size in 16 22 24 32 64 128; do
 		vinstall opt/stremio/icons/smartcode-stremio_${size}.png 644 \
 			usr/share/icons/hicolor/${size}x${size}/apps smartcode-stremio.png
@@ -36,8 +44,6 @@ do_install() {
 			smartcode-stremio-tray.png
 	done
 	vinstall opt/stremio/smartcode-stremio.desktop 644 usr/share/applications
-	patchelf --replace-needed libmpv.so.1 libmpv.so.2 \
-		"${DESTDIR}/opt/stremio/stremio"
 	vmkdir usr/bin
 	ln -sf /opt/stremio/stremio "${DESTDIR}/usr/bin/stremio"
 }
