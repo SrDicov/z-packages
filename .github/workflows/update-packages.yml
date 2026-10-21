@@ -131,6 +131,7 @@ jobs:
         shell: bash
         run: |
           set -e
+          cd "$GITHUB_WORKSPACE"
           branch="update/$PKG-$VER"
           git config user.name "z-packages bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
