@@ -79,6 +79,13 @@ TABLE = {
         "https://github.com/SrDicov/arxy",
         "v",
     ),
+    # El distfile sale de lua.org, pero las versiones estan etiquetadas en
+    # el repo de Lua: la URL no es derivable del patron, los tags si.
+    "lua55": (
+        "tags",
+        "https://github.com/lua/lua",
+        "v",
+    ),
     # El pool de Spotify publica un indice html con los .deb mas nuevos.
     # La subversion (g0eeebbed) va dentro del nombre, asi que hace falta
     # capturar tambien el nombre completo para rehacer la URL.
@@ -602,8 +609,11 @@ def main():
                 rows.append(row)
                 continue
             if kind == "none":
-                row.update(status="error", why=detail)
-                counts["error"] += 1
+                # No es un fallo del detector: es que ese paquete no se
+                # puede versionar solo (commit, fecha, sin distfiles). Se
+                # declara no automatizable, con su motivo.
+                row.update(status="manual", why=detail)
+                counts["manual"] += 1
                 rows.append(row)
                 continue
             if kind == "pin":

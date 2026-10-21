@@ -34,3 +34,12 @@ XBPS source-packages collection (Void Linux fork). Packages are shell `template`
 - Root `.VURINFO` (JSON array, schema v1) is generated, never hand-edited: `.github/workflows/vurinfo.yaml` runs `.github/scripts/gen-vurinfo.py` (static parsing, same semantics as vary's template fallback — no container, no masterdir, on purpose: building happens in z-repo/Vary) on every `master` push touching `srcpkgs/**` and commits the result. Never `source template` anywhere.
 - Duplicate `pkgname` across templates (today: `font-inter-variable` declares `pkgname=font-inter`): first wins with a CI warning. That template violates "pkgname matches its directory" — fix it there, not in the generator.
 - `/.VURINFO` is allow-listed in `.gitignore`; the workflow commit only touches it, so it never retriggers itself.
+
+## Auto-updates
+
+- `.github/scripts/detect-updates.py` — solo lectura. Clasifica cada template por la forma de su URL (tags / releases / pin / tabla / excluido) y compara versiones con `xbps-uhelper cmpver`, nunca con cadenas. `--selftest` comprueba el parser sin red. Salida: `updates.json` + `updates.md`.
+- `.github/workflows/detect-updates.yml` — cron diario; no toca ningún template, sube `updates.json` como artefacto.
+- `.github/workflows/update-packages.yml` — cron nocturno: elige 5 paquetes (primero los que más rezago tienen), actualiza `version`/`revision`/`distfiles`, recalcula el `checksum` con `xgensum`, compila con `./xbps-src -Q pkg`, abre un PR por paquete y lo mergea cuando el CI queda verde. Techo de 5 por noche a propósito: un upstream roto no entra en 60 paquetes de golpe.
+- `.github/scripts/apply-update.py` y `plan-updates.py` — los dos pasos del updater (editar el template, elegir a quién actualizar).
+- Un paquete con `_commit=` (pin) no se actualiza nunca solo: el pin es una decisión y su `version=` no se deduce del commit. El detector lo informa como `pin` y lo mueve una persona.
+- `distfiles` con la comilla abierta en la línea siguiente, o con variables `_site=`/`_base=`, se expanden antes de clasificar. Los paquetes que no se pueden versionar solos se declaran no automatizables, con su motivo, no como error.
