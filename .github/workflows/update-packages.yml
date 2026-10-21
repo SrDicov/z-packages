@@ -130,8 +130,11 @@ jobs:
         id: pr
         shell: bash
         run: |
-          set -e
+          set -ex
           cd "$GITHUB_WORKSPACE"
+          pwd
+          ls -a | head -5
+          ls -ld .git || echo "NO HAY .git"
           branch="update/$PKG-$VER"
           git config user.name "z-packages bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
