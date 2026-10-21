@@ -1,18 +1,19 @@
 # Template file for 'hyprgrass'
 pkgname=hyprgrass
 version=0.8.2
-revision=1
+revision=2
 build_style=meson
 hostmakedepends="git meson ninja pkg-config"
 
 # the compositor headers reach into pixman and Lua, which live in their own
 # include directories and are not carried by the compositor's pkg-config
-export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm"
+export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm:/usr/include/hyprland/src"
 makedepends="
  aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
- glm hyprland-devel hyprlang-devel hyprutils-devel libdrm-devel
- libinput-devel libxcb-devel libxkbcommon-devel lua55-devel MesaLib-devel
- pango-devel pixman-devel wayland-devel xcb-util-errors-devel
+ glm hyprland-devel hyprlang-devel hyprutils-devel libdisplay-info-devel
+ libdrm-devel libinput-devel libseat-devel libxcb-devel
+ libxkbcommon-devel libzip-devel lua55-devel MesaLib-devel pango-devel
+ pixman-devel tomlplusplus-devel wayland-devel xcb-util-errors-devel
  xcb-util-wm-devel
 "
 depends="hyprland lua55"
