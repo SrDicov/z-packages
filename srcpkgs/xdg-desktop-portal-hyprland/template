@@ -1,13 +1,13 @@
 # Template file for 'xdg-desktop-portal-hyprland'
 pkgname=xdg-desktop-portal-hyprland
 version=1.4.1
-revision=3
+revision=4
 build_style=cmake
 configure_args="-DSYSTEMD_SERVICES=OFF -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"
 hostmakedepends="cmake clang ninja pkg-config"
 makedepends="
  elogind-devel hyprland-protocols hyprlang-devel hyprutils-devel
- hyprwayland-scanner libdrm-devel libgbm-devel pipewire-devel
+ hyprwayland-scanner libdrm-devel libgbm-devel pixman-devel pipewire-devel
  pugixml-devel qt6-base-devel sdbus-c++-devel wayland-devel
  wayland-protocols
 "
