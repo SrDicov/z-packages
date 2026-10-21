@@ -243,6 +243,21 @@ jobs:
           rc=0
           for pr in $prs; do
             echo "== PR #$pr"
+            # Los checks del PR aparecen unos segundos despues de abrirlo:
+            # se espera a que existan antes de esperarlos.
+            seen=0
+            for _ in $(seq 1 30); do
+              if gh pr checks "$pr" --repo "$repo" >/dev/null 2>&1; then
+                seen=1
+                break
+              fi
+              sleep 20
+            done
+            if [ "$seen" -ne 1 ]; then
+              echo "PR #$pr: el CI no ha registrado checks" >&2
+              rc=1
+              continue
+            fi
             # --watch espera a que terminen los checks; si alguno falla,
             # sale con error y ese PR no se mergea (pero los demas si).
             if gh pr checks "$pr" --repo "$repo" --watch --interval 30 \
@@ -250,7 +265,7 @@ jobs:
             then
               echo "PR #$pr mergeado"
             else
-              echo "PR #$pr no mergeado: CI en rojo o sin checks" >&2
+              echo "PR #$pr no mergeado: CI en rojo" >&2
               rc=1
             fi
           done
