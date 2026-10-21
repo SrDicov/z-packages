@@ -1,0 +1,248 @@
+name: Update packages
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 05:47 UTC: una hora despues del detector, para que no compitan por
+    # el rate limit de la API de GitHub.
+    - cron: '47 5 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: update-packages
+  cancel-in-progress: false
+
+jobs:
+  # Que paquetes se actualizan esta noche. Techo de 5: un upstream roto no
+  # debe entrar en 60 paquetes de golpe.
+  plan:
+    name: Plan
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/void-linux/void-musl-full
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare container
+        shell: bash
+        run: |
+          mkdir -p /etc/xbps.d
+          cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          xbps-install -Syu xbps
+          xbps-install -yu
+          xbps-install -y python3 git
+
+      - name: Detect
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 .github/scripts/detect-updates.py --json updates.json
+
+      - name: Plan
+        id: plan
+        run: |
+          python3 .github/scripts/plan-updates.py updates.json 5 > plan.json
+          echo "matrix=$(cat plan.json)" >> "$GITHUB_OUTPUT"
+          cat plan.json
+
+  # Un paquete por PR. Si el build local falla, no se abre PR: se reporta
+  # con una Issue y se sigue con los demas.
+  update:
+    name: Update ${{ matrix.pkg }}
+    needs: plan
+    if: "needs.plan.outputs.matrix != '[]'"
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/void-linux/void-musl-full
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      PKG: ${{ matrix.pkg }}
+      DIR: ${{ matrix.dir }}
+      VER: ${{ matrix.version }}
+      DISTFILES: ${{ matrix.distfiles }}
+      REPO: ${{ github.repository }}
+      TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare container
+        shell: bash
+        run: |
+          mkdir -p /etc/xbps.d
+          cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          xbps-install -Syu xbps
+          xbps-install -yu
+          xbps-install -y sudo bash curl git python3
+          useradd -G xbuilder -M builder
+          chown -R builder:builder .
+          sudo -Eu builder common/travis/set_mirror.sh
+          sudo -Eu builder common/travis/prepare.sh
+          common/travis/fetch-xtools.sh
+
+      - name: Apply version
+        shell: bash
+        run: |
+          sudo -Eu builder env REPO_ROOT="$PWD" python3 \
+            .github/scripts/apply-update.py "$PKG" "$VER" "$DISTFILES"
+
+      - name: Checksum
+        # xgensum es la unica fuente de verdad del sha256: no se inventa.
+        shell: bash
+        run: |
+          cd "srcpkgs/$DIR"
+          sudo -Eu builder /usr/local/bin/xgensum -i
+
+      - name: Lint
+        shell: bash
+        run: sudo -Eu builder common/scripts/lint-templates srcpkgs
+
+      - name: Build
+        id: build
+        shell: bash
+        run: |
+          set -o pipefail
+          sudo -Eu builder ./xbps-src -Q pkg "$PKG" 2>&1 | tee /tmp/build.log
+
+      - name: Push and open PR
+        id: pr
+        shell: bash
+        run: |
+          set -e
+          branch="update/$PKG-$VER"
+          git config user.name "z-packages bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add "srcpkgs/$DIR"
+          git commit -m "$PKG: update to $VER."
+          git push --force origin "HEAD:refs/heads/$branch"
+          python3 - <<'PY' > /tmp/pr.json
+          import json, os
+          print(json.dumps({
+              "title": f"{os.environ['PKG']}: update to {os.environ['VER']}",
+              "body": "Actualizacion automatica detectada por "
+                      "detect-updates.py.\n\n"
+                      f"- version: {os.environ['VER']}\n"
+                      f"- paquete: {os.environ['PKG']}\n",
+              "head": f"update/{os.environ['PKG']}-{os.environ['VER']}",
+              "base": "master",
+          }))
+          PY
+          curl -s -X POST \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/pulls" \
+            -d @/tmp/pr.json > /tmp/pr-resp.json
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os, urllib.request
+
+          d = json.load(open("/tmp/pr-resp.json"))
+          if "number" not in d:
+              # Reintento: el PR ya existe, se reutiliza en vez de fallar.
+              if "already exists" in json.dumps(d):
+                  url = ("https://api.github.com/repos/" + os.environ["REPO"] +
+                         "/pulls?state=open&head=" +
+                         os.environ["REPO"].split("/")[0] + ":" +
+                         "update/" + os.environ["PKG"] + "-" +
+                         os.environ["VER"])
+                  req = urllib.request.Request(url, headers={
+                      "Authorization": "Bearer " + os.environ["TOKEN"],
+                      "Accept": "application/vnd.github+json"})
+                  with urllib.request.urlopen(req) as r:
+                      for pr in json.load(r):
+                          print(f"number={pr['number']}")
+                          print(f"url={pr['html_url']}")
+                          break
+              else:
+                  raise SystemExit("la API no devolvio un PR: " +
+                                   json.dumps(d)[:400])
+          else:
+              print(f"number={d['number']}")
+              print(f"url={d['html_url']}")
+          PY
+
+      - name: Report build failure
+        if: failure() && steps.build.outcome == 'failure'
+        shell: bash
+        run: |
+          python3 - <<'PY' > /tmp/issue.json
+          import json, os
+          log = ""
+          try:
+              log = open("/tmp/build.log").read()[-60000:]
+          except OSError:
+              pass
+          print(json.dumps({
+              "title": f"[autoupdate] {os.environ['PKG']} "
+                       f"{os.environ['VER']} no compila",
+              "body": "El build automatico de "
+                      f"`{os.environ['PKG']}` a {os.environ['VER']} fallo.\n\n"
+                      "```\n" + log + "\n```\n",
+          }))
+          PY
+          curl -s -X POST \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/issues" \
+            -d @/tmp/issue.json > /dev/null
+
+  # Espera al CI de cada PR (la matriz de build.yaml) y, si esta en verde,
+  # lo mergea. gh solo existe en el runner, no en el contenedor de Void.
+  #
+  # No se usa needs.update.outputs: un job con matriz devuelve los outputs
+  # como un objeto, no como un string. Los PR se localizan por el nombre de
+  # la rama, que es donde esta la verdad.
+  merge:
+    name: Merge when green
+    needs: update
+    if: always()
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Merge
+        shell: bash
+        run: |
+          repo="${{ github.repository }}"
+          prs=$(gh pr list --repo "$repo" --state open --limit 50 \
+            --json number,headRefName \
+            --jq '.[] | select(.headRefName | startswith("update/")) | .number')
+          if [ -z "$prs" ]; then
+            echo "no hay PR de actualizacion abiertos"
+            exit 0
+          fi
+          rc=0
+          for pr in $prs; do
+            echo "== PR #$pr"
+            # --watch espera a que terminen los checks; si alguno falla,
+            # sale con error y ese PR no se mergea (pero los demas si).
+            if gh pr checks "$pr" --repo "$repo" --watch --interval 30 \
+              && gh pr merge "$pr" --repo "$repo" --squash --delete-branch
+            then
+              echo "PR #$pr mergeado"
+            else
+              echo "PR #$pr no mergeado: CI en rojo o sin checks" >&2
+              rc=1
+            fi
+          done
+          exit $rc
+
+      - name: Report CI failure
+        if: failure()
+        shell: bash
+        run: |
+          gh issue create \
+            --title "[autoupdate] el CI de un PR de actualizacion quedo en rojo" \
+            --body "El merge automatico no se hizo porque el CI quedo en rojo. Revisa los PR abiertos." \
+            || true

@@ -1,0 +1,55 @@
+name: Detect upstream updates
+
+on:
+  schedule:
+    # 04:23 UTC. GitHub aplana los cron que caen en punto, asi que se elige
+    # un minuto raro para no coincidir con el pico de las 00:00.
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+
+# Solo lectura: este workflow jamas toca un template. Si se rompe la
+# deteccion, lo unico que se pierde es el reporte.
+permissions:
+  contents: read
+
+concurrency:
+  group: detect-updates
+  cancel-in-progress: true
+
+jobs:
+  detect:
+    name: Detect
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/void-linux/void-musl-full
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare container
+        shell: bash
+        run: |
+          mkdir -p /etc/xbps.d
+          cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          xbps-install -Syu xbps
+          xbps-install -yu
+          xbps-install -y python3 git
+
+      - name: Detect
+        env:
+          # Sin token son 60 peticiones/hora y el detector hace ~34 por
+          # pasada: dos seguidas sin token ya revientan.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 .github/scripts/detect-updates.py \
+            --json updates.json --md updates.md
+
+      - name: Summary
+        run: cat updates.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: updates
+          path: updates.json
+          retention-days: 7
