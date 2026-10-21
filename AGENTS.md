@@ -50,3 +50,10 @@ XBPS source-packages collection (Void Linux fork). Packages are shell `template`
 - El merge automático exige que los **builds** estén en verde; el lint es cosmético y sus problemas se reportan en una Issue. `maintainer` sin email y `wrksrc` obsoleto los arregla una persona, no un bot.
 - Un paquete con `_commit=` (pin) no se actualiza nunca solo: el pin es una decisión y su `version=` no se deduce del commit. El detector lo informa como `pin` y lo mueve una persona.
 - `distfiles` con la comilla abierta en la línea siguiente, o con variables `_site=`/`_base=`, se expanden antes de clasificar. Los paquetes que no se pueden versionar solos se declaran no automatizables, con su motivo, no como error.
+
+## Precompilado o desde fuente
+
+- Si el software es de código abierto, compila rápido (no es un navegador ni compila Electron) y depende de una libc, se compila DESDE FUENTE: así el paquete sale en glibc y en musl. Precompilado solo si el upstream no publica fuentes, si el build tarda horas, o si es proprietary.
+- Si el binario precompilado NO depende de una libc (un kernel, un binario estático), da igual cuál se use: se deja el precompilado y se pone `archs="x86_64*"`, que lo publica en ambas.
+- `archs="x86_64"` (sin `*`) es lo que deja el paquete en glibc-only. Solo tiene sentido si el binario depende de una libc.
+- Un paquete sin `archs=` se construye para todas las arquitecturas: si el binario o las fuentes son de una sola, hay que poner `archs`.
