@@ -194,6 +194,10 @@ def check_template(path, pkgdir, known, shlibs, findings, have_index):
         block = multiline(path, var)
         if not block:
             continue
+        # vopt_if/vopt_with se resuelven en tiempo de build: el linter no
+        # puede saber que paquete sale, asi que se descarta la sustitucion
+        # entera en vez de reportar sus trozos como paquetes.
+        block = re.sub(r'\$\([^)]*\)', ' ', block)
         for tok in block.split('"')[1].split() if '"' in block else []:
             tok = tok.strip('"\'')
             if not tok or tok.startswith(('virtual', 'py3:', 'file',
@@ -201,6 +205,15 @@ def check_template(path, pkgdir, known, shlibs, findings, have_index):
                 continue
             base = re.split(r'[><=]', tok)[0]
             if not base:
+                continue
+            # Subpaquetes y paquetes de 32 bits se generan a partir del
+            # paquete base (xbps-src los crea solos), asi que no aparecen
+            # como directorio propio.
+            for suffix in ('-devel', '-32bit'):
+                if base.endswith(suffix) and base[:-len(suffix)] in known:
+                    base = None
+                    break
+            if base is None:
                 continue
             if base in NAME_HINTS:
                 add('dep-arch-name',
