@@ -34,14 +34,17 @@ do_extract() {
 do_install() {
     vcopy opt opt
 
-    if [ -f usr/share/applications/com.3u.3utools.desktop ]; then
-        vinstall usr/share/applications/com.3u.3utools.desktop 644 \
-            usr/share/applications
+    # El .deb guarda todo el payload bajo opt/apps/, no bajo usr/: el
+    # .desktop y el icono estan en opt/apps/com.3u.3utools/share/.
+    _app="opt/apps/com.3u.3utools/share"
+    if [ -f "${_app}/applications/com.3u.3utools.desktop" ]; then
+        vinstall "${_app}/applications/com.3u.3utools.desktop" \
+            644 usr/share/applications
     fi
 
-    if [ -f usr/share/icons/hicolor/scalable/apps/com.3u.3utools.svg ]; then
-        vinstall usr/share/icons/hicolor/scalable/apps/com.3u.3utools.svg 644 \
-            usr/share/icons/hicolor/scalable/apps
+    if [ -f "${_app}/icons/hicolor/scalable/apps/com.3u.3utools.svg" ]; then
+        vinstall "${_app}/icons/hicolor/scalable/apps/com.3u.3utools.svg" \
+            644 usr/share/icons/hicolor/scalable/apps
     fi
 
     vinstall "${FILESDIR}/38-3uTools.rules" 644 usr/lib/udev/rules.d
