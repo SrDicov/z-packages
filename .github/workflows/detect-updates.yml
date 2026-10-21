@@ -27,8 +27,8 @@ jobs:
 
       - name: Prepare container
         run: |
-          # La imagen base no trae bash: se instala aqui para los pasos
-          # siguientes, que lo declaran como shell.
+          # La imagen base no trae bash y el mirror de CI (repo-ci) no lo
+          # publica: se instala antes de cambiar el mirror.
           xbps-install -y bash
           mkdir -p /etc/xbps.d
           cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true

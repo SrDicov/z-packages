@@ -31,8 +31,8 @@ jobs:
 
       - name: Prepare container
         run: |
-          # La imagen base no trae bash: se instala aqui para los pasos
-          # siguientes, que lo declaran como shell.
+          # La imagen base no trae bash y el mirror de CI (repo-ci) no lo
+          # publica: se instala antes de cambiar el mirror.
           xbps-install -y bash
           mkdir -p /etc/xbps.d
           cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
@@ -80,15 +80,15 @@ jobs:
 
       - name: Prepare container
         run: |
-          # La imagen base no trae bash: se instala aqui para los pasos
-          # siguientes, que lo declaran como shell.
+          # La imagen base no trae bash y el mirror de CI (repo-ci) no lo
+          # publica: se instala antes de cambiar el mirror.
           xbps-install -y bash
           mkdir -p /etc/xbps.d
           cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           xbps-install -Syu xbps
           xbps-install -yu
-          xbps-install -y sudo bash curl git python3
+          xbps-install -y sudo curl git python3
           useradd -G xbuilder -M builder
           chown -R builder:builder .
           sudo -Eu builder common/travis/set_mirror.sh
