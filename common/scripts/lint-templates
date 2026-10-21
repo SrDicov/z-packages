@@ -112,16 +112,21 @@ def multiline(path, var):
     """Return the full value of a var that may span multiple lines."""
     out, capturing = [], False
     with open(path) as fh:
-        for line in fh:
-            s = line.rstrip('\n')
-            if capturing:
+        lines = fh.read().splitlines()
+    for s in lines:
+        if capturing:
+            # Solo es continuacion una linea indentada: si no, el valor
+            # ya termino (si no, se comia las variables siguientes).
+            if s.startswith((' ', '\t')):
                 out.append(s)
                 if s.rstrip().endswith('"'):
                     capturing = False
-            elif s.startswith(var + '='):
-                if not s.rstrip().endswith('"'):
-                    capturing = True
-                out.append(s)
+                continue
+            capturing = False
+        if s.startswith(var + '='):
+            out.append(s)
+            if not s.rstrip().endswith('"'):
+                capturing = True
     return '\n'.join(out)
 
 
