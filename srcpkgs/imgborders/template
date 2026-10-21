@@ -3,7 +3,7 @@ pkgname=imgborders
 version=1.0.2
 revision=2
 build_style=cmake
-hostmakedepends="curl git pkg-config"
+hostmakedepends="cmake curl git pkg-config"
 makedepends="
  aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
  hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-devel
