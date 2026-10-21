@@ -1,8 +1,8 @@
+# Template file for 'cpak-bin'
 # Z: glibc-only (binario precompilado, libc sin verificar).
 pkgname=cpak-bin
 version=2.13.4
 revision=1
-replaces="cpak>=0"
 archs="x86_64"
 build_style=fetch
 short_desc="Container application runtime and storaged daemon"
@@ -13,8 +13,9 @@ distfiles="https://github.com/Containerpak/cpak/releases/download/v${version}/cp
  https://github.com/Containerpak/cpak/releases/download/v${version}/cpak-storaged-linux-amd64>cpak-storaged-${version}"
 checksum="6dd2b082e408e2cd1aa37ae9dd8c9063b593346e8b27b0571ed5c97fe206df2f
  cc5ddf5fba5cbc9612b50cdb5fb9d5cfded3cd5d13297f1e8602b874f944aa40"
+replaces="cpak>=0"
 
 do_install() {
-    vbin cpak-${version} cpak
-    vbin cpak-storaged-${version} cpak-storaged
+	vbin cpak-${version} cpak
+	vbin cpak-storaged-${version} cpak-storaged
 }
