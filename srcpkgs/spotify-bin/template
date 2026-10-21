@@ -1,0 +1,57 @@
+# Z: glibc-only (binario precompilado x86_64).
+pkgname=spotify-bin
+version=1.2.95.453
+revision=1
+_subver=g0eeebbed
+archs="x86_64"
+create_wrksrc=yes
+nostrip=yes
+nopie=yes
+noshlibprovides=yes
+hostmakedepends="bsdtar"
+depends="libcurl nss libXtst libXScrnSaver libxml2 libxslt libglvnd gtk+3
+ alsa-lib desktop-file-utils hicolor-icon-theme xdg-utils libnotify
+ libgcrypt"
+short_desc="Spotify digital music streaming service"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="custom:Proprietary"
+homepage="https://www.spotify.com"
+_site="https://repository.spotify.com/pool/non-free/s/spotify-client"
+distfiles="${_site}/spotify-client_${version}.${_subver}_amd64.deb"
+checksum=256e2eb1ec96fbc0c51afab247298e4e6eabfabbafafd4617584f44cca2fb31f
+
+do_extract() {
+    local d="${XBPS_SRCDISTDIR}/${pkgname}-${version}"
+
+    bsdtar -xf "$d/spotify-client_${version}.${_subver}_amd64.deb"
+    bsdtar -xf data.tar.gz -C "${wrksrc}"
+    rm -f control.tar.* debian-binary data.tar.*
+}
+
+do_install() {
+    vmkdir usr/lib
+    vcopy usr/share/spotify usr/lib/spotify
+
+    if [ -d "${DESTDIR}/usr/lib/spotify/icons" ]; then
+        vmkdir usr/share/icons
+        vcopy "${DESTDIR}/usr/lib/spotify/icons/*" usr/share/icons
+    fi
+
+    vmkdir usr/share/applications
+    if [ -f "${DESTDIR}/usr/lib/spotify/spotify.desktop" ]; then
+        vinstall "${DESTDIR}/usr/lib/spotify/spotify.desktop" 644 \
+            usr/share/applications
+        rm -f "${DESTDIR}/usr/lib/spotify/spotify.desktop"
+    fi
+
+    if [ -f "${DESTDIR}/usr/share/applications/spotify.desktop" ]; then
+        vsed -i 's|Exec=.*|Exec=spotify %U|' \
+            "${DESTDIR}/usr/share/applications/spotify.desktop"
+        printf '%s\n' "Comment=Cliente de reproduccion de musica en streaming" \
+            >> "${DESTDIR}/usr/share/applications/spotify.desktop"
+    fi
+
+    vmkdir usr/bin
+    ln -sf /usr/lib/spotify/spotify "${DESTDIR}/usr/bin/spotify"
+    chmod 755 "${DESTDIR}/usr/lib/spotify/spotify"
+}
