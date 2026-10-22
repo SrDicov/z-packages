@@ -1,6 +1,6 @@
 # Template file for 'protonvpn-api-core'
 pkgname=protonvpn-api-core
-version=5.8.3
+version=5.8.11
 revision=1
 archs="x86_64*"
 build_style=python3-module
@@ -13,4 +13,4 @@ maintainer="Voiders <repo@voiders.dev>"
 license="GPL-3.0-or-later"
 homepage="https://protonvpn.com"
 distfiles="https://github.com/ProtonVPN/python-proton-vpn-api-core/archive/refs/tags/v${version}.tar.gz"
-checksum=13412fa7d540ba861d904b4a208e5c51c489330edab512fcaa766536a7a97709
+checksum=97352c2d8ca8d7450eeb209e9f83250ab411fc62525dde4549790c78fd3ac2bd
