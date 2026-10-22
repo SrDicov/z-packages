@@ -1,7 +1,7 @@
 # Template file for 'hyprcursor'
 pkgname=hyprcursor
 version=0.1.13
-revision=6
+revision=7
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="pkg-config pixman-devel"
@@ -24,7 +24,7 @@ post_install() {
 
 
 hyprcursor-devel_package() {
-	depends="hyprcursor-${version}_${revision}"
+	depends="hyprcursor-${version}_${revision} libzip-devel tomlplusplus-devel"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
