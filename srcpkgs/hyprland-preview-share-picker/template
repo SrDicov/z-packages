@@ -18,10 +18,7 @@ do_fetch() {
 	cd "${wrksrc}"
 	git fetch --depth 1 origin e2f30ff85486e557018523da45ccbc846e3a499c
 	git checkout -q e2f30ff85486e557018523da45ccbc846e3a499c
-	# shallow clone has no tags: build.rs slices git describe output,
-	# which panics on the empty string
 	git tag -f "v${version}"	# the protocols submodule is pinned some commits behind its main branch
-	# and a shallow clone cannot serve that commit: take the full history
 	rm -rf "${wrksrc}-protocols"
 	git clone https://github.com/hyprwm/hyprland-protocols.git \
 		"${wrksrc}-protocols"
@@ -34,8 +31,6 @@ do_configure() {
 }
 
 post_install() {
-	# the schema subcommand hides in --help: the PKGBUILD ships it beside
-	# the binary for users to pin their config against
 	local bin
 	bin="$(find target -name hyprland-preview-share-picker \
 		-path '*release/*' -type f -executable -print -quit)"
