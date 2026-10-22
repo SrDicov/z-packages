@@ -1,7 +1,7 @@
 # Template file for 'halley'
 pkgname=halley
 version=0.8.0
-revision=1
+revision=2
 build_style=cargo
 hostmakedepends="cargo rust pkg-config"
 makedepends="eudev-libudev-devel libseat-devel libgbm-devel libdrm-devel
@@ -12,9 +12,9 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-only"
 homepage="https://github.com/mikuri12/halley"
 changelog="https://github.com/mikuri12/halley/releases"
-_tag=v0.8.0-mikuri.9
+_tag=v0.8.0-mikuri.20
 distfiles="https://github.com/mikuri12/halley/archive/refs/tags/${_tag}.tar.gz>halley-${version}.tar.gz"
-checksum=af36844e14b14eaba5f29551557ca47a8386b50b5ca01500fcd4b6537bb43502
+checksum=7e51e5c3815bbbd959fa6f684cf1919579b624a33225c29b32cf92028e609317
 replaces="halley-bin>=0"
 
 do_extract() {
