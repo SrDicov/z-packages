@@ -1,4 +1,4 @@
-# Z: mixto (glibc+musl).
+# Template file for 'labwc-tweaks-qt'
 pkgname=labwc-tweaks-qt
 version=0.1.0
 revision=2
