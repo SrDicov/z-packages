@@ -1,8 +1,7 @@
-# Z: glibc-only (binarios precompilados x86_64).
+# Template file for 'hydra-launcher-bin'
 pkgname=hydra-launcher-bin
 version=4.2.0
 revision=1
-replaces="hydra-launcher>=0"
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="bsdtar"
@@ -11,14 +10,14 @@ depends="gtk+3 nss alsa-lib nspr at-spi2-core libsecret libnotify libXtst
  mesa-dri xrandr hicolor-icon-theme p7zip python3 libtorrent-rasterbar-python3
  xdg-utils"
 short_desc="Game launcher with built-in bittorrent client"
-maintainer="ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>"
+maintainer="ANOMALI0x00 <SrDicov@gmail.com>"
 license="MIT"
 homepage="https://github.com/hydralauncher/hydra"
 distfiles="https://github.com/hydralauncher/hydra/releases/download/v${version}/hydralauncher_${version}_amd64.deb"
 checksum=3982e1ba4026f436378b54bce831f0dd340833b574325950a7dbf03c363b215a
+replaces="hydra-launcher>=0"
 
 nostrip=yes
-noshlibextract=yes
 noverifyrdeps=yes
 
 do_extract() {
@@ -55,11 +54,8 @@ do_install() {
 			ln -sf /usr/bin/python3 ${RPC_DIR}/python
 			ln -sf /usr/bin/python3 ${RPC_DIR}/bin/python
 
-	
-			cat << 'EOF' > ${RPC_DIR}/hydra-python-rpc
 
-exec /usr/bin/python3 /opt/Hydra/resources/app.asar.unpacked/python/main.py "$@"
-EOF
+			vinstall "${FILESDIR}/hydra-python-rpc" 755 opt/Hydra/resources/hydra-python-rpc
 			chmod 755 ${RPC_DIR}/hydra-python-rpc
 		fi
 
@@ -71,11 +67,7 @@ EOF
 
 		mv ${DESTDIR}/opt/Hydra/hydralauncher ${DESTDIR}/opt/Hydra/hydralauncher.bin
 
-		cat << 'EOF' > ${DESTDIR}/opt/Hydra/hydralauncher
-
-export PATH="/usr/bin:$PATH"
-exec /opt/Hydra/hydralauncher.bin --no-sandbox --disable-gpu-sandbox "$@"
-EOF
+		vinstall "${FILESDIR}/hydralauncher" 755 opt/Hydra
 
 		chmod 755 ${DESTDIR}/opt/Hydra/hydralauncher
 		ln -sf /opt/Hydra/hydralauncher ${DESTDIR}/usr/bin/hydra-launcher
