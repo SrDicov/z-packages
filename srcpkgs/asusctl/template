@@ -1,6 +1,6 @@
 # Template file for 'asusctl'
 pkgname=asusctl
-version=6.4.0
+version=6.5.0
 revision=1
 build_style=cargo
 hostmakedepends="cargo rust pkg-config"
@@ -11,7 +11,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="MPL-2.0"
 homepage="https://github.com/OpenGamingCollective/asusctl"
 distfiles="https://github.com/OpenGamingCollective/asusctl/archive/refs/tags/${version}.tar.gz"
-checksum="ba19565a1ed313cbb17b0d8926780023856fe85b9490f6b4fe65b7ede14ee434"
+checksum=edceeab080df670a3851af9815c082949e5c0d14be20fc41216d4a7e84d8fca8
 
 do_build() {
 	cargo build --release --locked -p asusctl -p asusd -p asus-shutdown
