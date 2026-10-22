@@ -3,29 +3,28 @@ pkgname=falcond
 version=2.0.14
 revision=9
 archs="x86_64*"
+build_wrksrc="falcond-2.0.14/falcond"
 hostmakedepends="zig-nk-bin git ca-certificates"
 depends="dbus scx"
 short_desc="Advanced Linux Gaming Performance Daemon"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/PikaOS-Linux/falcond"
-distfiles="https://github.com/Neko-Void-Linux/falcond/releases/download/${version}/falcond-${version}.tar.gz"
-checksum="cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984"
+distfiles="https://github.com/Neko-Void-Linux/falcond/releases/download/${version}/falcond-${version}.tar.gz
+ https://github.com/PikaOS-Linux/falcond-profiles/archive/2c521cbe01a3fb092ef3ddf61b111a600ef9f673.tar.gz"
+checksum="cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984
+ fd8d321e5c7626892a198ee6c40ed107b577ed450bed441f6c6a3121a81671ff"
 nopie=yes
 
 do_build() {
-	cd "falcond-${version}/falcond"
 	zig build -Doptimize=ReleaseFast -Dcpu=baseline
 }
 
 do_install() {
-	cd "falcond-${version}/falcond"
-
 	vbin zig-out/bin/falcond
-	cd ..
 
 	vmkdir usr/share/falcond
-	vcopy profiles/usr/share/falcond/* usr/share/falcond
+	vcopy ${XBPS_BUILDDIR}/falcond-2.0.14/falcond-profiles-*/usr/share/falcond/* usr/share/falcond
 
 	vmkdir etc/sv/falcond
 	vinstall "${FILESDIR}/run" 755 etc/sv/falcond run
