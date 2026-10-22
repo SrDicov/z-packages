@@ -1,8 +1,7 @@
 # Template file for 'pam-fprint-grosshack'
 pkgname=pam-fprint-grosshack
 version=0.4.0
-revision=1
-wrksrc="pam-fprint-grosshack-37005210381f3a55fffb784dfec703c6b2a64df2"
+revision=2
 build_style=meson
 hostmakedepends="meson ninja pkg-config"
 makedepends="elogind-devel pam-devel"
@@ -14,6 +13,5 @@ distfiles="https://github.com/furbyhaxx/pam-fprint-grosshack/archive/37005210381
 checksum=1357941b400100c9086d2cbedcb97e08d5f5ee94d9f875fe288feab36a4cdb72
 
 post_install() {
-	vlicense COPYING
 	vdoc README.md
 }
