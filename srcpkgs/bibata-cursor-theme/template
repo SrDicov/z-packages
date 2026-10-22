@@ -1,7 +1,7 @@
 # Template file for 'bibata-cursor-theme'
 pkgname=bibata-cursor-theme
 version=2.0.7
-revision=1
+revision=2
 create_wrksrc=yes
 short_desc="Material design inspired cursor theme (all variants)"
 maintainer="Dicov <SrDicov@gmail.com>"
@@ -13,5 +13,4 @@ checksum=172e33c4ae415278384dcecc7d1a9b7a024266bc944bc751fd86532be1cc6251
 do_install() {
 	vmkdir usr/share/icons
 	vcopy "Bibata-*" usr/share/icons
-	vlicense LICENSE
 }
