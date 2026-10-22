@@ -1,12 +1,10 @@
 # Template file for 'hyprglass'
 pkgname=hyprglass
 version=0.11.0
-revision=2
+revision=3
 build_style=gnu-makefile
 hostmakedepends="git pkg-config"
 
-# the compositor headers reach into pixman and Lua, which live in their own
-# include directories and are not carried by the compositor's pkg-config
 export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm:/usr/include/hyprland/src"
 makedepends="
  aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
@@ -25,8 +23,6 @@ homepage="https://github.com/hyprnux/hyprglass"
 do_fetch() {
 	git clone --depth 1 https://github.com/hyprnux/hyprglass.git "${wrksrc}"
 	cd "${wrksrc}"
-	# the plugin is ABI-locked to the compositor: take the commit hyprpm
-	# pins for the Hyprland this build links against
 	local hv commit
 	hv="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' \
 		/usr/include/hyprland/src/version.h)"
@@ -42,13 +38,10 @@ do_build() {
 }
 
 do_install() {
-	# Hyprland loads plugins from its own directory
-	install -Dm755 hyprglass.so "${DESTDIR}/usr/lib/hyprland/plugins/hyprglass.so"
+	vinstall hyprglass.so 755 usr/lib/hyprland/plugins hyprglass.so
 }
 
 post_install() {
-	vlicense LICENSE
-	# the receipt records the compositor ABI the plugin was built for
 	local h=/usr/include/hyprland/src/version.h
 	local abi v
 	abi="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' "$h")"
