@@ -2,29 +2,22 @@
 pkgname=labwc-singularity
 version=0.9.5
 revision=3
-# Singularity labwc fork, pinned to the exact commit the desktop builds
-# (its labwc submodule). Replaces stock labwc.
-_commit="6fe073cb94dde9eefa2039671671139839ea5c91"
-_repository="https://github.com/singularityos-lab/labwc.git"
 build_style=meson
-# NOTE: no --force-fallback-for=wlroots here (the Makefile uses it for
-# distros without a system wlroots): xbps builds with --wrap-mode=nodownload,
-# so meson must use the system wlroots0.20.
-# -D_GNU_SOURCE: several files use clock_gettime without feature-test
-# macros; glibc tolerates it, musl with -std=c99 does not.
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
  -Dxwayland=enabled -Dc_args=-D_GNU_SOURCE"
 hostmakedepends="meson ninja pkg-config gettext scdoc wayland-devel
  wayland-protocols git"
-makedepends="cairo-devel glib-devel libpng-devel librsvg-devel
- libsfdo-devel libxml2-devel pango-devel wlroots0.20-devel
- xorg-server-xwayland libdisplay-info-devel libliftoff-devel libdrm-devel
- libinput-devel libseat-devel libxkbcommon-devel eudev-libudev-devel"
-conflicts="labwc>=0"
+makedepends="cairo-devel glib-devel libpng-devel librsvg-devel libsfdo-devel
+ libxml2-devel pango-devel wlroots0.20-devel xorg-server-xwayland
+ libdisplay-info-devel libliftoff-devel libdrm-devel libinput-devel
+ libseat-devel libxkbcommon-devel eudev-libudev-devel"
 short_desc="Singularity fork of the labwc Wayland compositor"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/singularityos-lab/labwc"
+_commit="6fe073cb94dde9eefa2039671671139839ea5c91"
+_repository="https://github.com/singularityos-lab/labwc.git"
+conflicts="labwc>=0"
 
 do_fetch() {
 	msg_normal "Cloning ${_repository} @ ${_commit}...\n"
