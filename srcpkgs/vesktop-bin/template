@@ -1,7 +1,7 @@
 # Template file for 'vesktop-bin'
 pkgname=vesktop-bin
-version=1.6.7
-revision=2
+version=1.6.8
+revision=1
 archs="x86_64"
 hostmakedepends="binutils tar xz"
 depends="gtk+3 libnotify nss libXScrnSaver libXtst xdg-utils at-spi2-core
@@ -11,7 +11,7 @@ maintainer="Wizzard <rich@bandaholics.cash>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Vencord/Vesktop"
 distfiles="https://github.com/Vencord/Vesktop/releases/download/v${version}/vesktop_${version}_amd64.deb"
-checksum=0204a3fcf8861d11debf72a9be70423d2dca6d4698766b6fda7cfe39beea6a61
+checksum=9cc10306d8ab79d5e42fd5a51eea9dbcc8d6928a6342492ef42f41d3a9b24209
 replaces="vesktop>=0"
 
 do_extract() {
