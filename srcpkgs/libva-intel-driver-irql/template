@@ -4,10 +4,9 @@ version=2.4.5
 revision=1
 build_style=meson
 hostmakedepends="pkg-config python2"
-makedepends="libva-devel libdrm-devel libva-devel libdrm-devel libX11-devel"
+makedepends="libva-devel libdrm-devel libX11-devel"
 depends="libva libdrm"
-short_desc="VA-API implementation for Intel G45 and HD Graphics family (IRQL
- fork)"
+short_desc="VA-API implementation for Intel G45/HD Graphics (IRQL fork)"
 maintainer="Kevin <kevinzz@tutamail.com>"
 license="MIT"
 homepage="https://github.com/irql-notlessorequal/intel-vaapi-driver"
