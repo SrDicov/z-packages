@@ -54,7 +54,7 @@
       "qt6-base",
       "qt6-declarative"
     ],
-    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [
       "qt6-base-devel",
       "qt6-declarative-devel",
@@ -85,7 +85,7 @@
       "cmake",
       "git"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [
       "gtk4-devel"
     ],
@@ -112,7 +112,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "adw-gtk3",
     "provides": [],
@@ -168,7 +168,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.24.0"
+    "version": "2.25.0"
   },
   {
     "archs": [
@@ -216,28 +216,36 @@
   },
   {
     "archs": [
-      "x86_64"
+      "all"
     ],
-    "build_style": null,
+    "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:46c9fcdbc72a82245e544a5804d305d05795ada2e17825615b54a4e3fe614881"
+      "sha256:e3aac276b3a6bd891f0f62cd35868df30fb29ef290cb0d09273e0eb21c87ee3d"
     ],
     "depends": [
       "hicolor-icon-theme",
-      "libxkbcommon",
       "ca-certificates"
     ],
     "distfiles": [
-      "${_gh}/artcraft-launcher-${version}-linux-x86_64.tar.gz"
+      "https://github.com/storytold/craft-launcher/archive/refs/tags/v${version}.tar.gz"
     ],
     "format_version": 1,
-    "hostmakedepends": [],
+    "hostmakedepends": [
+      "cargo",
+      "rust",
+      "pkg-config"
+    ],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
-    "makedepends": [],
-    "pkgname": "artcraft-launcher-bin",
+    "makedepends": [
+      "wayland-devel",
+      "libxkbcommon-devel"
+    ],
+    "pkgname": "artcraft-launcher",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "artcraft-launcher-bin>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -274,7 +282,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.6.3"
+    "version": "1.0.0"
   },
   {
     "archs": [
@@ -298,7 +306,7 @@
       "ninja",
       "unzip"
     ],
-    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [
       "libX11-devel",
       "libXcursor-devel",
@@ -336,7 +344,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:ba19565a1ed313cbb17b0d8926780023856fe85b9490f6b4fe65b7ede14ee434"
+      "sha256:edceeab080df670a3851af9815c082949e5c0d14be20fc41216d4a7e84d8fca8"
     ],
     "depends": [
       "eudev",
@@ -362,7 +370,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "6.4.0"
+    "version": "6.5.0"
   },
   {
     "archs": [
@@ -385,7 +393,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2.0.7"
   },
@@ -456,7 +464,7 @@
       "brave-origin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.97.59"
   },
@@ -503,7 +511,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:4586dc1a6c8698982ca859f86aaa16835f33832a09e24042dfa75571aa60d8d1"
+      "sha256:c79f7fd24fd7d8b6439942a97306c5613d8e049903d893f136a05bfed551dc8a"
     ],
     "depends": [
       "${sourcepkg}>=${version}_${revision}"
@@ -525,11 +533,11 @@
       "chatgpt>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [
       "chatgpt"
     ],
-    "version": "26.928.20755"
+    "version": "26.1016.51333"
   },
   {
     "archs": [
@@ -538,7 +546,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:ea07bb13db7de8f2b810d91a3ca1ad75551063c98305514a675bcfb4160ec311"
+      "sha256:473059af85ca8c7d2433ebd2a024951a8159c6109399fecaad238deaf2fd717a"
     ],
     "depends": [
       "alsa-lib",
@@ -570,31 +578,35 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.6.0"
+    "version": "2.6.3"
   },
   {
     "archs": [
-      "x86_64"
+      "all"
     ],
-    "build_style": "fetch",
+    "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:0b7f6cade93802ef0578fda1bc0752e97fd22beb64f0382da0184e17f6a6a209",
-      "sha256:f06beab8172842e6347d22b2ae955a3e486a10305c697d1aeb3db71b440c7b18"
+      "sha256:d335c557a3bc27c6ee3b9322ec22ad3fae2c54a16cf5e4b71c442744d743d90c"
     ],
-    "depends": [],
+    "depends": [
+      "fuse-overlayfs",
+      "shadow",
+      "util-linux"
+    ],
     "distfiles": [
-      "https://github.com/Containerpak/cpak/releases/download/v${version}/cpak-linux-amd64>cpak-${version}",
-      "https://github.com/Containerpak/cpak/releases/download/v${version}/cpak-storaged-linux-amd64>cpak-storaged-${version}"
+      "https://github.com/Containerpak/cpak/archive/refs/tags/v${version}.tar.gz"
     ],
     "format_version": 1,
-    "hostmakedepends": [],
+    "hostmakedepends": [
+      "go"
+    ],
     "maintainer": "Javierc <javiercyt@atomicmail.io>",
     "makedepends": [],
-    "pkgname": "cpak-bin",
+    "pkgname": "cpak",
     "provides": [],
     "replaces": [
-      "cpak>=0"
+      "cpak-bin>=0"
     ],
     "restricted": false,
     "revision": 1,
@@ -649,7 +661,7 @@
       "zig-nk-bin",
       "git"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "falcond",
     "provides": [],
@@ -693,7 +705,7 @@
       "desktop-file-utils",
       "ImageMagick"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [
       "python3-devel",
       "libadwaita-devel",
@@ -724,7 +736,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "font-JetBrainsMono",
     "provides": [],
@@ -913,7 +925,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:1e3e1034427e58e7d0443d7163ec390f65d5e02a26e61f198c86431db46093f8"
+      "sha256:83f765dfb9725755db38883f1cdd6f57c8bc690a8cb0f30f2b6dd9f87a4729ca"
     ],
     "depends": [
       "MangoHud",
@@ -932,7 +944,7 @@
       "tar",
       "xz"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "goverlay-bin",
     "provides": [
@@ -942,38 +954,50 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.9.3"
+    "version": "1.9.4"
   },
   {
     "archs": [
-      "x86_64"
+      "all"
     ],
-    "build_style": null,
+    "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:9953e18283040309b86af7b64c5f84586aa684d9dc9aa965021ff891c283ae9c"
+      "sha256:7e51e5c3815bbbd959fa6f684cf1919579b624a33225c29b32cf92028e609317"
     ],
     "depends": [
-      "xwayland-satellite",
+      "seatd",
       "dbus",
-      "seatd"
+      "xwayland-satellite"
     ],
     "distfiles": [
-      "https://github.com/mikuri12/halley/releases/download/v${version}/halley-binaries-v${version}-x86_64.tar.gz"
+      "https://github.com/mikuri12/halley/archive/refs/tags/${_tag}.tar.gz>halley-${version}.tar.gz"
     ],
     "format_version": 1,
-    "hostmakedepends": [],
-    "maintainer": "mikuri12 <https://github.com/mikuri12>",
-    "makedepends": [],
-    "pkgname": "halley-bin",
+    "hostmakedepends": [
+      "cargo",
+      "rust",
+      "pkg-config"
+    ],
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
+    "makedepends": [
+      "eudev-libudev-devel",
+      "libseat-devel",
+      "libgbm-devel",
+      "libdrm-devel",
+      "libinput-devel",
+      "wayland-devel",
+      "libxkbcommon-devel"
+    ],
+    "pkgname": "halley",
     "provides": [],
     "replaces": [
-      "halley>=0"
+      "halley-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
-    "version": "0.5.7"
+    "version": "0.8.0"
   },
   {
     "archs": [
@@ -990,7 +1014,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "YuG <https://codeberg.org/YuG>",
+    "maintainer": "YuG <SrDicov@gmail.com>",
     "makedepends": [],
     "pkgname": "helium-browser-bin",
     "provides": [],
@@ -1007,7 +1031,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:7382d719a5114c5f0761eea05cdb22f73f58fe98ec840d16b3d85a054d0d3efd"
+      "sha256:81497c4e67d42905da5839a32be053c011eae35fb1fd5ec9441249b238d8f99b"
     ],
     "depends": [
       "gtk+3",
@@ -1029,7 +1053,7 @@
       "tar",
       "xz"
     ],
-    "maintainer": "Javiercplus",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "heroic-games-bin",
     "provides": [],
@@ -1039,7 +1063,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.22.3"
+    "version": "2.22.4"
   },
   {
     "archs": [
@@ -1080,7 +1104,7 @@
     "hostmakedepends": [
       "bsdtar"
     ],
-    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [],
     "pkgname": "hydra-launcher-bin",
     "provides": [],
@@ -1138,7 +1162,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -1225,7 +1249,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "0.11.0"
   },
@@ -1321,7 +1345,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "0.8.2"
   },
@@ -1498,7 +1522,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.8.0"
   },
@@ -1581,7 +1605,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:a8fa714b92d47331f056b608cb731dd1f5cc3845a9109cb22c6e6eb55b4eac84"
+      "sha256:dcb1147e28efe03f308513f9dad69ab54e3cb9eca38795c4498d968b4f5ec602"
     ],
     "depends": [
       "polkit"
@@ -1606,9 +1630,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.1.3"
+    "version": "0.2.0"
   },
   {
     "archs": [
@@ -1750,7 +1774,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.1.3"
   },
@@ -1802,7 +1826,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "1.0.2"
   },
@@ -1826,7 +1850,7 @@
       "pkg-config",
       "gettext"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [
       "gtk+3-devel"
     ],
@@ -1834,7 +1858,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -1895,13 +1919,13 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "jwmkit-neko",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "26.5"
   },
@@ -1929,7 +1953,7 @@
       "pkg-config",
       "xxd"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [
       "gtk+3-devel"
     ],
@@ -1937,7 +1961,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 5,
+    "revision": 6,
     "subpackages": [],
     "version": "7.4"
   },
@@ -1958,7 +1982,7 @@
     "hostmakedepends": [
       "zig"
     ],
-    "maintainer": "Javierc",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "kyoz",
     "provides": [],
@@ -2093,11 +2117,11 @@
     ],
     "depends": [],
     "distfiles": [
-      "https://github.com/davidbannon/libqt6pas/releases/download/v6.2.10/libqt6pas_6_2_10-1_amd64.tar.gz"
+      "https://github.com/davidbannon/libqt6pas/releases/download/v${version}/libqt6pas_${version//./_}-1_amd64.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "libqt6pas-bin",
     "provides": [],
@@ -2114,7 +2138,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:28fbf8e3e175a1fabb2f625ae9733802d22eb480927c9cfa47b5ef92f947e58d"
+      "sha256:fd7b437f623016bd0ac6036e9c1024bfc3c9a699a33d5af6ed86801e5ec493ac"
     ],
     "depends": [
       "desktop-file-utils",
@@ -2125,7 +2149,7 @@
       "nss"
     ],
     "distfiles": [
-      "https://codeberg.org/api/packages/librewolf/generic/librewolf/153.0.4-1/librewolf-153.0.4-1-linux-x86_64-package.tar.xz"
+      "https://codeberg.org/api/packages/librewolf/generic/librewolf/158.0.1-1/librewolf-158.0.1-1-linux-x86_64-package.tar.xz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
@@ -2139,7 +2163,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "153.0.4.1"
+    "version": "158.0.1.1"
   },
   {
     "archs": [
@@ -2402,7 +2426,7 @@
       "xauth"
     ],
     "distfiles": [
-      "https://github.com/javiercplus/ly-xbps/releases/download/1.5.0.1/ly-v1.5.0-rc1.tar.gz"
+      "https://github.com/javiercplus/ly-xbps/releases/download/${version}/ly-v${_rcver}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -2568,7 +2592,7 @@
     "hostmakedepends": [
       "bsdtar"
     ],
-    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [],
     "pkgname": "mullvad-browser-bin",
     "provides": [],
@@ -2611,7 +2635,7 @@
       "mullvad-vpn>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2026.5"
   },
@@ -2630,7 +2654,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "neko-backgrounds",
     "provides": [],
@@ -2701,7 +2725,7 @@
     "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC <javiercyt@atomicmail.io",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "neko-base",
     "provides": [],
@@ -2726,7 +2750,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "neko-fonts",
     "provides": [],
@@ -2751,7 +2775,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "neko-icons",
     "provides": [],
@@ -2776,7 +2800,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "neko-themes",
     "provides": [],
@@ -2807,7 +2831,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "niri-settings",
     "provides": [],
@@ -2834,7 +2858,7 @@
       "wayland-devel",
       "wayland-protocols"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [
       "base-devel",
       "cairo-devel",
@@ -2873,7 +2897,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 9,
+    "revision": 10,
     "subpackages": [],
     "version": "5.11.1"
   },
@@ -2948,7 +2972,7 @@
       "pkg-config",
       "make"
     ],
-    "maintainer": "Derszi65g",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [
       "libX11-devel",
       "libXft-devel",
@@ -2991,7 +3015,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.3.0"
   },
@@ -3041,7 +3065,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "10.0.0"
   },
@@ -3095,7 +3119,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2.4.2"
   },
@@ -3127,7 +3151,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.4.0"
   },
@@ -3204,7 +3228,7 @@
       "pear-desktop>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "3.12.0"
   },
@@ -3367,7 +3391,7 @@
       "desktop-file-utils",
       "gtk-update-icon-cache"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "portproton-bin",
     "provides": [],
@@ -3386,7 +3410,7 @@
     "build_style": "python3-pep517",
     "checkdepends": [],
     "checksum": [
-      "sha256:7028c0f3451fcb69f384ba0687b58a973b35fab2b0a64d5435eb1f782f09ea08"
+      "sha256:e09435bdec57818af41fedbe17eac4a838bb33915eeff95c13302de37df5ab89"
     ],
     "depends": [
       "python3-pyside6",
@@ -3411,7 +3435,7 @@
       "python3-setuptools",
       "python3-wheel"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "protonup-qt",
     "provides": [],
@@ -3419,7 +3443,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.15.1"
+    "version": "2.16.0"
   },
   {
     "archs": [
@@ -3428,7 +3452,7 @@
     "build_style": "python3-module",
     "checkdepends": [],
     "checksum": [
-      "sha256:13412fa7d540ba861d904b4a208e5c51c489330edab512fcaa766536a7a97709"
+      "sha256:97352c2d8ca8d7450eeb209e9f83250ab411fc62525dde4549790c78fd3ac2bd"
     ],
     "depends": [
       "python3",
@@ -3459,7 +3483,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "5.8.3"
+    "version": "5.8.11"
   },
   {
     "archs": [
@@ -3536,7 +3560,7 @@
     "build_style": "python3-module",
     "checkdepends": [],
     "checksum": [
-      "sha256:37dfe8771116b2a74ba3468c6ce876a5304965917b80d644a7c81e1642ff3574"
+      "sha256:5952c44a3853a5b2d7b41391888bbd749f14558b09e0ab54b240b6980e0df424"
     ],
     "depends": [
       "python3",
@@ -3566,7 +3590,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "4.18.5"
+    "version": "4.18.8"
   },
   {
     "archs": [
@@ -3623,13 +3647,13 @@
       "python3-setuptools",
       "python3-wheel"
     ],
-    "maintainer": "Javierc",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "python3-inputs",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.5"
   },
@@ -3649,7 +3673,6 @@
       "python3-vdf",
       "python3-gevent",
       "python3-protobuf",
-      "python3-gevent",
       "python3-wsproto",
       "python3-zstandard"
     ],
@@ -3661,13 +3684,13 @@
       "python3-setuptools",
       "python3-wheel"
     ],
-    "maintainer": "Tu Nombre <tu.email@ejemplo.com>",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "python3-steam",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2.0.0alpha1"
   },
@@ -3691,13 +3714,13 @@
       "python3-setuptools",
       "python3-wheel"
     ],
-    "maintainer": "Tu Nombre <tu.email@ejemplo.com>",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "python3-vdf-dev",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "4.0"
   },
@@ -3751,7 +3774,7 @@
     "hostmakedepends": [
       "pkg-config"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [
       "gtk+3-devel",
       "dbus-devel",
@@ -3849,11 +3872,11 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "7.81"
+    "version": "7.82"
   },
   {
     "archs": [
-      "x86_64"
+      "all"
     ],
     "build_style": null,
     "checkdepends": [],
@@ -4020,7 +4043,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -4227,7 +4250,7 @@
     "hostmakedepends": [
       "go"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "spicetify",
     "provides": [],
@@ -4414,34 +4437,45 @@
   },
   {
     "archs": [
-      "x86_64"
+      "all"
     ],
-    "build_style": null,
+    "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:836c36c8a4dc13909f559c4a26844e7d7bba04b72142f15eae6e377fe9f07286"
+      "sha256:7f27d20ae64a3ef80cc528840030d341a8cd5da3da55a80931bb313a12a494f8",
+      "sha256:88e887f058765f0e3dbc636829e7687ab80759c392eb9a64df457c8f9fc86e28"
     ],
     "depends": [
       "nodejs",
       "qt5-declarative",
-      "qt5-quickcontrols",
       "qt5-quickcontrols2",
       "qt5-webchannel",
       "qt5-webengine"
     ],
     "distfiles": [
-      "${_base}/stremio_${version}-1_amd64.deb"
+      "https://github.com/Stremio/stremio-shell/archive/refs/tags/v${version}.tar.gz>stremio-shell-${version}.tar.gz",
+      "${_server}>server.js"
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "bsdtar",
-      "patchelf"
+      "cmake",
+      "librsvg"
     ],
     "maintainer": "JavierC <javiercyt@atomicmail.io>",
-    "makedepends": [],
-    "pkgname": "stremio-bin",
+    "makedepends": [
+      "qt5-base-devel",
+      "qt5-declarative-devel",
+      "qt5-webchannel-devel",
+      "qt5-webengine-devel",
+      "libmpv-devel",
+      "openssl-devel",
+      "mesa-devel"
+    ],
+    "pkgname": "stremio",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "stremio-bin>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -4471,7 +4505,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "20261002"
   },
@@ -4482,7 +4516,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:36e9c34c3b759cfd4d624889af3bfa3d6cddefd11183097e35036a26890b702f"
+      "sha256:a3ab6c61cbedbcd4baed4da06834a1737c4419f5c8c761fe326136f87435481f"
     ],
     "depends": [
       "gtk+3",
@@ -4523,9 +4557,9 @@
       "unityhub>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "3.22.0"
+    "version": "3.22.3"
   },
   {
     "archs": [
@@ -4552,7 +4586,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.4.1"
   },
@@ -4563,7 +4597,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:0204a3fcf8861d11debf72a9be70423d2dca6d4698766b6fda7cfe39beea6a61"
+      "sha256:9cc10306d8ab79d5e42fd5a51eea9dbcc8d6928a6342492ef42f41d3a9b24209"
     ],
     "depends": [
       "gtk+3",
@@ -4595,7 +4629,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.6.7"
+    "version": "1.6.8"
   },
   {
     "archs": [
@@ -4618,7 +4652,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2020.02.24"
   },
@@ -4644,7 +4678,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "vouru-bin",
     "provides": [],
@@ -4658,29 +4692,41 @@
   },
   {
     "archs": [
-      "x86_64"
+      "all"
     ],
-    "build_style": null,
+    "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:683683ef66de6616e415efa7f7893873d7f8d5bfe4b2b05ce3cf3e467d4733d5",
-      "sha256:8947b7ea576096f327e97a488bb6245ba34a71d93ced46fb3b7800e97cca6905"
+      "sha256:dbde68a335ae190aec4f077e1b653f5fef3ff9dc7cddbfce1befae090eea33c9"
     ],
     "depends": [
       "pipewire",
-      "wireplumber"
+      "wireplumber",
+      "wtype"
     ],
     "distfiles": [
-      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-onnx-avx2>voxtype.gz",
-      "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-quickshell>voxtype-osd.gz"
+      "https://github.com/peteonrails/voxtype/archive/refs/tags/v${version}.tar.gz"
     ],
     "format_version": 1,
-    "hostmakedepends": [],
+    "hostmakedepends": [
+      "cargo",
+      "rust",
+      "pkg-config",
+      "cmake",
+      "clang",
+      "pkgconf"
+    ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
-    "makedepends": [],
-    "pkgname": "voxtype-bin",
+    "makedepends": [
+      "alsa-lib-devel",
+      "gtk4-devel",
+      "gtk4-layer-shell-devel"
+    ],
+    "pkgname": "voxtype",
     "provides": [],
-    "replaces": [],
+    "replaces": [
+      "voxtype-bin>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -4713,7 +4759,7 @@
     "hostmakedepends": [
       "tar"
     ],
-    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [],
     "pkgname": "vscode-bin",
     "provides": [
@@ -4721,7 +4767,7 @@
     ],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.143.0"
   },
@@ -4836,7 +4882,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "Javiercplus",
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
     "pkgname": "windscribe-desktop-bin",
     "provides": [],
@@ -4844,7 +4890,7 @@
       "windscribe-desktop>=0"
     ],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "2.22.10"
   },
@@ -4865,7 +4911,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.131"
   },
@@ -5061,11 +5107,11 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:70e49664a74374b48b51e6f3fdfbf437f6395d42509050588bd49abe52ba3d00"
+      "sha256:1cbe9df9f27e6b78d14ccbca43b6703a404ef79ef1c463de901d7f088d4e2026"
     ],
     "depends": [],
     "distfiles": [
-      "https://ziglang.org/download/0.16.0/zig-x86_64-linux-0.16.0.tar.xz"
+      "https://ziglang.org/download/${version}/zig-x86_64-linux-${version}.tar.xz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
@@ -5079,6 +5125,6 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.16.0"
+    "version": "0.17.0"
   }
 ]
