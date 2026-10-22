@@ -3,63 +3,27 @@ pkgname=hyprland
 version=0.56.2
 revision=2
 build_style=cmake
-nodebug=yes
-hostmakedepends="pkg-config cmake ninja glslang-devel
- clang hyprwayland-scanner hyprwire hyprwire-devel python3 readline-devel
- SPIRV-Tools-devel ca-certificates git"
-makedepends="
- abseil-cpp-devel aquamarine-devel gdk-pixbuf-devel glib-devel
+hostmakedepends="pkg-config cmake ninja glslang-devel clang hyprwayland-scanner
+ hyprwire hyprwire-devel python3 readline-devel SPIRV-Tools-devel
+ ca-certificates git"
+makedepends="abseil-cpp-devel aquamarine-devel gdk-pixbuf-devel glib-devel
  hyprcursor-devel hyprgraphics-devel hyprlang-devel hyprutils-devel hwids
  lcms2-devel libdisplay-info-devel libei-devel libinput-devel libseat-devel
- libuuid-devel libwebp-devel libzip-devel
- libXcursor-devel libdrm-devel libjpeg-turbo-devel libxcb-devel
- libxkbcommon-devel librsvg-devel lua55-devel MesaLib-devel muparser-devel
- pango-devel pixman-devel re2-devel tomlplusplus-devel udis86-devel
- wayland-devel
- wayland-protocols xcb-util-errors-devel xcb-util-wm-devel"
+ libuuid-devel libwebp-devel libzip-devel libXcursor-devel libdrm-devel
+ libjpeg-turbo-devel libxcb-devel libxkbcommon-devel librsvg-devel lua55-devel
+ MesaLib-devel muparser-devel pango-devel pixman-devel re2-devel
+ tomlplusplus-devel udis86-devel wayland-devel wayland-protocols
+ xcb-util-errors-devel xcb-util-wm-devel"
+nodebug=yes
 export CC=clang
 export CXX=clang++
 
 CXXFLAGS+=" -include ${XBPS_BUILDDIR}/${pkgname}-${version}/hyprland_compat.hpp"
 
 do_patch() {
-	# vector::insert_range is C++23, Void ships libstdc++ 14
-	sed -i 's#requestedModes\.insert_range(requestedModes\.end(), sortedModes | std::views::reverse);#requestedModes.insert(requestedModes.end(), sortedModes.rbegin(), sortedModes.rend());#' \
+	vsed -i 's#requestedModes\.insert_range(requestedModes\.end(), sortedModes | std::views::reverse);#requestedModes.insert(requestedModes.end(), sortedModes.rbegin(), sortedModes.rend());#' \
 		src/output/Monitor.cpp
-	# std::string + std::string_view is C++26, Void ships libstdc++ 14
-	cat >hyprland_compat.hpp <<_EOF
-#ifndef HYPRLAND_COMPAT_HPP
-#define HYPRLAND_COMPAT_HPP
-#if __cplusplus >= 201703L
-#include <string>
-#include <string_view>
-template<typename C, typename T, typename A>
-std::basic_string<C, T, A> operator+(const std::basic_string<C, T, A>& lhs, std::basic_string_view<C, T> rhs) {
-    return lhs + std::basic_string<C, T>(rhs);
-}
-template<typename C, typename T, typename A>
-std::basic_string<C, T, A> operator+(std::basic_string_view<C, T> lhs, const std::basic_string<C, T, A>& rhs) {
-    return std::basic_string<C, T>(lhs) + rhs;
-}
-#endif
-#if __cplusplus >= 202002L
-#include <ranges>
-namespace std::ranges {
-template<input_range R, typename T>
-constexpr bool starts_with(R&& r, const T& t) {
-    auto it = ranges::begin(r);
-    auto tb = ranges::begin(t);
-    const auto te = ranges::end(t);
-    for (; tb != te; ++tb, ++it) {
-        if (it == ranges::end(r) || !(*it == *tb))
-            return false;
-    }
-    return true;
-}
-}
-#endif
-#endif
-_EOF
+	cp "${FILESDIR}/hyprland_compat.hpp" hyprland_compat.hpp
 }
 
 short_desc="Dynamic tiling Wayland compositor with animated visuals"
