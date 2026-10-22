@@ -2,8 +2,6 @@
 pkgname=ryoku-keysounds-profiles
 version=0.1.0
 revision=1
-# the payload clones the recorded packs and runs the importer: python3 is
-# its interpreter and ffmpeg is what it cuts the recordings with
 hostmakedepends="ffmpeg git python3"
 depends="ffmpeg python3"
 short_desc="Ryoku key sound profiles: real switch recordings"
@@ -12,8 +10,6 @@ license="GPL-3.0-or-later"
 homepage="https://ryoku.dev"
 
 do_fetch() {
-	# the recipe (payload.sh) and the pack list live far apart in the
-	# Ryoku tree: sparse-checkout both paths straight into wrksrc
 	git clone --depth 1 --filter=blob:none --sparse \
 		https://github.com/SrDicov/ryoku-void.git "${wrksrc}"
 	cd "${wrksrc}"
