@@ -5,8 +5,6 @@ revision=2
 build_style=gnu-makefile
 hostmakedepends="git pkg-config"
 
-# the compositor headers reach into pixman and Lua, which live in their own
-# include directories and are not carried by the compositor's pkg-config
 export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm:/usr/include/hyprland/src"
 makedepends="
  aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
@@ -25,8 +23,6 @@ homepage="https://github.com/hyprwm/hyprland-plugins"
 do_fetch() {
 	git clone --depth 1 https://github.com/hyprwm/hyprland-plugins.git "${wrksrc}"
 	cd "${wrksrc}"
-	# the plugins are ABI-locked to the compositor: take the commit hyprpm
-	# pins for the Hyprland this build links against
 	local hv commit
 	hv="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' \
 		/usr/include/hyprland/src/version.h)"
@@ -44,18 +40,13 @@ do_build() {
 }
 
 do_install() {
-	# Hyprland loads plugins from its own directory
-	install -Dm755 hyprbars/hyprbars.so \
-		"${DESTDIR}/usr/lib/hyprland/plugins/hyprbars.so"
-	install -Dm755 hyprfocus/hyprfocus.so \
-		"${DESTDIR}/usr/lib/hyprland/plugins/hyprfocus.so"
-	install -Dm755 borders-plus-plus/borders-plus-plus.so \
-		"${DESTDIR}/usr/lib/hyprland/plugins/borders-plus-plus.so"
+	vinstall hyprbars/hyprbars.so 755 usr/lib/hyprland/plugins hyprbars.so
+	vinstall hyprfocus/hyprfocus.so 755 usr/lib/hyprland/plugins hyprfocus.so
+	vinstall borders-plus-plus/borders-plus-plus.so 755 usr/lib/hyprland/plugins borders-plus-plus.so
 }
 
 post_install() {
 	vlicense LICENSE
-	# the receipt records the compositor ABI the plugins were built for
 	local h=/usr/include/hyprland/src/version.h
 	local abi v
 	abi="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' "$h")"
