@@ -183,7 +183,9 @@
       "sha256:2f9de98c0bd1b7b1b09c576e390a2fef436449762fb334163c414f0c300296f2"
     ],
     "depends": [
-      "aquamarine-${version}_${revision}"
+      "aquamarine-${version}_${revision}",
+      "libseat-devel",
+      "libdisplay-info-devel"
     ],
     "distfiles": [
       "https://github.com/hyprwm/aquamarine/archive/refs/tags/v${version}.tar.gz"
@@ -211,7 +213,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 5,
+    "revision": 6,
     "subpackages": [
       "aquamarine-devel"
     ],
@@ -1180,7 +1182,9 @@
       "sha256:82af8b2ce27242ffdd6baebaa71b3f6c8665dc25c52bfcfccc16912622896af8"
     ],
     "depends": [
-      "hyprcursor-${version}_${revision}"
+      "hyprcursor-${version}_${revision}",
+      "libzip-devel",
+      "tomlplusplus-devel"
     ],
     "distfiles": [
       "https://github.com/hyprwm/hyprcursor/archive/refs/tags/v${version}.tar.gz"
@@ -1201,7 +1205,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 6,
+    "revision": 7,
     "subpackages": [
       "hyprcursor-devel"
     ],
