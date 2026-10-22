@@ -26,7 +26,7 @@ post_install() {
 
 
 hyprutils-devel_package() {
-	depends="hyprutils-${version}_${revision}"
+	depends="hyprutils-${version}_${revision} pixman-devel"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
