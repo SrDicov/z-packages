@@ -1,18 +1,16 @@
-# Z: mixto (glibc+musl).
+# Template file for 'Neko-Wizard'
 pkgname=Neko-Wizard
 version=9.0.23
 revision=1
-# Unified glibc+musl tree (SrDicov fork). No releases/tags:
-# pin the merge commit like labwc-singularity does.
-_commit="74b7a6c6cc7d56fc8b13571cd1d2fed5e6844081"
-_repository="https://github.com/SrDicov/Neko-Wizard.git"
 build_style=meson
 hostmakedepends="pkg-config meson ninja cmake git"
 makedepends="gtk4-devel"
 short_desc="Wizard Post Install for NEKO VOID"
-maintainer="JavierC"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="WTFPL"
 homepage="https://github.com/SrDicov/Neko-Wizard"
+_commit="74b7a6c6cc7d56fc8b13571cd1d2fed5e6844081"
+_repository="https://github.com/SrDicov/Neko-Wizard.git"
 
 do_fetch() {
 	msg_normal "Cloning ${_repository} @ ${_commit}...\n"
@@ -32,17 +30,7 @@ do_install() {
 
 	ln -s ../lib/Neko-Wizard/neko-store "${DESTDIR}/usr/bin/neko-store"
 
-	cat > "${DESTDIR}/usr/share/applications/neko-store.desktop" << EOF
-[Desktop Entry]
-Type=Application
-Name=Neko Wizard
-Comment=WIZARD for INSTALL Software and DRIVERS
-Exec=neko-store
-Icon=system-software-install
-Categories=Utility;
-Terminal=false
-EOF
-	chmod 644 "${DESTDIR}/usr/share/applications/neko-store.desktop"
+	vinstall ${FILESDIR}/neko-store.desktop 644 usr/share/applications
 
 	if [ -f LICENSE ]; then
 		vlicense LICENSE
