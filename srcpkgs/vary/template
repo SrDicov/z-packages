@@ -1,8 +1,7 @@
 # Template file for 'vary'
 pkgname=vary
 version=0.4.1
-revision=1
-wrksrc="Vary-${version}"
+revision=2
 build_style=cargo
 hostmakedepends="git"
 depends="git"
@@ -13,9 +12,6 @@ homepage="https://github.com/SrDicov/Vary"
 distfiles="https://github.com/SrDicov/Vary/archive/refs/tags/v${version}.tar.gz"
 checksum=b718becb0b8e61ac579433762609def22737465eb947074d0d5bb407ed73640c
 
-# upstream releases without relocking Cargo.lock, so --locked from
-# build_style=cargo fails; build like upstream CI does and let cargo
-# refresh the lock.
 do_build() {
 	cargo build --release
 }
@@ -25,5 +21,4 @@ post_install() {
 	vdoc docs/AUR2XBPS.md
 	vdoc docs/VURINFO.md
 	vinstall etc/vary.conf.example 644 usr/share/examples/vary
-	vlicense LICENSE
 }
