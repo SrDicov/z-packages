@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include/lua5.5
+
+Name: Lua
+Description: An Extensible Extension Language
+Version: 5.5.1
+Libs: -L/usr/lib -llua5.5
+Libs.private: -lm -ldl
+Cflags: -I/usr/include/lua5.5
