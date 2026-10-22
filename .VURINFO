@@ -1620,16 +1620,18 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "pkg-config"
+      "pkg-config",
+      "cmake"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
       "hyprutils-devel",
+      "hyprtoolkit-devel",
+      "hyprgraphics-devel",
+      "hyprlang-devel",
       "pixman-devel",
-      "polkit-devel",
-      "polkit-qt6-devel",
-      "qt6-base-devel",
-      "qt6-declarative-devel"
+      "libdrm-devel",
+      "sdbus-c++-devel"
     ],
     "pkgname": "hyprpolkitagent",
     "provides": [],
@@ -1673,6 +1675,53 @@
     "revision": 2,
     "subpackages": [],
     "version": "0.4.0"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:53c41be72af97d9ede274a63c9c1034c58726d862905763ed6e5a564ae42ba6b"
+    ],
+    "depends": [
+      "hyprtoolkit-${version}_${revision}"
+    ],
+    "distfiles": [
+      "https://github.com/hyprwm/hyprtoolkit/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "clang",
+      "hyprwayland-scanner"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "aquamarine-devel",
+      "hyprgraphics-devel",
+      "hyprutils-devel",
+      "hyprlang-devel",
+      "wayland-devel",
+      "pixman-devel",
+      "libdrm-devel",
+      "MesaLib-devel",
+      "libxkbcommon-devel",
+      "pango-devel",
+      "cairo-devel",
+      "iniparser-devel",
+      "abseil-cpp-devel"
+    ],
+    "pkgname": "hyprtoolkit",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [
+      "hyprtoolkit-devel"
+    ],
+    "version": "0.6.0"
   },
   {
     "archs": [
