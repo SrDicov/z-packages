@@ -1,8 +1,7 @@
-# Template file for "concord"
-# Z: mixto (glibc+musl).
+# Template file for 'concord'
 pkgname=concord
 version=2.6.0
-revision=1
+revision=2
 build_style=cargo
 hostmakedepends="pkg-config clang cmake nasm rust cargo"
 makedepends="alsa-lib-devel pipewire-devel libva-devel libzstd-devel"
@@ -17,9 +16,6 @@ checksum=ea07bb13db7de8f2b810d91a3ca1ad75551063c98305514a675bcfb4160ec311
 
 export RUSTFLAGS="${RUSTFLAGS} -C target-feature=+crt-static"
 
-make_check=no
-
 post_install() {
-	vlicense LICENSE
 	vdoc README.md
 }
