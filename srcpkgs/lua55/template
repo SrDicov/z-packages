@@ -11,7 +11,7 @@ distfiles="https://www.lua.org/ftp/lua-${version}.tar.gz"
 checksum=1c4b4068d67061f2a2231ad2b5422e77acea1487ea9890f6320af614f4373dce
 
 do_build() {
-	sed -i src/Makefile -r \
+	vsed -i src/Makefile -r \
 		-e '/^LUA_(SO|A|T)=/ s;lua;lua5.5;' \
 		-e '/^LUAC_T=/ s;luac;luac5.5;'
 	make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" \
@@ -38,7 +38,7 @@ do_install() {
 
 	rm -f doc/*.1
 	vmkdir usr/share/doc/lua55
-	cp -R doc/* ${DESTDIR}/usr/share/doc/lua55
+	vcopy "doc/." usr/share/doc/lua55
 
 	vlicense doc/readme.html
 
