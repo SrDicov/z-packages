@@ -11,7 +11,7 @@ makedepends="abseil-cpp-devel aquamarine-devel gdk-pixbuf-devel glib-devel
  lcms2-devel libdisplay-info-devel libei-devel libinput-devel libseat-devel
  libuuid-devel libwebp-devel libzip-devel libXcursor-devel libdrm-devel
  libjpeg-turbo-devel libxcb-devel libxkbcommon-devel librsvg-devel lua55-devel
- MesaLib-devel muparser-devel pango-devel pixman-devel re2-devel
+ MesaLib-devel muparser-devel pango-devel pixman-devel re2 re2-devel
  tomlplusplus-devel udis86-devel wayland-devel wayland-protocols
  xcb-util-errors-devel xcb-util-wm-devel"
 nodebug=yes
@@ -21,7 +21,7 @@ export CXX=clang++
 CXXFLAGS+=" -include ${XBPS_BUILDDIR}/${pkgname}-${version}/hyprland_compat.hpp"
 
 do_patch() {
-	vsed -i 's#requestedModes\.insert_range(requestedModes\.end(), sortedModes | std::views::reverse);#requestedModes.insert(requestedModes.end(), sortedModes.rbegin(), sortedModes.rend());#' \
+	vsed -i 's#requestedModes\.insert_range\(requestedModes\.end\(\), sortedModes [|] std::views::reverse\);#requestedModes.insert(requestedModes.end(), sortedModes.rbegin(), sortedModes.rend());#' \
 		src/output/Monitor.cpp
 	cp "${FILESDIR}/hyprland_compat.hpp" hyprland_compat.hpp
 }
