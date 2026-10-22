@@ -5,7 +5,7 @@ revision=4
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
  -Dinstaller=false"
-hostmakedepends="meson ninja vala pkg-config gettext git python3 curl unzip tar
+hostmakedepends="meson ninja vala pkg-config gettext python3 unzip tar
  glib-devel gobject-introspection sassc scdoc wayland-protocols"
 makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
  gtksourceview5-devel libpeas2-devel libgee-devel NetworkManager-devel
@@ -27,33 +27,117 @@ license="GPL-3.0-only"
 homepage="https://github.com/singularityos-lab/singularity-desktop"
 _commit="d642160a3c438f1fd4a535ed7e53584c7c065236"
 _repository="https://github.com/SrDicov/singularity-desktop.git"
+_submodules="labwc libsingularity singularity-calculator singularity-calendar
+ singularity-demo singularity-edit singularity-files singularity-gestures
+ singularity-git singularity-greeter singularity-installer singularity-keyring
+ singularity-leafs singularity-loginui singularity-monitor singularity-music
+ singularity-photos singularity-plugins singularity-polkit-agent
+ singularity-session singularity-shell singularity-store singularity-themes
+ singularity-videos singularity-wallpapers singularity-widgets
+ singularity-write xdg-desktop-portal-singularity"
+distfiles="https://github.com/SrDicov/singularity-desktop/archive/${_commit}.tar.gz>${pkgname}-${version}.tar.gz
+ https://github.com/singularityos-lab/labwc/archive/7c6273a05545f10e8b7737a8de3c9d71ff3e743e.tar.gz>labwc.tar.gz
+ https://github.com/singularityos-lab/libsingularity/archive/1d9a11165d18611f9deaff2c8ec1feabb97641a5.tar.gz>libsingularity.tar.gz
+ https://github.com/singularityos-lab/singularity-calculator/archive/e471dcb4435e0e6d1d34e15d42eb122428101ec3.tar.gz>singularity-calculator.tar.gz
+ https://github.com/singularityos-lab/singularity-calendar/archive/7ac227ff607a16226f13755b622d38c3a14df277.tar.gz>singularity-calendar.tar.gz
+ https://github.com/singularityos-lab/singularity-demo/archive/584a882e8a00ad2f269d84cc05238b66935463f6.tar.gz>singularity-demo.tar.gz
+ https://github.com/singularityos-lab/singularity-edit/archive/eb9188f0a0d4a7184a5a3ad38784df5f4bbe3b5a.tar.gz>singularity-edit.tar.gz
+ https://github.com/singularityos-lab/singularity-files/archive/39b64ab2951e5e4eac69472d889574c9af120ac1.tar.gz>singularity-files.tar.gz
+ https://github.com/singularityos-lab/singularity-gestures/archive/51da49beae4dceea0d294a3a34f171f3464a0e05.tar.gz>singularity-gestures.tar.gz
+ https://github.com/singularityos-lab/singularity-git/archive/be8b49c311efe7ccb7aaaaed7dad1a302d07ab27.tar.gz>singularity-git.tar.gz
+ https://github.com/singularityos-lab/singularity-greeter/archive/0e640e8e9a49b7e719378755a57924c76aaa5431.tar.gz>singularity-greeter.tar.gz
+ https://github.com/singularityos-lab/singularity-installer/archive/064e32134f8a03a965a1df92ea586d711725946e.tar.gz>singularity-installer.tar.gz
+ https://github.com/singularityos-lab/singularity-keyring/archive/8a07a277da3c46d4b5f4f92586e37e6fbd6862b9.tar.gz>singularity-keyring.tar.gz
+ https://github.com/singularityos-lab/singularity-leafs/archive/f47a83128d42260ba9b7062d2502d9d18d1eebed.tar.gz>singularity-leafs.tar.gz
+ https://github.com/singularityos-lab/singularity-loginui/archive/16723e374881d6578aa227e3662df9658cf1e505.tar.gz>singularity-loginui.tar.gz
+ https://github.com/singularityos-lab/singularity-monitor/archive/bcdfb22da7843c69fa1d3f793aa81bbdaeb9f762.tar.gz>singularity-monitor.tar.gz
+ https://github.com/singularityos-lab/singularity-music/archive/81fe90ede1bb48cb489db5c8cecdb850d26cde7e.tar.gz>singularity-music.tar.gz
+ https://github.com/singularityos-lab/singularity-photos/archive/423c0fddb80ee3c3456243eacd80f2ccd33897b6.tar.gz>singularity-photos.tar.gz
+ https://github.com/singularityos-lab/singularity-plugins/archive/5e9e4cfd81c5133fa02f3767c130b1b31b5fdd8e.tar.gz>singularity-plugins.tar.gz
+ https://github.com/singularityos-lab/singularity-polkit-agent/archive/e34803144245d1454ec956a4d339ae3201b5991e.tar.gz>singularity-polkit-agent.tar.gz
+ https://github.com/singularityos-lab/singularity-session/archive/210a1492d94cb8e332d89b4d9a3530ecf599dccd.tar.gz>singularity-session.tar.gz
+ https://github.com/singularityos-lab/singularity-shell/archive/51dc9c33cb04bde6c66a21639a70982ab944468c.tar.gz>singularity-shell.tar.gz
+ https://github.com/singularityos-lab/singularity-store/archive/7e3e9a27508008e4f1faaf5b911e8edb291f84d9.tar.gz>singularity-store.tar.gz
+ https://github.com/singularityos-lab/singularity-themes/archive/accf087ba7809069b448d3dd949a10880123982c.tar.gz>singularity-themes.tar.gz
+ https://github.com/singularityos-lab/singularity-videos/archive/7655cdb318f87364110e88f7eab655207945df74.tar.gz>singularity-videos.tar.gz
+ https://github.com/singularityos-lab/singularity-wallpapers/archive/537b04e4bcac7fc226ad77e9ce34da05733e00bc.tar.gz>singularity-wallpapers.tar.gz
+ https://github.com/singularityos-lab/singularity-widgets/archive/ffa4f4fd84718649caa974b07642d770839a7e67.tar.gz>singularity-widgets.tar.gz
+ https://github.com/singularityos-lab/singularity-write/archive/9e2d6981829a64cb69d0ee00d86d688deb3ce339.tar.gz>singularity-write.tar.gz
+ https://github.com/singularityos-lab/xdg-desktop-portal-singularity/archive/3b22e1d7a1d92b9ac69cf61ec32066d3d7ca5f34.tar.gz>xdg-desktop-portal-singularity.tar.gz
+ https://github.com/singularityos-lab/vetro/releases/download/v1.0.0/vetro-linux-amd64>vetro
+ https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task>hand_landmarker.task
+ https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task>face_landmarker.task
+ https://github.com/yakhyo/gaze-estimation/releases/download/weights/mobileone_s0_gaze.onnx>mobileone_s0_gaze.onnx
+ https://github.com/microsoft/onnxruntime/releases/download/v1.23.2/onnxruntime-linux-x64-1.23.2.tgz>onnxruntime.tgz
+ https://files.pythonhosted.org/packages/2a/58/bdd5bada89d7a132375df05e962bf702c148b47043dca98d820d9395152b/mediapipe-1.0.1-py3-none-manylinux_2_28_x86_64.whl>mediapipe.whl"
+checksum="e4efe47bc5f0ed65db71fa9e939a4a59543ea78e946bcd354830e0a35a5ad200
+ 483df7feeaa56acfaa25fb181e75c325afc7cf0242b103f985cc5dc35508d65a
+ c88dcdcf982b848153a8b75a4eb292a7b91c4a347d3aeb8f31768f9023446c71
+ 0ef424d1437ac2eb7ddc386db5997ec09071e6bcc9aad843f0072dc1f84f35ff
+ 71c3e65617d48fdedbb79d2f27f263eba5292cb09d245e9f95992a7c022e3bb7
+ b6b85079c5b57e9aaae98476f25d11176175ca6126f09da557a6f746be5cbbbd
+ ee9b7c340a17539ec2bf782c86b8e584f2ffe7aeb25747d6c216e9850434a77a
+ b2e09c52f69469593d7d34b2de0a12115d3889ee2f8ab6c84dd12a195ac74076
+ 3b91c45e699e6b3cc9da07584224a54dc0b9b73334142e4b32ba6e1f0499883f
+ b38b8d559da6c7a6ee4ce93f3a87fc0eae8fb381250e00e978d00460f896c67c
+ 9b8c032081a9bc546592fb9231f96e5821bdb3d5ae2bacc4b0133d86f9f779c5
+ 21195086e335eea0c41c842d82064495f4735ef57e022d5a5a67142b72eb7b73
+ 9a1b8e6ea5c20fbb4ec46dce6e06565691e3d3f04fd00c5504b3ae4e0f5aae82
+ 95c9652865f18f835f9b4b08637ed492e9633a81d91a2e96d188d62ab5e24032
+ 531f503dbd8b664e2d0f67d5ee93503ae58ddad708b6b5a7f32b9abedc52e08a
+ db46d334f02672b49c3d78fe674adb881bd6814c078d88a382c1c2c20cf23462
+ b82013791ac03ed1bbae40c1d58ccdf9c522f7fb0b3d4fdd0b9ee64c7dfedca0
+ e11accc343b117d13ac3c4fcd2603a97455d0f8786f444585c3c3eadfb372247
+ 33f8e294edd4b71ff953746e59ce4ea18929f2b9ef87f46a3ffcc1f44703369a
+ e9f7235728ff2c306c168da5e6164737cfd36b999633d1945b0c95074fa98ec7
+ d6f6b3beb84520d8f2388a237394ad95f8067a038e34b2318a13e9c2c3e1f6dc
+ 67a0b402e16ab5465f1d6ace43d6529925ba9202d1535a7ca50ecab4faf6e498
+ f6c4a7cbc5aed6d3ac03443d31d8f5cc4b73b7d6104510410736c542f1108eb6
+ 3e2e6d1e6a35b56bf75630698351c4acfb4db72625771a939379f462e4cadc1d
+ 0c59a043ad21ce71f2bd9a6cd52635395be07dc3e173fba9aaf90616f18e3184
+ 249bbca54ee13c73a5c1dbda5a0361b8831ce12db663bc1a7626dcc9565600fa
+ 5a51809876bc665f871a47bc59babe7bfb74f96e17a0aeaea36600570067ba6b
+ 975c40cc60ec9679bd3315a2bdc811c96b78cceccecce031c0ffdab471f68d3f
+ f5b7dca37e610d55142ce284bba2fa2e03b0ae09adb619e4940f7afa6ed3e51d
+ b653a4b1b75a31a8a00a5d12b11eaafa3f22d6cf2b3417efde68a113b4c60700
+ fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1
+ 64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff
+ 8b4fdc4e3da44733c9a82e7776b411e4a39f94e8e285aee0fc85a548a55f7d9f
+ 1fa4dcaef22f6f7d5cd81b28c2800414350c10116f5fdd46a2160082551c5f9b
+ 121522251afc3c135e4b7b0c341dd5e050ad1ec87631127484f3c389ae385044"
 
 if [ "$XBPS_TARGET_LIBC" = musl ]; then
 	broken="needs glibc-only gesture runtime, no -Dgestures=false yet"
 fi
 
-do_fetch() {
-	msg_normal "Cloning ${_repository} @ ${_commit}...\n"
-	git clone --recurse-submodules "${_repository}" ${pkgname}-${version}
-	(cd ${pkgname}-${version} && git checkout -q ${_commit} \
-		&& git submodule update -q --init --recursive)
+do_extract() {
+	local _s _src=$XBPS_SRCDISTDIR/$pkgname-$version
+	local _rt=subprojects/singularity-gestures/runtime
+
+	vsrcextract --strip-components=1 ${pkgname}-${version}.tar.gz
+	for _s in ${_submodules}; do
+		mkdir -p subprojects/$_s
+		tar -xzf $_src/$_s.tar.gz -C subprojects/$_s --strip-components=1
+	done
+	mkdir -p "$_rt/include" "$XBPS_BUILDDIR/vetro"
+	unzip -j -q -o $_src/mediapipe.whl mediapipe/tasks/c/libmediapipe.so -d $_rt
+	vsrccopy hand_landmarker.task face_landmarker.task mobileone_s0_gaze.onnx $_rt
+	cp $_src/vetro "$XBPS_BUILDDIR/vetro/vetro"
+	chmod 0755 "$XBPS_BUILDDIR/vetro/vetro"
+	mkdir -p "$XBPS_BUILDDIR/.onnx"
+	tar -xzf $_src/onnxruntime.tgz -C "$XBPS_BUILDDIR/.onnx" --strip-components=1
+	mv "$XBPS_BUILDDIR/.onnx/lib/libonnxruntime.so.1.23.2" $_rt/libonnxruntime.so
+	cp "$XBPS_BUILDDIR/.onnx/include/onnxruntime_c_api.h" \
+		"$XBPS_BUILDDIR/.onnx/include/onnxruntime_ep_c_api.h" \
+		$_rt/include/
+	rm -rf "$XBPS_BUILDDIR/.onnx"
 }
 
-post_fetch() {
+post_extract() {
 	msg_normal "Bootstrapping gesture runtime...\n"
-	(cd ${pkgname}-${version} && vsed -i 's|/usr/bin/python3\.12|python3|' \
-		subprojects/singularity-gestures/scripts/bootstrap-runtime.sh \
-		&& PYTHON=python3 \
-		bash subprojects/singularity-gestures/scripts/bootstrap-runtime.sh)
-	_vetro_url="https://github.com/singularityos-lab/vetro/releases"
-	_vetro_url+="/download/v1.0.0/vetro-linux-amd64"
-	_vetro_sum="b653a4b1b75a31a8a00a5d12b11eaafa3f22d6cf2b3417efde68a113b4c60700"
-	if [ ! -x vetro/vetro ]; then
-		mkdir -p vetro
-		curl --fail --location --output vetro/vetro "$_vetro_url"
-		(cd vetro && echo "$_vetro_sum  vetro" | sha256sum --check -)
-		chmod 0755 vetro/vetro
-	fi
+	vsed -i 's|/usr/bin/python3\.12|python3|' \
+		subprojects/singularity-gestures/scripts/bootstrap-runtime.sh
+	PYTHON=python3 bash subprojects/singularity-gestures/scripts/bootstrap-runtime.sh
 }
 
 pre_configure() {
