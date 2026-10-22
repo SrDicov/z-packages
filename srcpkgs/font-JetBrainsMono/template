@@ -1,10 +1,10 @@
-# Z: mixto (glibc+musl).
+# Template file for 'font-JetBrainsMono'
 pkgname=font-JetBrainsMono
 version=2.304
 revision=1
 depends="font-util"
 short_desc="Free and open-source typeface for developers"
-maintainer="JavierC"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="OFL-1.1"
 homepage="https://www.jetbrains.com/lp/mono/"
 distfiles="https://github.com/JetBrains/JetBrainsMono/releases/download/v${version}/JetBrainsMono-${version}.zip"
