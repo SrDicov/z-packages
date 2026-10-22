@@ -1012,7 +1012,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:6ca6e4a00fef5916821fb1af8a9607cc6b386f678a7eb422e55f19116ba30469"
+      "sha256:2023fa44cefa0fbd3e19071c87e90d61275f08ba8f5b48d58c235215565e9b53"
     ],
     "depends": [],
     "distfiles": [
@@ -1028,7 +1028,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.19.4.1"
+    "version": "0.20.1.1"
   },
   {
     "archs": [
@@ -1614,7 +1614,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:dcb1147e28efe03f308513f9dad69ab54e3cb9eca38795c4498d968b4f5ec602"
+      "sha256:a8fa714b92d47331f056b608cb731dd1f5cc3845a9109cb22c6e6eb55b4eac84"
     ],
     "depends": [
       "polkit"
@@ -1624,26 +1624,24 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "pkg-config",
-      "cmake"
+      "pkg-config"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
       "hyprutils-devel",
-      "hyprtoolkit-devel",
-      "hyprgraphics-devel",
-      "hyprlang-devel",
       "pixman-devel",
-      "libdrm-devel",
-      "sdbus-c++-devel"
+      "polkit-devel",
+      "polkit-qt6-devel",
+      "qt6-base-devel",
+      "qt6-declarative-devel"
     ],
     "pkgname": "hyprpolkitagent",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
-    "version": "0.2.0"
+    "version": "0.1.3"
   },
   {
     "archs": [
@@ -1679,56 +1677,6 @@
     "revision": 2,
     "subpackages": [],
     "version": "0.4.0"
-  },
-  {
-    "archs": [
-      "all"
-    ],
-    "build_style": "cmake",
-    "checkdepends": [],
-    "checksum": [
-      "sha256:53c41be72af97d9ede274a63c9c1034c58726d862905763ed6e5a564ae42ba6b"
-    ],
-    "depends": [
-      "hyprtoolkit-${version}_${revision}",
-      "aquamarine-devel",
-      "hyprgraphics-devel",
-      "hyprutils-devel"
-    ],
-    "distfiles": [
-      "https://github.com/hyprwm/hyprtoolkit/archive/refs/tags/v${version}.tar.gz"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [
-      "pkg-config",
-      "clang",
-      "hyprwayland-scanner"
-    ],
-    "maintainer": "Dicov <SrDicov@gmail.com>",
-    "makedepends": [
-      "aquamarine-devel",
-      "hyprgraphics-devel",
-      "hyprutils-devel",
-      "hyprlang-devel",
-      "wayland-devel",
-      "pixman-devel",
-      "libdrm-devel",
-      "MesaLib-devel",
-      "libxkbcommon-devel",
-      "pango-devel",
-      "cairo-devel",
-      "iniparser-devel",
-      "abseil-cpp-devel"
-    ],
-    "pkgname": "hyprtoolkit",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 1,
-    "subpackages": [
-      "hyprtoolkit-devel"
-    ],
-    "version": "0.6.0"
   },
   {
     "archs": [
