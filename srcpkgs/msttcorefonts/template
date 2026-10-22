@@ -40,7 +40,6 @@ do_extract() {
 		cabextract ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${i}32.exe
 	done
 
-	# Tahoma is nested...
 	cabextract Viewer1.cab
 }
 
