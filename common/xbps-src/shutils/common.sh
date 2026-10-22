@@ -546,6 +546,19 @@ setup_pkg() {
 
     FILESDIR=$XBPS_SRCPKGDIR/$sourcepkg/files
     PATCHESDIR=$XBPS_SRCPKGDIR/$sourcepkg/patches
+    # Los sub-scripts (dobuild, doinstall, docheck, prepkg) sourcean los
+    # shutils pero no el script principal de xbps-src, que es quien define
+    # estas variables: llegan vacias y PKGDESTDIR/DESTDIR apuntan a un path
+    # inexistente (el paquete parece vacio y los hooks de pre-pkg fallan).
+    if [ -z "$XBPS_DESTDIR" ]; then
+        if [ -n "$IN_CHROOT" ]; then
+            XBPS_DESTDIR=/destdir
+            XBPS_BUILDDIR=/builddir
+        else
+            XBPS_DESTDIR=${XBPS_MASTERDIR}/destdir
+            XBPS_BUILDDIR=${XBPS_MASTERDIR}/builddir
+        fi
+    fi
     DESTDIR=${XBPS_DESTDIR}/${XBPS_CROSS_TRIPLET:+${XBPS_CROSS_TRIPLET}/}/${sourcepkg}-${version}
     PKGDESTDIR=${XBPS_DESTDIR}/${XBPS_CROSS_TRIPLET:+$XBPS_CROSS_TRIPLET/}${pkg}-${version}
 

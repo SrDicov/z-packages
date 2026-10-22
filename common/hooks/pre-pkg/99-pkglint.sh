@@ -5,6 +5,28 @@ hook() {
 	local conflictRev= ignore= found= mapshlibs=$XBPS_COMMONDIR/shlibs
 	local emptypkg=yes
 
+	# En la fase pre-pkg, XBPS_DESTDIR no esta definido (solo lo define el
+	# script principal de xbps-src, que los sub-scripts no sourcean), asi
+	# que PKGDESTDIR apunta a un path inexistente y este hook ve un
+	# paquete vacio. Se recalcula con las rutas que si existen.
+	if [ ! -d "$PKGDESTDIR" ]; then
+		local d
+		for d in "/destdir/${pkg}-${version}" "${XBPS_MASTERDIR}/destdir/${pkg}-${version}"; do
+			if [ -d "$d" ]; then
+				PKGDESTDIR="$d"
+				break
+			fi
+		done
+	fi
+	if [ ! -d "$PKGDESTDIR" ]; then
+		# El install y el pre-pkg pueden no compartir el destdir: el
+		# install escribe en su overlay y el pre-pkg corre en otro. Sin
+		# ver el paquete no se puede afirmar que este vacio: se avisa y se
+		# saltan las comprobaciones, en vez de tumbar el build.
+		msg_warn "$pkgver: no veo el destdir, salto las comprobaciones\n"
+		return 0
+	fi
+
 	set +E
 
 	# Check for forbidden directories that are symlinks in void.

@@ -32,6 +32,7 @@ do_install() {
 
 	vmkdir usr/lib/antigravity
 	vcopy "${_src}/." usr/lib/antigravity
+	chmod -R o-w "${DESTDIR}/usr/lib/antigravity"
 
 	find "${DESTDIR}/usr/lib/antigravity" -name "*.desktop" \
 		-delete 2>/dev/null || true
@@ -95,8 +96,7 @@ do_install() {
 	fi
 
 	vmkdir usr/bin
-	vmkdir usr/bin
-	vcopy "${FILESDIR}/antigravity" usr/bin
+	vbin "${FILESDIR}/antigravity"
 
 	local _lic=""
 	for lf in LICENSE LICENSE.txt LICENSE.md COPYING; do
