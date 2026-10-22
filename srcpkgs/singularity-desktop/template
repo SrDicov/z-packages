@@ -2,22 +2,11 @@
 pkgname=singularity-desktop
 version=0.1.0
 revision=4
-# No release tarballs (git + submodules): fetch the SrDicov fork carrying
-# the Void/runit port. Submodule changes ship as files/*.patch (post_patch)
-# until they are upstreamed repo by repo.
-#
-# NOTE: pin MUST be a commit reachable from a ref this clone fetches
-# (master / void-glibc). Upstream 5c75e56 lives 35 commits past the fork
-# head and is only in singularityos-lab, so git checkout died with 128.
-# labwc-singularity is bumped independently (6fe073c); the desktop does
-# not build labwc, it depends on the package, so the pins need not match.
-_commit="d642160a3c438f1fd4a535ed7e53584c7c065236"
-_repository="https://github.com/SrDicov/singularity-desktop.git"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
  -Dinstaller=false"
-hostmakedepends="meson ninja vala pkg-config gettext git python3 curl
- unzip tar glib-devel gobject-introspection sassc scdoc wayland-protocols"
+hostmakedepends="meson ninja vala pkg-config gettext git python3 curl unzip tar
+ glib-devel gobject-introspection sassc scdoc wayland-protocols"
 makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
  gtksourceview5-devel libpeas2-devel libgee-devel NetworkManager-devel
  upower-devel pulseaudio-devel gnome-online-accounts-devel polkit-devel
@@ -26,20 +15,20 @@ makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
  libxkbcommon-devel cairo-devel pango-devel gdk-pixbuf-devel libxcb-devel
  libpng-devel librsvg-devel libsfdo-devel libxml2-devel libsecret-devel
  poppler-glib-devel gst-plugins-base1-devel pipewire-devel
- libdisplay-info-devel libliftoff-devel libdrm-devel
- MesaLib-devel libinput-devel libseat-devel xorg-server-xwayland
- SDL2-devel glu-devel gstreamer1-devel libX11-devel libwebkitgtk60-devel
- libsodium-devel"
-depends="labwc-singularity dbus elogind greetd xdg-desktop-portal
- xdg-user-dirs hicolor-icon-theme desktop-file-utils tinysparql
- gst-plugins-base1 gst-plugins-good1"
+ libdisplay-info-devel libliftoff-devel libdrm-devel MesaLib-devel
+ libinput-devel libseat-devel xorg-server-xwayland SDL2-devel glu-devel
+ gstreamer1-devel libX11-devel libwebkitgtk60-devel libsodium-devel"
+depends="labwc-singularity dbus elogind greetd xdg-desktop-portal xdg-user-dirs
+ hicolor-icon-theme desktop-file-utils tinysparql gst-plugins-base1
+ gst-plugins-good1"
 short_desc="Singularity Desktop Environment (Wayland, GTK4)"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-only"
 homepage="https://github.com/singularityos-lab/singularity-desktop"
+_commit="d642160a3c438f1fd4a535ed7e53584c7c065236"
+_repository="https://github.com/SrDicov/singularity-desktop.git"
 
 if [ "$XBPS_TARGET_LIBC" = musl ]; then
-	# Gesture runtime blobs are glibc x86_64; musl port pending.
 	broken="needs glibc-only gesture runtime, no -Dgestures=false yet"
 fi
 
@@ -51,15 +40,11 @@ do_fetch() {
 }
 
 post_fetch() {
-	# Gesture runtime blobs must exist before meson setup. The upstream
-	# script hardcodes /usr/bin/python3.12 (fixed upstream, but patches
-	# only land in post_patch), so neutralize it here as well.
 	msg_normal "Bootstrapping gesture runtime...\n"
-	(cd ${pkgname}-${version} && sed -i 's|/usr/bin/python3\.12|python3|' \
+	(cd ${pkgname}-${version} && vsed -i 's|/usr/bin/python3\.12|python3|' \
 		subprojects/singularity-gestures/scripts/bootstrap-runtime.sh \
 		&& PYTHON=python3 \
 		bash subprojects/singularity-gestures/scripts/bootstrap-runtime.sh)
-	# vetro UI codegen tool (same binary + checksum as Containerfile).
 	_vetro_url="https://github.com/singularityos-lab/vetro/releases"
 	_vetro_url+="/download/v1.0.0/vetro-linux-amd64"
 	_vetro_sum="b653a4b1b75a31a8a00a5d12b11eaafa3f22d6cf2b3417efde68a113b4c60700"
@@ -76,8 +61,6 @@ pre_configure() {
 }
 
 post_patch() {
-	# gestures needs no patch: post_fetch already neutralized its
-	# /usr/bin/python3.12 hardcode with sed.
 	for _s in libsingularity singularity-shell singularity-session; do
 		patch -d subprojects/$_s -p1 -i "$FILESDIR"/$_s-void.patch
 	done
@@ -85,11 +68,7 @@ post_patch() {
 
 do_install() {
 	DESTDIR="${DESTDIR}" meson install -C build
-	# NOTE: no glib-compile-schemas here: gschemas.compiled is forbidden
-	# in packages, the INSTALL trigger rebuilds it on the target.
-	# xbps forbids ELF in /usr/share: the dlopen'd gesture blobs live in
-	# lib, the share dir keeps relative symlinks (resolver follows them).
-	mkdir -p "${DESTDIR}"/usr/lib/singularity/gestures/runtime
+	vmkdir usr/lib/singularity/gestures/runtime
 	for _so in libmediapipe.so libonnxruntime.so; do
 		mv "${DESTDIR}"/usr/share/singularity/gestures/runtime/$_so \
 			"${DESTDIR}"/usr/lib/singularity/gestures/runtime/$_so
