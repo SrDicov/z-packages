@@ -1,6 +1,6 @@
 # Template file for 'protonup-qt'
 pkgname=protonup-qt
-version=2.15.1
+version=2.16.0
 revision=1
 build_style=python3-pep517
 hostmakedepends="python3-setuptools python3-wheel"
@@ -14,7 +14,7 @@ license="GPL-3.0-or-later"
 homepage="https://davidotek.github.io/protonup-qt"
 changelog="https://raw.githubusercontent.com/DavidoTek/ProtonUp-Qt/main/CHANGELOG.md"
 distfiles="https://github.com/DavidoTek/ProtonUp-Qt/archive/refs/tags/v${version}.tar.gz"
-checksum=7028c0f3451fcb69f384ba0687b58a973b35fab2b0a64d5435eb1f782f09ea08
+checksum=e09435bdec57818af41fedbe17eac4a838bb33915eeff95c13302de37df5ab89
 
 post_patch() {
 	vsed -i 's/PySide6-Essentials/PySide6/g' requirements.txt setup.py setup.cfg pyproject.toml 2>/dev/null || true
