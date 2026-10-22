@@ -6,7 +6,7 @@ build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
  -Dxwayland=enabled -Dc_args=-D_GNU_SOURCE"
 hostmakedepends="meson ninja pkg-config gettext scdoc wayland-devel
- wayland-protocols git"
+ wayland-protocols"
 makedepends="cairo-devel glib-devel libpng-devel librsvg-devel libsfdo-devel
  libxml2-devel pango-devel wlroots0.20-devel xorg-server-xwayland
  libdisplay-info-devel libliftoff-devel libdrm-devel libinput-devel
@@ -17,11 +17,10 @@ license="GPL-2.0-or-later"
 homepage="https://github.com/singularityos-lab/labwc"
 _commit="6fe073cb94dde9eefa2039671671139839ea5c91"
 _repository="https://github.com/singularityos-lab/labwc.git"
+distfiles="https://github.com/singularityos-lab/labwc/archive/${_commit}.tar.gz>labwc-singularity-${version}.tar.gz"
+checksum="fb3d3621b866e0b9f629c3171bcc8ac1d946d9f18073abdad66752922cdebc72"
 conflicts="labwc>=0"
 
-do_fetch() {
-	msg_normal "Cloning ${_repository} @ ${_commit}...\n"
-	git clone --recurse-submodules "${_repository}" ${pkgname}-${version}
-	(cd ${pkgname}-${version} && git checkout -q ${_commit} \
-		&& git submodule update -q --init --recursive)
+do_extract() {
+	vsrcextract --strip-components=1 labwc-singularity-${version}.tar.gz
 }
