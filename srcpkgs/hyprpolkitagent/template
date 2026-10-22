@@ -4,9 +4,9 @@ version=0.2.0
 revision=1
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_LIBEXECDIR=lib"
-hostmakedepends="pkg-config"
-makedepends="hyprutils-devel pixman-devel polkit-devel polkit-qt6-devel
- qt6-base-devel qt6-declarative-devel"
+hostmakedepends="pkg-config cmake"
+makedepends="hyprutils-devel hyprtoolkit-devel hyprgraphics-devel
+ hyprlang-devel pixman-devel libdrm-devel sdbus-c++-devel"
 depends="polkit"
 short_desc="Polkit authentication agent for Hyprland"
 maintainer="Dicov <SrDicov@gmail.com>"
