@@ -49,5 +49,5 @@ do_install() {
 		>> "${DESTDIR}/etc/security/limits.d/99-steam.conf"
 
 	vlicense usr/share/doc/steam-launcher/copyright
-	chmod -R o-w "${DESTDIR}/usr/lib/steam"
+	chmod -R o-w "${DESTDIR}"
 }
