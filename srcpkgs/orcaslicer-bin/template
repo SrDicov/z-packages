@@ -1,7 +1,7 @@
-# Z: glibc-only (binarios precompilados x86_64).
+# Template file for 'orcaslicer-bin'
 pkgname=orcaslicer-bin
 version=2.4.2
-revision=1
+revision=2
 archs="x86_64"
 short_desc="Feature-rich slicer for FDM 3D printers (official AppImage build)"
 maintainer="Christopher <tu_correo@ejemplo.com>"
@@ -29,13 +29,17 @@ do_install() {
 	vmkdir usr/bin
 	ln -sf /opt/orcaslicer/AppRun "${DESTDIR}/usr/bin/orcaslicer"
 
-    vsed -i squashfs-root/com.orcaslicer.OrcaSlicer.desktop \
-    		-e 's|^Exec=.*|Exec=orcaslicer %F|' \
-    		-e 's|^Name=.*|Name=Orca Slicer|' \
-    		-e 's|^Icon=.*|Icon=orcaslicer|'
+	vsed -i squashfs-root/com.orcaslicer.OrcaSlicer.desktop \
+			-e 's|^Exec=.*|Exec=orcaslicer %F|' \
+			-e 's|^Name=.*|Name=Orca Slicer|' \
+			-e 's|^Icon=.*|Icon=orcaslicer|'
 
 	vinstall squashfs-root/com.orcaslicer.OrcaSlicer.desktop 644 \
 		usr/share/applications orcaslicer.desktop
-    vinstall squashfs-root/OrcaSlicer.png 644 \
-    		usr/share/icons/hicolor/128x128/apps orcaslicer.png
+	vinstall squashfs-root/OrcaSlicer.png 644 \
+			usr/share/icons/hicolor/128x128/apps orcaslicer.png
+}
+
+post_install() {
+	vlicense ${FILESDIR}/LICENSE
 }
