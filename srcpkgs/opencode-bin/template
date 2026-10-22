@@ -1,5 +1,4 @@
 # Template file for 'opencode-bin'
-# Z: glibc-only (binario precompilado, libc sin verificar).
 pkgname=opencode-bin
 version=1.19.3
 revision=1
