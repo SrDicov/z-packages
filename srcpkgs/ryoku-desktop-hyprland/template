@@ -1,25 +1,16 @@
 # Template file for 'ryoku-desktop-hyprland'
-# Depending back on ryoku-desktop would create an xbps-src cycle.
 pkgname=ryoku-desktop-hyprland
 version=0.1.0
 revision=1
-_repo_hash=da42f13ff8d8951dbd0b03b5b96c756e9e232385
 hostmakedepends="go"
-depends="hyprland
- hypr-dynamic-cursors
- ryoku-hypr-plugins
- hyprglass
- imgborders
- ryoku-keysounds
- hyprgrass
- hyprpolkitagent
- xdg-desktop-portal-hyprland
- hyprland-preview-share-picker
- hyprsunset"
+depends="hyprland hypr-dynamic-cursors ryoku-hypr-plugins hyprglass imgborders
+ ryoku-keysounds hyprgrass hyprpolkitagent xdg-desktop-portal-hyprland
+ hyprland-preview-share-picker hyprsunset"
 short_desc="Ryoku Hyprland compositor, plugins, portal, and WM provider"
 maintainer="Ryoku <releases@ryoku.dev>"
 license="GPL-3.0-or-later"
 homepage="https://ryoku.dev"
+_repo_hash=da42f13ff8d8951dbd0b03b5b96c756e9e232385
 distfiles="https://codeload.github.com/SrDicov/ryoku-void/tar.gz/${_repo_hash}>ryoku-${version}.tar.gz"
 checksum=08dedd672a6ad5f8d26c49972ed16f9eacd5946339efab85540856d176e4fb4a
 provides="ryoku-desktop-compositor-${version}_${revision}"
