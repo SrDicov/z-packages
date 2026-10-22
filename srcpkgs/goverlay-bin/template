@@ -1,6 +1,6 @@
 # Template file for 'goverlay-bin'
 pkgname=goverlay-bin
-version=1.9.3
+version=1.9.4
 revision=1
 archs="x86_64"
 hostmakedepends="tar xz"
@@ -12,7 +12,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/benjamimgois/Goverlay"
 distfiles="https://github.com/benjamimgois/goverlay/releases/download/${version}/goverlay-${version}-x86_64.deb"
-checksum="1e3e1034427e58e7d0443d7163ec390f65d5e02a26e61f198c86431db46093f8"
+checksum=83f765dfb9725755db38883f1cdd6f57c8bc690a8cb0f30f2b6dd9f87a4729ca
 nopie=yes
 conflicts="goverlay>=0"
 provides="goverlay-${version}_${revision}"
