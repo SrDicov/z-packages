@@ -3,6 +3,7 @@ pkgname=hyprlang
 version=0.6.8
 revision=4
 build_style=cmake
+configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="pkg-config pixman-devel"
 makedepends="hyprutils-devel"
 short_desc="Hypr config language implementation library"
@@ -11,7 +12,6 @@ license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/hyprlang"
 distfiles="https://github.com/hyprwm/hyprlang/archive/refs/tags/v${version}.tar.gz"
 checksum=d10a0778b646e04d83e8b90cc0f764fb96958c01a15c3c0678d95a40fc647ed5
-configure_args="-DBUILD_TESTING=OFF"
 
 post_install() {
 	vlicense LICENSE
