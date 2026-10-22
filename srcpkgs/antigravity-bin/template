@@ -1,20 +1,19 @@
 # Template file for 'antigravity-bin'
-# Z: glibc-only (binario precompilado x86_64).
 pkgname=antigravity-bin
 version=2.24.0
 revision=1
 archs="x86_64"
 create_wrksrc=yes
-_buildid=5780333019398144
-_site="https://storage.googleapis.com/antigravity-public/antigravity-hub"
 hostmakedepends="python3 desktop-file-utils"
-depends="gtk+3 libnotify nss libXScrnSaver at-spi2-core cups
- libxkbcommon alsa-lib pango cairo gdk-pixbuf dbus libXtst
- libXcomposite libXdamage libXfixes libXrandr atk nspr"
+depends="gtk+3 libnotify nss libXScrnSaver at-spi2-core cups libxkbcommon
+ alsa-lib pango cairo gdk-pixbuf dbus libXtst libXcomposite libXdamage
+ libXfixes libXrandr atk nspr"
 short_desc="Antigravity Hub (AI Agent IDE)"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="custom:Proprietary"
 homepage="https://antigravity.ai"
+_buildid=5780333019398144
+_site="https://storage.googleapis.com/antigravity-public/antigravity-hub"
 distfiles="${_site}/${version}-${_buildid}/linux-x64/Antigravity.tar.gz"
 checksum=8808bf580033c5d1365142e1e66ff37474f04a5fa0d9fc24b7c24c8216acdcc6
 nostrip=yes
