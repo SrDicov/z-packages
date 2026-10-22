@@ -3,6 +3,7 @@ pkgname=hyprutils
 version=0.14.2
 revision=7
 build_style=cmake
+configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="pkg-config pixman-devel"
 short_desc="Hyprland utilities library used across the ecosystem"
 maintainer="Dicov <SrDicov@gmail.com>"
@@ -10,7 +11,6 @@ license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/hyprutils"
 distfiles="https://github.com/hyprwm/hyprutils/archive/refs/tags/v${version}.tar.gz"
 checksum=2061b7b08c8104fb02a609553b28f6c8580e5ec38633015845f1c4553980175b
-configure_args="-DBUILD_TESTING=OFF"
 replaces="hyprutils<0.14.2_1"
 
 post_install() {
