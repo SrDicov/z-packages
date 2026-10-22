@@ -1,12 +1,15 @@
-# Z: mixto (glibc+musl).
+# Template file for 'protonup-qt'
 pkgname=protonup-qt
 version=2.15.1
 revision=1
 build_style=python3-pep517
 hostmakedepends="python3-setuptools python3-wheel"
-depends="python3-pyside6 python3-pyside6-gui python3-pyside6-widgets python3-pyside6-network python3-pyside6-ui-tools python3-pyside6-dbus python3-requests python3-vdf python3-inputs python3-xdg python3-steam python3-yaml python3-zstandard"
+depends="python3-pyside6 python3-pyside6-gui python3-pyside6-widgets
+ python3-pyside6-network python3-pyside6-ui-tools python3-pyside6-dbus
+ python3-requests python3-vdf python3-inputs python3-xdg python3-steam
+ python3-yaml python3-zstandard"
 short_desc="Install and manage GE-Proton and Luxtorpeda for Steam and Wine-GE"
-maintainer="JavierC"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://davidotek.github.io/protonup-qt"
 changelog="https://raw.githubusercontent.com/DavidoTek/ProtonUp-Qt/main/CHANGELOG.md"
