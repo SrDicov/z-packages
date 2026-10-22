@@ -1,0 +1,43 @@
+# Template file for 'stremio'
+pkgname=stremio
+version=4.4.183
+revision=1
+build_style=cmake
+hostmakedepends="cmake librsvg"
+makedepends="qt5-base-devel qt5-declarative-devel qt5-webchannel-devel
+ qt5-webengine-devel libmpv-devel openssl-devel mesa-devel"
+depends="nodejs qt5-declarative qt5-quickcontrols2 qt5-webchannel qt5-webengine"
+short_desc="Stremio media center (Qt5 shell compiled from source)"
+maintainer="JavierC <javiercyt@atomicmail.io>"
+license="MIT"
+homepage="https://www.stremio.com/"
+changelog="https://github.com/Stremio/stremio-shell/releases"
+_server="https://dl.strem.io/server/v4.20.16/desktop/server.js"
+distfiles="https://github.com/Stremio/stremio-shell/archive/refs/tags/v${version}.tar.gz>stremio-shell-${version}.tar.gz
+ ${_server}>server.js"
+checksum="7f27d20ae64a3ef80cc528840030d341a8cd5da3da55a80931bb313a12a494f8
+ 88e887f058765f0e3dbc636829e7687ab80759c392eb9a64df457c8f9fc86e28"
+skip_extraction="server.js"
+replaces="stremio-bin>=0"
+
+do_extract() {
+	mkdir -p ${wrksrc}
+	tar -xzC ${wrksrc} --strip-components=1 \
+		-f ${XBPS_SRCDISTDIR}/${pkgname}-${version}/stremio-shell-${version}.tar.gz
+}
+
+post_install() {
+	vinstall ${XBPS_SRCDISTDIR}/${pkgname}-${version}/server.js 755 opt/stremio
+	ln -sf /usr/bin/node ${DESTDIR}/opt/stremio/node
+	mkdir -p ${wrksrc}/icons
+	for size in 16 22 24 32 64 128; do
+		rsvg-convert ${wrksrc}/images/stremio.svg -w ${size} -o ${wrksrc}/icons/stremio_${size}.png
+		rsvg-convert ${wrksrc}/images/stremio_tray_white.svg -w ${size} -o ${wrksrc}/icons/tray_${size}.png
+		vinstall ${wrksrc}/icons/stremio_${size}.png 644 \
+			usr/share/icons/hicolor/${size}x${size}/apps smartcode-stremio.png
+		vinstall ${wrksrc}/icons/tray_${size}.png 644 \
+			usr/share/icons/hicolor/${size}x${size}/apps smartcode-stremio-tray.png
+	done
+	vinstall ${wrksrc}/smartcode-stremio.desktop 644 usr/share/applications
+	vlicense LICENSE.md
+}
