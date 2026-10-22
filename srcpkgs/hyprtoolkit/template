@@ -17,7 +17,7 @@ distfiles="https://github.com/hyprwm/hyprtoolkit/archive/refs/tags/v${version}.t
 checksum=53c41be72af97d9ede274a63c9c1034c58726d862905763ed6e5a564ae42ba6b
 
 hyprtoolkit-devel_package() {
-	depends="hyprtoolkit-${version}_${revision}"
+	depends="hyprtoolkit-${version}_${revision} aquamarine-devel hyprgraphics-devel hyprutils-devel"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
