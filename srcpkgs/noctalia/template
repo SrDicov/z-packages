@@ -1,28 +1,30 @@
-# Z: mixto (glibc+musl).
+# Template file for 'noctalia'
 pkgname=noctalia
-# Source is the test branch (VERSION 5.2.0 there). version stays 5.11.1
-# on purpose: the fork's own numbering, and 5.2.0 would downgrade
-# installed 5.11.1 users (xbps compares versions).
 version=5.11.1
-revision=9
-_commit="1ce6d9df59f58ca40534e2d881308bc20fb353b3"
-_repository="https://github.com/Neko-Void-Linux/noctalia.git"
+revision=10
 build_style=meson
 configure_args="-Dnative_optimizations=false -Db_sanitize=none"
 hostmakedepends="pkg-config git cmake wayland-devel wayland-protocols"
-makedepends="base-devel cairo-devel fontconfig-devel freetype-devel harfbuzz-devel
-	jemalloc-devel json-c++ libcurl-devel libepoxy-devel libglvnd-devel libmd4c-devel
-	libqalculate-devel librsvg-devel libsodium-devel libwebp-devel libxkbcommon-devel
-	libxml2-devel libsecret-devel libjxl-devel MesaLib-devel pam-devel pango-devel
-	libsndfile-devel pipewire-devel polkit-devel sdbus-c++-devel stb tomlplusplus-devel
-	libical-devel wayland-devel wayland-protocols wireplumber-devel"
+makedepends="base-devel cairo-devel fontconfig-devel freetype-devel
+ harfbuzz-devel jemalloc-devel json-c++ libcurl-devel libepoxy-devel
+ libglvnd-devel libmd4c-devel libqalculate-devel librsvg-devel libsodium-devel
+ libwebp-devel libxkbcommon-devel libxml2-devel libsecret-devel libjxl-devel
+ MesaLib-devel pam-devel pango-devel libsndfile-devel pipewire-devel
+ polkit-devel sdbus-c++-devel stb tomlplusplus-devel libical-devel
+ wayland-devel wayland-protocols wireplumber-devel"
 short_desc="Noctalia - Wayland compositor and desktop environment"
-maintainer="JavierC"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/noctalia-dev/noctalia"
+_commit="1ce6d9df59f58ca40534e2d881308bc20fb353b3"
+_repository="https://github.com/Neko-Void-Linux/noctalia.git"
 
 do_fetch() {
 	msg_normal "Cloning ${_repository} @ ${_commit} (test branch)...\n"
 	git clone --branch test "${_repository}" ${pkgname}-${version}
 	(cd ${pkgname}-${version} && git checkout -q ${_commit})
+}
+
+post_install() {
+	vlicense LICENSE
 }
