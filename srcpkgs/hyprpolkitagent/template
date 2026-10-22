@@ -3,6 +3,7 @@ pkgname=hyprpolkitagent
 version=0.1.3
 revision=2
 build_style=cmake
+configure_args="-DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_LIBEXECDIR=lib"
 hostmakedepends="pkg-config"
 makedepends="hyprutils-devel pixman-devel polkit-devel polkit-qt6-devel
  qt6-base-devel qt6-declarative-devel"
@@ -13,7 +14,6 @@ license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/hyprpolkitagent"
 distfiles="https://github.com/hyprwm/hyprpolkitagent/archive/refs/tags/v${version}.tar.gz"
 checksum=a8fa714b92d47331f056b608cb731dd1f5cc3845a9109cb22c6e6eb55b4eac84
-configure_args="-DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_LIBEXECDIR=lib"
 
 post_install() {
 	vlicense LICENSE
