@@ -1,10 +1,9 @@
-# Z: mixto (glibc+musl).
+# Template file for 'adw-gtk3'
 pkgname=adw-gtk3
 version=6.5
 revision=1
-wrksrc="adw-gtk3"
 short_desc="Libadwaita theme for GTK3 and GTK4 applications"
-maintainer="JavierC"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://github.com/lassekongo83/adw-gtk3"
 distfiles="https://github.com/lassekongo83/adw-gtk3/releases/download/v${version}/adw-gtk3v${version}.tar.xz"
