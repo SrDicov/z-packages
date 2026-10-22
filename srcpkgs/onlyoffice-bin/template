@@ -1,25 +1,20 @@
-# Z: glibc-only (binarios precompilados x86_64).
+# Template file for 'onlyoffice-bin'
 pkgname=onlyoffice-bin
 version=10.0.0
-revision=1
+revision=2
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="binutils tar xz"
+depends="alsa-lib at-spi2-core cairo curl desktop-file-utils expat fontconfig
+ freetype glib gtk+3 gst-libav gst-plugins-base1 gst-plugins-ugly1
+ hicolor-icon-theme libcups libXScrnSaver libnotify libxkbcommon
+ liberation-fonts-ttf xdg-utils"
 short_desc="Desktop office suite for text, spreadsheet and presentations"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="AGPL-3.0-only"
 homepage="https://www.onlyoffice.com"
-# Canal rodante: el .deb no lleva version en el nombre. La version viene de
-# lo que publica ONLYOFFICE (10.0.0 al verificar este checksum).
 distfiles="https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb"
 checksum=2190edb4022a2ac2f6eee0f78815520f0e4ece1e8a1097c645a6f9b225c8b59c
-# Derived from the .deb Depends, mapped to Void names. Everything the ELF
-# sonames resolve to (Qt5, X11, glib, cups, icu...) is autodetected by
-# xbps-src, so it is intentionally NOT listed here.
-depends="alsa-lib at-spi2-core cairo curl desktop-file-utils expat
- fontconfig freetype glib gtk+3 gst-libav gst-plugins-base1
- gst-plugins-ugly1 hicolor-icon-theme libcups libXScrnSaver libnotify
- libxkbcommon liberation-fonts-ttf xdg-utils"
 nostrip=yes
 nopie=yes
 noshlibprovides=yes
@@ -29,17 +24,15 @@ do_extract() {
 }
 
 do_install() {
-	# The payload is already laid out as /opt/onlyoffice + a /usr/bin
-	# wrapper + desktop entry + icons, and the wrapper hardcodes
-	# APP_PATH=/opt/onlyoffice/desktopeditors, so it is taken verbatim.
 	tar xf data.tar.xz -C "${DESTDIR}"
 
-	# Chromium zygote sandbox: upstream ships it non-setuid, which
-	# breaks the zygote process.
 	if [ -f "${DESTDIR}/opt/onlyoffice/desktopeditors/chrome-sandbox" ]; then
 		chmod 4755 "${DESTDIR}/opt/onlyoffice/desktopeditors/chrome-sandbox"
 	fi
 
-	# Upstream ships desktopeditors as an alias; expose the generic name.
 	ln -sf onlyoffice-desktopeditors "${DESTDIR}/usr/bin/onlyoffice"
+}
+
+post_install() {
+	vlicense ${FILESDIR}/LICENSE
 }
