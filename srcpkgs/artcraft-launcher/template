@@ -1,0 +1,22 @@
+# Template file for 'artcraft-launcher'
+pkgname=artcraft-launcher
+version=0.6.1
+revision=1
+build_style=cargo
+hostmakedepends="cargo rust pkg-config"
+makedepends="wayland-devel libxkbcommon-devel"
+depends="hicolor-icon-theme ca-certificates"
+short_desc="Install, update and launch the Craft App Suite"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="MIT, Apache-2.0"
+homepage="https://getartcraft.com/apps"
+changelog="https://github.com/storytold/craft-launcher/releases"
+distfiles="https://github.com/storytold/craft-launcher/archive/refs/tags/v${version}.tar.gz"
+checksum=e3aac276b3a6bd891f0f62cd35868df30fb29ef290cb0d09273e0eb21c87ee3d
+replaces="artcraft-launcher-bin>=0"
+
+post_install() {
+	vlicense LICENSE-MIT
+	vlicense LICENSE-APACHE
+	vlicense NOTICE
+}
