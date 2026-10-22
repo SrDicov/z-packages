@@ -1,21 +1,18 @@
 # Template file for 'spotify-bin'
-# Z: glibc-only (binario precompilado x86_64).
-# spotify-app-bin instala el mismo /usr/bin/spotify: no pueden coexistir.
 pkgname=spotify-bin
 version=1.2.95.453
 revision=1
 archs="x86_64"
 create_wrksrc=yes
-_subver=g0eeebbed
-_site="https://repository.spotify.com/pool/non-free/s/spotify-client"
 hostmakedepends="bsdtar"
 depends="libcurl nss libXtst libXScrnSaver libxml2 libxslt libglvnd gtk+3
- alsa-lib desktop-file-utils hicolor-icon-theme xdg-utils libnotify
- libgcrypt"
+ alsa-lib desktop-file-utils hicolor-icon-theme xdg-utils libnotify libgcrypt"
 short_desc="Spotify digital music streaming service"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="custom:Proprietary"
 homepage="https://www.spotify.com"
+_subver=g0eeebbed
+_site="https://repository.spotify.com/pool/non-free/s/spotify-client"
 distfiles="${_site}/spotify-client_${version}.${_subver}_amd64.deb"
 checksum=256e2eb1ec96fbc0c51afab247298e4e6eabfabbafafd4617584f44cca2fb31f
 nostrip=yes
