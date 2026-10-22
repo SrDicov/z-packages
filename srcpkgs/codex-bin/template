@@ -1,25 +1,21 @@
-# Z: glibc-only (binarios precompilados x86_64).
+# Template file for 'codex-bin'
 pkgname=codex-bin
 version=26.928.20755
 revision=2
-replaces="codex>=0"
 archs="x86_64"
 build_style=fetch
 hostmakedepends="binutils tar xz"
-depends="gtk+3 libnotify nss xdg-utils at-spi2-core libdrm mesa-dri libxcb
- glib alsa-lib at-spi2-atk atk cairo libcups dbus-libs expat libgcc
- gdk-pixbuf mesa nspr pango libstdc++ eudev-libudev libusb libX11
- libXcomposite libXdamage libXext libXfixes libxkbcommon libXrandr
- libssl3 tpm2-tss vulkan-loader xz"
+depends="gtk+3 libnotify nss xdg-utils at-spi2-core libdrm mesa-dri libxcb glib
+ alsa-lib at-spi2-atk atk cairo libcups dbus-libs expat libgcc gdk-pixbuf mesa
+ nspr pango libstdc++ eudev-libudev libusb libX11 libXcomposite libXdamage
+ libXext libXfixes libxkbcommon libXrandr libssl3 tpm2-tss vulkan-loader xz"
 short_desc="OpenAI desktop app with ChatGPT and Codex CLI"
 maintainer="CrowRei <Ortal.christopher@outlook.com>"
 license="custom:Proprietary"
 homepage="https://developers.openai.com/codex/app"
-# Version source: the official APT index
-# persistent.oaistatic.com/codex-app-prod/linux/deb/dists/stable/main/
-# binary-amd64/Packages (its SHA256 is what is pinned below).
 distfiles="https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_${version}_amd64.deb"
 checksum=4586dc1a6c8698982ca859f86aaa16835f33832a09e24042dfa75571aa60d8d1
+replaces="codex>=0"
 replaces="chatgpt>=0"
 nostrip=yes
 nodebug=yes
