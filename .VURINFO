@@ -1684,7 +1684,8 @@
       "sha256:2061b7b08c8104fb02a609553b28f6c8580e5ec38633015845f1c4553980175b"
     ],
     "depends": [
-      "hyprutils-${version}_${revision}"
+      "hyprutils-${version}_${revision}",
+      "pixman-devel"
     ],
     "distfiles": [
       "https://github.com/hyprwm/hyprutils/archive/refs/tags/v${version}.tar.gz"
