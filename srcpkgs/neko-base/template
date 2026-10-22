@@ -52,7 +52,7 @@ _BASE_SYSTEM="
 	xtools
 	tmux
 	xmirror
-	vouru
+	vouru-bin
 "
 
 _MUSL_SYSTEM="
