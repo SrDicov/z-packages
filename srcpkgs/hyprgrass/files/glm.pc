@@ -1,0 +1,7 @@
+prefix=/usr
+includedir=/usr/include
+
+Name: glm
+Description: C++ OpenGL math library (header-only)
+Version: 1.0.3
+Cflags: -I/usr/include

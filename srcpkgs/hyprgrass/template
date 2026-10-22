@@ -1,12 +1,10 @@
 # Template file for 'hyprgrass'
 pkgname=hyprgrass
 version=0.8.2
-revision=2
+revision=3
 build_style=meson
 hostmakedepends="git meson ninja pkg-config"
 
-# the compositor headers reach into pixman and Lua, which live in their own
-# include directories and are not carried by the compositor's pkg-config
 export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm:/usr/include/hyprland/src"
 makedepends="
  aquamarine-devel cairo-devel hyprcursor-devel hyprgraphics-devel
@@ -27,8 +25,6 @@ export PKG_CONFIG_PATH="${XBPS_BUILDDIR}/shim-pc${PKG_CONFIG_PATH:+:$PKG_CONFIG_
 do_fetch() {
 	git clone --depth 1 https://github.com/horriblename/hyprgrass.git "${wrksrc}"
 	cd "${wrksrc}"
-	# the plugin is ABI-locked to the compositor: take the commit hyprpm
-	# pins for the Hyprland this build links against
 	local hv commit
 	hv="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' \
 		/usr/include/hyprland/src/version.h)"
@@ -41,41 +37,14 @@ do_fetch() {
 }
 
 do_patch() {
-	# Void's glm is header only and ships no glm.pc, and meson asks for one
 	mkdir -p "${XBPS_BUILDDIR}/shim-pc"
-	cat >"${XBPS_BUILDDIR}/shim-pc/glm.pc" <<_EOF
-prefix=/usr
-includedir=/usr/include
-
-Name: glm
-Description: C++ OpenGL math library (header-only)
-Version: 1.0.3
-Cflags: -I${includedir}
-_EOF
-	# the plugin asks for the plain lua module, but Hyprland runs on Lua 5.5
-	# and Void's lua is 5.3, so the build resolves the 5.5 headers instead
-	cat >"${XBPS_BUILDDIR}/shim-pc/lua.pc" <<_EOF
-prefix=/usr
-exec_prefix=/usr
-libdir=/usr/lib
-includedir=/usr/include/lua5.5
-
-Name: Lua
-Description: An Extensible Extension Language
-Version: 5.5.1
-Libs: -L${libdir} -llua5.5
-Libs.private: -lm -ldl
-Cflags: -I${includedir}
-_EOF
+	cp "${FILESDIR}/glm.pc" "${FILESDIR}/lua.pc" "${XBPS_BUILDDIR}/shim-pc/"
 }
 
 post_install() {
-	vlicense LICENSE
-	# Hyprland loads plugins from its own directory, meson installs them flat
 	vmkdir usr/lib/hyprland/plugins
 	vinstall ${DESTDIR}/usr/lib/libhyprgrass.so 755 \
 	 usr/lib/hyprland/plugins hyprgrass.so
-	# the receipt records the compositor ABI the plugin was built for
 	local h=/usr/include/hyprland/src/version.h
 	local abi v
 	abi="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' "$h")"
