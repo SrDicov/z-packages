@@ -3,6 +3,7 @@ pkgname=hyprsunset
 version=0.4.0
 revision=2
 build_style=cmake
+configure_args="-DCMAKE_BUILD_TYPE=None"
 hostmakedepends="pkg-config hyprwayland-scanner"
 makedepends="hyprland-protocols hyprlang-devel hyprutils-devel pixman-devel
  wayland-devel wayland-protocols"
@@ -12,7 +13,6 @@ license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/hyprsunset"
 distfiles="https://github.com/hyprwm/hyprsunset/archive/refs/tags/v${version}.tar.gz"
 checksum=5980e65ec650010e36c52e5f5acc0df9fd2d20051c63b89305bdc13276f237a6
-configure_args="-DCMAKE_BUILD_TYPE=None"
 
 post_install() {
 	vlicense LICENSE
