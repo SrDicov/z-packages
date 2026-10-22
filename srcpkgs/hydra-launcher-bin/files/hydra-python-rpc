@@ -1,0 +1,2 @@
+
+exec /usr/bin/python3 /opt/Hydra/resources/app.asar.unpacked/python/main.py "$@"
