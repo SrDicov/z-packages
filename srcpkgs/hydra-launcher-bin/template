@@ -97,4 +97,5 @@ do_install() {
 
 post_install() {
 	find ${DESTDIR}/opt/Hydra -type f \( -name "liblog.so" -o -name "libc.musl-x86_64.so.1" -o -name "*.pyc" \) -delete 2>/dev/null || true
+	chmod -R o-w ${DESTDIR}/opt/Hydra
 }
