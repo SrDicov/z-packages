@@ -3,31 +3,26 @@ pkgname=falcond
 version=2.0.14
 revision=9
 archs="x86_64*"
-hostmakedepends="zig-nk-bin git"
+hostmakedepends="zig-nk-bin git ca-certificates"
 depends="dbus scx"
 short_desc="Advanced Linux Gaming Performance Daemon"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/PikaOS-Linux/falcond"
 distfiles="https://github.com/Neko-Void-Linux/falcond/releases/download/${version}/falcond-${version}.tar.gz"
-checksum=cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984
+checksum="cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984"
 nopie=yes
 
-post_extract() {
-
-	git clone --depth 1 https://github.com/PikaOS-Linux/falcond-profiles.git falcond/profiles
-
-}
-
 do_build() {
-	cd falcond
+	cd "falcond-${version}/falcond"
 	zig build -Doptimize=ReleaseFast -Dcpu=baseline
 }
 
 do_install() {
-	cd falcond
+	cd "falcond-${version}/falcond"
 
 	vbin zig-out/bin/falcond
+	cd ..
 
 	vmkdir usr/share/falcond
 	vcopy profiles/usr/share/falcond/* usr/share/falcond
@@ -38,5 +33,5 @@ do_install() {
 
 	vmkdir var/lib/falcond
 
-	[ -f ../LICENSE ] && vlicense ../LICENSE
+	[ -f LICENSE ] && vlicense LICENSE
 }
