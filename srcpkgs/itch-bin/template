@@ -1,10 +1,8 @@
 # Template file for 'itch-bin'
-# Z: glibc-only (binario precompilado x86_64).
 pkgname=itch-bin
 version=26.22.0
 revision=1
 archs="x86_64"
-_gh="https://github.com/itchio/itch/releases/download/v${version}"
 depends="gtk+3 nss libXScrnSaver alsa-lib libgbm libnotify xdg-utils
  at-spi2-core hicolor-icon-theme desktop-file-utils"
 short_desc="Installer and launcher for itch.io games"
@@ -12,6 +10,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://itch.io/app"
 changelog="https://github.com/itchio/itch/releases"
+_gh="https://github.com/itchio/itch/releases/download/v${version}"
 distfiles="${_gh}/itch-v${version}-linux-amd64.tar.gz"
 checksum=462408b2ef3dbebcd3c110040e0e58bd2ac8e12b0bd7995be87d393c6df0bda2
 nostrip=yes
