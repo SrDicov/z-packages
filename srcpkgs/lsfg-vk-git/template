@@ -4,11 +4,9 @@ version=2026
 revision=1
 build_style=cmake
 configure_args="-DLSFGVK_BUILD_UI=ON -DLSFGVK_INSTALL_XDG_FILES=ON
- -DCMAKE_CXX_COMPILER=clang++
- -DCMAKE_CXX_COMPILER_AR=/usr/bin/llvm-ar
+ -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_COMPILER_AR=/usr/bin/llvm-ar
  -DCMAKE_CXX_COMPILER_RANLIB=/usr/bin/llvm-ranlib
  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON"
-_tag="v2.0.0-dev"
 hostmakedepends="cmake clang llvm pkg-config"
 makedepends="Vulkan-Headers qt6-base-devel qt6-declarative-devel"
 depends="vulkan-loader Vulkan-Tools mesa"
@@ -17,5 +15,6 @@ maintainer="JavierC <javiercyt@atomicmail.io>"
 license="GPL-3.0-only"
 homepage="https://lsfg-vk.dev"
 changelog="https://github.com/PancakeTAS/lsfg-vk/releases"
+_tag="v2.0.0-dev"
 distfiles="https://github.com/PancakeTAS/lsfg-vk/archive/${_tag}.tar.gz"
 checksum=3184a29c61b4cc356e7b65d23c8c1c46cc39ba4f0153d1e909827162681c7533
