@@ -652,14 +652,16 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984"
+      "sha256:cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984",
+      "sha256:fd8d321e5c7626892a198ee6c40ed107b577ed450bed441f6c6a3121a81671ff"
     ],
     "depends": [
       "dbus",
       "scx"
     ],
     "distfiles": [
-      "https://github.com/Neko-Void-Linux/falcond/releases/download/${version}/falcond-${version}.tar.gz"
+      "https://github.com/Neko-Void-Linux/falcond/releases/download/${version}/falcond-${version}.tar.gz",
+      "https://github.com/PikaOS-Linux/falcond-profiles/archive/2c521cbe01a3fb092ef3ddf61b111a600ef9f673.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
