@@ -1,15 +1,14 @@
-# Z: mixto (glibc+musl).
+# Template file for 'neko-themes'
 pkgname=neko-themes
 version=7.1
 revision=1
-wrksrc="neko-themes"
 short_desc="Colección de temas"
-maintainer="JavierC"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Neko-Void-Linux/neko-themes"
 distfiles="https://github.com/Neko-Void-Linux/neko-themes/releases/download/${version}/neko-themes-${version}.tar.gz"
 checksum=1d6a5e4c3b6d7e1d97fb308d55fc2f60f74530f4ca9b01b9b4ad73edd8ece39d
 
 do_install() {
-    vcopy usr/share usr
+	vcopy usr/share usr
 }
