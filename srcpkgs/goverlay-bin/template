@@ -1,12 +1,14 @@
-# Z: glibc-only (binarios precompilados x86_64).
+# Template file for 'goverlay-bin'
 pkgname=goverlay-bin
 version=1.9.3
 revision=1
 archs="x86_64"
-depends="MangoHud qt6-base qt6-declarative gamemode nerd-fonts libqt6pas-bin python3"
-hostmakedepends="tar xz" 
-short_desc="Modern Qt6 GUI application to configure MangoHud, vkBasalt, and more"
-maintainer="JavierC"
+hostmakedepends="tar xz"
+depends="MangoHud qt6-base qt6-declarative gamemode nerd-fonts libqt6pas-bin
+ python3"
+short_desc="Modern Qt6 GUI application to configure MangoHud, vkBasalt, and
+ more"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/benjamimgois/Goverlay"
 distfiles="https://github.com/benjamimgois/goverlay/releases/download/${version}/goverlay-${version}-x86_64.deb"
@@ -16,9 +18,9 @@ conflicts="goverlay>=0"
 provides="goverlay-${version}_${revision}"
 
 do_extract() {
-    ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/goverlay-${version}-x86_64.deb
+	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/goverlay-${version}-x86_64.deb
 }
 
 do_install() {
-    tar xf data.tar.* -C ${DESTDIR}
+	tar xf data.tar.* -C ${DESTDIR}
 }
