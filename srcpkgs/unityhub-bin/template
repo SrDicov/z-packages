@@ -1,20 +1,19 @@
-# Z: glibc-only (binarios precompilados x86_64).
+# Template file for 'unityhub-bin'
 pkgname=unityhub-bin
 version=3.22.0
-revision=2
-replaces="unityhub>=0"
+revision=3
 archs="x86_64"
 hostmakedepends="tar zstd xz"
-depends="gtk+3 libnotify nss xdg-utils at-spi2-core libdrm mesa libxcb ca-certificates gnupg libXScrnSaver libXtst libuuid libsecret tar zip unzip alsa-lib desktop-file-utils glib"
-short_desc="The Official Unity Hub"
+depends="gtk+3 libnotify nss xdg-utils at-spi2-core libdrm mesa libxcb
+ ca-certificates gnupg libXScrnSaver libXtst libuuid libsecret tar zip unzip
+ alsa-lib desktop-file-utils glib"
+short_desc="Official Unity Hub"
 maintainer="Javierc <javiercyt@atomicmail.io>"
 license="custom:Unity Terms of Service"
 homepage="https://unity.com/hub"
-# Official Unity CDN. The version is the one advertised by the
-# electron-builder feed public-cdn.cloud.unity3d.com/hub/prod/latest-linux.yml
-# (this deb is the unversioned prod file, so the version comes from the feed).
 distfiles="https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup-amd64.deb>unityhub-${version}.deb"
 checksum=36e9c34c3b759cfd4d624889af3bfa3d6cddefd11183097e35036a26890b702f
+replaces="unityhub>=0"
 nostrip=yes
 
 do_extract() {
@@ -24,6 +23,6 @@ do_extract() {
 }
 
 do_install() {
-	vmkdir ${DESTDIR}/usr/
-        cp -rf usr/* ${DESTDIR}/usr/
+	vcopy usr usr
+	vlicense "${FILESDIR}/LICENSE"
 }
