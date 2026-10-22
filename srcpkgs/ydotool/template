@@ -14,6 +14,5 @@ checksum=ba075a43aa6ead51940e892ecffa4d0b8b40c241e4e2bc4bd9bd26b61fde23bd
 post_install() {
 	vsv ydotoold
 	vlicense LICENSE
-	# drop stray systemd unit dir (void uses the runit service above)
 	rm -rf ${DESTDIR}/usr/lib/systemd
 }
