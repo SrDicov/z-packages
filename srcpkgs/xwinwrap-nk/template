@@ -1,4 +1,4 @@
-# Z: mixto (glibc+musl).
+# Template file for 'xwinwrap-nk'
 pkgname=xwinwrap-nk
 version=1.0
 revision=3
