@@ -1,17 +1,15 @@
 # Template file for 'imgborders'
 pkgname=imgborders
 version=1.0.2
-revision=2
+revision=3
 build_style=cmake
 hostmakedepends="cmake curl git pkg-config"
-makedepends="
- aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
+makedepends="aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
  hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-devel
- libdisplay-info-devel libdrm-devel libinput-devel libseat-devel
- libxcb-devel libxkbcommon-devel libzip-devel lua55-devel
- MesaLib-devel pango-devel pixman-devel tomlplusplus-devel wayland-devel
- xcb-util-errors-devel xcb-util-wm-devel
-"
+ libdisplay-info-devel libdrm-devel libinput-devel libseat-devel libxcb-devel
+ libxkbcommon-devel libzip-devel lua55-devel MesaLib-devel pango-devel
+ pixman-devel tomlplusplus-devel wayland-devel xcb-util-errors-devel
+ xcb-util-wm-devel"
 depends="hyprland"
 short_desc="Hyprland plugin: image borders around windows"
 maintainer="Dicov <SrDicov@gmail.com>"
@@ -20,18 +18,14 @@ homepage="https://codeberg.org/zacoons/imgborders"
 
 export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm:/usr/include/hyprland/src"
 
-bundle_url="https://raw.githubusercontent.com/SrDicov/ryoku-void/main/release/packages/imgborders/imgborders.bundle"
-bundle_sha256="48187e72ca62fc0b8d12809ca02082b8d27016516d84527a19abb3ff007d6a7d"
+_bundle_url="https://raw.githubusercontent.com/SrDicov/ryoku-void/main/release/packages/imgborders/imgborders.bundle"
+_bundle_sha256="48187e72ca62fc0b8d12809ca02082b8d27016516d84527a19abb3ff007d6a7d"
 
 do_fetch() {
-	# the upstream repository is vendored as a git bundle, so the build
-	# never reaches out to the forge
-	curl -fsSL -o imgborders.bundle "${bundle_url}"
-	echo "${bundle_sha256}  imgborders.bundle" | sha256sum -c -
+	curl -fsSL -o imgborders.bundle "${_bundle_url}"
+	echo "${_bundle_sha256}  imgborders.bundle" | sha256sum -c -
 	git clone -q imgborders.bundle "${wrksrc}"
 	cd "${wrksrc}"
-	# the plugin is ABI-locked to the compositor: take the commit hyprpm
-	# pins for the Hyprland this build links against
 	local hv commit
 	hv="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' \
 		/usr/include/hyprland/src/version.h)"
@@ -42,12 +36,9 @@ do_fetch() {
 }
 
 post_install() {
-	vlicense LICENSE
-	# Hyprland loads plugins from its own directory, cmake installs them flat
 	vmkdir usr/lib/hyprland/plugins
 	vinstall ${DESTDIR}/usr/lib/libimgborders.so 755 \
 	 usr/lib/hyprland/plugins imgborders.so
-	# the receipt records the compositor ABI the plugin was built for
 	local h=/usr/include/hyprland/src/version.h
 	local abi v
 	abi="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' "$h")"
