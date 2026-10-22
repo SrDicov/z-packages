@@ -1,14 +1,16 @@
 # Template file for 'xbps-triggers'
 pkgname=xbps-triggers
 version=0.131
-revision=1
-bootstrap=yes
+revision=2
 short_desc="XBPS triggers for Void Linux"
 maintainer="Enno Boland <gottox@voidlinux.org>"
-license="Public Domain"
+license="custom:Public Domain"
 homepage="https://voidlinux.org"
+bootstrap=yes
 
 do_install() {
+	vlicense "${FILESDIR}/LICENSE"
+
 	_triggersdir=usr/libexec/${pkgname}
 
 	for f in ${FILESDIR}/*; do
