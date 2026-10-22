@@ -1,16 +1,15 @@
 # Template file for '3utools-bin'
-# Z: glibc-only (binario precompilado x86_64).
 pkgname=3utools-bin
 version=9.03.003
 revision=1
 archs="x86_64"
-_site="https://dl.3u.com/update/v900/dl/linux/x64"
 hostmakedepends="bsdtar patchelf file"
 depends="hicolor-icon-theme libglvnd usbmuxd usbutils psmisc desktop-file-utils"
 short_desc="Apple device management and jailbreak tool"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="custom:Proprietary"
 homepage="https://www.3u.com"
+_site="https://dl.3u.com/update/v900/dl/linux/x64"
 distfiles="${_site}/com.3u.3utools_${version}_amd64.deb"
 checksum=3431e97e5b2dde0c1f8365ef5e0c15d79a11572d58dc0236029777a76b596fef
 nostrip=yes
@@ -35,8 +34,6 @@ do_extract() {
 do_install() {
 	vcopy opt opt
 
-	# El .deb guarda todo el payload bajo opt/apps/, no bajo usr/: el
-	# .desktop y el icono estan en opt/apps/com.3u.3utools/share/.
 	_app="opt/apps/com.3u.3utools/share"
 	if [ -f "${_app}/applications/com.3u.3utools.desktop" ]; then
 		vinstall "${_app}/applications/com.3u.3utools.desktop" \
