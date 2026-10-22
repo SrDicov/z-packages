@@ -1,6 +1,3 @@
-# Z: mixto (glibc+musl).
-# Rust cdylib loaded by protonvpn-api-core; MUST be published or the whole
-# ProtonVPN chain fails to resolve at build time.
 # Template file for 'protonvpn-local-agent'
 pkgname=protonvpn-local-agent
 version=1.6.3
