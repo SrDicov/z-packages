@@ -113,10 +113,13 @@ jobs:
         # xgensum es la unica fuente de verdad del sha256: no se inventa.
         # XBPS_DISTDIR lo necesita para encontrar el arbol de paquetes, y el
         # template se pasa como argumento (no el directorio actual).
+        # -f: al subir de version el checksum viejo no puede coincidir (es
+        # el de otro asset); -f regenera el hash del asset nuevo. Sin -f el
+        # paso falla siempre y el updater no llega a abrir ningun PR.
         shell: bash
         run: |
           sudo -Eu builder env XBPS_DISTDIR="$GITHUB_WORKSPACE" \
-            /usr/local/bin/xgensum -i "srcpkgs/$DIR/template"
+            /usr/local/bin/xgensum -f -i "srcpkgs/$DIR/template"
 
       - name: Lint
         shell: bash
