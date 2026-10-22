@@ -1,17 +1,18 @@
-# Z: glibc-only (binarios precompilados x86_64).
+# Template file for 'vesktop-bin'
 pkgname=vesktop-bin
 version=1.6.7
-revision=1
-replaces="vesktop>=0"
+revision=2
 archs="x86_64"
+hostmakedepends="binutils tar xz"
+depends="gtk+3 libnotify nss libXScrnSaver libXtst xdg-utils at-spi2-core
+ util-linux-libs libsecret"
 short_desc="Custom Discord desktop client"
 maintainer="Wizzard <rich@bandaholics.cash>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Vencord/Vesktop"
 distfiles="https://github.com/Vencord/Vesktop/releases/download/v${version}/vesktop_${version}_amd64.deb"
 checksum=0204a3fcf8861d11debf72a9be70423d2dca6d4698766b6fda7cfe39beea6a61
-hostmakedepends="binutils tar xz"
-depends="gtk+3 libnotify nss libXScrnSaver libXtst xdg-utils at-spi2-core util-linux-libs libsecret"
+replaces="vesktop>=0"
 
 do_extract() {
 	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/vesktop_${version}_amd64.deb
@@ -33,6 +34,4 @@ do_install() {
 	fi
 	vmkdir usr/bin
 	ln -sf /opt/Vesktop/vesktop ${DESTDIR}/usr/bin/vesktop
-	vlicense opt/Vesktop/LICENSE.electron.txt
-	vlicense opt/Vesktop/LICENSES.chromium.html
 }
