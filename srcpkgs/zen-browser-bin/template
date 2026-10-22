@@ -1,18 +1,16 @@
 # Template file for 'zen-browser-bin'
-# Z: glibc-only (binarios precompilados x86_64).
 pkgname=zen-browser-bin
 version=1.23.4b
 revision=1
 archs="x86_64"
-depends="desktop-file-utils hicolor-icon-theme ca-certificates ffmpeg
- gtk+3 libXtst libpulseaudio nss"
+depends="desktop-file-utils hicolor-icon-theme ca-certificates ffmpeg gtk+3
+ libXtst libpulseaudio nss"
 short_desc="Calmer internet browser based on Firefox"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="MPL-2.0"
 homepage="https://zen-browser.app"
 distfiles="https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz>zen-linux-${version}.tar.xz"
 checksum=ba81dd70af70d645f2f0a692f7fa4510f819290abfd8d8e60273d3d5a60d0536
-wrksrc="zen"
 nodebug=yes
 conflicts="zen-browser>=0"
 provides="zen-browser-${version}_${revision}"
@@ -27,28 +25,13 @@ do_install() {
 	printf '#!/bin/sh\nexec /usr/lib/zen-browser/zen "$@"\n' \
 		> ${DESTDIR}/usr/bin/zen
 	chmod 755 ${DESTDIR}/usr/bin/zen
-	# replace duplicate binary with symlink (mozilla#658850)
 	rm -f ${DESTDIR}/usr/lib/zen-browser/zen-bin
 	ln -s /usr/bin/zen ${DESTDIR}/usr/lib/zen-browser/zen-bin
 
-	# system dictionaries + distributor identity (same as librewolf-bin)
-	mkdir -p ${DESTDIR}/usr/lib/zen-browser/browser/defaults/preferences \
-		${DESTDIR}/usr/lib/zen-browser/distribution
-	cat > ${DESTDIR}/usr/lib/zen-browser/browser/defaults/preferences/vendor.js \
-		<<-EOF
-	// Use system-provided dictionaries
-	pref("spellchecker.dictionary_path", "/usr/share/hunspell");
-	EOF
-	cat > ${DESTDIR}/usr/lib/zen-browser/distribution/distribution.ini <<-EOF
-	[Global]
-	id=app.zen_browser
-	version=1.0
-	about=Zen Browser
-
-	[Preferences]
-	app.distributor="Zen Browser"
-	app.distributor.channel=zen
-	EOF
+	vmkdir usr/lib/zen-browser/browser/defaults/preferences
+	vmkdir usr/lib/zen-browser/distribution
+	vinstall "${FILESDIR}/vendor.js" 644 usr/lib/zen-browser/browser/defaults/preferences
+	vinstall "${FILESDIR}/distribution.ini" 644 usr/lib/zen-browser/distribution
 
 	for s in 16 32 48 64 128; do
 		vinstall browser/chrome/icons/default/default${s}.png 644 \
