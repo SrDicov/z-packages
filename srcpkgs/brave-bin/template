@@ -1,5 +1,4 @@
 # Template file for 'brave-bin'
-# Z: glibc-only (binarios precompilados x86_64).
 pkgname=brave-bin
 version=1.97.59
 revision=1
@@ -22,7 +21,7 @@ do_install() {
 	tar xf data.tar.xz -C ${DESTDIR}
 
 	for size in 24 32 48 64 128 256; do
-		mkdir -p ${DESTDIR}/usr/share/icons/hicolor/${size}x${size}/apps
+		vmkdir usr/share/icons/hicolor/${size}x${size}/apps
 
 		mv ${DESTDIR}/opt/brave.com/brave/product_logo_${size}.png         ${DESTDIR}/usr/share/icons/hicolor/${size}x${size}/apps/brave-browser.png
 	done
