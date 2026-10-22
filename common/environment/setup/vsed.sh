@@ -49,7 +49,7 @@ vsed() {
 		olddigest="${olddigest%% *}"
 
 		for rx in "${regexes[@]}"; do
-			sed -i "$f" -e "$rx" || {
+			sed -i -E "$f" -e "$rx" || {
 				msg_red "$pkgver: vsed: sed call failed with regex \"$rx\" on file \"$f\"\n"
 				return 1
 			}

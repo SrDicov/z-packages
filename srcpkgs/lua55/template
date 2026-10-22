@@ -11,7 +11,7 @@ distfiles="https://www.lua.org/ftp/lua-${version}.tar.gz"
 checksum=1c4b4068d67061f2a2231ad2b5422e77acea1487ea9890f6320af614f4373dce
 
 do_build() {
-	vsed -i src/Makefile -r \
+	vsed -i src/Makefile \
 		-e '/^LUA_(SO|A|T)=/ s;lua;lua5.5;' \
 		-e '/^LUAC_T=/ s;luac;luac5.5;'
 	make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" \
