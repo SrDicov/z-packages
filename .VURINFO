@@ -587,7 +587,7 @@
     "archs": [
       "all"
     ],
-    "build_style": null,
+    "build_style": "gnu-makefile",
     "checkdepends": [],
     "checksum": [
       "sha256:d335c557a3bc27c6ee3b9322ec22ad3fae2c54a16cf5e4b71c442744d743d90c"
@@ -662,7 +662,8 @@
     "format_version": 1,
     "hostmakedepends": [
       "zig-nk-bin",
-      "git"
+      "git",
+      "ca-certificates"
     ],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
@@ -1449,6 +1450,7 @@
       "muparser-devel",
       "pango-devel",
       "pixman-devel",
+      "re2",
       "re2-devel",
       "tomlplusplus-devel",
       "udis86-devel",
@@ -2225,8 +2227,6 @@
     "makedepends": [
       "libva-devel",
       "libdrm-devel",
-      "libva-devel",
-      "libdrm-devel",
       "libX11-devel"
     ],
     "pkgname": "libva-intel-driver-irql",
@@ -2373,7 +2373,9 @@
       "cmake",
       "clang",
       "llvm",
-      "pkg-config"
+      "pkg-config",
+      "gcc",
+      "libstdc++-devel"
     ],
     "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [
