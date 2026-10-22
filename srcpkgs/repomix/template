@@ -2,7 +2,6 @@
 pkgname=repomix
 version=1.18.1
 revision=1
-archs="x86_64"
 hostmakedepends="nodejs"
 depends="nodejs"
 short_desc="Packs repository contents into a single AI-friendly file"
@@ -28,10 +27,7 @@ do_install() {
 	vcopy node_modules usr/lib/repomix
 
 	vmkdir usr/bin
-	cat > "${DESTDIR}/usr/bin/repomix" <<-'EOF'
-	#!/bin/sh
-	exec node /usr/lib/repomix/bin/repomix.cjs "$@"
-	EOF
+	vinstall "${FILESDIR}/repomix" 644 usr/bin repomix
 	chmod 0755 "${DESTDIR}/usr/bin/repomix"
 
 	vlicense LICENSE
