@@ -3,7 +3,7 @@ pkgname=Neko-Wizard
 version=9.0.23
 revision=1
 build_style=meson
-hostmakedepends="pkg-config meson ninja cmake git"
+hostmakedepends="pkg-config meson ninja cmake"
 makedepends="gtk4-devel"
 short_desc="Wizard Post Install for NEKO VOID"
 maintainer="Orphaned <orphan@voidlinux.org>"
@@ -11,11 +11,11 @@ license="WTFPL"
 homepage="https://github.com/SrDicov/Neko-Wizard"
 _commit="74b7a6c6cc7d56fc8b13571cd1d2fed5e6844081"
 _repository="https://github.com/SrDicov/Neko-Wizard.git"
+distfiles="https://github.com/SrDicov/Neko-Wizard/archive/${_commit}.tar.gz>${pkgname}-${version}.tar.gz"
+checksum="a0a4ca84b822a831381fecc73b59a30a7afe8e5260e672a5bdf95a7eb7a87852"
 
-do_fetch() {
-	msg_normal "Cloning ${_repository} @ ${_commit}...\n"
-	git clone "${_repository}" ${pkgname}-${version}
-	(cd ${pkgname}-${version} && git checkout -q ${_commit})
+do_extract() {
+	vsrcextract --strip-components=1 ${pkgname}-${version}.tar.gz
 }
 
 do_install() {
