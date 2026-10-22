@@ -1,9 +1,7 @@
-# Template file for "pavoldcontrol-git"
-# Z: mixto (glibc+musl).
+# Template file for 'pavoldcontrol-git'
 pkgname=pavoldcontrol-git
 version=r1.676d599
 revision=3
-wrksrc="pavoldcontrol"
 build_style=gnu-makefile
 make_use_env=yes
 hostmakedepends="pkg-config gettext git"
@@ -13,16 +11,15 @@ short_desc="Pavucontrol rewrite that still uses gtk3"
 maintainer="Kevin <kevinzz@tutamail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/ItsZariep/pavoldcontrol"
-distfiles=""
 conflicts="pavucontrol>=0"
 provides="pavucontrol-${version}_${revision}"
 
 do_fetch() {
-    git clone --depth 1 https://github.com/ItsZariep/pavoldcontrol "${wrksrc}"
+	git clone --depth 1 https://github.com/ItsZariep/pavoldcontrol "${wrksrc}"
 }
 
 pre_build() {
-    vsed -i 's|$(PWD)/$(LOCALE_DIR)|/usr/share/locale|g' Makefile
+	vsed -i 's|$(PWD)/$(LOCALE_DIR)|/usr/share/locale|g' Makefile
 }
 
 do_install() {
