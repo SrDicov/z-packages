@@ -1,18 +1,15 @@
-# Z: mixto (glibc+musl).
+# Template file for 'vouru-bin'
 pkgname=vouru-bin
 version=3.4
 revision=1
-replaces="vouru>=0"
 depends="xtools git curl bash sudo xbps"
 short_desc="Void User Repository helper - build/install from void-packages"
-maintainer="JavierC"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-3-Clause"
 homepage="https://github.com/javiercplus/vouru"
-# El asset de release "vouru.tar.gz" solo existe hasta 3.3; a partir de ahi
-# el tarball del tag tiene exactamente la misma estructura (vouru-X.Y/vouru,
-# vouru-install-rolling, LICENSE), asi que se usa ese.
 distfiles="https://github.com/Neko-Void-Linux/vouru/archive/refs/tags/${version}.tar.gz>vouru-${version}.tar.gz"
 checksum=52e6d72fac7b7711f8c22185a8ab3cdcdca05f294a1313669cd32f519da75f64
+replaces="vouru>=0"
 
 do_install() {
 	vbin vouru
