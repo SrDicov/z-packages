@@ -3717,7 +3717,7 @@ libsbc.so.1 sbc-1.0_1
 libscanmem.so.1 libscanmem-0.17_5
 libscavenge-dns-records-private-samba.so samba-libs-4.20.1_1
 libscenefx-0.4.so scenefx-0.4.1_1
-libscenefx-0.5.so scenefx-latest-0.5_1
+libscenefx-0.5.so scenefx-0.5_1
 libscfg.so libscfg-0.1.1_1
 libscrypt.so.0 libscrypt-1.21_1
 libsctp.so.1 lksctp-tools-1.0.17_1

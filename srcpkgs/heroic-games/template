@@ -1,0 +1,45 @@
+# Template file for 'heroic-games'
+pkgname=heroic-games
+version=2.22.4
+revision=1
+archs="x86_64"
+build_style=fetch
+hostmakedepends="binutils tar xz"
+short_desc="Open Source Launcher for GOG, Epic Games and Amazon Games"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-only"
+homepage="https://heroicgameslauncher.com"
+distfiles="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v${version}/Heroic-${version}-linux-x64.tar.xz"
+checksum=81497c4e67d42905da5839a32be053c011eae35fb1fd5ec9441249b238d8f99b
+provides="heroic-games-bin-${version}_${revision}"
+replaces="heroic-games-bin>=0"
+
+depends="gtk+3 libnotify nss libXScrnSaver libXtst xdg-utils at-spi2-core libuuid libsecret"
+
+nostrip=yes
+
+do_install() {
+	vmkdir opt/Heroic
+	tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/Heroic-${version}-linux-x64.tar.xz" \
+		--strip-components=1 \
+		-C "${DESTDIR}/opt/Heroic"
+
+	vmkdir usr/share/icons/hicolor/512x512/apps
+	vinstall "${DESTDIR}/opt/Heroic/resources/app.asar.unpacked/build/icon.png" 644 \
+		usr/share/icons/hicolor/512x512/apps heroic.png
+	chmod 644 "${DESTDIR}/usr/share/icons/hicolor/512x512/apps/heroic.png"
+
+	vinstall "${FILESDIR}/heroic.desktop" 644 usr/share/applications
+
+	if [ -f "${DESTDIR}/opt/Heroic/resources/apparmor-profile" ]; then
+		vmkdir etc/apparmor.d
+		vinstall "${DESTDIR}/opt/Heroic/resources/apparmor-profile" 644 \
+			etc/apparmor.d heroic
+		chmod 644 "${DESTDIR}/etc/apparmor.d/heroic"
+	fi
+
+	vmkdir usr/bin
+	ln -sf /opt/Heroic/heroic "${DESTDIR}/usr/bin/heroic"
+
+	chmod 4755 "${DESTDIR}/opt/Heroic/chrome-sandbox"
+}

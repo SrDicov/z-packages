@@ -1,0 +1,24 @@
+# Template file for 'dmemcg-booster'
+pkgname=dmemcg-booster
+version=0.1.2
+revision=1
+hostmakedepends="cargo"
+short_desc="Valve's dmemcg-booster port without systemd/dbus dependencies"
+maintainer="JavierC <javiercyt@atomicmail.io>"
+license="MIT"
+homepage="https://github.com/Neko-Void-Linux/dmemcg-booster-nk"
+_base="https://github.com/Neko-Void-Linux/dmemcg-booster-nk"
+_sha="dde4ef7ccd70ccedc3d1632eb5eb0045dd146ca6"
+distfiles="${_base}/archive/${_sha}.tar.gz"
+checksum=adb202e19388e0e71fab835974ce2c561558c3fddd92c5901b13dcb7ca339ca9
+replaces="dmemcg-booster-nk>=0"
+provides="dmemcg-booster-nk-${version}_${revision}"
+
+do_build() {
+	cargo build --release --locked ${makejobs}
+}
+
+do_install() {
+	vlicense LICENSE
+	DESTDIR="${DESTDIR}" PREFIX=/usr ./install-runit.sh
+}

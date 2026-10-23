@@ -1,0 +1,113 @@
+# Template file for 'antigravity'
+pkgname=antigravity
+version=2.25.0
+revision=1
+archs="x86_64"
+create_wrksrc=yes
+hostmakedepends="python3 desktop-file-utils"
+depends="gtk+3 libnotify nss libXScrnSaver at-spi2-core cups libxkbcommon
+ alsa-lib pango cairo gdk-pixbuf dbus libXtst libXcomposite libXdamage
+ libXfixes libXrandr atk nspr"
+short_desc="Antigravity Hub (AI Agent IDE)"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="custom:Proprietary"
+homepage="https://antigravity.ai"
+_buildid=6535192714805248
+_site="https://storage.googleapis.com/antigravity-public/antigravity-hub"
+distfiles="${_site}/${version}-${_buildid}/linux-x64/Antigravity.tar.gz"
+checksum=9f9cbd2db9e196f656d9f4caf7bf99af756e9336f70412220af9f39669b69222
+replaces="antigravity-bin>=0"
+provides="antigravity-bin-${version}_${revision}"
+nostrip=yes
+nopie=yes
+noshlibprovides=yes
+
+do_install() {
+	local _bin _src
+	_bin=$(find . -maxdepth 3 -type f -name antigravity -print -quit)
+	if [ -z "$_bin" ]; then
+		msg_error "No se encontro el binario 'antigravity'.\n"
+	fi
+	_src=$(dirname "$_bin")
+	_src=${_src#./}
+	[ -z "$_src" ] && _src="."
+
+	vmkdir usr/lib/antigravity
+	vcopy "${_src}/." usr/lib/antigravity
+	chmod -R o-w "${DESTDIR}/usr/lib/antigravity"
+
+	find "${DESTDIR}/usr/lib/antigravity" -name "*.desktop" \
+		-delete 2>/dev/null || true
+
+	if [ -f "${DESTDIR}/usr/lib/antigravity/chrome-sandbox" ]; then
+		chmod 4755 "${DESTDIR}/usr/lib/antigravity/chrome-sandbox"
+	fi
+
+	vmkdir usr/share/pixmaps
+	if [ -f "${DESTDIR}/usr/lib/antigravity/resources/app.asar" ]; then
+		python3 "${FILESDIR}/extract-icon.py" \
+			"${DESTDIR}/usr/lib/antigravity/resources/app.asar" \
+			"${DESTDIR}/usr/share/pixmaps/antigravity.png"
+	fi
+
+	local _magic=""
+	if [ -f "${DESTDIR}/usr/share/pixmaps/antigravity.png" ]; then
+		_magic=$(head -c 4 "${DESTDIR}/usr/share/pixmaps/antigravity.png" \
+			2>/dev/null | od -An -tx1 | tr -d ' \n')
+	fi
+	if [ "$_magic" != "89504e47" ]; then
+		rm -f "${DESTDIR}/usr/share/pixmaps/antigravity.png"
+		if [ -f "${FILESDIR}/antigravity.png" ]; then
+			vinstall "${FILESDIR}/antigravity.png" 644 usr/share/pixmaps
+		fi
+	fi
+
+	if [ -s "${DESTDIR}/usr/share/pixmaps/antigravity.png" ]; then
+		vmkdir usr/share/icons/hicolor/512x512/apps
+		ln -sf /usr/share/pixmaps/antigravity.png \
+			"${DESTDIR}/usr/share/icons/hicolor/512x512/apps/antigravity.png"
+	fi
+
+	if [ -f "${FILESDIR}/antigravity.svg" ]; then
+		vinstall "${FILESDIR}/antigravity.svg" 644 \
+			usr/share/icons/hicolor/scalable/apps
+	fi
+
+	vmkdir usr/share/applications
+	printf '%s\n' \
+		"[Desktop Entry]" \
+		"Type=Application" \
+		"Version=1.5" \
+		"Name=Antigravity" \
+		"GenericName=AI Agent IDE" \
+		"Comment=Antigravity - Agentic Desktop Application by Google" \
+		"Exec=antigravity %U" \
+		"Icon=antigravity" \
+		"Terminal=false" \
+		"StartupNotify=true" \
+		"StartupWMClass=Antigravity" \
+		"Categories=Development;IDE;Utility;" \
+		"MimeType=x-scheme-handler/antigravity;" \
+		"Keywords=antigravity;ai;agent;ide;google;coding;development;" \
+		 > "${DESTDIR}/usr/share/applications/antigravity.desktop"
+
+	if command -v desktop-file-validate >/dev/null 2>&1; then
+		desktop-file-validate \
+			"${DESTDIR}/usr/share/applications/antigravity.desktop" \
+			|| msg_error "antigravity.desktop no pasa desktop-file-validate\n"
+	fi
+
+	vmkdir usr/bin
+	vbin "${FILESDIR}/antigravity"
+
+	local _lic=""
+	for lf in LICENSE LICENSE.txt LICENSE.md COPYING; do
+		if [ -f "${_src}/${lf}" ]; then
+			_lic="${_src}/${lf}"
+			break
+		fi
+	done
+	if [ -n "$_lic" ]; then
+		vlicense "$_lic"
+	fi
+}
