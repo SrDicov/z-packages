@@ -437,7 +437,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:138b85d05f8e225e0d6bc71da0b616f72a194e461883df5fd7e35aef3af75325"
+      "sha256:39a69cf12b5787f789d0a0b013f32253bddc9004d03e36c679a8daa61821b6e8"
     ],
     "depends": [
       "alsa-lib",
@@ -469,9 +469,9 @@
       "brave-origin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.97.59"
+    "version": "1.98.60"
   },
   {
     "archs": [
