@@ -224,9 +224,11 @@
       "all"
     ],
     "build_style": "cargo",
-    "checkdepends": [],
+    "checkdepends": [
+      "procps-ng"
+    ],
     "checksum": [
-      "sha256:e3aac276b3a6bd891f0f62cd35868df30fb29ef290cb0d09273e0eb21c87ee3d"
+      "sha256:59261608fcf9bbb2d39b2dd0ae367200654c0d7a9474fbcb11819fb51d5bd8b8"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -254,7 +256,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.6.1"
+    "version": "0.7.0"
   },
   {
     "archs": [
