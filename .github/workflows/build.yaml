@@ -74,13 +74,13 @@ jobs:
       fail-fast: false
       matrix:
         config:
+          # Solo se compila lo que el fork publica (x86_64 y x86_64-musl) mas
+          # i686 como canario de 32 bits. Los targets cross no tienen repo
+          # para la arch destino (ni toolchain: 'cross-aarch64-linux-gnu' no
+          # existe), asi que solo dejaban los PRs en rojo.
           - { arch: x86_64,       host: x86_64,      libc: glibc, platform: linux/amd64, test: 1 }
           - { arch: i686,         host: i686,        libc: glibc, platform: linux/386,   test: 1 }
-          - { arch: aarch64,      host: x86_64,      libc: glibc, platform: linux/amd64, test: 0 }
-          - { arch: armv7l,       host: x86_64,      libc: glibc, platform: linux/amd64, test: 0 }
           - { arch: x86_64-musl,  host: x86_64-musl, libc: musl,  platform: linux/amd64, test: 1 }
-          - { arch: armv6l-musl,  host: x86_64-musl, libc: musl,  platform: linux/amd64, test: 0 }
-          - { arch: aarch64-musl, host: x86_64-musl, libc: musl,  platform: linux/amd64, test: 0 }
 
     steps:
       - name: Prepare container
