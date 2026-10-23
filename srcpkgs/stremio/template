@@ -15,10 +15,12 @@ changelog="https://github.com/Stremio/stremio-shell/releases"
 _server="https://dl.strem.io/server/v4.20.16/desktop/server.js"
 distfiles="https://github.com/Stremio/stremio-shell/archive/refs/tags/v${version}.tar.gz>stremio-shell-${version}.tar.gz
  ${_server}>server.js
- https://github.com/itay-grudev/SingleApplication/archive/aede311d28d20179216c5419b581087be2a8409f.tar.gz>singleapplication.tar.gz"
+ https://github.com/itay-grudev/SingleApplication/archive/aede311d28d20179216c5419b581087be2a8409f.tar.gz>singleapplication.tar.gz
+ https://github.com/Ivshti/libmpv/archive/b0eae77cf6dc59aaf142b7d079cb13a0904fd3ee.tar.gz>libmpv.tar.gz"
 checksum="7f27d20ae64a3ef80cc528840030d341a8cd5da3da55a80931bb313a12a494f8
  88e887f058765f0e3dbc636829e7687ab80759c392eb9a64df457c8f9fc86e28
- 7b8a10a511b329e910ba428626e707576d312f522292acb7ee29d55db22546cc"
+ 7b8a10a511b329e910ba428626e707576d312f522292acb7ee29d55db22546cc
+ 865f07289ba6e4f3747a455b40eaed64174fd57d352e0ee4d0b4e5f4698e83d2"
 replaces="stremio-bin>=0"
 
 do_extract() {
@@ -28,10 +30,12 @@ do_extract() {
 }
 
 post_extract() {
-	mkdir -p deps/singleapplication
+	mkdir -p deps/singleapplication deps/libmpv
 	bsdtar -xf \
 		"${XBPS_SRCDISTDIR}/${pkgname}-${version}/singleapplication.tar.gz" \
 		-C deps/singleapplication --strip-components=1
+	bsdtar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/libmpv.tar.gz" \
+		-C deps/libmpv --strip-components=1
 }
 
 post_install() {
