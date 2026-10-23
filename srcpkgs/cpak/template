@@ -1,6 +1,6 @@
 # Template file for 'cpak'
 pkgname=cpak
-version=2.14.8
+version=2.14.9
 revision=1
 build_style=gnu-makefile
 make_build_args="VERSION=${version} SELF_UPDATE_MODE=disabled
@@ -13,7 +13,7 @@ maintainer="Javierc <javiercyt@atomicmail.io>"
 license="LGPL-2.1-only"
 homepage="https://github.com/Containerpak/cpak"
 distfiles="https://github.com/Containerpak/cpak/archive/refs/tags/v${version}.tar.gz"
-checksum="d335c557a3bc27c6ee3b9322ec22ad3fae2c54a16cf5e4b71c442744d743d90c"
+checksum=89cd8c46e6fbebcc12e3275573d66050fac45ceed3f09c86955c6bf2cb3efa9f
 make_check=no # upstream tests need a container runtime and network access
 replaces="cpak-bin>=0"
 
