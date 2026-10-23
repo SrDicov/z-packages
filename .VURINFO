@@ -4555,7 +4555,7 @@
     "format_version": 1,
     "hostmakedepends": [
       "cmake",
-      "librsvg"
+      "librsvg-utils"
     ],
     "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [
