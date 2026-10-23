@@ -686,7 +686,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:84f11a46c11536b488447f40050baf4f3445674e1c7477143bc3e02c4cc2629a"
+      "sha256:0d0ae82febf6b3924b975f79f277887edc9364de67be89831514400cd94b6db6"
     ],
     "depends": [
       "python3-gobject",
@@ -725,7 +725,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.5.0.1"
+    "version": "2.5.1"
   },
   {
     "archs": [
