@@ -132,7 +132,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:8808bf580033c5d1365142e1e66ff37474f04a5fa0d9fc24b7c24c8216acdcc6"
+      "sha256:9f9cbd2db9e196f656d9f4caf7bf99af756e9336f70412220af9f39669b69222"
     ],
     "depends": [
       "gtk+3",
@@ -2953,6 +2953,7 @@
       "json-c++",
       "libepoxy-devel",
       "libglvnd-devel",
+      "libjxl-devel",
       "librsvg-devel",
       "libwebp-devel",
       "libxkbcommon-devel",
