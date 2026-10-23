@@ -117,7 +117,7 @@ do_extract() {
 	vsrcextract --strip-components=1 ${pkgname}-${version}.tar.gz
 	for _s in ${_submodules}; do
 		mkdir -p subprojects/$_s
-		tar -xzf $_src/$_s.tar.gz -C subprojects/$_s --strip-components=1
+		bsdtar -xzf $_src/$_s.tar.gz -C subprojects/$_s --strip-components=1
 	done
 	mkdir -p "$_rt/include" "$XBPS_BUILDDIR/vetro"
 	unzip -j -q -o $_src/mediapipe.whl mediapipe/tasks/c/libmediapipe.so -d $_rt
@@ -125,7 +125,7 @@ do_extract() {
 	cp $_src/vetro "$XBPS_BUILDDIR/vetro/vetro"
 	chmod 0755 "$XBPS_BUILDDIR/vetro/vetro"
 	mkdir -p "$XBPS_BUILDDIR/.onnx"
-	tar -xzf $_src/onnxruntime.tgz -C "$XBPS_BUILDDIR/.onnx" --strip-components=1
+	bsdtar -xzf $_src/onnxruntime.tgz -C "$XBPS_BUILDDIR/.onnx" --strip-components=1
 	mv "$XBPS_BUILDDIR/.onnx/lib/libonnxruntime.so.1.23.2" $_rt/libonnxruntime.so
 	cp "$XBPS_BUILDDIR/.onnx/include/onnxruntime_c_api.h" \
 		"$XBPS_BUILDDIR/.onnx/include/onnxruntime_ep_c_api.h" \
