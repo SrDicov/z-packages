@@ -16,12 +16,13 @@ checksum=dbde68a335ae190aec4f077e1b653f5fef3ff9dc7cddbfce1befae090eea33c9
 replaces="voxtype-bin>=0"
 
 do_install() {
-	vbin target/release/voxtype
-	vinstall target/release/voxtype-osd 755 usr/lib/voxtype
-	for b in voxtype-osd-gtk4 voxtype-osd-quickshell; do
-		vinstall target/release/${b} 755 usr/lib/voxtype
+	local b="target/${RUST_TARGET}/release"
+	vbin "$b/voxtype"
+	vinstall "$b/voxtype-osd" 755 usr/lib/voxtype
+	for x in voxtype-osd-gtk4 voxtype-osd-quickshell; do
+		vinstall "target/${RUST_TARGET}/release/${x}" 755 usr/lib/voxtype
 	done
-	vbin target/release/voxtype-audio-bridge
+	vbin "$b/voxtype-audio-bridge"
 	ln -sf /usr/lib/voxtype/voxtype-osd ${DESTDIR}/usr/bin/voxtype-osd
 	vmkdir usr/share/voxtype
 	vcopy quickshell usr/share/voxtype
@@ -32,7 +33,7 @@ do_install() {
 	vinstall packaging/completions/voxtype.bash 644 usr/share/bash-completion/completions voxtype
 	vinstall packaging/systemd/voxtype.service 644 usr/lib/systemd/user
 	vinstall config/default.toml 644 etc/voxtype config.toml
-	vman_dir=$(find ${wrksrc}/target/release/build -name man -type d -path '*/voxtype-*/out' 2>/dev/null | head -n1)
+	vman_dir=$(find ${wrksrc}/target/${RUST_TARGET}/release/build -name man -type d -path '*/voxtype-*/out' 2>/dev/null | head -n1)
 	if [ -n "${vman_dir}" ]; then
 		vman ${vman_dir}/*.1
 	fi
