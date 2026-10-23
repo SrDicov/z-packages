@@ -23,6 +23,6 @@ do_extract() {
 }
 
 do_install() {
-	vcopy usr usr
+	vcopy usr/. usr
 	vlicense "${FILESDIR}/LICENSE"
 }
