@@ -261,12 +261,14 @@ jobs:
             # Los checks del PR aparecen unos segundos despues de abrirlo:
             # se espera a que existan antes de esperarlos.
             seen=0
-            for _ in $(seq 1 30); do
+            # 30 min: con varias builds encoladas los checks tardan en
+            # registrarse y una espera corta deja PRs sin mergear.
+            for _ in $(seq 1 40); do
               if gh pr checks "$pr" --repo "$repo" >/dev/null 2>&1; then
                 seen=1
                 break
               fi
-              sleep 20
+              sleep 45
             done
             if [ "$seen" -ne 1 ]; then
               echo "PR #$pr: el CI no ha registrado checks" >&2
@@ -276,7 +278,7 @@ jobs:
             # Espera a que terminen los checks, con limite de tiempo: un
             # --watch se queda esperando si algun check se queda en un estado
             # que no avanza (action_required, por ejemplo).
-            for _ in $(seq 1 120); do
+            for _ in $(seq 1 160); do
                 pending=$(gh pr checks "$pr" --repo "$repo" --json state \
                     --jq '[.[] | select(.state != "SUCCESS" and .state != "FAILURE" and .state != "SKIPPED")] | length')
                 [ "${pending:-0}" -eq 0 ] && break

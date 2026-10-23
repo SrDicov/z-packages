@@ -145,6 +145,7 @@ EXCLUDE = {
     "3utools-bin": "dl.3u.com no expone listado de versiones",
     "antigravity-bin": "el asset lleva un build id propio y el bucket no es listable",
     "dmemcg-booster-nk": "el distfile es un commit pineado y el version= va aparte",
+    "hyprpolkitagent": "0.2.0 exige hyprtoolkit, que no esta en Void; Ryoku usa 0.1.3",
 }
 # Caches de red. El detector pregunta por los mismos repos (brave-bin y
 # brave-origin-bin son el mismo repo) y compara las mismas versiones mil
