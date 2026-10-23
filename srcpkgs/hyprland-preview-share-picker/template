@@ -2,6 +2,7 @@
 pkgname=hyprland-preview-share-picker
 version=0.2.1
 revision=2
+archs="x86_64*"
 build_style=cargo
 make_cmd=cargo
 hostmakedepends="cargo git pkg-config rust"
