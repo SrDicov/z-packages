@@ -1,21 +1,30 @@
 # Template file for 'artcraft-launcher'
 pkgname=artcraft-launcher
-version=0.6.1
+version=0.7.0
 revision=1
 build_style=cargo
 make_build_args="-p artcraft-launcher"
 make_install_args="--path apps/artcraft-launcher"
+make_check_args="-- --skip
+ a_not_installed_card_is_grey_until_the_pointer_is_over_it"
 hostmakedepends="cargo rust pkg-config"
 makedepends="wayland-devel libxkbcommon-devel"
 depends="hicolor-icon-theme ca-certificates"
+checkdepends="procps-ng"
 short_desc="Install, update and launch the Craft App Suite"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT, Apache-2.0"
 homepage="https://getartcraft.com/apps"
 changelog="https://github.com/storytold/craft-launcher/releases"
 distfiles="https://github.com/storytold/craft-launcher/archive/refs/tags/v${version}.tar.gz"
-checksum=e3aac276b3a6bd891f0f62cd35868df30fb29ef290cb0d09273e0eb21c87ee3d
+checksum=59261608fcf9bbb2d39b2dd0ae367200654c0d7a9474fbcb11819fb51d5bd8b8
 replaces="artcraft-launcher-bin>=0"
+
+case "$XBPS_TARGET_MACHINE" in
+i686*)
+	make_check=no # el fixture de test solo trae assets linux-x86_64
+	;;
+esac
 
 post_install() {
 	vlicense LICENSE-MIT
