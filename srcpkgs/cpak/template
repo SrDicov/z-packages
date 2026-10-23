@@ -3,6 +3,7 @@ pkgname=cpak
 version=2.14.9
 revision=1
 build_style=gnu-makefile
+build_helper="go"
 make_build_args="VERSION=${version} SELF_UPDATE_MODE=disabled
  UI_ADAPTERS=builtin"
 make_build_target="cpak storaged"
