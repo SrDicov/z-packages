@@ -2,6 +2,7 @@
 pkgname=hypr-dynamic-cursors
 version=0.1.0
 revision=3
+archs="x86_64*"
 build_style=gnu-makefile
 hostmakedepends="git pkg-config"
 

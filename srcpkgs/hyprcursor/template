@@ -2,6 +2,7 @@
 pkgname=hyprcursor
 version=0.1.13
 revision=7
+archs="x86_64*"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="pkg-config pixman-devel"

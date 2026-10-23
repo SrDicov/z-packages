@@ -2,6 +2,7 @@
 pkgname=ryoku-desktop-hyprland
 version=0.1.0
 revision=1
+archs="x86_64*"
 hostmakedepends="go"
 depends="hyprland hypr-dynamic-cursors ryoku-hypr-plugins hyprglass imgborders
  ryoku-keysounds hyprgrass hyprpolkitagent xdg-desktop-portal-hyprland

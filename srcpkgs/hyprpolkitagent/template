@@ -2,6 +2,7 @@
 pkgname=hyprpolkitagent
 version=0.1.3
 revision=2
+archs="x86_64*"
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_LIBEXECDIR=lib"
 hostmakedepends="pkg-config"

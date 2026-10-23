@@ -2,6 +2,7 @@
 pkgname=xdg-desktop-portal-hyprland
 version=1.4.1
 revision=4
+archs="x86_64*"
 build_style=cmake
 configure_args="-DSYSTEMD_SERVICES=OFF -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"
 hostmakedepends="cmake clang ninja pkg-config"
