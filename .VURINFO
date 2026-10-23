@@ -4607,7 +4607,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:a3ab6c61cbedbcd4baed4da06834a1737c4419f5c8c761fe326136f87435481f"
+      "sha256:ee09766307c9c1fe9ac5f37071525d4ddf7f2a249681c4a8fa6bda75461e0283"
     ],
     "depends": [
       "gtk+3",
@@ -4650,7 +4650,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "3.22.3"
+    "version": "3.22.4"
   },
   {
     "archs": [
