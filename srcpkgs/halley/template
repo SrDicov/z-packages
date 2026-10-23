@@ -19,6 +19,6 @@ replaces="halley-bin>=0"
 
 do_extract() {
 	mkdir -p ${wrksrc}
-	tar -xzC ${wrksrc} --strip-components=1 \
+	bsdtar -xzC ${wrksrc} --strip-components=1 \
 		-f ${XBPS_SRCDISTDIR}/${pkgname}-${version}/halley-${version}.tar.gz
 }
