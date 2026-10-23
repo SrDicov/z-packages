@@ -992,6 +992,7 @@
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [
       "eudev-libudev-devel",
+      "libdisplay-info-devel",
       "libseat-devel",
       "libgbm-devel",
       "libdrm-devel",
