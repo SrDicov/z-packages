@@ -24,7 +24,7 @@ checksum="ad00c32c8c5891211e2076ffcb908104a05999abc874bee157c8c2a95c95e5c3"
 post_patch() {
 	vsed -i "s|'VCS_TAG', 'unknown'|'VCS_TAG', 'test-5.1.0-1-8-g1ce6d9df59f5'|" \
 		meson.build
-	vsed -i 's|^if git_program.found()|if false|' \
+	vsed -i 's|^if git_program.found\(\)|if false|' \
 		meson.build
 }
 
