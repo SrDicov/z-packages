@@ -594,7 +594,7 @@
     "build_style": "gnu-makefile",
     "checkdepends": [],
     "checksum": [
-      "sha256:89cd8c46e6fbebcc12e3275573d66050fac45ceed3f09c86955c6bf2cb3efa9f"
+      "sha256:ec17fd4daa2f09a24fe7d9410432c1e2a5ab7c19dba53bf5de89861af67ea6c3"
     ],
     "depends": [
       "fuse-overlayfs",
@@ -618,7 +618,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.14.9"
+    "version": "2.14.10"
   },
   {
     "archs": [
@@ -1690,7 +1690,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:2061b7b08c8104fb02a609553b28f6c8580e5ec38633015845f1c4553980175b"
+      "sha256:87bbfc9549ed96316b0d592c16d01f58729b23a2999a5293b73eec620b40c5f5"
     ],
     "depends": [
       "hyprutils-${version}_${revision}",
@@ -1712,11 +1712,11 @@
       "hyprutils<0.14.2_1"
     ],
     "restricted": false,
-    "revision": 7,
+    "revision": 1,
     "subpackages": [
       "hyprutils-devel"
     ],
-    "version": "0.14.2"
+    "version": "0.14.3"
   },
   {
     "archs": [
