@@ -175,7 +175,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1128,7 +1128,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "gnu-makefile",
     "checkdepends": [],
@@ -1178,7 +1178,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1217,7 +1217,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "gnu-makefile",
     "checkdepends": [],
@@ -1267,7 +1267,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1310,7 +1310,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "meson",
     "checkdepends": [],
@@ -1363,7 +1363,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1399,7 +1399,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1541,7 +1541,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1575,7 +1575,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1613,7 +1613,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1649,7 +1649,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1719,7 +1719,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -1794,7 +1794,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
@@ -2431,7 +2431,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": null,
     "checkdepends": [],
@@ -2465,7 +2465,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "meson",
     "checkdepends": [],
@@ -3926,7 +3926,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": null,
     "checkdepends": [],
@@ -3967,7 +3967,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "gnu-makefile",
     "checkdepends": [],
@@ -4017,7 +4017,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "gnu-makefile",
     "checkdepends": [],
@@ -5008,7 +5008,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cmake",
     "checkdepends": [],
