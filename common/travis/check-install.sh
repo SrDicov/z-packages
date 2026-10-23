@@ -45,6 +45,12 @@ while read -r pkg; do
 	for subpkg in $(xsubpkg $pkg); do
 		/bin/echo -e "\x1b[32mTrying to install dependents of $subpkg:\x1b[0m"
 		for dep in $(xbps-query $ADDREPO -RX "$subpkg"); do
+			# Un dependiente que tambien vive en srcpkgs se construye desde
+			# el fork, no desde el repo oficial: el binario de Void enlaza
+			# contra otro soname y no valida nada de este arbol.
+			if [ -e "srcpkgs/$(xbps-uhelper getpkgname "$dep")" ]; then
+				continue
+			fi
 			ret=0
 			xbps-install \
 				$ROOTDIR $ADDREPO $CONFDIR \
