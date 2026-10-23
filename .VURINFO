@@ -4560,7 +4560,7 @@
       "qt5-webengine-devel",
       "mpv-devel",
       "openssl-devel",
-      "mesa-devel"
+      "MesaLib-devel"
     ],
     "pkgname": "stremio",
     "provides": [],
@@ -4579,7 +4579,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:bc046ee2b02e6a17e9a1752a102aedb8d781426829cb3f9b83691a11ed45f4c1"
+      "sha256:c192bd39a3c9041d8bcdd784dad951feb52a07c3a79cd3d78b5049be20c847bb"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -4596,7 +4596,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "20261002"
   },
