@@ -32,7 +32,11 @@ if [ -z "$key" ]; then
 	echo "zrepo: no encontre la clave publica en el release" >&2
 	exit 1
 fi
-curl -fsSL -o "etc/repo-keys/$key" \
+# GitHub no admite ':' en el nombre del asset y publica el fingerprint con
+# puntos. xbps identifica cada clave por el NOMBRE del fichero, asi que en
+# el keyring tiene que ir con dos puntos o la firma no valida.
+fp=$(printf '%s' "${key%.plist}" | tr '.' ':')
+curl -fsSL -o "etc/repo-keys/$fp.plist" \
 	"https://github.com/SrDicov/z-repo/releases/download/stable/$key"
 
-echo "zrepo: $repo (clave $key)"
+echo "zrepo: $repo (clave $fp)"
