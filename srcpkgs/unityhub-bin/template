@@ -1,6 +1,6 @@
 # Template file for 'unityhub-bin'
 pkgname=unityhub-bin
-version=3.22.3
+version=3.22.4
 revision=1
 archs="x86_64"
 hostmakedepends="tar zstd xz"
@@ -12,7 +12,7 @@ maintainer="Javierc <javiercyt@atomicmail.io>"
 license="custom:Unity Terms of Service"
 homepage="https://unity.com/hub"
 distfiles="https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup-amd64.deb>unityhub-${version}.deb"
-checksum=a3ab6c61cbedbcd4baed4da06834a1737c4419f5c8c761fe326136f87435481f
+checksum=ee09766307c9c1fe9ac5f37071525d4ddf7f2a249681c4a8fa6bda75461e0283
 replaces="unityhub>=0"
 nostrip=yes
 
