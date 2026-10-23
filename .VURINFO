@@ -4559,7 +4559,7 @@
     "makedepends": [
       "qt5-devel",
       "qt5-declarative-devel",
-      "qt5-positioning-devel",
+      "qt5-location-devel",
       "qt5-webchannel-devel",
       "qt5-webengine-devel",
       "mpv-devel",
