@@ -21,4 +21,5 @@ checksum=3184a29c61b4cc356e7b65d23c8c1c46cc39ba4f0153d1e909827162681c7533
 
 post_patch() {
 	vsed -i 's|<bits/time.h>|<time.h>|' lsfg-vk-cli/src/tools/benchmark.cpp
+	vsed -i 's|<bits/getopt_core.h>|<getopt.h>|' lsfg-vk-cli/src/main.cpp
 }
