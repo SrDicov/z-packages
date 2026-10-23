@@ -4535,7 +4535,8 @@
     "checkdepends": [],
     "checksum": [
       "sha256:7f27d20ae64a3ef80cc528840030d341a8cd5da3da55a80931bb313a12a494f8",
-      "sha256:88e887f058765f0e3dbc636829e7687ab80759c392eb9a64df457c8f9fc86e28"
+      "sha256:88e887f058765f0e3dbc636829e7687ab80759c392eb9a64df457c8f9fc86e28",
+      "sha256:7b8a10a511b329e910ba428626e707576d312f522292acb7ee29d55db22546cc"
     ],
     "depends": [
       "nodejs",
@@ -4546,7 +4547,8 @@
     ],
     "distfiles": [
       "https://github.com/Stremio/stremio-shell/archive/refs/tags/v${version}.tar.gz>stremio-shell-${version}.tar.gz",
-      "${_server}>server.js"
+      "${_server}>server.js",
+      "https://github.com/itay-grudev/SingleApplication/archive/aede311d28d20179216c5419b581087be2a8409f.tar.gz>singleapplication.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
