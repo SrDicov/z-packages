@@ -1,0 +1,29 @@
+name: Trigger repo builds
+
+# Al mergear plantillas en master, dispara el autobuild de z-repo y
+# z-repo-musl (que escuchan el evento z-packages-update). Sin esto, un
+# paquete mergeado esperaba hasta el cron de las 03:00 UTC para publicarse.
+
+on:
+  push:
+    branches: [master]
+    paths: ['srcpkgs/**']
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    name: Dispatch autobuild
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar z-repo y z-repo-musl
+        env:
+          GH_TOKEN: ${{ secrets.PR_TOKEN }}
+        run: |
+          set -e
+          for repo in SrDicov/z-repo SrDicov/z-repo-musl; do
+            gh api -X POST "repos/$repo/dispatches" \
+              -f event_type=z-packages-update >/dev/null
+            echo "disparado $repo"
+          done
