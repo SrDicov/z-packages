@@ -1480,7 +1480,7 @@
   },
   {
     "archs": [
-      "all"
+      "x86_64"
     ],
     "build_style": "cargo",
     "checkdepends": [],
