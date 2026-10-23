@@ -218,29 +218,17 @@ jobs:
           PY
 
       - name: Report build failure
+        # Las issues estan deshabilitadas: el aviso va al resumen del run,
+        # que no depende de la API ni de permisos.
         if: failure() && steps.build.outcome == 'failure'
         shell: bash
         run: |
-          python3 - <<'PY' > /tmp/issue.json
-          import json, os
-          log = ""
-          try:
-              log = open("/tmp/build.log").read()[-60000:]
-          except OSError:
-              pass
-          print(json.dumps({
-              "title": f"[autoupdate] {os.environ['PKG']} "
-                       f"{os.environ['VER']} no compila",
-              "body": "El build automatico de "
-                      f"`{os.environ['PKG']}` a {os.environ['VER']} fallo.\n\n"
-                      "```\n" + log + "\n```\n",
-          }))
-          PY
-          curl -s -X POST \
-            -H "Authorization: Bearer $TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/$REPO/issues" \
-            -d @/tmp/issue.json > /dev/null
+          {
+            echo "## Fallo de build: $PKG $VER"
+            echo '```'
+            tail -n 200 /tmp/build.log 2>/dev/null || echo "sin log"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
   # Espera al CI de cada PR (la matriz de build.yaml) y, si esta en verde,
   # lo mergea. gh solo existe en el runner, no en el contenedor de Void.
@@ -312,14 +300,14 @@ jobs:
           exit $rc
 
       - name: Report CI failure
+        # Issues deshabilitadas: al resumen del run.
         if: failure()
         shell: bash
         run: |
-          gh issue create \
-            --title "[autoupdate] el CI de un PR de actualizacion quedo en rojo" \
-            --body "El merge automatico no se hizo porque el CI quedo en rojo. Revisa los PR abiertos." \
-            || true
-          gh issue create \
-            --title "[autoupdate] los PR de actualizacion no tienen checks" \
-            --body "Si el CI no se dispara en los PR, falta el secret PR_TOKEN (un PAT con permisos de contents y pull_requests): los workflows lanzados con GITHUB_TOKEN no activan otros workflows." \
-            || true
+          {
+            echo "## Merge automatico abortado"
+            echo "Revisa los PR abiertos (update/*): el CI no quedo en verde."
+            echo "Si el PR no tiene checks, falta el secret PR_TOKEN (PAT con"
+            echo "contents y pull_requests: los workflows lanzados con"
+            echo "GITHUB_TOKEN no activan otros workflows)."
+          } >> "$GITHUB_STEP_SUMMARY"
