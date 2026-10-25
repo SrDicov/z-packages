@@ -573,34 +573,31 @@
       "sha256:473059af85ca8c7d2433ebd2a024951a8159c6109399fecaad238deaf2fd717a"
     ],
     "depends": [
-      "alsa-lib",
-      "libpipewire",
-      "libva"
+      "libglvnd",
+      "xdg-desktop-portal"
     ],
     "distfiles": [
-      "https://github.com/chojs23/concord/archive/refs/tags/v${version}.tar.gz"
+      "https://github.com/chojs23/concord/archive/refs/tags/v${version}.tar.gz>${pkgname}-${version}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
       "pkg-config",
       "clang",
       "cmake",
-      "nasm",
-      "rust",
-      "cargo"
+      "nasm"
     ],
     "maintainer": "Kevin <kevinzz@tutamail.com>",
     "makedepends": [
       "alsa-lib-devel",
-      "pipewire-devel",
       "libva-devel",
-      "libzstd-devel"
+      "libzstd-devel",
+      "pipewire-devel"
     ],
     "pkgname": "concord",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2.6.3"
   },
@@ -611,7 +608,7 @@
     "build_style": "gnu-makefile",
     "checkdepends": [],
     "checksum": [
-      "sha256:ec17fd4daa2f09a24fe7d9410432c1e2a5ab7c19dba53bf5de89861af67ea6c3"
+      "sha256:6b1177d3cc9c23e0cfab3e67b811e8076d0502b82e0b6c7125f34195dc96ec9e"
     ],
     "depends": [
       "fuse-overlayfs",
@@ -635,7 +632,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.14.10"
+    "version": "2.14.11"
   },
   {
     "archs": [
@@ -1887,7 +1884,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:44c1d70be02cf2fbca9adf7106042fe3163adaa93b86d42cb2792c7e861343d4"
+      "sha256:5f1a69202f9e2b5dda461d1c2ace521857f08988bd015f184bb41c03f0127a1b"
     ],
     "depends": [
       "hicolor-icon-theme"
@@ -1908,9 +1905,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   {
     "archs": [
@@ -4436,7 +4433,7 @@
     "build_style": "go",
     "checkdepends": [],
     "checksum": [
-      "sha256:f4251e342851d2a9edf01c3cee6a66501ee9a29c58b4adf79a0ca548b1044da5"
+      "sha256:f916bb9319b3d144cbe5b6b3f9a40e13b2d924c0598ca3c2c049ce3d80d7dfb8"
     ],
     "depends": [],
     "distfiles": [
@@ -4454,7 +4451,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.46.2"
+    "version": "2.46.3"
   },
   {
     "archs": [
