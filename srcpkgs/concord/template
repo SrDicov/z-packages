@@ -1,20 +1,20 @@
 # Template file for 'concord'
 pkgname=concord
 version=2.6.3
-revision=1
+revision=2
 build_style=cargo
-hostmakedepends="pkg-config clang cmake nasm rust cargo"
-makedepends="alsa-lib-devel pipewire-devel libva-devel libzstd-devel"
-depends="alsa-lib libpipewire libva"
+configure_args="--config profile.release.lto=\"thin\" --config
+ profile.release.codegen-units=1"
+hostmakedepends="pkg-config clang cmake nasm"
+makedepends="alsa-lib-devel libva-devel libzstd-devel pipewire-devel"
+depends="libglvnd xdg-desktop-portal"
 short_desc="Feature-rich TUI client for Discord"
 maintainer="Kevin <kevinzz@tutamail.com>"
 license="GPL-3.0-only"
 homepage="https://github.com/chojs23/concord"
 changelog="https://github.com/chojs23/concord/releases"
-distfiles="https://github.com/chojs23/concord/archive/refs/tags/v${version}.tar.gz"
+distfiles="https://github.com/chojs23/concord/archive/refs/tags/v${version}.tar.gz>${pkgname}-${version}.tar.gz"
 checksum=473059af85ca8c7d2433ebd2a024951a8159c6109399fecaad238deaf2fd717a
-
-export RUSTFLAGS="${RUSTFLAGS} -C target-feature=+crt-static"
 
 post_install() {
 	vdoc README.md
