@@ -223,7 +223,9 @@
     "restricted": false,
     "revision": 6,
     "subpackages": [
-      "aquamarine-devel"
+      {
+        "pkgname": "aquamarine-devel"
+      }
     ],
     "version": "0.15.1"
   },
@@ -559,7 +561,9 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [
-      "chatgpt"
+      {
+        "pkgname": "chatgpt"
+      }
     ],
     "version": "26.1016.61520"
   },
@@ -1244,7 +1248,9 @@
     "restricted": false,
     "revision": 7,
     "subpackages": [
-      "hyprcursor-devel"
+      {
+        "pkgname": "hyprcursor-devel"
+      }
     ],
     "version": "0.1.13"
   },
@@ -1337,7 +1343,9 @@
     "restricted": false,
     "revision": 4,
     "subpackages": [
-      "hyprgraphics-devel"
+      {
+        "pkgname": "hyprgraphics-devel"
+      }
     ],
     "version": "0.5.1"
   },
@@ -1506,7 +1514,9 @@
     "restricted": false,
     "revision": 2,
     "subpackages": [
-      "hyprland-devel"
+      {
+        "pkgname": "hyprland-devel"
+      }
     ],
     "version": "0.56.2"
   },
@@ -1602,7 +1612,9 @@
     "restricted": false,
     "revision": 4,
     "subpackages": [
-      "hyprlang-devel"
+      {
+        "pkgname": "hyprlang-devel"
+      }
     ],
     "version": "0.6.8"
   },
@@ -1746,7 +1758,9 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [
-      "hyprutils-devel"
+      {
+        "pkgname": "hyprutils-devel"
+      }
     ],
     "version": "0.14.3"
   },
@@ -1782,7 +1796,9 @@
     "restricted": false,
     "revision": 5,
     "subpackages": [
-      "hyprwire-devel"
+      {
+        "pkgname": "hyprwire-devel"
+      }
     ],
     "version": "0.3.1"
   },
@@ -2482,7 +2498,9 @@
     "restricted": false,
     "revision": 3,
     "subpackages": [
-      "lua55-devel"
+      {
+        "pkgname": "lua55-devel"
+      }
     ],
     "version": "5.5.1"
   },
@@ -3926,7 +3944,9 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [
-      "re2-devel"
+      {
+        "pkgname": "re2-devel"
+      }
     ],
     "version": "2025.11.05"
   },
@@ -4225,7 +4245,9 @@
     "restricted": false,
     "revision": 2,
     "subpackages": [
-      "scenefx-latest-devel"
+      {
+        "pkgname": "scenefx-latest-devel"
+      }
     ],
     "version": "0.5"
   },

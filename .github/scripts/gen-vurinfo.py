@@ -144,7 +144,7 @@ def to_vurinfo(pkg_vars, subpackages=None):
         "version": version,
         "revision": revision,
         "archs": archs,
-        "subpackages": subpackages or [],
+        "subpackages": [{"pkgname": s} if isinstance(s, str) else s for s in (subpackages or [])],
         "depends": split_list("depends"),
         "hostmakedepends": split_list("hostmakedepends"),
         "makedepends": split_list("makedepends"),
