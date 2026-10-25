@@ -1,6 +1,6 @@
 # Template file for 'spicetify'
 pkgname=spicetify
-version=2.46.2
+version=2.46.3
 revision=1
 build_style=go
 go_import_path="github.com/spicetify/cli"
@@ -10,7 +10,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-only"
 homepage="https://spicetify.app/"
 distfiles="https://github.com/spicetify/cli/archive/refs/tags/v${version}.tar.gz"
-checksum=f4251e342851d2a9edf01c3cee6a66501ee9a29c58b4adf79a0ca548b1044da5
+checksum=f916bb9319b3d144cbe5b6b3f9a40e13b2d924c0598ca3c2c049ce3d80d7dfb8
 
 post_install() {
 	vmkdir usr/share/spicetify-cli
