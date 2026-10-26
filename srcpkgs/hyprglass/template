@@ -9,7 +9,7 @@ hostmakedepends="git pkg-config"
 export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm:/usr/include/hyprland/src"
 makedepends="
  aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
- hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-devel
+ hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-nk-devel
  libdisplay-info-devel libdrm-devel libinput-devel libseat-devel
  libxcb-devel libxkbcommon-devel libzip-devel lua55-devel
  MesaLib-devel pango-devel pixman-devel tomlplusplus-devel wayland-devel

@@ -6,7 +6,7 @@ archs="x86_64*"
 build_style=cmake
 hostmakedepends="cmake curl git pkg-config"
 makedepends="aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
- hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-devel
+ hyprgraphics-devel hyprland-devel hyprlang-devel hyprutils-nk-devel
  libdisplay-info-devel libdrm-devel libinput-devel libseat-devel libxcb-devel
  libxkbcommon-devel libzip-devel lua55-devel MesaLib-devel pango-devel
  pixman-devel tomlplusplus-devel wayland-devel xcb-util-errors-devel

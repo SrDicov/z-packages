@@ -7,8 +7,8 @@ build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="pkg-config"
 makedepends="MesaLib-devel cairo-devel file-devel gdk-pixbuf-devel
- hyprutils-devel libdrm-devel libjpeg-turbo-devel libwebp-devel librsvg-devel
- pango-devel pixman-devel"
+ hyprutils-nk-devel libdrm-devel libjpeg-turbo-devel libwebp-devel
+ librsvg-devel pango-devel pixman-devel"
 short_desc="Library for rendering graphics"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
