@@ -13,6 +13,7 @@ homepage="https://codeberg.org/fairyglade/ly"
 _rcver="1.5.0-rc1"
 distfiles="https://github.com/javiercplus/ly-xbps/releases/download/${version}/ly-v${_rcver}.tar.gz"
 checksum=8dd5554b420598437b5456ff1f41d40bae93a6f59b5f39771498305b59b8ce37
+broken="requiere Zig 0.16, sus deps otter no soportan 0.17"
 nopie=yes
 
 conf_files="

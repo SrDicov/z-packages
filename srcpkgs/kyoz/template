@@ -10,6 +10,7 @@ license="WTFPL"
 homepage="https://codeberg.org/javiercplus/kyoz"
 distfiles="https://codeberg.org/javiercplus/kyoz/archive/${version}.tar.gz"
 checksum=13b96b345dd8a2209fbe3a7eb3f617b7c8effbe98c27c889b634beaec4ace04c
+broken="requiere Zig <=0.14 (argsAlloc/std.io), upstream sin actualizar"
 
 do_build() {
 	zig build-exe kyo.zig -mcpu=baseline -O ReleaseSafe

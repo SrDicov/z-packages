@@ -14,6 +14,7 @@ distfiles="https://github.com/Neko-Void-Linux/falcond/releases/download/${versio
  https://github.com/PikaOS-Linux/falcond-profiles/archive/2c521cbe01a3fb092ef3ddf61b111a600ef9f673.tar.gz"
 checksum="cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984
  fd8d321e5c7626892a198ee6c40ed107b577ed450bed441f6c6a3121a81671ff"
+broken="requiere Zig 0.16, sus deps otter no soportan 0.17"
 nopie=yes
 
 do_build() {
