@@ -6,7 +6,7 @@ archs="x86_64*"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="pkg-config pixman-devel"
-makedepends="MesaLib-devel hwids hyprutils-devel hyprwayland-scanner
+makedepends="MesaLib-devel hwids hyprutils-nk-devel hyprwayland-scanner
  libdrm-devel libdisplay-info-devel libinput-devel libseat-devel pixman-devel
  wayland-devel wayland-protocols"
 short_desc="Library for compositing and rendering"

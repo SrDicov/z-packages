@@ -1,0 +1,37 @@
+# Template file for 'jq-nk'
+pkgname=jq-nk
+version=1.8.2
+revision=2
+build_style=gnu-configure
+makedepends="oniguruma-devel"
+short_desc="Command-line JSON processor"
+maintainer="SrDicov <SrDicov@gmail.com>"
+license="MIT"
+homepage="https://jqlang.org"
+distfiles="https://github.com/jqlang/jq/releases/download/jq-${version}/jq-${version}.tar.gz"
+checksum=71b8d6e8f5fe81f6c6d0d110e3892251f6ce76ed095abd315e26e6e1193af3af
+provides="jq-${version}_${revision}"
+replaces="jq-bin>=0 jq>=0"
+CFLAGS="-D_LARGE_FILE_SOURCE=1 -D_FILE_OFFSET_BITS=64"
+
+pre_configure() {
+	echo "echo $version" >scripts/version
+}
+
+post_install() {
+	rm -rf "${DESTDIR}/usr/share/doc/${pkgname}"
+	vlicense COPYING
+}
+
+jq-nk-devel_package() {
+	replaces="jq-devel>=0"
+	provides="jq-devel-${version}_${revision}"
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.a
+		vmove usr/lib/*.so
+		vmove usr/lib/pkgconfig
+	}
+}

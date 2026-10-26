@@ -6,8 +6,8 @@ archs="x86_64*"
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE=None"
 hostmakedepends="pkg-config hyprwayland-scanner pixman-devel"
-makedepends="hyprland-protocols hyprlang-devel hyprutils-devel sdbus-c++-devel
- wayland-devel wayland-protocols"
+makedepends="hyprland-protocols hyprlang-devel hyprutils-nk-devel
+ sdbus-c++-devel wayland-devel wayland-protocols"
 short_desc="Idle management daemon for Hyprland"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"

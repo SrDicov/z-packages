@@ -44,9 +44,3 @@ do_install() {
 	[ ! -e usr/share/doc/chatgpt/copyright ] || \
 		vlicense usr/share/doc/chatgpt/copyright
 }
-
-chatgpt_package() {
-	metapackage=yes
-	depends="${sourcepkg}>=${version}_${revision}"
-	short_desc+=" (transitional dummy package)"
-}

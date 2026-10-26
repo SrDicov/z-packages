@@ -207,7 +207,7 @@
     "makedepends": [
       "MesaLib-devel",
       "hwids",
-      "hyprutils-devel",
+      "hyprutils-nk-devel",
       "hyprwayland-scanner",
       "libdrm-devel",
       "libdisplay-info-devel",
@@ -519,11 +519,11 @@
       "libjpeg-turbo-devel",
       "libpng-devel"
     ],
-    "pkgname": "cmuspp-void",
+    "pkgname": "cmuspp",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "1.1.1"
   },
@@ -537,7 +537,41 @@
       "sha256:9add622916c5fa3861afd95081af77e25488c108ca9c543e1f67560b390d28d4"
     ],
     "depends": [
-      "${sourcepkg}>=${version}_${revision}"
+      "gtk+3",
+      "libnotify",
+      "nss",
+      "xdg-utils",
+      "at-spi2-core",
+      "libdrm",
+      "mesa-dri",
+      "libxcb",
+      "glib",
+      "alsa-lib",
+      "at-spi2-atk",
+      "atk",
+      "cairo",
+      "libcups",
+      "dbus-libs",
+      "expat",
+      "libgcc",
+      "gdk-pixbuf",
+      "mesa",
+      "nspr",
+      "pango",
+      "libstdc++",
+      "eudev-libudev",
+      "libusb",
+      "libX11",
+      "libXcomposite",
+      "libXdamage",
+      "libXext",
+      "libXfixes",
+      "libxkbcommon",
+      "libXrandr",
+      "libssl3",
+      "tpm2-tss",
+      "vulkan-loader",
+      "xz"
     ],
     "distfiles": [
       "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_${version}_amd64.deb"
@@ -560,11 +594,7 @@
     ],
     "restricted": false,
     "revision": 1,
-    "subpackages": [
-      {
-        "pkgname": "chatgpt"
-      }
-    ],
+    "subpackages": [],
     "version": "26.1016.61520"
   },
   {
@@ -689,7 +719,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "zig",
+      "zig-nk",
       "git",
       "ca-certificates"
     ],
@@ -1358,7 +1388,7 @@
     "checksum": [],
     "depends": [
       "hyprland",
-      "lua55"
+      "lua55-nk"
     ],
     "distfiles": [],
     "format_version": 1,
@@ -1425,7 +1455,7 @@
     "makedepends": [
       "hyprland-protocols",
       "hyprlang-devel",
-      "hyprutils-devel",
+      "hyprutils-nk-devel",
       "sdbus-c++-devel",
       "wayland-devel",
       "wayland-protocols"
@@ -1604,7 +1634,7 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
-      "hyprutils-devel"
+      "hyprutils-nk-devel"
     ],
     "pkgname": "hyprlang",
     "provides": [],
@@ -1641,16 +1671,20 @@
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
       "cairo-devel",
-      "hyprutils-devel",
+      "hyprutils-nk-devel",
       "libjpeg-turbo-devel",
       "libxkbcommon-devel",
       "pango-devel",
       "wayland-devel",
       "wayland-protocols"
     ],
-    "pkgname": "hyprpicker",
-    "provides": [],
-    "replaces": [],
+    "pkgname": "hyprpicker-nk",
+    "provides": [
+      "hyprpicker-${version}_${revision}"
+    ],
+    "replaces": [
+      "hyprpicker>=0"
+    ],
     "restricted": false,
     "revision": 3,
     "subpackages": [],
@@ -1677,7 +1711,7 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
-      "hyprutils-devel",
+      "hyprutils-nk-devel",
       "pixman-devel",
       "polkit-devel",
       "polkit-qt6-devel",
@@ -1714,7 +1748,7 @@
     "makedepends": [
       "hyprland-protocols",
       "hyprlang-devel",
-      "hyprutils-devel",
+      "hyprutils-nk-devel",
       "pixman-devel",
       "wayland-devel",
       "wayland-protocols"
@@ -1750,16 +1784,18 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [],
-    "pkgname": "hyprutils",
-    "provides": [],
+    "pkgname": "hyprutils-nk",
+    "provides": [
+      "hyprutils-devel-${version}_${revision}"
+    ],
     "replaces": [
-      "hyprutils<0.14.2_1"
+      "hyprutils-devel>=0"
     ],
     "restricted": false,
     "revision": 1,
     "subpackages": [
       {
-        "pkgname": "hyprutils-devel"
+        "pkgname": "hyprutils-nk-devel"
       }
     ],
     "version": "0.14.3"
@@ -1785,7 +1821,7 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
-      "hyprutils-devel",
+      "hyprutils-nk-devel",
       "libffi-devel",
       "pixman-devel",
       "pugixml-devel"
@@ -1972,6 +2008,43 @@
     "build_style": "gnu-configure",
     "checkdepends": [],
     "checksum": [
+      "sha256:71b8d6e8f5fe81f6c6d0d110e3892251f6ce76ed095abd315e26e6e1193af3af"
+    ],
+    "depends": [
+      "${sourcepkg}>=${version}_${revision}"
+    ],
+    "distfiles": [
+      "https://github.com/jqlang/jq/releases/download/jq-${version}/jq-${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "SrDicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "oniguruma-devel"
+    ],
+    "pkgname": "jq-nk",
+    "provides": [
+      "jq-devel-${version}_${revision}"
+    ],
+    "replaces": [
+      "jq-devel>=0"
+    ],
+    "restricted": false,
+    "revision": 2,
+    "subpackages": [
+      {
+        "pkgname": "jq-nk-devel"
+      }
+    ],
+    "version": "1.8.2"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": "gnu-configure",
+    "checkdepends": [],
+    "checksum": [
       "sha256:af0037c3a91b7aa40235ef92eefe06917a842a3d57e11936bb877d430b49af11"
     ],
     "depends": [
@@ -2047,7 +2120,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
-      "zig"
+      "zig-nk"
     ],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
@@ -2058,38 +2131,6 @@
     "revision": 2,
     "subpackages": [],
     "version": "2026"
-  },
-  {
-    "archs": [
-      "all"
-    ],
-    "build_style": "meson",
-    "checkdepends": [],
-    "checksum": [
-      "sha256:5c66b12234aa7d5797a4d3ebbf7011ea29ad7d66b26ff4c250df08700fdc630d"
-    ],
-    "depends": [],
-    "distfiles": [
-      "https://github.com/labwc/${_repo}/archive/${version}.tar.gz"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [
-      "pkg-config",
-      "cmake",
-      "ninja",
-      "scdoc"
-    ],
-    "maintainer": "zenobit <zen@osowoso.org>",
-    "makedepends": [
-      "glib-devel"
-    ],
-    "pkgname": "labwc-menu-generator",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 1,
-    "subpackages": [],
-    "version": "0.2.0"
   },
   {
     "archs": [
@@ -2492,14 +2533,18 @@
     "makedepends": [
       "readline-devel"
     ],
-    "pkgname": "lua55",
-    "provides": [],
-    "replaces": [],
+    "pkgname": "lua55-nk",
+    "provides": [
+      "lua55-devel-${version}_${revision}"
+    ],
+    "replaces": [
+      "lua55-devel>=0"
+    ],
     "restricted": false,
     "revision": 3,
     "subpackages": [
       {
-        "pkgname": "lua55-devel"
+        "pkgname": "lua55-nk-devel"
       }
     ],
     "version": "5.5.1"
@@ -2523,7 +2568,7 @@
     "format_version": 1,
     "hostmakedepends": [
       "pkg-config",
-      "zig"
+      "zig-nk"
     ],
     "maintainer": "Haris <plavpxl@proton.me>",
     "makedepends": [
@@ -2565,7 +2610,7 @@
     "makedepends": [
       "cJSON-devel",
       "wlroots0.20-devel",
-      "scenefx-devel",
+      "scenefx-nk-devel",
       "pcre2-devel",
       "pango-devel",
       "cairo-devel",
@@ -2576,12 +2621,13 @@
       "libxcb-devel",
       "xcb-util-wm-devel"
     ],
-    "pkgname": "mangowc",
+    "pkgname": "mangowc-nk",
     "provides": [
-      "mangowc-latest-${version}_${revision}"
+      "mangowc-${version}_${revision}"
     ],
     "replaces": [
-      "mangowc-latest>=0"
+      "mangowc-latest>=0",
+      "mangowc>=0"
     ],
     "restricted": false,
     "revision": 1,
@@ -3843,9 +3889,13 @@
     ],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
-    "pkgname": "python3-vdf-dev",
-    "provides": [],
-    "replaces": [],
+    "pkgname": "python3-vdf-nk",
+    "provides": [
+      "python3-vdf-dev-${version}_${revision}"
+    ],
+    "replaces": [
+      "python3-vdf-dev>=0"
+    ],
     "restricted": false,
     "revision": 2,
     "subpackages": [],
@@ -3916,39 +3966,6 @@
     "revision": 2,
     "subpackages": [],
     "version": "0.1.4"
-  },
-  {
-    "archs": [
-      "all"
-    ],
-    "build_style": "cmake",
-    "checkdepends": [],
-    "checksum": [
-      "sha256:87f6029d2f6de8aa023654240a03ada90e876ce9a4676e258dd01ea4c26ffd67"
-    ],
-    "depends": [],
-    "distfiles": [
-      "https://github.com/google/re2/releases/download/2025-11-05/re2-2025-11-05.tar.gz"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [
-      "pkg-config"
-    ],
-    "maintainer": "Dicov <SrDicov@gmail.com>",
-    "makedepends": [
-      "abseil-cpp-devel"
-    ],
-    "pkgname": "re2",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 1,
-    "subpackages": [
-      {
-        "pkgname": "re2-devel"
-      }
-    ],
-    "version": "2025.11.05"
   },
   {
     "archs": [
@@ -4235,18 +4252,20 @@
     "makedepends": [
       "wlroots0.20-devel"
     ],
-    "pkgname": "scenefx",
+    "pkgname": "scenefx-nk",
     "provides": [
-      "scenefx-latest-${version}_${revision}"
+      "scenefx-devel-${version}_${revision}",
+      "scenefx-latest-devel-${version}_${revision}"
     ],
     "replaces": [
-      "scenefx-latest>=0"
+      "scenefx-devel>=0",
+      "scenefx-latest-devel>=0"
     ],
     "restricted": false,
     "revision": 2,
     "subpackages": [
       {
-        "pkgname": "scenefx-latest-devel"
+        "pkgname": "scenefx-nk-devel"
       }
     ],
     "version": "0.5"
@@ -4953,12 +4972,13 @@
     ],
     "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [],
-    "pkgname": "vscode",
+    "pkgname": "vscode-nk",
     "provides": [
-      "vscode-bin-${version}_${revision}"
+      "vscode-${version}_${revision}"
     ],
     "replaces": [
-      "vscode-bin>=0"
+      "vscode-bin>=0",
+      "vscode>=0"
     ],
     "restricted": false,
     "revision": 1,
@@ -5098,27 +5118,6 @@
   },
   {
     "archs": [
-      "all"
-    ],
-    "build_style": null,
-    "checkdepends": [],
-    "checksum": [],
-    "depends": [],
-    "distfiles": [],
-    "format_version": 1,
-    "hostmakedepends": [],
-    "maintainer": "Enno Boland <gottox@voidlinux.org>",
-    "makedepends": [],
-    "pkgname": "xbps-triggers",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 2,
-    "subpackages": [],
-    "version": "0.131"
-  },
-  {
-    "archs": [
       "x86_64"
     ],
     "build_style": "cmake",
@@ -5128,7 +5127,7 @@
     ],
     "depends": [
       "hyprlang",
-      "hyprutils",
+      "hyprutils-nk",
       "hyprland-protocols",
       "hyprwayland-scanner",
       "sdbus-c++",
@@ -5152,7 +5151,7 @@
       "elogind-devel",
       "hyprland-protocols",
       "hyprlang-devel",
-      "hyprutils-devel",
+      "hyprutils-nk-devel",
       "hyprwayland-scanner",
       "libdrm-devel",
       "libgbm-devel",
@@ -5191,12 +5190,13 @@
     "makedepends": [
       "libXrender-devel"
     ],
-    "pkgname": "xwinwrap",
+    "pkgname": "xwinwrap-nk",
     "provides": [
-      "xwinwrap-nk-${version}_${revision}"
+      "xwinwrap-${version}_${revision}"
     ],
     "replaces": [
-      "xwinwrap-nk>=0"
+      "xwinwrap-nk>=0",
+      "xwinwrap>=0"
     ],
     "restricted": false,
     "revision": 3,
@@ -5323,13 +5323,14 @@
     "hostmakedepends": [],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
-    "pkgname": "zig",
+    "pkgname": "zig-nk",
     "provides": [
-      "zig-nk-bin-${version}_${revision}"
+      "zig-${version}_${revision}"
     ],
     "replaces": [
       "zig-nk>=0",
-      "zig-nk-bin>=0"
+      "zig-nk-bin>=0",
+      "zig>=0"
     ],
     "restricted": false,
     "revision": 1,

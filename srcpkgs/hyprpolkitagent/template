@@ -6,7 +6,7 @@ archs="x86_64*"
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_LIBEXECDIR=lib"
 hostmakedepends="pkg-config"
-makedepends="hyprutils-devel pixman-devel polkit-devel polkit-qt6-devel
+makedepends="hyprutils-nk-devel pixman-devel polkit-devel polkit-qt6-devel
  qt6-base-devel qt6-declarative-devel"
 depends="polkit"
 short_desc="Polkit authentication agent for Hyprland"

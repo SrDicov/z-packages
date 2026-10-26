@@ -6,7 +6,7 @@ archs="x86_64*"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="pkg-config pixman-devel"
-makedepends="hyprutils-devel"
+makedepends="hyprutils-nk-devel"
 short_desc="Hypr config language implementation library"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
