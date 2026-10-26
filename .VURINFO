@@ -238,7 +238,7 @@
       "procps-ng"
     ],
     "checksum": [
-      "sha256:59261608fcf9bbb2d39b2dd0ae367200654c0d7a9474fbcb11819fb51d5bd8b8"
+      "sha256:89895657bec69d5dfc225bfb8a7f202392b7b4dbdc7cf40421ebcb77a1a06f8a"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -266,7 +266,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.7.0"
+    "version": "0.8.1"
   },
   {
     "archs": [
@@ -642,7 +642,7 @@
     "build_style": "gnu-makefile",
     "checkdepends": [],
     "checksum": [
-      "sha256:6b1177d3cc9c23e0cfab3e67b811e8076d0502b82e0b6c7125f34195dc96ec9e"
+      "sha256:fefd723e5fdb3a2a34d6369d2c1e5564b3acb0c8f67b51d3517aa4ca21507038"
     ],
     "depends": [
       "fuse-overlayfs",
@@ -666,7 +666,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.14.11"
+    "version": "2.14.13"
   },
   {
     "archs": [
@@ -1982,9 +1982,13 @@
     "hostmakedepends": [],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
-    "pkgname": "jwmkit-neko",
-    "provides": [],
-    "replaces": [],
+    "pkgname": "jwmkit",
+    "provides": [
+      "jwmkit-neko-${version}_${revision}"
+    ],
+    "replaces": [
+      "jwmkit-neko>=0"
+    ],
     "restricted": false,
     "revision": 2,
     "subpackages": [],
@@ -4312,7 +4316,7 @@
     "build_style": "go",
     "checkdepends": [],
     "checksum": [
-      "sha256:f916bb9319b3d144cbe5b6b3f9a40e13b2d924c0598ca3c2c049ce3d80d7dfb8"
+      "sha256:d62b1e2316fa79a34b9283d5846b78b50f88f01b5de40052da94def8c2f97421"
     ],
     "depends": [],
     "distfiles": [
@@ -4330,7 +4334,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.46.3"
+    "version": "2.46.4"
   },
   {
     "archs": [
