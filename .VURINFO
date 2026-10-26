@@ -4263,7 +4263,8 @@
       "gstreamer1-devel",
       "libX11-devel",
       "libwebkitgtk60-devel",
-      "libsodium-devel"
+      "libsodium-devel",
+      "libxcrypt-devel"
     ],
     "pkgname": "singularity-desktop",
     "provides": [],
