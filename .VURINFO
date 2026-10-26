@@ -1771,7 +1771,7 @@
       "sha256:87bbfc9549ed96316b0d592c16d01f58729b23a2999a5293b73eec620b40c5f5"
     ],
     "depends": [
-      "hyprutils-${version}_${revision}",
+      "${sourcepkg}>=${version}_${revision}",
       "pixman-devel"
     ],
     "distfiles": [
