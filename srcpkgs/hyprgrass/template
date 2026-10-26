@@ -15,7 +15,7 @@ makedepends="
  pixman-devel tomlplusplus-devel wayland-devel xcb-util-errors-devel
  xcb-util-wm-devel
 "
-depends="hyprland lua55-nk"
+depends="hyprland lua55"
 short_desc="Hyprland plugin: touchscreen gestures for windows and workspaces"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="Apache-2.0"

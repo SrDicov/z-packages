@@ -1388,7 +1388,7 @@
     "checksum": [],
     "depends": [
       "hyprland",
-      "lua55-nk"
+      "lua55"
     ],
     "distfiles": [],
     "format_version": 1,
@@ -1647,48 +1647,6 @@
       }
     ],
     "version": "0.6.8"
-  },
-  {
-    "archs": [
-      "x86_64"
-    ],
-    "build_style": "cmake",
-    "checkdepends": [],
-    "checksum": [
-      "sha256:cde02b92abe372187c9d59a7cb2ca07ede5c3e1a8c81ed8b209dc0d3ac5f0339"
-    ],
-    "depends": [],
-    "distfiles": [
-      "https://github.com/hyprwm/hyprpicker/archive/refs/tags/v${version}.tar.gz"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [
-      "cmake",
-      "ninja",
-      "pkg-config",
-      "hyprwayland-scanner"
-    ],
-    "maintainer": "Dicov <SrDicov@gmail.com>",
-    "makedepends": [
-      "cairo-devel",
-      "hyprutils-nk-devel",
-      "libjpeg-turbo-devel",
-      "libxkbcommon-devel",
-      "pango-devel",
-      "wayland-devel",
-      "wayland-protocols"
-    ],
-    "pkgname": "hyprpicker-nk",
-    "provides": [
-      "hyprpicker-${version}_${revision}"
-    ],
-    "replaces": [
-      "hyprpicker>=0"
-    ],
-    "restricted": false,
-    "revision": 3,
-    "subpackages": [],
-    "version": "0.4.7"
   },
   {
     "archs": [
@@ -2000,43 +1958,6 @@
     "revision": 1,
     "subpackages": [],
     "version": "26.22.0"
-  },
-  {
-    "archs": [
-      "all"
-    ],
-    "build_style": "gnu-configure",
-    "checkdepends": [],
-    "checksum": [
-      "sha256:71b8d6e8f5fe81f6c6d0d110e3892251f6ce76ed095abd315e26e6e1193af3af"
-    ],
-    "depends": [
-      "${sourcepkg}>=${version}_${revision}"
-    ],
-    "distfiles": [
-      "https://github.com/jqlang/jq/releases/download/jq-${version}/jq-${version}.tar.gz"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [],
-    "maintainer": "SrDicov <SrDicov@gmail.com>",
-    "makedepends": [
-      "oniguruma-devel"
-    ],
-    "pkgname": "jq-nk",
-    "provides": [
-      "jq-devel-${version}_${revision}"
-    ],
-    "replaces": [
-      "jq-devel>=0"
-    ],
-    "restricted": false,
-    "revision": 2,
-    "subpackages": [
-      {
-        "pkgname": "jq-nk-devel"
-      }
-    ],
-    "version": "1.8.2"
   },
   {
     "archs": [
@@ -2516,41 +2437,6 @@
   },
   {
     "archs": [
-      "all"
-    ],
-    "build_style": null,
-    "checkdepends": [],
-    "checksum": [
-      "sha256:1c4b4068d67061f2a2231ad2b5422e77acea1487ea9890f6320af614f4373dce"
-    ],
-    "depends": [],
-    "distfiles": [
-      "https://www.lua.org/ftp/lua-${version}.tar.gz"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [],
-    "maintainer": "Dicov <SrDicov@gmail.com>",
-    "makedepends": [
-      "readline-devel"
-    ],
-    "pkgname": "lua55-nk",
-    "provides": [
-      "lua55-devel-${version}_${revision}"
-    ],
-    "replaces": [
-      "lua55-devel>=0"
-    ],
-    "restricted": false,
-    "revision": 3,
-    "subpackages": [
-      {
-        "pkgname": "lua55-nk-devel"
-      }
-    ],
-    "version": "5.5.1"
-  },
-  {
-    "archs": [
       "x86_64"
     ],
     "build_style": null,
@@ -2658,55 +2544,6 @@
     "revision": 1,
     "subpackages": [],
     "version": "2.0"
-  },
-  {
-    "archs": [
-      "all"
-    ],
-    "build_style": null,
-    "checkdepends": [],
-    "checksum": [
-      "sha256:f61126a6d17b2d126a7f31b142504dce4934f7989c55f1c13c6477b3fe80b3d2",
-      "sha256:64595b5abc1080fba8610c5c34fab5863408e806aafe84653ca8575bed17d75a",
-      "sha256:c1cb61255e363166794e47664e2f21af8e3a26cb6346eb8d2ae2fa85dd5aad96",
-      "sha256:5a690d9bb8510be1b8b4fe49f1f2319651fe51bbe54775ddddd8ef0bd07fdac9",
-      "sha256:db56595ec6ef5d3de5c24994f001f03b2a13e37cee27bc25c58f6f43e8f807ab",
-      "sha256:6061ef3b7401d9642f5dfdb5f2b376aa14663f6275e60a51207ad4facf2fccfb",
-      "sha256:2c2c7dcda6606ea5cf08918fb7cd3f3359e9e84338dc690013f20cd42e930301",
-      "sha256:bb511d861655dde879ae552eb86b134d6fae67cb58502e6ff73ec5d9151f3384",
-      "sha256:9c6df3feefde26d4e41d4a4fe5db2a89f9123a772594d7f59afd062625cd204e",
-      "sha256:a425f0ffb6a1a5ede5b979ed6177f4f4f4fdef6ae7c302a7b7720ef332fec0a8",
-      "sha256:85297a4d146e9c87ac6f74822734bdee5f4b2a722d7eaa584b7f2cbf76f478f6",
-      "sha256:0524fe42951adc3a7eb870e32f0920313c71f170c859b5f770d82b4ee111e970"
-    ],
-    "depends": [],
-    "distfiles": [
-      "${SOURCEFORGE_SITE}/corefonts/wd97vwr32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/webdin32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/verdan32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/trebuc32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/times32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/impact32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/georgi32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/courie32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/comic32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/arialb32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/arial32.exe",
-      "${SOURCEFORGE_SITE}/corefonts/andale32.exe"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [
-      "cabextract"
-    ],
-    "maintainer": "JavierC <javiercyt@atomicmail.io>",
-    "makedepends": [],
-    "pkgname": "msttcorefonts",
-    "provides": [],
-    "replaces": [],
-    "restricted": false,
-    "revision": 1,
-    "subpackages": [],
-    "version": "1.3.4"
   },
   {
     "archs": [
@@ -4501,52 +4338,6 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:256e2eb1ec96fbc0c51afab247298e4e6eabfabbafafd4617584f44cca2fb31f"
-    ],
-    "depends": [
-      "libcurl",
-      "nss",
-      "libXtst",
-      "libXScrnSaver",
-      "libxml2",
-      "libxslt",
-      "libglvnd",
-      "gtk+3",
-      "alsa-lib",
-      "desktop-file-utils",
-      "hicolor-icon-theme",
-      "xdg-utils",
-      "libnotify",
-      "libgcrypt"
-    ],
-    "distfiles": [
-      "${_site}/spotify-client_${version}.${_subver}_amd64.deb"
-    ],
-    "format_version": 1,
-    "hostmakedepends": [
-      "bsdtar"
-    ],
-    "maintainer": "Orphaned <orphan@voidlinux.org>",
-    "makedepends": [],
-    "pkgname": "spotify",
-    "provides": [
-      "spotify-bin-${version}_${revision}"
-    ],
-    "replaces": [
-      "spotify-bin>=0"
-    ],
-    "restricted": false,
-    "revision": 1,
-    "subpackages": [],
-    "version": "1.2.95.453"
-  },
-  {
-    "archs": [
-      "x86_64"
-    ],
-    "build_style": null,
-    "checkdepends": [],
-    "checksum": [
       "sha256:20f327441d11b202c82e65b69ec990ef631eb66605da15f41076c049acb718e4"
     ],
     "depends": [
@@ -4617,12 +4408,14 @@
     ],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
-    "pkgname": "steam",
+    "pkgname": "steam-nk",
     "provides": [
+      "steam-${version}_${revision}",
       "steam-bin-${version}_${revision}",
       "steam-nk-bin-${version}_${revision}"
     ],
     "replaces": [
+      "steam>=0",
       "steam-bin>=0",
       "steam-nk-bin>=0"
     ],
