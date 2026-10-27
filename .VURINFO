@@ -5085,6 +5085,7 @@
       "libXcursor-devel",
       "libXi-devel",
       "libXrandr-devel",
+      "openssl-devel",
       "pipewire-devel",
       "sqlite-devel",
       "wayland-devel"
