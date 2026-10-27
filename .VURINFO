@@ -5087,7 +5087,7 @@
       "libXrandr-devel",
       "openssl-devel",
       "pipewire-devel",
-      "sqlite-devel",
+      "sqlcipher-devel",
       "wayland-devel"
     ],
     "pkgname": "zapfast",
