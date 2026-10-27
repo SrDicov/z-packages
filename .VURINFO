@@ -3075,7 +3075,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:849bd6b3d959a1d2ef200ed1634a51c79a45ca236aa26665d75debd694805cce"
+      "sha256:6d597970a8cc448f1b9a9f645532584b339dd3ab9583bb5f063f13d83e54768f"
     ],
     "depends": [
       "ripgrep"
@@ -3099,7 +3099,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.19.4"
+    "version": "2.2.0"
   },
   {
     "archs": [
@@ -4285,7 +4285,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:571b4735fa0c9d612ad4b3a3a34dc80047cb7b4d14f69c49607e3508d6ed5582"
+      "sha256:6544821a1cea17397cff1db5cbde5ff45bfd92770c18a22ce2d7421e4aec1684"
     ],
     "depends": [],
     "distfiles": [
@@ -4307,7 +4307,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.13.4"
+    "version": "0.14.0"
   },
   {
     "archs": [
@@ -5050,6 +5050,56 @@
     "revision": 1,
     "subpackages": [],
     "version": "1.0.4"
+  },
+  {
+    "archs": [
+      "x86_64",
+      "aarch64"
+    ],
+    "build_style": "cargo",
+    "checkdepends": [
+      "liberation-fonts-ttf"
+    ],
+    "checksum": [
+      "sha256:3192c7f852fe5b859e66c78057b3b6c10127513c6ee8700d5d9eebf58dc6383f"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/crmne/zapfast/archive/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "cargo",
+      "clang",
+      "cmake",
+      "git",
+      "pkg-config"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "alsa-lib-devel",
+      "libglvnd-devel",
+      "libxkbcommon-devel",
+      "libX11-devel",
+      "libxcb-devel",
+      "libXcursor-devel",
+      "libXi-devel",
+      "libXrandr-devel",
+      "pipewire-devel",
+      "sqlite-devel",
+      "wayland-devel"
+    ],
+    "pkgname": "zapfast",
+    "provides": [
+      "fastsapp-${version}_${revision}"
+    ],
+    "replaces": [
+      "fastsapp>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.20.1"
   },
   {
     "archs": [
