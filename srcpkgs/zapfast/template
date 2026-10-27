@@ -8,7 +8,7 @@ make_check_args="--features demo"
 hostmakedepends="cargo clang cmake git pkg-config"
 makedepends="alsa-lib-devel libglvnd-devel libxkbcommon-devel libX11-devel
  libxcb-devel libXcursor-devel libXi-devel libXrandr-devel openssl-devel
- pipewire-devel sqlite-devel wayland-devel"
+ pipewire-devel sqlcipher-devel wayland-devel"
 checkdepends="liberation-fonts-ttf"
 short_desc="Fast native WhatsApp client built with Rust and egui"
 maintainer="Dicov <SrDicov@gmail.com>"
@@ -23,6 +23,12 @@ replaces="fastsapp>=0"
 pre_build() {
 	export RUSTFLAGS="${RUSTFLAGS:+$RUSTFLAGS }--remap-path-prefix=${wrksrc}=/"
 	cargo fetch --locked --target "${RUST_TARGET}"
+	while IFS= read -r f; do
+		grep -q 'sched_param { sched_priority: 0 }' "$f" || continue
+		patch -p1 -d "${f%/crates/*}" \
+			< "${FILESDIR}/fastframe-sched-param.patch"
+	done < <(find "${CARGO_HOME}/git/checkouts" \
+		-path '*/fastframe-audio/src/realtime.rs')
 }
 
 post_install() {
