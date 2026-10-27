@@ -7,8 +7,8 @@ build_style=cargo
 make_check_args="--features demo"
 hostmakedepends="cargo clang cmake git pkg-config"
 makedepends="alsa-lib-devel libglvnd-devel libxkbcommon-devel libX11-devel
- libxcb-devel libXcursor-devel libXi-devel libXrandr-devel pipewire-devel
- sqlite-devel wayland-devel"
+ libxcb-devel libXcursor-devel libXi-devel libXrandr-devel openssl-devel
+ pipewire-devel sqlite-devel wayland-devel"
 checkdepends="liberation-fonts-ttf"
 short_desc="Fast native WhatsApp client built with Rust and egui"
 maintainer="Dicov <SrDicov@gmail.com>"
