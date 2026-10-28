@@ -9,3 +9,12 @@
                  return themeDir;
              }
  
+@@ -240,7 +240,7 @@
+ 
+             auto inheritTheme = getThemeDir(trim(std::string{inheritName}));
+             if (inheritTheme) {
+-                g_logger->log(HT_LOG_TRACE, "CSystemIconFactory: parsing inherited theme {}", *inheritTheme);
++                g_logger->log(HT_LOG_TRACE, "CSystemIconFactory: parsing inherited theme {}", inheritTheme->empty() ? "none" : inheritTheme->front().c_str());
+                 parseThemes(*inheritTheme);
+             } else
+                 g_logger->log(HT_LOG_WARNING, "CSystemIconFactory: inherited theme {} not found", std::string{inheritName});
