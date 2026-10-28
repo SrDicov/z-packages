@@ -1,7 +1,7 @@
 # Template file for 'hyprland'
 pkgname=hyprland
-version=0.56.2
-revision=2
+version=0.57.0
+revision=1
 archs="x86_64*"
 build_style=cmake
 hostmakedepends="pkg-config cmake ninja glslang-devel clang hyprwayland-scanner
@@ -9,11 +9,11 @@ hostmakedepends="pkg-config cmake ninja glslang-devel clang hyprwayland-scanner
  ca-certificates git"
 makedepends="abseil-cpp-devel aquamarine-devel gdk-pixbuf-devel glib-devel
  hyprcursor-devel hyprgraphics-devel hyprlang-devel hyprutils-nk-devel hwids
- lcms2-devel libdisplay-info-devel libei-devel libinput-devel libseat-devel
- libuuid-devel libwebp-devel libzip-devel libXcursor-devel libdrm-devel
- libjpeg-turbo-devel libxcb-devel libxkbcommon-devel librsvg-devel lua55-devel
- MesaLib-devel muparser-devel pango-devel pixman-devel re2 re2-devel
- tomlplusplus-devel udis86-devel wayland-devel wayland-protocols
+ lcms2-devel libcanberra-devel libdisplay-info-devel libei-devel libinput-devel
+ libseat-devel libuuid-devel libwebp-devel libzip-devel libXcursor-devel
+ libdrm-devel libjpeg-turbo-devel libxcb-devel libxkbcommon-devel librsvg-devel
+ lua55-devel MesaLib-devel muparser-devel pango-devel pixman-devel re2
+ re2-devel tomlplusplus-devel udis86-devel wayland-devel wayland-protocols
  xcb-util-errors-devel xcb-util-wm-devel"
 nodebug=yes
 export CC=clang
@@ -32,7 +32,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/Hyprland"
 distfiles="https://github.com/hyprwm/Hyprland/releases/download/v${version}/source-v${version}.tar.gz"
-checksum=03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e
+checksum=82d006ba9264fe67266c7d583c16f1a6c64d51424dbdc472c3e9c9d5ddfcd559
 configure_args="-DCMAKE_BUILD_TYPE=None -DNO_HYPRPM=ON
  -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++"
 
