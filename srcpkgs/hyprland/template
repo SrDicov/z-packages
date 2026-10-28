@@ -25,6 +25,7 @@ CXXFLAGS+=" -include ${XBPS_BUILDDIR}/${pkgname}-${version}/hyprland_compat.hpp"
 do_patch() {
 	vsed -i 's#requestedModes\.insert_range\(requestedModes\.end\(\), sortedModes [|] std::views::reverse\);#requestedModes.insert(requestedModes.end(), sortedModes.rbegin(), sortedModes.rend());#' \
 		src/output/Monitor.cpp
+	vsed -i 's/request\.subview(i, 2)/request.substr(i, 2)/' src/ipc/s1/S1.cpp
 	cp "${FILESDIR}/hyprland_compat.hpp" hyprland_compat.hpp
 }
 
