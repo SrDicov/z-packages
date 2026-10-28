@@ -8,13 +8,14 @@ hostmakedepends="pkg-config cmake ninja glslang-devel clang hyprwayland-scanner
  hyprwire hyprwire-devel python3 readline-devel SPIRV-Tools-devel
  ca-certificates git"
 makedepends="abseil-cpp-devel aquamarine-devel gdk-pixbuf-devel glib-devel
- hyprcursor-devel hyprgraphics-devel hyprlang-devel hyprutils-nk-devel hwids
- lcms2-devel libcanberra-devel libdisplay-info-devel libei-devel libinput-devel
- libseat-devel libuuid-devel libwebp-devel libzip-devel libXcursor-devel
- libdrm-devel libjpeg-turbo-devel libxcb-devel libxkbcommon-devel librsvg-devel
- lua55-devel MesaLib-devel muparser-devel pango-devel pixman-devel re2
- re2-devel sdbus-c++-devel tomlplusplus-devel udis86-devel wayland-devel
- wayland-protocols xcb-util-errors-devel xcb-util-wm-devel"
+ hyprcursor-devel hyprgraphics-devel hyprlang-devel hyprland-protocols
+ hyprutils-nk-devel hwids lcms2-devel libcanberra-devel libdisplay-info-devel
+ libei-devel libinput-devel libseat-devel libuuid-devel libwebp-devel
+ libzip-devel libXcursor-devel libdrm-devel libjpeg-turbo-devel libxcb-devel
+ libxkbcommon-devel librsvg-devel lua55-devel MesaLib-devel muparser-devel
+ pango-devel pixman-devel re2 re2-devel sdbus-c++-devel tomlplusplus-devel
+ udis86-devel wayland-devel wayland-protocols xcb-util-errors-devel
+ xcb-util-wm-devel"
 nodebug=yes
 export CC=clang
 export CXX=clang++
