@@ -26,7 +26,6 @@ do_patch() {
 	vsed -i 's#requestedModes\.insert_range\(requestedModes\.end\(\), sortedModes [|] std::views::reverse\);#requestedModes.insert(requestedModes.end(), sortedModes.rbegin(), sortedModes.rend());#' \
 		src/output/Monitor.cpp
 	vsed -i 's/request\.subview/request.substr/' src/ipc/s1/S1.cpp
-	vsed -i 's/ev\.visit\(/std::visit(/' src/keybinds/Key.cpp
 	cp "${FILESDIR}/hyprland_compat.hpp" hyprland_compat.hpp
 }
 
