@@ -2338,6 +2338,7 @@ libhyphen.so.0 hyphen-2.8.8_1
 libhyprcursor.so.0 hyprcursor-0.1.13_7
 libhyprgraphics.so.4 hyprgraphics-0.5.1_4
 libhyprlang.so.2 hyprlang-0.6.8_4
+libhyprtoolkit.so.6 hyprtoolkit-0.6.0_1
 libhyprutils.so.13 hyprutils-nk-0.14.3_1
 libhyprwire.so.3 hyprwire-0.3.1_5
 libi2c.so.0 i2c-tools-4.0_1
