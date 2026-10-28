@@ -1,0 +1,11 @@
+--- a/src/system/Icons.cpp
++++ b/src/system/Icons.cpp
+@@ -120,7 +120,7 @@
+             // try to find it
+             auto themeDir = getThemeDir(iconTheme);
+             if (themeDir && !themeDir->empty()) {
+-                g_logger->log(HT_LOG_TRACE, "CSystemIconFactory: Found {} as default fallback", themeDir.value());
++                g_logger->log(HT_LOG_TRACE, "CSystemIconFactory: Found {} as default fallback", themeDir.value().front());
+                 return themeDir;
+             }
+ 
