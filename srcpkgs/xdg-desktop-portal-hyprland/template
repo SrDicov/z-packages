@@ -6,10 +6,12 @@ archs="x86_64*"
 build_style=cmake
 configure_args="-DSYSTEMD_SERVICES=OFF -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"
 hostmakedepends="cmake clang ninja pkg-config"
-makedepends="aquamarine-devel elogind-devel hyprgraphics-devel
- hyprland-protocols hyprlang-devel hyprtoolkit-devel hyprutils-nk-devel
- hyprwayland-scanner libdrm-devel libgbm-devel pixman-devel pipewire-devel
- pugixml-devel qt6-base-devel sdbus-c++-devel wayland-devel wayland-protocols"
+makedepends="abseil-cpp-devel aquamarine-devel cairo-devel elogind-devel
+ hyprgraphics-devel hyprland-protocols hyprlang-devel hyprtoolkit-devel
+ hyprutils-nk-devel hyprwayland-scanner iniparser-devel libdrm-devel
+ libgbm-devel libglvnd-devel libxkbcommon-devel pango-devel pixman-devel
+ pipewire-devel pugixml-devel qt6-base-devel sdbus-c++-devel wayland-devel
+ wayland-protocols"
 depends="hyprlang hyprutils-nk hyprland-protocols hyprwayland-scanner sdbus-c++
  xdg-desktop-portal pipewire qt6-base qt6-wayland"
 short_desc="Backend of xdg-desktop-portal for Hyprland"
