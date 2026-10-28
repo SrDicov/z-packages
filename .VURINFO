@@ -1532,6 +1532,7 @@
       "pixman-devel",
       "re2",
       "re2-devel",
+      "sdbus-c++-devel",
       "tomlplusplus-devel",
       "udis86-devel",
       "wayland-devel",
