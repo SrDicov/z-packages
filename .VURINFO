@@ -740,7 +740,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:0d0ae82febf6b3924b975f79f277887edc9364de67be89831514400cd94b6db6"
+      "sha256:479f2d46a632a9b89c37de1b835a4a30e6f1fca01b54a808f6ae6fb2f9aaf508"
     ],
     "depends": [
       "python3-gobject",
@@ -779,7 +779,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.5.1"
+    "version": "2.5.4"
   },
   {
     "archs": [
@@ -1475,7 +1475,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e"
+      "sha256:82d006ba9264fe67266c7d583c16f1a6c64d51424dbdc472c3e9c9d5ddfcd559"
     ],
     "depends": [
       "${sourcepkg}>=${version}_${revision}"
@@ -1511,6 +1511,7 @@
       "hyprutils-nk-devel",
       "hwids",
       "lcms2-devel",
+      "libcanberra-devel",
       "libdisplay-info-devel",
       "libei-devel",
       "libinput-devel",
@@ -1542,13 +1543,13 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [
       {
         "pkgname": "hyprland-devel"
       }
     ],
-    "version": "0.56.2"
+    "version": "0.57.0"
   },
   {
     "archs": [
@@ -1718,6 +1719,58 @@
     "revision": 2,
     "subpackages": [],
     "version": "0.4.0"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:53c41be72af97d9ede274a63c9c1034c58726d862905763ed6e5a564ae42ba6b"
+    ],
+    "depends": [
+      "${sourcepkg}>=${version}_${revision}"
+    ],
+    "distfiles": [
+      "https://github.com/hyprwm/hyprtoolkit/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "hyprwayland-scanner",
+      "wayland-devel",
+      "wayland-protocols"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "abseil-cpp-devel",
+      "aquamarine-devel",
+      "cairo-devel",
+      "hyprgraphics-devel",
+      "hyprlang-devel",
+      "hyprutils-nk-devel",
+      "iniparser-devel",
+      "libdrm-devel",
+      "libgbm-devel",
+      "libglvnd-devel",
+      "libxkbcommon-devel",
+      "pango-devel",
+      "pixman-devel",
+      "wayland-devel",
+      "wayland-protocols"
+    ],
+    "pkgname": "hyprtoolkit",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [
+      {
+        "pkgname": "hyprtoolkit-devel"
+      }
+    ],
+    "version": "0.6.0"
   },
   {
     "archs": [
@@ -4942,7 +4995,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:3652c14f63a9666acea2c841e196782dbc0f74ea5b4783622dd04a32f08b709f"
+      "sha256:8f9eddad706b0bbca2dc24f9894e07969ec5aed163249d6eac3932cfaf38e6a9"
     ],
     "depends": [
       "hyprlang",
@@ -4967,9 +5020,12 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
+      "aquamarine-devel",
       "elogind-devel",
+      "hyprgraphics-devel",
       "hyprland-protocols",
       "hyprlang-devel",
+      "hyprtoolkit-devel",
       "hyprutils-nk-devel",
       "hyprwayland-scanner",
       "libdrm-devel",
@@ -4986,9 +5042,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.4.1"
+    "version": "1.5.0"
   },
   {
     "archs": [
