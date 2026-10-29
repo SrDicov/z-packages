@@ -4212,6 +4212,7 @@
     "checkdepends": [],
     "checksum": [
       "sha256:9055e5bb4661a908946ff499986eb9483778d67479b056c5d18d25a90b2abdc9",
+      "sha256:7f595ead422fa12c1aae2af65402d1cf78ac6a8726cfb5a511b208a788981e13",
       "sha256:b44aeb3f66389eddfe7e0ef941de23f0aca6ebbd46bc088ab3c4774e13bbfe96",
       "sha256:4419f067ea99a0ab4f0414f0226d65cb5498776f9c13a8275abf905287ebf808",
       "sha256:b22d58a929c4bd78d4208a669cd10ae44a8072f45fabfb4bcb217db4fdcd79a3",
@@ -4310,10 +4311,14 @@
       "gst-plugins-good1",
       "accountsservice",
       "wireplumber",
-      "mesa-dri"
+      "mesa-dri",
+      "bash",
+      "dejavu-fonts-ttf",
+      "xkeyboard-config"
     ],
     "distfiles": [
       "https://github.com/SrDicov/singularity-desktop/archive/e0eb4c9ab6c12652dc1d482e0a183a4ad21ec7aa.tar.gz>singularity-desktop-0.1.0.tar.gz",
+      "https://github.com/wlrfx/scenefx/archive/37ccd723bef49e6891156ffafce8f549f01446cc.tar.gz>scenefx-desktop.tar.gz",
       "https://github.com/SrDicov/libsingularity/archive/4a8f889f42b71588a8134917d4d7d9ed497ca07c.tar.gz>libsingularity.tar.gz",
       "https://github.com/singularityos-lab/singularity-accounts/archive/dba72ec721a9caee8ad5b91d26ad92a5af133aae.tar.gz>singularity-accounts.tar.gz",
       "https://github.com/singularityos-lab/singularity-atelier/archive/4e7356a43481ff41b287556906aac0c7e5111535.tar.gz>singularity-atelier.tar.gz",
@@ -4426,7 +4431,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 8,
+    "revision": 9,
     "subpackages": [],
     "version": "0.1.0"
   },
