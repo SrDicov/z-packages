@@ -1,7 +1,7 @@
 # Template file for 'singularity-desktop'
 pkgname=singularity-desktop
 version=0.1.0
-revision=5
+revision=6
 archs="x86_64"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
@@ -39,7 +39,7 @@ short_desc="Singularity Desktop Environment (Wayland, GTK4)"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-only"
 homepage="https://github.com/singularityos-lab/singularity-desktop"
-_commit="78e25f2813b0d4b9c1d61dde1561709813933ea0"
+_commit="b470c90ea427cc16f7903eca00ab50199f7866cc"
 _repository="https://github.com/SrDicov/singularity-desktop.git"
 _submodules="libsingularity singularity-accounts singularity-atelier
  singularity-authenticator singularity-backups singularity-browser
@@ -148,7 +148,7 @@ distfiles="https://github.com/SrDicov/singularity-desktop/archive/78e25f2813b0d4
  https://github.com/yakhyo/gaze-estimation/releases/download/weights/mobileone_s0_gaze.onnx>mobileone_s0_gaze.onnx
  https://github.com/microsoft/onnxruntime/releases/download/v1.23.2/onnxruntime-linux-x64-1.23.2.tgz>onnxruntime.tgz
  https://files.pythonhosted.org/packages/2a/58/bdd5bada89d7a132375df05e962bf702c148b47043dca98d820d9395152b/mediapipe-1.0.1-py3-none-manylinux_2_28_x86_64.whl>mediapipe.whl"
-checksum="7c4fb186c25749298326043c5171bf69a4009e19863d8e6d451a0231c9616bc9
+checksum="5e6c4aea40ccdd368ac89affeaca4280b7191afbf559e4378ffc5d079333d2c6
  78ad95b7a475a948dcca798b96ebf3fb062c1d1a9cb1de60160590fd96dab5fd
  4419f067ea99a0ab4f0414f0226d65cb5498776f9c13a8275abf905287ebf808
  b22d58a929c4bd78d4208a669cd10ae44a8072f45fabfb4bcb217db4fdcd79a3
