@@ -7,8 +7,7 @@ build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE=Release -DENABLE_QT=ON
  -DYUZU_USE_BUNDLED_QT=OFF -DYUZU_TESTS=OFF -DENABLE_WEB_SERVICE=OFF
  -DENABLE_UPDATE_CHECKER=OFF -DUSE_DISCORD_PRESENCE=OFF -DENABLE_CUBEB=OFF
- -DYUZU_USE_BUNDLED_FFMPEG=OFF -DYUZU_USE_EXTERNAL_FFMPEG=OFF
- -DSUYU_USE_LOCAL_EXTERNALS=ON"
+ -DYUZU_USE_BUNDLED_FFMPEG=OFF -DYUZU_USE_EXTERNAL_FFMPEG=OFF"
 hostmakedepends="pkg-config cmake ninja python3 nasm git"
 makedepends="qt6-base-devel qt6-svg-devel qt6-charts-devel qt6-multimedia-devel
  qt6-wayland-devel qt6-tools-devel boost-devel ffmpeg6-devel SDL3-devel
