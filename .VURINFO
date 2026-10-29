@@ -4208,7 +4208,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:7afb1ef669794437fd1ade290c47ab6a2b36239b84a332013c3310534046085a",
+      "sha256:9055e5bb4661a908946ff499986eb9483778d67479b056c5d18d25a90b2abdc9",
       "sha256:b44aeb3f66389eddfe7e0ef941de23f0aca6ebbd46bc088ab3c4774e13bbfe96",
       "sha256:4419f067ea99a0ab4f0414f0226d65cb5498776f9c13a8275abf905287ebf808",
       "sha256:b22d58a929c4bd78d4208a669cd10ae44a8072f45fabfb4bcb217db4fdcd79a3",
@@ -4307,7 +4307,7 @@
       "gst-plugins-good1"
     ],
     "distfiles": [
-      "https://github.com/SrDicov/singularity-desktop/archive/ab0649bb89b0e57b12860375f1e4f5942676fc06.tar.gz>singularity-desktop-0.1.0.tar.gz",
+      "https://github.com/SrDicov/singularity-desktop/archive/e0eb4c9ab6c12652dc1d482e0a183a4ad21ec7aa.tar.gz>singularity-desktop-0.1.0.tar.gz",
       "https://github.com/SrDicov/libsingularity/archive/4a8f889f42b71588a8134917d4d7d9ed497ca07c.tar.gz>libsingularity.tar.gz",
       "https://github.com/singularityos-lab/singularity-accounts/archive/dba72ec721a9caee8ad5b91d26ad92a5af133aae.tar.gz>singularity-accounts.tar.gz",
       "https://github.com/singularityos-lab/singularity-atelier/archive/4e7356a43481ff41b287556906aac0c7e5111535.tar.gz>singularity-atelier.tar.gz",
