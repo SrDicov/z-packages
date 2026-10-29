@@ -4206,7 +4206,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:7c4fb186c25749298326043c5171bf69a4009e19863d8e6d451a0231c9616bc9",
+      "sha256:5e6c4aea40ccdd368ac89affeaca4280b7191afbf559e4378ffc5d079333d2c6",
       "sha256:78ad95b7a475a948dcca798b96ebf3fb062c1d1a9cb1de60160590fd96dab5fd",
       "sha256:4419f067ea99a0ab4f0414f0226d65cb5498776f9c13a8275abf905287ebf808",
       "sha256:b22d58a929c4bd78d4208a669cd10ae44a8072f45fabfb4bcb217db4fdcd79a3",
@@ -4518,7 +4518,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 5,
+    "revision": 6,
     "subpackages": [],
     "version": "0.1.0"
   },
