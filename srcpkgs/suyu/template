@@ -31,6 +31,8 @@ checksum=773fc0b3fbd34ab572717e75dd3eeba6ec12d0ef80893d28d37b37fdbab9830a
 post_patch() {
 	vsed -i src/CMakeLists.txt \
 		-e 's/-Werror=shadow>/-Wno-error=shadow>/'
+	vsed -i src/suyu_cmd/CMakeLists.txt \
+		-e 's/Vulkan::Headers VulkanMemoryAllocator\)/Vulkan::Headers GPUOpen::VulkanMemoryAllocator)/'
 }
 
 pre_configure() {
