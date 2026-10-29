@@ -4542,14 +4542,14 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:399110e9671cf7c50c7116848000e124fbb34553244f9c11f3a29b989e07bfda"
+      "sha256:773fc0b3fbd34ab572717e75dd3eeba6ec12d0ef80893d28d37b37fdbab9830a"
     ],
     "depends": [
       "qt6-svg",
       "qt6-wayland"
     ],
     "distfiles": [
-      "https://github.com/dougchansan/suyu-v${version}/archive/${_commit}.tar.gz"
+      "https://github.com/suyu-emu/suyu-main/releases/download/v${version}/suyu-v${version}-source.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -4616,7 +4616,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.0.4"
+    "version": "14.1.0"
   },
   {
     "archs": [
