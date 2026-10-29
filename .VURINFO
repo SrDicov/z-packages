@@ -238,7 +238,7 @@
       "procps-ng"
     ],
     "checksum": [
-      "sha256:89895657bec69d5dfc225bfb8a7f202392b7b4dbdc7cf40421ebcb77a1a06f8a"
+      "sha256:56fb93abc52165f38a47f60084508690a88c9376155ced98b68746cdf9b73413"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -266,7 +266,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.8.1"
+    "version": "0.9.0"
   },
   {
     "archs": [
@@ -421,7 +421,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:812a001d7631b5ab49e55dec6148a0bc2d459e9fc03106c286295ee03fd062fc"
+      "sha256:fb2b6c767726db2b562d766198618bc29a590e98f82996ade2a3a29153b555c1"
     ],
     "depends": [],
     "distfiles": [
@@ -444,7 +444,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.98.60"
+    "version": "1.98.62"
   },
   {
     "archs": [
@@ -453,7 +453,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:39a69cf12b5787f789d0a0b013f32253bddc9004d03e36c679a8daa61821b6e8"
+      "sha256:fbabdb9db411f4ef44ab49b1d1c9fb932c156128a5ac54881b1199fb5505222f"
     ],
     "depends": [
       "alsa-lib",
@@ -489,7 +489,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.98.60"
+    "version": "1.98.62"
   },
   {
     "archs": [
@@ -1075,7 +1075,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:2023fa44cefa0fbd3e19071c87e90d61275f08ba8f5b48d58c235215565e9b53"
+      "sha256:ba92acb27ec6cda36a8b948e2154009aaee0d633222ad244be25e736a143e6fa"
     ],
     "depends": [],
     "distfiles": [
@@ -1095,7 +1095,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.20.1.1"
+    "version": "0.20.2.1"
   },
   {
     "archs": [
@@ -3130,7 +3130,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:6d597970a8cc448f1b9a9f645532584b339dd3ab9583bb5f063f13d83e54768f"
+      "sha256:3179551ddf69877ca24a960b0175e94405cf3f52147f1eec705094374bef49f2"
     ],
     "depends": [
       "ripgrep"
@@ -3154,7 +3154,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.2.0"
+    "version": "2.2.1"
   },
   {
     "archs": [
