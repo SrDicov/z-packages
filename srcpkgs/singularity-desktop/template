@@ -34,7 +34,7 @@ makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
  libwebkitgtk60-devel hwids iso-codes enchant2-devel libgphoto2-devel"
 depends="labwc-singularity dbus elogind greetd xdg-desktop-portal xdg-user-dirs
  hicolor-icon-theme desktop-file-utils tinysparql gst-plugins-base1
- gst-plugins-good1"
+ gst-plugins-good1 accountsservice wireplumber mesa-dri"
 
 case "$XBPS_TARGET_MACHINE" in
 x86_64-musl)
