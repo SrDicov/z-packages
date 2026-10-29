@@ -2123,7 +2123,10 @@
       "sha256:3f2e7d4fe2e64463cfca87886408d9429b63bc7e3c418668bb14de371dd0e6f3",
       "sha256:7f595ead422fa12c1aae2af65402d1cf78ac6a8726cfb5a511b208a788981e13"
     ],
-    "depends": [],
+    "depends": [
+      "xorg-server-xwayland",
+      "mesa-dri"
+    ],
     "distfiles": [
       "https://github.com/singularityos-lab/labwc/archive/${_commit}.tar.gz>labwc-singularity-${version}.tar.gz",
       "https://github.com/wlrfx/scenefx/archive/37ccd723bef49e6891156ffafce8f549f01446cc.tar.gz>scenefx.tar.gz"
@@ -2167,7 +2170,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.20.2"
   },
@@ -4304,7 +4307,10 @@
       "desktop-file-utils",
       "tinysparql",
       "gst-plugins-base1",
-      "gst-plugins-good1"
+      "gst-plugins-good1",
+      "accountsservice",
+      "wireplumber",
+      "mesa-dri"
     ],
     "distfiles": [
       "https://github.com/SrDicov/singularity-desktop/archive/e0eb4c9ab6c12652dc1d482e0a183a4ad21ec7aa.tar.gz>singularity-desktop-0.1.0.tar.gz",
