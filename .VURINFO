@@ -3953,6 +3953,31 @@
   },
   {
     "archs": [
+      "all"
+    ],
+    "build_style": "cargo",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:ec06415e69663e33cf901eaa5c110e03ac7b4645cb75782c770d64b88296bc1b"
+    ],
+    "depends": [],
+    "distfiles": [
+      "https://github.com/SrDicov/ryclop/archive/refs/tags/v${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "ryclop",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.0.1"
+  },
+  {
+    "archs": [
       "x86_64"
     ],
     "build_style": null,
