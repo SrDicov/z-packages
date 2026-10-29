@@ -33,6 +33,7 @@ pre_configure() {
 	qpa=$(dirname "$(dirname "$(find /usr/include/qt6/QtGui \
 		-name qplatformnativeinterface.h -print -quit)")")
 	CXXFLAGS+=" -I$qpa"
+	configure_args+=" -DQt6Gui_PRIVATE_INCLUDE_DIRS=$qpa"
 }
 
 post_install() {
