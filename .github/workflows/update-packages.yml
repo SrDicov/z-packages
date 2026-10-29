@@ -243,7 +243,10 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # PR_TOKEN, no GITHUB_TOKEN: un merge hecho con GITHUB_TOKEN no dispara
+      # trigger-repos.yml (GitHub suprime los push de sus propios eventos) y
+      # el paquete queda mergeado sin publicar hasta el cron siguiente.
+      GH_TOKEN: ${{ secrets.PR_TOKEN }}
     steps:
       - name: Merge
         shell: bash
