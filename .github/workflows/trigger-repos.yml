@@ -13,6 +13,14 @@ on:
 permissions:
   contents: read
 
+# Coalesce: un push rapido tras otro solo debe dejar un dispatch. Los runs
+# de z-repo/z-repo-musl compilan durante ~40 min; lanzar otro mientras uno
+# esta vivo mata el build en curso (visto en 40953109354/40954517055/
+# 40956587585). El guard de abajo evita el dispatch si ya hay un run activo.
+concurrency:
+  group: trigger-repos
+  cancel-in-progress: true
+
 jobs:
   dispatch:
     name: Dispatch autobuild
@@ -24,6 +32,12 @@ jobs:
         run: |
           set -e
           for repo in SrDicov/z-repo SrDicov/z-repo-musl; do
+            active=$(gh run list -R "$repo" --workflow autobuild.yml \
+              --json status --jq '[.[]|select(.status!="completed")]|length')
+            if [ "$active" -gt 0 ]; then
+              echo "skip $repo: $active run(s) already active"
+              continue
+            fi
             gh api -X POST "repos/$repo/dispatches" \
               -f event_type=z-packages-update >/dev/null
             echo "disparado $repo"
