@@ -1,9 +1,9 @@
 # Template file for 'labwc-singularity'
 pkgname=labwc-singularity
 version=0.20.2
-revision=2
+revision=3
 archs="x86_64 x86_64-musl"
-depends="xorg-server-xwayland mesa-dri"
+depends="xorg-server-xwayland mesa-dri dejavu-fonts-ttf xkeyboard-config"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
  -Dxwayland=enabled -Dc_args=-D_GNU_SOURCE --force-fallback-for=scenefx-0.5
