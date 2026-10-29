@@ -28,6 +28,11 @@ changelog="https://github.com/suyu-emu/suyu-main/releases"
 distfiles="https://github.com/suyu-emu/suyu-main/releases/download/v${version}/suyu-v${version}-source.tar.gz"
 checksum=773fc0b3fbd34ab572717e75dd3eeba6ec12d0ef80893d28d37b37fdbab9830a
 
+post_patch() {
+	vsed -i src/CMakeLists.txt \
+		-e 's/-Werror=shadow>/-Wno-error=shadow>/'
+}
+
 pre_configure() {
 	local qpa
 	qpa=$(dirname "$(dirname "$(find /usr/include/qt6/QtGui \
