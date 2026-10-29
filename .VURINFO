@@ -4539,6 +4539,89 @@
     "archs": [
       "x86_64"
     ],
+    "build_style": "cmake",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:399110e9671cf7c50c7116848000e124fbb34553244f9c11f3a29b989e07bfda"
+    ],
+    "depends": [
+      "qt6-svg",
+      "qt6-wayland"
+    ],
+    "distfiles": [
+      "https://github.com/dougchansan/suyu-v${version}/archive/${_commit}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "cmake",
+      "ninja",
+      "python3",
+      "nasm",
+      "git"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "qt6-base-devel",
+      "qt6-svg-devel",
+      "qt6-charts-devel",
+      "qt6-multimedia-devel",
+      "qt6-wayland-devel",
+      "qt6-tools-devel",
+      "boost-devel",
+      "ffmpeg6-devel",
+      "SDL3-devel",
+      "libusb-devel",
+      "vulkan-loader-devel",
+      "Vulkan-Headers",
+      "Vulkan-Utility-Libraries",
+      "VulkanMemoryAllocator",
+      "libenet-devel",
+      "libgamemode-devel",
+      "frozen",
+      "fmt-devel",
+      "inih-devel",
+      "iniparser-devel",
+      "libzstd-devel",
+      "liblz4-devel",
+      "opus-devel",
+      "zlib-devel",
+      "glslang-devel",
+      "SPIRV-Tools",
+      "libglvnd-devel",
+      "libxcb-devel",
+      "libxkbcommon-devel",
+      "wayland-devel",
+      "wayland-protocols",
+      "libdecor-devel",
+      "libdrm-devel",
+      "MesaLib-devel",
+      "alsa-lib-devel",
+      "pulseaudio-devel",
+      "libX11-devel",
+      "libXext-devel",
+      "libXrandr-devel",
+      "libXcursor-devel",
+      "libXi-devel",
+      "libXfixes-devel",
+      "libXScrnSaver-devel",
+      "libXtst-devel",
+      "xcb-util-keysyms-devel",
+      "libunwind-devel",
+      "libzip-devel"
+    ],
+    "pkgname": "suyu",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.0.4"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [

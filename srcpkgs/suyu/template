@@ -1,0 +1,43 @@
+# Template file for 'suyu'
+pkgname=suyu
+version=0.0.4
+revision=1
+archs="x86_64*"
+build_style=cmake
+configure_args="-DCMAKE_BUILD_TYPE=Release -DENABLE_QT=ON
+ -DYUZU_USE_BUNDLED_QT=OFF -DYUZU_TESTS=OFF -DENABLE_WEB_SERVICE=OFF
+ -DENABLE_UPDATE_CHECKER=OFF -DUSE_DISCORD_PRESENCE=OFF -DENABLE_CUBEB=OFF
+ -DYUZU_USE_BUNDLED_FFMPEG=OFF -DYUZU_USE_EXTERNAL_FFMPEG=OFF"
+hostmakedepends="pkg-config cmake ninja python3 nasm git"
+makedepends="qt6-base-devel qt6-svg-devel qt6-charts-devel qt6-multimedia-devel
+ qt6-wayland-devel qt6-tools-devel boost-devel ffmpeg6-devel SDL3-devel
+ libusb-devel vulkan-loader-devel Vulkan-Headers Vulkan-Utility-Libraries
+ VulkanMemoryAllocator libenet-devel libgamemode-devel frozen fmt-devel
+ inih-devel iniparser-devel libzstd-devel liblz4-devel opus-devel zlib-devel
+ glslang-devel SPIRV-Tools libglvnd-devel libxcb-devel libxkbcommon-devel
+ wayland-devel wayland-protocols libdecor-devel libdrm-devel MesaLib-devel
+ alsa-lib-devel pulseaudio-devel libX11-devel libXext-devel libXrandr-devel
+ libXcursor-devel libXi-devel libXfixes-devel libXScrnSaver-devel libXtst-devel
+ xcb-util-keysyms-devel libunwind-devel libzip-devel"
+depends="qt6-svg qt6-wayland"
+short_desc="Nintendo Switch emulator (mk8-recomp fork)"
+maintainer="Dicov <SrDicov@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/dougchansan/suyu-v0.0.4"
+changelog="https://github.com/dougchansan/suyu-v0.0.4/commits/mk8-recomp"
+_commit=ab65b0eebbed930cfd9d8f5bc88a395d5af500f5
+distfiles="https://github.com/dougchansan/suyu-v${version}/archive/${_commit}.tar.gz"
+checksum=399110e9671cf7c50c7116848000e124fbb34553244f9c11f3a29b989e07bfda
+
+pre_configure() {
+	local qpa
+	qpa=$(dirname "$(dirname "$(find /usr/include/qt6/QtGui \
+		-name qplatformnativeinterface.h -print -quit)")")
+	CXXFLAGS+=" -I$qpa"
+}
+
+post_install() {
+	vinstall src/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png 64x64 \
+		dev.suyu_emu.suyu.png
+	vinstall dist/dev.suyu_emu.suyu.desktop 644 usr/share/applications
+}
