@@ -1,11 +1,12 @@
 # Template file for 'singularity-desktop'
 pkgname=singularity-desktop
 version=0.1.0
-revision=8
+revision=9
 archs="x86_64 x86_64-musl"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
- -Dinstaller=false"
+ -Dinstaller=false --force-fallback-for=scenefx-0.5
+ -Dscenefx:default_library=static -Dscenefx:examples=false"
 hostmakedepends="meson ninja vala pkg-config gettext python3 unzip tar
  glib-devel gobject-introspection sassc scdoc wayland-protocols bash bsdtar
  patch"
@@ -34,7 +35,8 @@ makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
  libwebkitgtk60-devel hwids iso-codes enchant2-devel libgphoto2-devel"
 depends="labwc-singularity dbus elogind greetd xdg-desktop-portal xdg-user-dirs
  hicolor-icon-theme desktop-file-utils tinysparql gst-plugins-base1
- gst-plugins-good1 accountsservice wireplumber mesa-dri"
+ gst-plugins-good1 accountsservice wireplumber mesa-dri bash
+ dejavu-fonts-ttf xkeyboard-config"
 
 case "$XBPS_TARGET_MACHINE" in
 x86_64-musl)
@@ -73,6 +75,7 @@ _submodules="libsingularity singularity-accounts singularity-atelier
  singularity-wave singularity-weather singularity-widgets singularity-write
  xdg-desktop-portal-singularity"
 distfiles="https://github.com/SrDicov/singularity-desktop/archive/e0eb4c9ab6c12652dc1d482e0a183a4ad21ec7aa.tar.gz>singularity-desktop-0.1.0.tar.gz
+ https://github.com/wlrfx/scenefx/archive/37ccd723bef49e6891156ffafce8f549f01446cc.tar.gz>scenefx-desktop.tar.gz
  https://github.com/SrDicov/libsingularity/archive/4a8f889f42b71588a8134917d4d7d9ed497ca07c.tar.gz>libsingularity.tar.gz
  https://github.com/singularityos-lab/singularity-accounts/archive/dba72ec721a9caee8ad5b91d26ad92a5af133aae.tar.gz>singularity-accounts.tar.gz
  https://github.com/singularityos-lab/singularity-atelier/archive/4e7356a43481ff41b287556906aac0c7e5111535.tar.gz>singularity-atelier.tar.gz
@@ -157,6 +160,7 @@ distfiles="https://github.com/SrDicov/singularity-desktop/archive/e0eb4c9ab6c126
  https://github.com/microsoft/onnxruntime/releases/download/v1.23.2/onnxruntime-linux-x64-1.23.2.tgz>onnxruntime.tgz
  https://files.pythonhosted.org/packages/2a/58/bdd5bada89d7a132375df05e962bf702c148b47043dca98d820d9395152b/mediapipe-1.0.1-py3-none-manylinux_2_28_x86_64.whl>mediapipe.whl"
 checksum="9055e5bb4661a908946ff499986eb9483778d67479b056c5d18d25a90b2abdc9
+ 7f595ead422fa12c1aae2af65402d1cf78ac6a8726cfb5a511b208a788981e13
  b44aeb3f66389eddfe7e0ef941de23f0aca6ebbd46bc088ab3c4774e13bbfe96
  4419f067ea99a0ab4f0414f0226d65cb5498776f9c13a8275abf905287ebf808
  b22d58a929c4bd78d4208a669cd10ae44a8072f45fabfb4bcb217db4fdcd79a3
@@ -250,6 +254,17 @@ do_extract() {
 		mkdir -p subprojects/$_s
 		bsdtar -xzf $_src/$_s.tar.gz -C subprojects/$_s --strip-components=1
 	done
+	# Vendored scenefx, pre-patched like the standalone labwc package. The
+	# musl patch defines __always_inline, which musl's headers do not export.
+	mkdir -p subprojects/labwc/subprojects/scenefx
+	bsdtar -xzf $_src/scenefx-desktop.tar.gz \
+		-C subprojects/labwc/subprojects/scenefx --strip-components=1
+	patch -d subprojects/labwc/subprojects/scenefx -p1 \
+		-i "${PWD}/subprojects/labwc/subprojects/packagefiles/scenefx-liquid.patch"
+	patch -d subprojects/labwc/subprojects/scenefx -p1 \
+		-i "${PWD}/subprojects/labwc/subprojects/packagefiles/scenefx-software-sync.patch"
+	patch -d subprojects/labwc/subprojects/scenefx -p1 \
+		-i "${FILESDIR}/scenefx-musl-always-inline.patch"
 	mkdir -p "$_rt/include" "$XBPS_BUILDDIR/vetro"
 	unzip -j -q -o $_src/mediapipe.whl mediapipe/tasks/c/libmediapipe.so -d $_rt
 	vsrccopy hand_landmarker.task face_landmarker.task mobileone_s0_gaze.onnx $_rt

@@ -1,0 +1,29 @@
+--- a/include/scenefx/types/fx/clipped_region.h	2026-06-28 01:36:32.000000000 -0400
++++ b/include/scenefx/types/fx/clipped_region.h	2026-10-29 19:11:34.041958082 -0400
+@@ -1,6 +1,12 @@
+ #ifndef SCENEFX_TYPES_FX_CLIPPED_REGION_H
+ #define SCENEFX_TYPES_FX_CLIPPED_REGION_H
+ 
++#ifndef __always_inline
++#define __always_inline inline __attribute__((__always_inline__))
++#endif
++#include <stdbool.h>
++#include <stdint.h>
++
+ #include <wlr/util/box.h>
+ 
+ // uint16_t is a reasonable enough range for corner radius
+--- a/include/types/fx/clipped_region.h	2026-06-28 01:36:32.000000000 -0400
++++ b/include/types/fx/clipped_region.h	2026-10-29 19:11:34.042018004 -0400
+@@ -1,5 +1,11 @@
+ #ifndef TYPES_FX_CLIPPED_REGION_H
+ #define TYPES_FX_CLIPPED_REGION_H
++
++#ifndef __always_inline
++#define __always_inline inline __attribute__((__always_inline__))
++#endif
++#include <stdbool.h>
++#include <stdint.h>
+ #include <wlr/util/box.h>
+ #include <scenefx/types/fx/clipped_region.h>
+ 

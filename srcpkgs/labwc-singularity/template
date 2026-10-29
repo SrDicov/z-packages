@@ -36,4 +36,6 @@ do_extract() {
 		-i "${PWD}/subprojects/packagefiles/scenefx-liquid.patch"
 	patch -d subprojects/scenefx -p1 \
 		-i "${PWD}/subprojects/packagefiles/scenefx-software-sync.patch"
+	patch -d subprojects/scenefx -p1 \
+		-i "${FILESDIR}/scenefx-musl-always-inline.patch"
 }
