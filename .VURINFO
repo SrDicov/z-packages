@@ -2125,7 +2125,9 @@
     ],
     "depends": [
       "xorg-server-xwayland",
-      "mesa-dri"
+      "mesa-dri",
+      "dejavu-fonts-ttf",
+      "xkeyboard-config"
     ],
     "distfiles": [
       "https://github.com/singularityos-lab/labwc/archive/${_commit}.tar.gz>labwc-singularity-${version}.tar.gz",
@@ -2170,7 +2172,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "0.20.2"
   },
