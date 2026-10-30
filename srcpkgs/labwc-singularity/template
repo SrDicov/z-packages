@@ -1,7 +1,7 @@
 # Template file for 'labwc-singularity'
 pkgname=labwc-singularity
 version=0.20.2
-revision=3
+revision=4
 archs="x86_64 x86_64-musl"
 depends="xorg-server-xwayland mesa-dri dejavu-fonts-ttf xkeyboard-config"
 build_style=meson
@@ -25,6 +25,8 @@ distfiles="https://github.com/singularityos-lab/labwc/archive/${_commit}.tar.gz>
  https://github.com/wlrfx/scenefx/archive/37ccd723bef49e6891156ffafce8f549f01446cc.tar.gz>scenefx.tar.gz"
 checksum="3f2e7d4fe2e64463cfca87886408d9429b63bc7e3c418668bb14de371dd0e6f3
  7f595ead422fa12c1aae2af65402d1cf78ac6a8726cfb5a511b208a788981e13"
+provides="labwc-${version}_${revision}"
+replaces="labwc>=0"
 conflicts="labwc>=0"
 
 do_extract() {
