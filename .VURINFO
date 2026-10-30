@@ -604,7 +604,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:473059af85ca8c7d2433ebd2a024951a8159c6109399fecaad238deaf2fd717a"
+      "sha256:fb238450a554c1b52a09d593b40c4ee2d98cd9eb7ca1e32345ee85b6035d2d29"
     ],
     "depends": [
       "libglvnd",
@@ -631,9 +631,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "2.6.3"
+    "version": "2.6.4"
   },
   {
     "archs": [
@@ -2629,7 +2629,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:c579692f1f9e4175d0b52eaf848837baf7e5939240f841218e72e0600a09f2a0"
+      "sha256:7a13c1da7737b190bbf17f4b686cd58fe48f7fd17a42a942294c0604a8481377"
     ],
     "depends": [
       "gtk+3",
@@ -2660,7 +2660,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "15.0.26"
+    "version": "16.0"
   },
   {
     "archs": [
@@ -3148,7 +3148,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:3179551ddf69877ca24a960b0175e94405cf3f52147f1eec705094374bef49f2"
+      "sha256:ef3aeeaf5522b10d69a3da7bbd6e6d8d259f845833d96b8310767d3407b18a35"
     ],
     "depends": [
       "ripgrep"
@@ -3172,7 +3172,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.2.1"
+    "version": "2.2.3"
   },
   {
     "archs": [
@@ -5321,7 +5321,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:ba81dd70af70d645f2f0a692f7fa4510f819290abfd8d8e60273d3d5a60d0536"
+      "sha256:323f2682e73e38247a51fbcc75e5628ed2bb9b404db00cf9cf16af329a916fae"
     ],
     "depends": [
       "desktop-file-utils",
@@ -5350,7 +5350,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.23.4b"
+    "version": "1.24b"
   },
   {
     "archs": [
