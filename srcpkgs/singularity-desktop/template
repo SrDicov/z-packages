@@ -1,7 +1,7 @@
 # Template file for 'singularity-desktop'
 pkgname=singularity-desktop
 version=0.1.0
-revision=15
+revision=16
 archs="x86_64 x86_64-musl"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
@@ -33,10 +33,11 @@ makedepends="gtk4-devel gtk4-layer-shell-devel vte3-gtk4-devel
  sqlite-devel libzstd-devel zlib-devel gnutls-devel glu-devel
  libwebkitgtk60-devel hwids iso-codes enchant2-devel libgphoto2-devel"
 depends="labwc-singularity dbus elogind greetd xdg-desktop-portal
- xdg-desktop-portal-gtk xdg-user-dirs hicolor-icon-theme desktop-file-utils
- tinysparql gst-plugins-base1 gst-plugins-good1 accountsservice wireplumber
- pipewire NetworkManager upower bluez polkit appmenu-gtk3-module mesa-dri
- bash dejavu-fonts-ttf xkeyboard-config"
+ xdg-desktop-portal-gtk xdg-user-dirs xdg-utils hicolor-icon-theme
+ desktop-file-utils tinysparql gst-plugins-base1 gst-plugins-good1
+ accountsservice wireplumber pipewire NetworkManager upower bluez polkit
+ fprintd cups shadow rtkit appmenu-gtk3-module mesa-dri bash dejavu-fonts-ttf
+ xkeyboard-config"
 
 case "$XBPS_TARGET_MACHINE" in
 x86_64-musl)

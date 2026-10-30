@@ -11,6 +11,12 @@ Singularity Desktop installed. To use it on Void (runit):
   1. Enable the required services (as root):
        ln -s /etc/sv/dbus /var/service/
        ln -s /etc/sv/elogind /var/service/
+     For the full desktop (skip any you already run):
+       ln -s /etc/sv/NetworkManager /var/service/   # or keep dhcpcd/connman
+       ln -s /etc/sv/bluetoothd /var/service/
+       ln -s /etc/sv/cupsd /var/service/
+       ln -s /etc/sv/rtkit /var/service/
+     (fprintd is D-Bus activated; no service to enable.)
 
   2. Set up the greeter (greetd + runit):
        sudo bash /usr/share/doc/singularity-desktop/install-greeter.sh
