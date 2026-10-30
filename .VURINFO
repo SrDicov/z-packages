@@ -4214,7 +4214,7 @@
     "checkdepends": [],
     "checksum": [
       "sha256:c6aafc5920cf594cffecb4840b336f6af55595ba16a343c23990068e4f5b23eb",
-      "sha256:b44aeb3f66389eddfe7e0ef941de23f0aca6ebbd46bc088ab3c4774e13bbfe96",
+      "sha256:6a17d68d7e52fb36bbd84317fe0578b69b92750996501cca120ad4708cc13bf8",
       "sha256:4419f067ea99a0ab4f0414f0226d65cb5498776f9c13a8275abf905287ebf808",
       "sha256:b22d58a929c4bd78d4208a669cd10ae44a8072f45fabfb4bcb217db4fdcd79a3",
       "sha256:77d55ed66e3fc07e2f0aad0c5d1bf3ac8c8f81c79bf4d96982314ccaccb7a111",
@@ -4323,6 +4323,9 @@
       "cups",
       "shadow",
       "rtkit",
+      "nftables",
+      "libheif-tools",
+      "sane",
       "appmenu-gtk3-module",
       "mesa-dri",
       "bash",
@@ -4331,7 +4334,7 @@
     ],
     "distfiles": [
       "https://github.com/SrDicov/singularity-desktop/archive/0d20055795a87a88fda77726814b19533a2c318c.tar.gz>singularity-desktop-0.1.0.tar.gz",
-      "https://github.com/SrDicov/libsingularity/archive/4a8f889f42b71588a8134917d4d7d9ed497ca07c.tar.gz>libsingularity.tar.gz",
+      "https://github.com/SrDicov/libsingularity/archive/786a65be7b3bdaf233d6695b8c32773ec4552ee8.tar.gz>libsingularity.tar.gz",
       "https://github.com/singularityos-lab/singularity-accounts/archive/dba72ec721a9caee8ad5b91d26ad92a5af133aae.tar.gz>singularity-accounts.tar.gz",
       "https://github.com/singularityos-lab/singularity-atelier/archive/4e7356a43481ff41b287556906aac0c7e5111535.tar.gz>singularity-atelier.tar.gz",
       "https://github.com/singularityos-lab/singularity-authenticator/archive/75a7dfaca5bc27cf285b886826c52e47006a194c.tar.gz>singularity-authenticator.tar.gz",
@@ -4443,7 +4446,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 17,
+    "revision": 18,
     "subpackages": [],
     "version": "0.1.0"
   },
