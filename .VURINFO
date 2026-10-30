@@ -2169,10 +2169,14 @@
       "eudev-libudev-devel"
     ],
     "pkgname": "labwc-singularity",
-    "provides": [],
-    "replaces": [],
+    "provides": [
+      "labwc-${version}_${revision}"
+    ],
+    "replaces": [
+      "labwc>=0"
+    ],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "0.20.2"
   },
