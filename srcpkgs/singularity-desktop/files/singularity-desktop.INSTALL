@@ -11,14 +11,14 @@ Singularity Desktop installed. To use it on Void (runit):
        ln -s /etc/sv/dbus /var/service/
        ln -s /etc/sv/elogind /var/service/
 
-  2. Deploy host integration (sudo or doas, prefix auto-detected):
-       sudo bash /usr/share/doc/singularity-desktop/deploy-to-host.sh
-     (doas-only systems: doas bash ... — never `doas VAR=x cmd`)
-
-  3. Set up the greeter (greetd + runit):
+  2. Set up the greeter (greetd + runit):
        sudo bash /usr/share/doc/singularity-desktop/install-greeter.sh
 
-  4. Reboot and log in from the greeter.
+  3. Reboot and log in from the greeter.
+
+Do NOT run deploy-to-host.sh: the package already installs the session
+entry, the portal/keyring D-Bus activation and the polkit agent into
+/usr. That script only exists for source installs under /opt/local.
 ================================================================
 EOF
 	;;
