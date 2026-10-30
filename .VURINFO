@@ -4312,11 +4312,15 @@
       "tinysparql",
       "gst-plugins-base1",
       "gst-plugins-good1",
+      "gst-plugins-bad1",
+      "gst-plugins-ugly1",
+      "gst-libav",
       "accountsservice",
       "wireplumber",
       "pipewire",
       "NetworkManager",
       "upower",
+      "power-profiles-daemon",
       "bluez",
       "polkit",
       "fprintd",
@@ -4344,6 +4348,8 @@
       "mesa-dri",
       "bash",
       "dejavu-fonts-ttf",
+      "noto-fonts-ttf",
+      "noto-fonts-emoji",
       "xkeyboard-config"
     ],
     "distfiles": [
@@ -4460,7 +4466,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 19,
+    "revision": 20,
     "subpackages": [],
     "version": "0.1.0"
   },
