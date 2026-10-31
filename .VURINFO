@@ -238,7 +238,7 @@
       "procps-ng"
     ],
     "checksum": [
-      "sha256:776a6084c044adacf7d2b9b53fc2878327ad68c6ee98f8fb387bfa1336870e7a"
+      "sha256:38eda28e93f1495ddf67f1963655224f10ec0ba61133118b20105df588b0913d"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -266,7 +266,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.10.0"
+    "version": "0.11.1"
   },
   {
     "archs": [
@@ -421,7 +421,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:fb2b6c767726db2b562d766198618bc29a590e98f82996ade2a3a29153b555c1"
+      "sha256:24227cd5a9259ebdc5108db394cc5998df5ac3635f84f8838a7464a7b5cddd55"
     ],
     "depends": [],
     "distfiles": [
@@ -444,7 +444,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.98.62"
+    "version": "1.98.63"
   },
   {
     "archs": [
@@ -453,7 +453,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:fbabdb9db411f4ef44ab49b1d1c9fb932c156128a5ac54881b1199fb5505222f"
+      "sha256:7714b3c2bb3e92c14f8f8ab373e2d298ff941abe1d81589c21c5f9227ac07c0b"
     ],
     "depends": [
       "alsa-lib",
@@ -489,7 +489,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.98.62"
+    "version": "1.98.63"
   },
   {
     "archs": [
@@ -740,7 +740,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:479f2d46a632a9b89c37de1b835a4a30e6f1fca01b54a808f6ae6fb2f9aaf508"
+      "sha256:6109783545294f7be3111c98a0997b284d693678c836013f9a313932766b1f6a"
     ],
     "depends": [
       "python3-gobject",
@@ -779,7 +779,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.5.4"
+    "version": "2.5.5"
   },
   {
     "archs": [
@@ -3148,7 +3148,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:ef3aeeaf5522b10d69a3da7bbd6e6d8d259f845833d96b8310767d3407b18a35"
+      "sha256:09f44302c10fd036912f59c81fd1aef5df45dd06f649197f9dfc9bbe2a79614e"
     ],
     "depends": [
       "ripgrep"
@@ -3172,7 +3172,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.2.3"
+    "version": "2.2.5"
   },
   {
     "archs": [
