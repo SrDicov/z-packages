@@ -238,7 +238,7 @@
       "procps-ng"
     ],
     "checksum": [
-      "sha256:38eda28e93f1495ddf67f1963655224f10ec0ba61133118b20105df588b0913d"
+      "sha256:c1e005a0d445791ad100cf44df0c3c615f4b2b35bc6de46cfb53f4b0074d44e4"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -266,7 +266,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.11.1"
+    "version": "0.12.0"
   },
   {
     "archs": [
@@ -1075,7 +1075,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:ba92acb27ec6cda36a8b948e2154009aaee0d633222ad244be25e736a143e6fa"
+      "sha256:3759ea4e95bf4ef4a0a6477e3d73576b0f03906f2e80357275bfc6cacafb5fac"
     ],
     "depends": [],
     "distfiles": [
@@ -1095,7 +1095,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.20.2.1"
+    "version": "0.20.3.1"
   },
   {
     "archs": [
@@ -1147,7 +1147,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:3982e1ba4026f436378b54bce831f0dd340833b574325950a7dbf03c363b215a"
+      "sha256:63fd66c39aa05e2ffeb11c4d0213243dfaad17631268f25187b1e34c5c020c61"
     ],
     "depends": [
       "gtk+3",
@@ -1191,7 +1191,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "4.2.0"
+    "version": "4.3.0"
   },
   {
     "archs": [
@@ -2187,7 +2187,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:a742250c7e8ea363758a024688226a4296a6798adc57abe0903d580ab195b749"
+      "sha256:dc31c213c19af64434a8ed553f023da77c85a1d4cb0d139c3e1f3cf5f8ba30aa"
     ],
     "depends": [],
     "distfiles": [
@@ -2211,9 +2211,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   {
     "archs": [
