@@ -1672,6 +1672,7 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
+      "aquamarine-devel",
       "hyprutils-nk-devel",
       "hyprtoolkit-devel",
       "hyprgraphics-devel",
