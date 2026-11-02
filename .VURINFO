@@ -1673,11 +1673,12 @@
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
       "hyprutils-nk-devel",
+      "hyprtoolkit-devel",
+      "hyprgraphics-devel",
+      "hyprlang-devel",
       "pixman-devel",
-      "polkit-devel",
-      "polkit-qt6-devel",
-      "qt6-base-devel",
-      "qt6-declarative-devel"
+      "libdrm-devel",
+      "sdbus-c++-devel"
     ],
     "pkgname": "hyprpolkitagent",
     "provides": [],
