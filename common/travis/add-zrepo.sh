@@ -26,8 +26,17 @@ esac
 mkdir -p etc/xbps.d/custom etc/repo-keys
 printf 'repository=%s\n' "$repo" >etc/xbps.d/custom/10-zrepo.conf
 
-key=$(curl -fsSL https://github.com/SrDicov/z-repo/releases/expanded_assets/stable |
-	grep -oE '[0-9a-f]{2}(\.[0-9a-f]{2}){15}\.plist' | head -1)
+# El release se reescribe mientras z-repo publica: GitHub puede devolver
+# 404 de forma transitoria. Reintentar evita tumbar el build por eso.
+key=
+for _ in 1 2 3; do
+	if key=$(curl -fsSL https://github.com/SrDicov/z-repo/releases/expanded_assets/stable |
+		grep -oE '[0-9a-f]{2}(\.[0-9a-f]{2}){15}\.plist' | head -1) &&
+		[ -n "$key" ]; then
+		break
+	fi
+	sleep 3
+done
 if [ -z "$key" ]; then
 	echo "zrepo: no encontre la clave publica en el release" >&2
 	exit 1
