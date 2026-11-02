@@ -1,7 +1,7 @@
 # Template file for 'hyprtoolkit'
 pkgname=hyprtoolkit
 version=0.6.0
-revision=1
+revision=2
 archs="x86_64*"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -22,7 +22,11 @@ post_install() {
 }
 
 hyprtoolkit-devel_package() {
-	depends="${sourcepkg}>=${version}_${revision}"
+	depends="${sourcepkg}>=${version}_${revision}
+	 abseil-cpp-devel aquamarine-devel cairo-devel hyprgraphics-devel
+	 hyprlang-devel hyprutils-nk-devel iniparser-devel libdrm-devel
+	 libgbm-devel libglvnd-devel libxkbcommon-devel pango-devel pixman-devel
+	 wayland-devel wayland-protocols"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

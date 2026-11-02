@@ -1734,7 +1734,22 @@
       "sha256:53c41be72af97d9ede274a63c9c1034c58726d862905763ed6e5a564ae42ba6b"
     ],
     "depends": [
-      "${sourcepkg}>=${version}_${revision}"
+      "${sourcepkg}>=${version}_${revision}",
+      "abseil-cpp-devel",
+      "aquamarine-devel",
+      "cairo-devel",
+      "hyprgraphics-devel",
+      "hyprlang-devel",
+      "hyprutils-nk-devel",
+      "iniparser-devel",
+      "libdrm-devel",
+      "libgbm-devel",
+      "libglvnd-devel",
+      "libxkbcommon-devel",
+      "pango-devel",
+      "pixman-devel",
+      "wayland-devel",
+      "wayland-protocols"
     ],
     "distfiles": [
       "https://github.com/hyprwm/hyprtoolkit/archive/refs/tags/v${version}.tar.gz"
@@ -1768,7 +1783,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [
       {
         "pkgname": "hyprtoolkit-devel"
