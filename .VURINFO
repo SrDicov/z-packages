@@ -534,7 +534,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:9add622916c5fa3861afd95081af77e25488c108ca9c543e1f67560b390d28d4"
+      "sha256:46f1e22d028698fe9edaefd5847aece07c4509a30d3709e104220719d8c12822"
     ],
     "depends": [
       "gtk+3",
@@ -595,7 +595,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "26.1016.61520"
+    "version": "26.1027.51404"
   },
   {
     "archs": [
@@ -1330,9 +1330,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.11.0"
+    "version": "1.1.0"
   },
   {
     "archs": [
@@ -1658,7 +1658,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:a8fa714b92d47331f056b608cb731dd1f5cc3845a9109cb22c6e6eb55b4eac84"
+      "sha256:dcb1147e28efe03f308513f9dad69ab54e3cb9eca38795c4498d968b4f5ec602"
     ],
     "depends": [
       "polkit"
@@ -1683,9 +1683,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.1.3"
+    "version": "0.2.0"
   },
   {
     "archs": [
@@ -2553,7 +2553,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:42552aeede3ddb5d413bb6d5a5783cb41a40595cec8c95b7aa28b07f0cb6b5fe"
+      "sha256:1e7d2df3854838aeef35b914ab49ad24c600e3ddaac5cc977cebda89608f10ba"
     ],
     "depends": [
       "dbus",
@@ -2595,7 +2595,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.18.2"
+    "version": "0.18.3"
   },
   {
     "archs": [
@@ -3580,7 +3580,7 @@
     "build_style": "python3-module",
     "checkdepends": [],
     "checksum": [
-      "sha256:7b199a0e4e931f0edc9a5b1f0a14cca47806f46735a09325d334125d1067e07a"
+      "sha256:6911b3a9fe7872db5d0d7e835787007cc9dfa1d09a9ff92f906c1004c6339901"
     ],
     "depends": [
       "python3-click",
@@ -3605,7 +3605,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.0.5"
+    "version": "1.1.0"
   },
   {
     "archs": [
@@ -3648,7 +3648,7 @@
     "build_style": "python3-module",
     "checkdepends": [],
     "checksum": [
-      "sha256:5952c44a3853a5b2d7b41391888bbd749f14558b09e0ab54b240b6980e0df424"
+      "sha256:f31549f1e7da96d9dc3e5e9d65e7c5f6c7517dbe5ca23828ad05b48191b10d5f"
     ],
     "depends": [
       "python3",
@@ -3678,7 +3678,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "4.18.8"
+    "version": "4.19.0"
   },
   {
     "archs": [
@@ -3889,7 +3889,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:d5654868a0f4f31a30b251b54fffc32ca9ac578d99815e87c00903d4b9f788b9"
+      "sha256:d87b39862bec6a82bbb530731ae1fa36bba4bc9954ff72518a187420eed9ec7d"
     ],
     "depends": [
       "alsa-lib",
@@ -3919,7 +3919,7 @@
       "xdg-utils"
     ],
     "distfiles": [
-      "https://www.reaper.fm/files/7.x/reaper781_linux_x86_64.tar.xz>reaper-${version}-linux-x86_64.tar.xz"
+      "https://www.reaper.fm/files/7.x/reaper784_linux_x86_64.tar.xz>reaper-${version}-linux-x86_64.tar.xz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -3939,7 +3939,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "7.82"
+    "version": "7.84"
   },
   {
     "archs": [
@@ -4691,7 +4691,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:c192bd39a3c9041d8bcdd784dad951feb52a07c3a79cd3d78b5049be20c847bb"
+      "sha256:18e0e7ff1b2a46dfda90956571c82ea58b52b842d612e74f2441c74a3c782ac9"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -4712,9 +4712,9 @@
       "trinity-launcher-ap>=0"
     ],
     "restricted": false,
-    "revision": 3,
+    "revision": 1,
     "subpackages": [],
-    "version": "20261002"
+    "version": "20261102"
   },
   {
     "archs": [
@@ -4723,7 +4723,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:ee09766307c9c1fe9ac5f37071525d4ddf7f2a249681c4a8fa6bda75461e0283"
+      "sha256:fbf711fb7f3caff1015c507c1eb5f71d1c79606522942f21e716314655321d43"
     ],
     "depends": [
       "gtk+3",
@@ -4768,7 +4768,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "3.22.4"
+    "version": "3.22.5"
   },
   {
     "archs": [
@@ -4952,7 +4952,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:48f658052e54e020a1c1be7b37ac0f9ae39f07e8ccda805c63f053cfda72b2be"
+      "sha256:17b72a7e6f40a5b5dce9850f10eea13ce734a63052b67fa021cc01e715ad4cf1"
     ],
     "depends": [
       "libXtst",
@@ -4966,7 +4966,7 @@
       "desktop-file-utils"
     ],
     "distfiles": [
-      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/e646868227c3e3a9e3f24277c8c7220be42c0be7/code-stable-x64-1792691793.tar.gz"
+      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/2c33b50b16c472efe58357d1d2a8a5414bc23fbf/code-stable-x64-1793133762.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -4985,7 +4985,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.143.1"
+    "version": "1.144.0"
   },
   {
     "archs": [
@@ -5021,7 +5021,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:2ab63d678d200a13dbcbd56df9d70b4e182c508dcb013f1d39304d63908dd482"
+      "sha256:f0a1c6200114da53098bbf2dc1273ad1d9eebe0dace4c2ed33b785b199732d60"
     ],
     "depends": [],
     "distfiles": [
@@ -5041,7 +5041,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "6.7.4"
+    "version": "6.7.7"
   },
   {
     "archs": [
