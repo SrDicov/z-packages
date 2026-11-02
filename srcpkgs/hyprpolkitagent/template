@@ -6,8 +6,10 @@ archs="x86_64*"
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_LIBEXECDIR=lib"
 hostmakedepends="pkg-config"
-makedepends="aquamarine-devel hyprutils-nk-devel hyprtoolkit-devel
- hyprgraphics-devel hyprlang-devel pixman-devel libdrm-devel sdbus-c++-devel"
+makedepends="abseil-cpp-devel aquamarine-devel cairo-devel hyprutils-nk-devel
+ hyprtoolkit-devel hyprgraphics-devel hyprlang-devel iniparser-devel
+ libdrm-devel libgbm-devel libglvnd-devel libxkbcommon-devel pango-devel
+ pixman-devel sdbus-c++-devel wayland-devel wayland-protocols"
 depends="polkit"
 short_desc="Polkit authentication agent for Hyprland"
 maintainer="Dicov <SrDicov@gmail.com>"
