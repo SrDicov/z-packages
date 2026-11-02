@@ -1,16 +1,17 @@
 # Template file for 'protonvpn-api-core'
 pkgname=protonvpn-api-core
-version=5.8.11
+version=6.1.1
 revision=1
 archs="x86_64*"
 build_style=python3-module
 makedepends="python3-setuptools"
 depends="python3 python3-Jinja2 python3-cairo python3-cryptography
- python3-distro python3-fido2 python3-gobject python3-packaging python3-pynacl
- python3-sentry protonvpn-core protonvpn-local-agent"
+ python3-dbus-fast python3-distro python3-fido2 python3-gobject
+ python3-packaging python3-pynacl python3-sentry protonvpn-core
+ protonvpn-local-agent"
 short_desc="ProtonVPN API Core"
 maintainer="Voiders <repo@voiders.dev>"
 license="GPL-3.0-or-later"
 homepage="https://protonvpn.com"
 distfiles="https://github.com/ProtonVPN/python-proton-vpn-api-core/archive/refs/tags/v${version}.tar.gz"
-checksum=97352c2d8ca8d7450eeb209e9f83250ab411fc62525dde4549790c78fd3ac2bd
+checksum=9b8a4eca0c59c53c51e95862fb00c31f146f38d2ee88bb3fbda24ed53fdefa67
