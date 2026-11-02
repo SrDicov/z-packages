@@ -267,8 +267,14 @@ jobs:
             seen=0
             # 30 min: con varias builds encoladas los checks tardan en
             # registrarse y una espera corta deja PRs sin mergear.
+            # `gh pr checks` sale con 8 mientras hay checks pendientes, asi
+            # que su codigo de salida no distingue "no existen" de "aun no
+            # terminan". statusCheckRollup no tiene ese problema.
             for _ in $(seq 1 40); do
-              if gh pr checks "$pr" --repo "$repo" >/dev/null 2>&1; then
+              n=$(gh pr view "$pr" --repo "$repo" \
+                --json statusCheckRollup --jq '.statusCheckRollup | length' \
+                2>/dev/null || echo 0)
+              if [ "${n:-0}" -gt 0 ]; then
                 seen=1
                 break
               fi
@@ -283,15 +289,20 @@ jobs:
             # --watch se queda esperando si algun check se queda en un estado
             # que no avanza (action_required, por ejemplo).
             for _ in $(seq 1 160); do
-                pending=$(gh pr checks "$pr" --repo "$repo" --json state \
-                    --jq '[.[] | select(.state != "SUCCESS" and .state != "FAILURE" and .state != "SKIPPED")] | length')
+                pending=$(gh pr view "$pr" --repo "$repo" \
+                    --json statusCheckRollup \
+                    --jq '[.statusCheckRollup[] | select(.status != null and .status != "COMPLETED")] | length' \
+                    2>/dev/null || echo 1)
                 [ "${pending:-0}" -eq 0 ] && break
                 sleep 30
             done
             # El merge automatico exige que los BUILDS esten en verde: el
             # lint es cosmetico y sus problemas se reportan aparte.
-            if [ "$(gh pr checks "$pr" --repo "$repo" --json name,state \
-                --jq '[.[] | select(.name | startswith("Build packages")) | .state] | all(. == "SUCCESS")')" != "true" ]; then
+            green=$(gh pr view "$pr" --repo "$repo" \
+                --json statusCheckRollup \
+                --jq '[.statusCheckRollup[] | select(.name != null and (.name | startswith("Build packages"))) | .conclusion] as $b | (($b | length) > 0) and ($b | all(. == "SUCCESS"))' \
+                2>/dev/null || echo false)
+            if [ "$green" != "true" ]; then
               echo "PR #$pr: los builds no estan en verde, no se mergea" >&2
               rc=1
               continue
