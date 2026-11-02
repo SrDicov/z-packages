@@ -3,7 +3,6 @@ pkgname=labwc-singularity
 version=0.20.2
 revision=4
 archs="x86_64 x86_64-musl"
-depends="xorg-server-xwayland mesa-dri dejavu-fonts-ttf xkeyboard-config"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
  -Dxwayland=enabled -Dc_args=-D_GNU_SOURCE --force-fallback-for=scenefx-0.5
@@ -15,6 +14,7 @@ makedepends="cairo-devel glib-devel libpng-devel librsvg-devel libsfdo-devel
  xorg-server-xwayland xcb-util-wm-devel libglvnd-devel libdisplay-info-devel
  libliftoff-devel libdrm-devel libinput-devel libseat-devel libxkbcommon-devel
  eudev-libudev-devel"
+depends="xorg-server-xwayland mesa-dri dejavu-fonts-ttf xkeyboard-config"
 short_desc="Singularity fork of the labwc Wayland compositor"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-2.0-or-later"
