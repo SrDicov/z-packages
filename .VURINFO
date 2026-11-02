@@ -5274,9 +5274,11 @@
       "liberation-fonts-ttf"
     ],
     "checksum": [
-      "sha256:3192c7f852fe5b859e66c78057b3b6c10127513c6ee8700d5d9eebf58dc6383f"
+      "sha256:cec5e9a8cfe0632535b3ec4c79ea193ad686239cc8d4767350683123787a6b47"
     ],
-    "depends": [],
+    "depends": [
+      "gnome-keyring"
+    ],
     "distfiles": [
       "https://github.com/crmne/zapfast/archive/v${version}.tar.gz"
     ],
@@ -5313,7 +5315,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.20.1"
+    "version": "0.21.0"
   },
   {
     "archs": [
