@@ -19,6 +19,12 @@ on:
 permissions:
   contents: write
 
+# Varios merges seguidos disparan varias ejecuciones a la vez; sin esto
+# todas compiten por el mismo push y solo una gana.
+concurrency:
+  group: vurinfo
+  cancel-in-progress: false
+
 jobs:
   vurinfo:
     name: Generate root .VURINFO
@@ -27,11 +33,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate root .VURINFO
-        run: python3 .github/scripts/gen-vurinfo.py .VURINFO srcpkgs
-
       - name: Commit and push if changed
         run: |
+          # Regenerar sobre el master mas reciente, no sobre el commit del
+          # evento: un merge puede haber entrado mientras arrancaba el job.
+          git fetch origin master
+          git checkout -B master origin/master
+          python3 .github/scripts/gen-vurinfo.py .VURINFO srcpkgs
           git add .VURINFO
           if git diff --cached --quiet; then
             echo "sin cambios en .VURINFO"
