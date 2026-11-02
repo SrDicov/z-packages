@@ -146,6 +146,8 @@ EXCLUDE = {
     "antigravity-bin": "el asset lleva un build id propio y el bucket no es listable",
     "dmemcg-booster-nk": "el distfile es un commit pineado y el version= va aparte",
     "hyprpolkitagent": "0.2.0 exige hyprtoolkit, que no esta en Void; Ryoku usa 0.1.3",
+    "hyprgraphics": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
+    "aquamarine": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
 }
 # Caches de red. El detector pregunta por los mismos repos (brave-bin y
 # brave-origin-bin son el mismo repo) y compara las mismas versiones mil
