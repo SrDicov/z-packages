@@ -779,7 +779,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.5.6"
+    "version": "2.5.7"
   },
   {
     "archs": [
@@ -3555,7 +3555,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "11.1.1"
+    "version": "11.1.2"
   },
   {
     "archs": [
@@ -5481,7 +5481,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.21.0"
+    "version": "0.21.1"
   },
   {
     "archs": [
