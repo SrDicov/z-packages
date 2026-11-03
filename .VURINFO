@@ -188,7 +188,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:2f9de98c0bd1b7b1b09c576e390a2fef436449762fb334163c414f0c300296f2"
+      "sha256:42339c3096c9de6582c0d71bc86b7e63334a3faf6a2b917d385ad093caf66c3c"
     ],
     "depends": [
       "aquamarine-${version}_${revision}",
@@ -221,13 +221,13 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 6,
+    "revision": 1,
     "subpackages": [
       {
         "pkgname": "aquamarine-devel"
       }
     ],
-    "version": "0.15.1"
+    "version": "0.16.0"
   },
   {
     "archs": [
@@ -1475,7 +1475,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:82d006ba9264fe67266c7d583c16f1a6c64d51424dbdc472c3e9c9d5ddfcd559"
+      "sha256:24e7428f83115e58e5fc81f100f6b73691dcaaf7a503087391e44327a71c43ab"
     ],
     "depends": [
       "${sourcepkg}>=${version}_${revision}"
@@ -1551,7 +1551,7 @@
         "pkgname": "hyprland-devel"
       }
     ],
-    "version": "0.57.0"
+    "version": "0.57.1"
   },
   {
     "archs": [
@@ -1792,7 +1792,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [
       {
         "pkgname": "hyprtoolkit-devel"
@@ -5225,7 +5225,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.5.0"
   },

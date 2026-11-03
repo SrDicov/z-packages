@@ -1,7 +1,7 @@
 # Template file for 'xdg-desktop-portal-hyprland'
 pkgname=xdg-desktop-portal-hyprland
 version=1.5.0
-revision=1
+revision=2
 archs="x86_64*"
 build_style=cmake
 configure_args="-DSYSTEMD_SERVICES=OFF -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"
