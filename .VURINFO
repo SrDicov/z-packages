@@ -534,7 +534,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:46f1e22d028698fe9edaefd5847aece07c4509a30d3709e104220719d8c12822"
+      "sha256:f3af8afec5d25c228eb6f4dbd9cfde0fea7ca5e4b42aff0145a1ded273d01b2d"
     ],
     "depends": [
       "gtk+3",
@@ -595,7 +595,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "26.1027.51404"
+    "version": "26.1029.61003"
   },
   {
     "archs": [
@@ -740,7 +740,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:fab1a281d1aae671a0fe7a41059e1eb65f0588477e1cf2364bd89313b5022c88"
+      "sha256:7fda460d6756102d2ce3fd54ad527174d437464449c30c732e0242120769a569"
     ],
     "depends": [
       "python3-gobject",
@@ -3515,7 +3515,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:7707f48da4f8eb48accc352b325ae0e3b93ed2c9d56071ce0b74b8a0dab0be7a",
+      "sha256:57d7db6536ede38b86988e41f75b48e6a8653769c7a06c6a317b2a40e3a20a8d",
       "sha256:20aa066e2f2051eca725f3f700580813a2d357814fd53c76d916ab641afa1fa8"
     ],
     "depends": [
@@ -5118,7 +5118,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:17b72a7e6f40a5b5dce9850f10eea13ce734a63052b67fa021cc01e715ad4cf1"
+      "sha256:59d8d6f9dc2431353c453cf6a4da0faae3993e332007ab387f526332eef93fe4"
     ],
     "depends": [
       "libXtst",
@@ -5132,7 +5132,7 @@
       "desktop-file-utils"
     ],
     "distfiles": [
-      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/2c33b50b16c472efe58357d1d2a8a5414bc23fbf/code-stable-x64-1793133762.tar.gz"
+      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/261c84cb1eddf11235f9e2c921425e9663fbe556/code-stable-x64-1793549455.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -5151,7 +5151,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.144.0"
+    "version": "1.144.1"
   },
   {
     "archs": [
@@ -5440,7 +5440,7 @@
       "liberation-fonts-ttf"
     ],
     "checksum": [
-      "sha256:cec5e9a8cfe0632535b3ec4c79ea193ad686239cc8d4767350683123787a6b47"
+      "sha256:39437cdb259aa6576d19172e2b3e98a524619923497e4751cb0282e86bf54338"
     ],
     "depends": [
       "gnome-keyring"
@@ -5564,7 +5564,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:1cbe9df9f27e6b78d14ccbca43b6703a404ef79ef1c463de901d7f088d4e2026"
+      "sha256:3581863e3cbcfd0fce0efc682ce7e9e93da96668a977791d356a26d2a7e9b17a"
     ],
     "depends": [],
     "distfiles": [
@@ -5586,6 +5586,6 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.17.0"
+    "version": "0.17.1"
   }
 ]
