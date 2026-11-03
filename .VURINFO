@@ -1067,9 +1067,13 @@
       "vulkan-loader-devel",
       "dbus-devel"
     ],
-    "pkgname": "gpu-screen-recorder",
-    "provides": [],
-    "replaces": [],
+    "pkgname": "gpu-screen-recorder-nk",
+    "provides": [
+      "gpu-screen-recorder-${version}_${revision}"
+    ],
+    "replaces": [
+      "gpu-screen-recorder>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -1105,9 +1109,13 @@
       "libxkbcommon-devel",
       "wayland-devel"
     ],
-    "pkgname": "gpu-screen-recorder-notification",
-    "provides": [],
-    "replaces": [],
+    "pkgname": "gpu-screen-recorder-notification-nk",
+    "provides": [
+      "gpu-screen-recorder-notification-${version}_${revision}"
+    ],
+    "replaces": [
+      "gpu-screen-recorder-notification>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
@@ -1123,8 +1131,8 @@
       "sha256:36257f5d7859c98b04c4c51d98d17d8f20a464f093794263c866dc61870462f2"
     ],
     "depends": [
-      "gpu-screen-recorder",
-      "gpu-screen-recorder-notification",
+      "gpu-screen-recorder-nk",
+      "gpu-screen-recorder-notification-nk",
       "libcap-progs"
     ],
     "distfiles": [
@@ -1156,9 +1164,13 @@
       "libcap-devel",
       "wayland-devel"
     ],
-    "pkgname": "gpu-screen-recorder-ui",
-    "provides": [],
-    "replaces": [],
+    "pkgname": "gpu-screen-recorder-ui-nk",
+    "provides": [
+      "gpu-screen-recorder-ui-${version}_${revision}"
+    ],
+    "replaces": [
+      "gpu-screen-recorder-ui>=0"
+    ],
     "restricted": false,
     "revision": 1,
     "subpackages": [],
