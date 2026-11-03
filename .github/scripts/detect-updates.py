@@ -148,6 +148,7 @@ EXCLUDE = {
     "hyprpolkitagent": "0.2.0 exige hyprtoolkit, que no esta en Void; Ryoku usa 0.1.3",
     "hyprgraphics": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
     "aquamarine": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
+    "hyprland": "0.57.1 exige aquamarine 0.16.0: bump coordinado de SONAME, no automatico",
 }
 # Caches de red. El detector pregunta por los mismos repos (brave-bin y
 # brave-origin-bin son el mismo repo) y compara las mismas versiones mil
