@@ -238,7 +238,7 @@
       "procps-ng"
     ],
     "checksum": [
-      "sha256:f53997d722e0da3aee5383ba0e8817530815f4a60de203828d2f8419bfa525eb"
+      "sha256:d11d61c5fbbf5af7979a97de017e4a57e46beb7d516ecbe3e6b5ff8f998276cd"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -266,7 +266,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.13.0"
+    "version": "0.14.0"
   },
   {
     "archs": [
