@@ -1,5 +1,5 @@
-# Template file for 'gpu-screen-recorder-notification'
-pkgname=gpu-screen-recorder-notification
+# Template file for 'gpu-screen-recorder-notification-nk'
+pkgname=gpu-screen-recorder-notification-nk
 version=1.3.9
 revision=1
 build_style=meson
@@ -12,3 +12,5 @@ license="GPL-3.0-only, OFL-1.1"
 homepage="https://git.dec05eba.com/gpu-screen-recorder-notification/about"
 distfiles="https://dec05eba.com/snapshot/gpu-screen-recorder-notification.git.${version}.tar.gz"
 checksum=8e86a27fdddb59290d9d3d67b209819b33e5a533e95a8be3f7bc235e4d6b8a30
+provides="gpu-screen-recorder-notification-${version}_${revision}"
+replaces="gpu-screen-recorder-notification>=0"

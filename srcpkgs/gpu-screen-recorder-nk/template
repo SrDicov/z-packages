@@ -1,5 +1,5 @@
-# Template file for 'gpu-screen-recorder'
-pkgname=gpu-screen-recorder
+# Template file for 'gpu-screen-recorder-nk'
+pkgname=gpu-screen-recorder-nk
 version=6.1.7
 revision=1
 build_style=meson
@@ -17,3 +17,5 @@ license="GPL-3.0-only"
 homepage="https://git.dec05eba.com/gpu-screen-recorder/about"
 distfiles="https://dec05eba.com/snapshot/gpu-screen-recorder.git.${version}.tar.gz"
 checksum=17be095ed8c6200c467c1477cc127c97b056b25071443d015e0ef026cf3fcd73
+provides="gpu-screen-recorder-${version}_${revision}"
+replaces="gpu-screen-recorder>=0"
