@@ -1,6 +1,6 @@
 # Template file for 'faugus-launcher'
 pkgname=faugus-launcher
-version=2.5.6
+version=2.5.7
 revision=1
 build_style=meson
 hostmakedepends="pkg-config python3 gettext glib-devel desktop-file-utils
