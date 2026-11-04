@@ -4529,6 +4529,52 @@
   },
   {
     "archs": [
+      "x86_64"
+    ],
+    "build_style": "fetch",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:00ef45f419fe05450c774027c3148220078f5e8bb9a0803b4efa732ad0471e8d"
+    ],
+    "depends": [
+      "gtk4",
+      "libwebkitgtk60",
+      "libsoup3",
+      "glib",
+      "alsa-lib",
+      "libpulseaudio",
+      "gstreamer1",
+      "gst-plugins-base1",
+      "gst-plugins-good1",
+      "gstreamer1-pipewire",
+      "libxkbcommon",
+      "hicolor-icon-theme",
+      "xdg-desktop-portal",
+      "dbus"
+    ],
+    "distfiles": [
+      "https://github.com/ViceVerse-cz/Serein/releases/download/${_tag}/serein-${_tag}-Linux-X64.AppImage"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "7zip"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "serein",
+    "provides": [
+      "serein-bin-${version}_${revision}"
+    ],
+    "replaces": [
+      "serein-bin>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "1.0.0pre20261103.74"
+  },
+  {
+    "archs": [
       "x86_64",
       "x86_64-musl"
     ],
