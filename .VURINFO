@@ -5070,6 +5070,7 @@
     "depends": [
       "nodejs",
       "qt5-declarative",
+      "qt5-quickcontrols",
       "qt5-quickcontrols2",
       "qt5-webchannel",
       "qt5-webengine"
