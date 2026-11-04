@@ -2,12 +2,12 @@
 pkgname=tracktion-download-manager
 version=2026.10
 revision=1
-only_for_archs="x86_64"
+archs="x86_64"
 short_desc="Tracktion Download Manager"
 maintainer="JavierC"
 hostmakedepends="tar xz wget"
 depends="curl alsa-lib xprop"
-license="Propietary"
+license="custom:Proprietary"
 homepage="http://www.tracktion.com"
 nostrip=yes
 
