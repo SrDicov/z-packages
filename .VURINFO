@@ -493,6 +493,43 @@
   },
   {
     "archs": [
+      "x86_64"
+    ],
+    "build_style": "fetch",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:ffddee0f190678106d2689ef8a52f6dfa07c3c62c3eb2ff1a2e18fd4ab27336f"
+    ],
+    "depends": [
+      "alsa-lib",
+      "eudev-libudev",
+      "desktop-file-utils",
+      "hicolor-icon-theme",
+      "xdg-utils"
+    ],
+    "distfiles": [
+      "https://github.com/cinnabar-mc/cinnabar/releases/download/v${version}/Cinnabar-x86_64.AppImage"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "7zip"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "cinnabar",
+    "provides": [
+      "cinnabar-bin-${version}_${revision}"
+    ],
+    "replaces": [
+      "cinnabar-bin>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.31"
+  },
+  {
+    "archs": [
       "all"
     ],
     "build_style": null,
@@ -1291,6 +1328,45 @@
     "revision": 1,
     "subpackages": [],
     "version": "2.22.4"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": "fetch",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:6f97777d6c21626bc1d64c165a56caa0b4baeb6beac5ec8ffd97b821dc5b245d"
+    ],
+    "depends": [
+      "desktop-file-utils",
+      "hicolor-icon-theme",
+      "libxkbcommon",
+      "libxcb",
+      "xdg-utils"
+    ],
+    "distfiles": [
+      "https://github.com/horizon-rust/horizon/releases/download/launcher@${version}/horizon-launcher-linux-x86_64.AppImage"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "7zip"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "horizon",
+    "provides": [
+      "horizon-launcher-${version}_${revision}",
+      "horizon-bin-${version}_${revision}"
+    ],
+    "replaces": [
+      "horizon-launcher>=0",
+      "horizon-bin>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.2.39"
   },
   {
     "archs": [
@@ -5447,6 +5523,49 @@
     "revision": 2,
     "subpackages": [],
     "version": "2026.10"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": "fetch",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:71276066600284903b5aff383ef61a897a19be5127fffcc42a761e30b8b867d0"
+    ],
+    "depends": [
+      "alsa-lib",
+      "eudev-libudev",
+      "vulkan-loader",
+      "libX11",
+      "libXcursor",
+      "libXi",
+      "libXrandr",
+      "libxkbcommon",
+      "desktop-file-utils",
+      "hicolor-icon-theme",
+      "xdg-utils"
+    ],
+    "distfiles": [
+      "https://github.com/Weft-Rust/Weft/releases/download/v${version}/Weft-${version}-linux-x64.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "tar"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "weft",
+    "provides": [
+      "weft-bin-${version}_${revision}"
+    ],
+    "replaces": [
+      "weft-bin>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "26.11.1"
   },
   {
     "archs": [
