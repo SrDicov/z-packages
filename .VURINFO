@@ -79,11 +79,11 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:bf5632a969a086e07e24e0fd6b79a45ed0abb59aaf76d2f674851a93d978f90f"
+      "sha256:f48826c661634919527c8a855ea5f85d4ce383df545899c5ffda7031b9719b7c"
     ],
     "depends": [],
     "distfiles": [
-      "https://github.com/Neko-Void-Linux/Neko-Wizard/releases/download/${version}/Neko-Wizard-${version}.tar.gz"
+      "https://github.com/Neko-Void-Linux/Neko-Wizard/archive/${_commit}.tar.gz>${pkgname}-${version}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -100,9 +100,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 7,
+    "revision": 2,
     "subpackages": [],
-    "version": "9.0.16"
+    "version": "9.0.23"
   },
   {
     "archs": [
