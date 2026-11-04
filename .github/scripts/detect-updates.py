@@ -39,15 +39,31 @@ PRE_RE = re.compile(r"(?<![a-z])(alpha|beta|pre|rc|dev|nightly)(?![a-z])", re.I)
 # Fuente por paquete sin forma derivable de la URL. Verificada una a una:
 # (kind, url, [regex version], [regex distfiles-url])
 TABLE = {
+    "codex": (
+        "apt",
+        "https://persistent.oaistatic.com/codex-app-prod/linux/deb/dists/"
+        "stable/main/binary-amd64/Packages",
+    ),
     "codex-bin": (
         "apt",
         "https://persistent.oaistatic.com/codex-app-prod/linux/deb/dists/"
         "stable/main/binary-amd64/Packages",
     ),
+    "unityhub": (
+        "regex",
+        "https://public-cdn.cloud.unity3d.com/hub/prod/latest-linux.yml",
+        r"^version:\s*(\S+)\s*$",
+    ),
     "unityhub-bin": (
         "regex",
         "https://public-cdn.cloud.unity3d.com/hub/prod/latest-linux.yml",
         r"^version:\s*(\S+)\s*$",
+    ),
+    "vscode-nk": (
+        "regex2",
+        "https://update.code.visualstudio.com/api/update/linux-x64/stable/latest",
+        r'"name"\s*:\s*"([^"]+)"',
+        r'"url"\s*:\s*"([^"]+)"',
     ),
     "vscode-bin": (
         "regex2",
@@ -55,19 +71,33 @@ TABLE = {
         r'"name"\s*:\s*"([^"]+)"',
         r'"url"\s*:\s*"([^"]+)"',
     ),
+    "zig-nk": (
+        "json-keys",
+        "https://ziglang.org/download/index.json",
+    ),
     "zig-nk-bin": (
         "json-keys",
         "https://ziglang.org/download/index.json",
+    ),
+    "reaper": (
+        "regex",
+        "https://www.reaper.fm/download.php",
+        r"Version\s+(\d+\.\d+)\s*:",
     ),
     "reaper-bin": (
         "regex",
         "https://www.reaper.fm/download.php",
         r"Version\s+(\d+\.\d+)\s*:",
     ),
+    "waterfox": (
+        "html-hrefs",
+        "https://cdn.waterfox.com/waterfox/releases/",
+        r'href="(?:/waterfox/releases/)?(\d+(?:\.\d+)+)/"',
+    ),
     "waterfox-bin": (
         "html-hrefs",
-        "https://cdn1.waterfox.net/waterfox/releases/",
-        r'href="(\d+(?:\.\d+)+)/"',
+        "https://cdn.waterfox.com/waterfox/releases/",
+        r'href="(?:/waterfox/releases/)?(\d+(?:\.\d+)+)/"',
     ),
     "python3-steam": (
         "tags-prerelease",
@@ -79,29 +109,41 @@ TABLE = {
         "https://github.com/SrDicov/arxy",
         "v",
     ),
-    # El distfile sale de lua.org, pero las versiones estan etiquetadas en
-    # el repo de Lua: la URL no es derivable del patron, los tags si.
     "lua55": (
         "tags",
         "https://github.com/lua/lua",
         "v",
     ),
-    # El pool de Spotify publica un indice html con los .deb mas nuevos.
-    # La subversion (g0eeebbed) va dentro del nombre, asi que hace falta
-    # capturar tambien el nombre completo para rehacer la URL.
     "spotify-bin": (
         "regex2",
         "https://repository.spotify.com/pool/non-free/s/spotify-client/",
         r"spotify-client_([0-9]+(?:\.[0-9]+)+)\.[a-z0-9]+_amd64\.deb",
         r"spotify-client_[0-9]+(?:\.[0-9]+)+\.[a-z0-9]+_amd64\.deb",
     ),
-    # La version sale de los tags del repo upstream, pero el .deb se descarga
-    # del fichero "prod" sin version: el deb rotates y el template ya lo
-    # asume (canal rodante a proposito, aqui la version si es comparable).
+    "onlyoffice": (
+        "tags",
+        "https://github.com/ONLYOFFICE/DesktopEditors",
+        "v",
+    ),
     "onlyoffice-bin": (
         "tags",
         "https://github.com/ONLYOFFICE/DesktopEditors",
         "v",
+    ),
+    "gpu-screen-recorder-nk": (
+        "tags",
+        "https://repo.dec05eba.com/gpu-screen-recorder",
+        "",
+    ),
+    "gpu-screen-recorder-notification-nk": (
+        "tags",
+        "https://repo.dec05eba.com/gpu-screen-recorder-notification",
+        "",
+    ),
+    "gpu-screen-recorder-ui-nk": (
+        "tags",
+        "https://repo.dec05eba.com/gpu-screen-recorder-ui",
+        "",
     ),
 }
 # Tags con forma de fecha (jwmkit-neko usa 20240327). Compararlos contra un
@@ -123,29 +165,44 @@ VALID_VERSION_RE = re.compile(r"^[0-9][0-9A-Za-z.+~]*$")
 EXCLUDE = {
     "xbps-triggers": "sincronizado de void-packages; el repo oficial ya lo trae",
     "neko-base": "metapaquete sin distfiles; la revision es manual a proposito",
+    "librewolf": "Codeberg no expone listado de su registro de paquetes",
     "librewolf-bin": "Codeberg no expone listado de su registro de paquetes",
+    "qrunsvmgr": "version=r<run>.<commit>: el run es un contador local",
     "qrunsvmgr-git": "version=r<run>.<commit>: el run es un contador local",
+    "pavoldcontrol": "version=r<run>.<commit> y sin distfiles",
     "pavoldcontrol-git": "version=r<run>.<commit> y sin distfiles",
     "jwmkit-neko": "los tags upstream son fechas (20240327) y el version= es local",
     "libva-intel-driver-irql": "el distfile es un commit y el version= es una etiqueta local",
+    "windscribe-desktop": "el tag upstream es una fecha y el version= es la app",
     "windscribe-desktop-bin": "el tag upstream es una fecha y el version= es la app",
     "libqt6pas-bin": "el asset se llama libqt6pas_6_2_10-1: puntos->guiones bajos y rev de empaquetado",
     "ly": "el asset es ly-v1.5.0-rc1 y el version= de xbps es 1.5.0.1: no son el mismo numero",
+    "trinity-launcher": "canal rodante /latest/: sin version que comparar",
     "trinity-launcher-ap": "canal rodante /latest/: sin version que comparar",
+    "linux-cachy-void": "canal rodante /latest/: sin version que comparar",
     "linux-cachy-void-bin": "canal rodante /latest/: sin version que comparar",
+    "linux-neko-rt": "canal rodante /latest/: sin version que comparar",
     "linux-neko-rt-bin": "canal rodante /latest/: sin version que comparar",
+    "linux-neko-zen": "canal rodante /latest/: sin version que comparar",
     "linux-neko-zen-bin": "canal rodante /latest/: sin version que comparar",
+    "steam-nk": "canal rodante: el .deb no lleva version en el nombre",
     "steam-bin": "canal rodante: el .deb no lleva version en el nombre",
     "steam-nk-bin": "canal rodante: el .deb no lleva version en el nombre",
+    "spotify-app": "el pool de Spotify solo indexa la serie 1.2.x; la 1.3.x no aparece",
     "spotify-app-bin": "el pool de Spotify solo indexa la serie 1.2.x; la 1.3.x no aparece",
+    "stremio": "dl.strem.io no expone indice de versiones",
     "stremio-bin": "dl.strem.io no expone indice de versiones",
+    "lsfg-vk": "el distfile es el tag v2.0.0-dev y el version= es 2026",
     "lsfg-vk-git": "el distfile es el tag v2.0.0-dev y el version= es 2026",
+    "mangowc-nk": "el distfile es un commit y el version= es la version del fork",
     "mangowc-latest": "el distfile es un commit y el version= es la version del fork",
     "msttcorefonts": "12 .exe de SourceForge sin version en la URL: el version= es fijo",
+    "3utools": "dl.3u.com no expone listado de versiones",
     "3utools-bin": "dl.3u.com no expone listado de versiones",
+    "antigravity": "el asset lleva un build id propio y el bucket no es listable",
     "antigravity-bin": "el asset lleva un build id propio y el bucket no es listable",
+    "dmemcg-booster": "el distfile es un commit pineado y el version= va aparte",
     "dmemcg-booster-nk": "el distfile es un commit pineado y el version= va aparte",
-    "hyprpolkitagent": "0.2.0 exige hyprtoolkit, que no esta en Void; Ryoku usa 0.1.3",
     "hyprgraphics": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
     "aquamarine": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
 }
@@ -283,10 +340,16 @@ def strip_rename(url):
 
 def classify(t):
     """-> (kind, detail). kind: tags|release|pin|table|exclude|none"""
-    if t.name in EXCLUDE:
-        return "exclude", EXCLUDE[t.name]
-    if t.name in TABLE:
-        return "table", TABLE[t.name]
+    name = t.name
+    pkg = getattr(t, "pkgname", name)
+    if name in EXCLUDE:
+        return "exclude", EXCLUDE[name]
+    if pkg in EXCLUDE:
+        return "exclude", EXCLUDE[pkg]
+    if name in TABLE:
+        return "table", TABLE[name]
+    if pkg in TABLE:
+        return "table", TABLE[pkg]
     if t._commit:
         repo = t.repository or t._repository or t.homepage
         if not repo:
