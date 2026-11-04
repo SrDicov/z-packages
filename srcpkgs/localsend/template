@@ -30,5 +30,16 @@ do_install() {
 
 	vmkdir usr/share/icons/hicolor/512x512/apps
 	vinstall data/flutter_assets/assets/img/logo-512.png 644 usr/share/icons/hicolor/512x512/apps localsend.png
-	make_desktop_entry localsend LocalSend localsend Network
+
+	vmkdir usr/share/applications
+	cat <<-'EOF' > "${DESTDIR}/usr/share/applications/localsend.desktop"
+	[Desktop Entry]
+	Name=LocalSend
+	Comment=An open-source cross-platform alternative to AirDrop
+	Exec=localsend %U
+	Icon=localsend
+	Type=Application
+	Terminal=false
+	Categories=Network;FileTransfer;
+	EOF
 }
