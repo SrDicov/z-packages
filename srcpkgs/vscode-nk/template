@@ -1,7 +1,7 @@
 # Template file for 'vscode-nk'
 pkgname=vscode-nk
-version=1.144.1
-revision=3
+version=1.145.0
+revision=1
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="tar"
@@ -11,8 +11,8 @@ short_desc="Visual Studio Code (official Microsoft binary release)"
 maintainer="ANOMALI0x00 <SrDicov@gmail.com>"
 license="custom:MICROSOFT SOFTWARE LICENSE TERMS"
 homepage="https://code.visualstudio.com"
-distfiles="https://vscode.download.prss.microsoft.com/dbazure/download/stable/261c84cb1eddf11235f9e2c921425e9663fbe556/code-stable-x64-1793549455.tar.gz"
-checksum=59d8d6f9dc2431353c453cf6a4da0faae3993e332007ab387f526332eef93fe4
+distfiles="https://vscode.download.prss.microsoft.com/dbazure/download/stable/a717861c07586a53d83b80d742cd3f59b20a6273/code-stable-x64-1793749246.tar.gz"
+checksum=d44510383961b089f7b7ce848ebcd38a740f8591bb8b60f8153a210e45d8848c
 replaces="vscode-bin>=0 vscode>=0"
 provides="vscode-${version}_${revision}"
 nostrip=yes
