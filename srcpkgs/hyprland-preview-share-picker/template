@@ -1,7 +1,7 @@
 # Template file for 'hyprland-preview-share-picker'
 pkgname=hyprland-preview-share-picker
-version=0.2.1
-revision=2
+version=0.3.1
+revision=1
 archs="x86_64*"
 build_style=cargo
 make_cmd=cargo
@@ -17,8 +17,8 @@ do_fetch() {
 	rm -rf "$wrksrc" "$wrksrc-protocols"
 	git clone --depth 1 "${homepage}.git" "${wrksrc}"
 	cd "${wrksrc}"
-	git fetch --depth 1 origin e2f30ff85486e557018523da45ccbc846e3a499c
-	git checkout -q e2f30ff85486e557018523da45ccbc846e3a499c
+	git fetch --depth 1 origin 07602efe7a65dcef5399e22c162edf9fc331c46d
+	git checkout -q 07602efe7a65dcef5399e22c162edf9fc331c46d
 	git tag -f "v${version}"	# the protocols submodule is pinned some commits behind its main branch
 	rm -rf "${wrksrc}-protocols"
 	git clone https://github.com/hyprwm/hyprland-protocols.git \

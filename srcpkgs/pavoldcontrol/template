@@ -1,7 +1,7 @@
 # Template file for 'pavoldcontrol'
 pkgname=pavoldcontrol
-version=r1.676d599
-revision=3
+version=r2.d7befd6
+revision=1
 build_style=gnu-makefile
 make_use_env=yes
 hostmakedepends="pkg-config gettext git"
@@ -21,7 +21,7 @@ do_fetch() {
 }
 
 pre_build() {
-	vsed -i 's|$(PWD)/$(LOCALE_DIR)|/usr/share/locale|g' Makefile
+	vsed -i 's|-DLOCALEDIR=\\"$(abspath $(LOCALE_DIR))\\"|-DLOCALEDIR=\\"/usr/share/locale\\"|' Makefile
 }
 
 do_install() {

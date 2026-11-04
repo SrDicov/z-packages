@@ -1,7 +1,7 @@
 # Template file for 'labwc-singularity'
 pkgname=labwc-singularity
 version=0.20.2
-revision=4
+revision=5
 archs="x86_64 x86_64-musl"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
@@ -19,11 +19,11 @@ short_desc="Singularity fork of the labwc Wayland compositor"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/singularityos-lab/labwc"
-_commit="458dddc5c78cf211a1a9f43baa16d221ed96a223"
+_commit="f579a4efc4f16f0f6c1ccc113fc553f16de4907e"
 _repository="https://github.com/singularityos-lab/labwc.git"
 distfiles="https://github.com/singularityos-lab/labwc/archive/${_commit}.tar.gz>labwc-singularity-${version}.tar.gz
  https://github.com/wlrfx/scenefx/archive/37ccd723bef49e6891156ffafce8f549f01446cc.tar.gz>scenefx.tar.gz"
-checksum="3f2e7d4fe2e64463cfca87886408d9429b63bc7e3c418668bb14de371dd0e6f3
+checksum="975e256e166e059325c9103b194c2fb2038271f83a8565c82f227bc9cd7b28f7
  7f595ead422fa12c1aae2af65402d1cf78ac6a8726cfb5a511b208a788981e13"
 provides="labwc-${version}_${revision}"
 replaces="labwc>=0"
