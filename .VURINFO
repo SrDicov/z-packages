@@ -630,7 +630,7 @@
       "chatgpt>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "26.1029.61003"
   },
@@ -2778,7 +2778,7 @@
       "localsend-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.18.2"
   },
@@ -3780,7 +3780,7 @@
       "pineconemc-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "11.1.2"
   },
@@ -4134,7 +4134,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "0.5"
   },
@@ -4171,7 +4171,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "2.0.0alpha1"
   },
