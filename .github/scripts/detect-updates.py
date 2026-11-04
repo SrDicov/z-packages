@@ -145,6 +145,16 @@ TABLE = {
         "https://repo.dec05eba.com/gpu-screen-recorder-ui",
         "",
     ),
+    "horizon": (
+        "tags",
+        "https://github.com/horizon-rust/horizon",
+        "launcher@",
+    ),
+    "horizon-launcher": (
+        "tags",
+        "https://github.com/horizon-rust/horizon",
+        "launcher@",
+    ),
 }
 # Tags con forma de fecha (jwmkit-neko usa 20240327). Compararlos contra un
 # version= normal daria "26.5 -> 20240327": un tag de 2024 contado como nuevo.
@@ -207,6 +217,7 @@ EXCLUDE = {
     "dmemcg-booster-nk": "el distfile es un commit pineado y el version= va aparte",
     "hyprgraphics": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
     "aquamarine": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
+    "serein": "version desacoplada: upstream solo publica tags nightly v1.0.0-nightly.<fecha>.<run>",
 }
 # Caches de red. El detector pregunta por los mismos repos (brave-bin y
 # brave-origin-bin son el mismo repo) y compara las mismas versiones mil
