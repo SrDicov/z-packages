@@ -5327,7 +5327,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:59d8d6f9dc2431353c453cf6a4da0faae3993e332007ab387f526332eef93fe4"
+      "sha256:d44510383961b089f7b7ce848ebcd38a740f8591bb8b60f8153a210e45d8848c"
     ],
     "depends": [
       "libXtst",
@@ -5341,7 +5341,7 @@
       "desktop-file-utils"
     ],
     "distfiles": [
-      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/261c84cb1eddf11235f9e2c921425e9663fbe556/code-stable-x64-1793549455.tar.gz"
+      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/a717861c07586a53d83b80d742cd3f59b20a6273/code-stable-x64-1793749246.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -5358,9 +5358,9 @@
       "vscode>=0"
     ],
     "restricted": false,
-    "revision": 3,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.144.1"
+    "version": "1.145.0"
   },
   {
     "archs": [
