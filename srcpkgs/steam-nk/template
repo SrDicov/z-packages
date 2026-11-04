@@ -1,13 +1,11 @@
 # Template file for 'steam-nk'
 pkgname=steam-nk
 version=1.0.0.85
-revision=1
+revision=15
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="binutils tar xz"
-depends="desktop-file-utils hicolor-icon-theme xdg-utils zenity bubblewrap
- libibus xauth dbus-glib libXtst libdrm libpciaccess libxshmfence nss p11-kit
- xhost libcurl libvdpau mesa-dri steam-udev-rules SDL2"
+depends="binutils tar xz"
 short_desc="Digital distribution platform by Valve (sandboxed binary version)"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="custom:Valve-EULA"

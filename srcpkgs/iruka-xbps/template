@@ -1,11 +1,11 @@
 # Template file for 'iruka-xbps'
 pkgname=iruka-xbps
 version=0.2.0
-revision=1
+revision=4
 build_style=meson
 hostmakedepends="pkg-config gettext"
 makedepends="gtk+3-devel"
-depends="hicolor-icon-theme"
+depends="hicolor-icon-theme polkit"
 short_desc="Graphical front-end for the XBPS package manager (GTK 3)"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="WTFPL, BSD-3-Clause"

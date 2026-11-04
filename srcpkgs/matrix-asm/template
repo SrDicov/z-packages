@@ -1,7 +1,7 @@
 # Template file for 'matrix-asm'
 pkgname=matrix-asm
 version=2.0
-revision=1
+revision=2
 archs="x86_64*"
 short_desc="Matrix Terminal in assembly"
 maintainer="JavierC <javiercyt@atomicmail.io>"

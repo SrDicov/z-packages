@@ -1,30 +1,39 @@
 # Template file for 'hydra-launcher'
 pkgname=hydra-launcher
 version=4.3.0
-revision=1
+revision=3
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="bsdtar"
 depends="gtk+3 nss alsa-lib nspr at-spi2-core libsecret libnotify libXtst
  libXScrnSaver eudev-libudev libcups libXrandr libXcomposite libXdamage
- mesa-dri xrandr hicolor-icon-theme p7zip python3 libtorrent-rasterbar-python3
- xdg-utils"
+ libxkbcommon libgbm mesa-dri xrandr hicolor-icon-theme p7zip
+ python3 libtorrent-rasterbar-python3 xdg-utils"
 short_desc="Game launcher with built-in bittorrent client"
-maintainer="ANOMALI0x00 <SrDicov@gmail.com>"
+maintainer="ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>"
 license="MIT"
 homepage="https://github.com/hydralauncher/hydra"
 distfiles="https://github.com/hydralauncher/hydra/releases/download/v${version}/hydralauncher_${version}_amd64.deb"
 checksum=63fd66c39aa05e2ffeb11c4d0213243dfaad17631268f25187b1e34c5c020c61
 provides="hydra-launcher-bin-${version}_${revision}"
-python_version=3.14
 replaces="hydra-launcher-bin>=0"
-
 nostrip=yes
+noshlibextract=yes
 noverifyrdeps=yes
+nopie=yes
+python_version=ignore
 
 do_extract() {
-	bsdtar -xf ${XBPS_SRCDISTDIR}/${pkgname}-${version}/hydralauncher_${version}_amd64.deb -C ${wrksrc}
-	bsdtar -xf ${wrksrc}/data.tar.* -C ${wrksrc}
+	local _deb="${XBPS_SRCDISTDIR}/${pkgname}-${version}/hydralauncher_${version}_amd64.deb"
+
+	bsdtar -x -f "${_deb}" -C "${wrksrc}"
+	local _data
+	_data=$(ls "${wrksrc}"/data.tar.* 2>/dev/null | head -n1)
+	if [ -z "${_data}" ]; then
+		msg_error "No se encontro data.tar.* dentro del .deb\n"
+	fi
+	bsdtar -x -f "${_data}" -C "${wrksrc}"
+	rm -f "${wrksrc}"/control.tar.* "${wrksrc}"/debian-binary "${wrksrc}"/data.tar.*
 }
 
 do_install() {
@@ -32,71 +41,85 @@ do_install() {
 	vmkdir usr/bin
 	vmkdir usr/share
 
-	if [ -d "${wrksrc}/opt/Hydra" ]; then
-		vcopy opt/Hydra opt/
-
-
-		vmkdir opt/Hydra/resources/app.asar.unpacked/python
-
-		if [ -f "${FILESDIR}/main.py" ]; then
-			vcopy "${FILESDIR}/main.py" opt/Hydra/resources/app.asar.unpacked/python/
-			vcopy "${FILESDIR}/torrent_downloader.py" opt/Hydra/resources/app.asar.unpacked/python/
-		elif [ -f "${wrksrc}/main.py" ]; then
-			vcopy main.py opt/Hydra/resources/app.asar.unpacked/python/
-			vcopy torrent_downloader.py opt/Hydra/resources/app.asar.unpacked/python/
-		fi
-
-
-		RPC_DIR="${DESTDIR}/opt/Hydra/resources/hydra-python-rpc"
-		if [ -d "${RPC_DIR}" ]; then
-			rm -rf ${RPC_DIR}/*
-			vmkdir opt/Hydra/resources/hydra-python-rpc/bin
-
-			ln -sf /usr/bin/python3 ${RPC_DIR}/python3
-			ln -sf /usr/bin/python3 ${RPC_DIR}/python
-			ln -sf /usr/bin/python3 ${RPC_DIR}/bin/python
-
-
-			vinstall "${FILESDIR}/hydra-python-rpc" 755 opt/Hydra/resources/hydra-python-rpc
-			chmod 755 ${RPC_DIR}/hydra-python-rpc
-		fi
-
-
-		if [ -f "${DESTDIR}/opt/Hydra/chrome-sandbox" ]; then
-			chmod 4755 ${DESTDIR}/opt/Hydra/chrome-sandbox
-		fi
-
-
-		mv ${DESTDIR}/opt/Hydra/hydralauncher ${DESTDIR}/opt/Hydra/hydralauncher.bin
-
-		vinstall "${FILESDIR}/hydralauncher" 755 opt/Hydra
-
-		chmod 755 ${DESTDIR}/opt/Hydra/hydralauncher
-		ln -sf /opt/Hydra/hydralauncher ${DESTDIR}/usr/bin/hydra-launcher
+	if [ ! -d "${wrksrc}/opt/Hydra" ]; then
+		msg_error "No se encontro ${wrksrc}/opt/Hydra tras extraer el .deb\n"
 	fi
 
+	vcopy "${wrksrc}/opt/Hydra" opt/
+
+	vmkdir opt/Hydra/resources/app.asar.unpacked/python
+	for f in main.py torrent_downloader.py; do
+		if [ -f "${FILESDIR}/${f}" ]; then
+			vcopy "${FILESDIR}/${f}" opt/Hydra/resources/app.asar.unpacked/python/
+		elif [ -f "${wrksrc}/${f}" ]; then
+			vcopy "${wrksrc}/${f}" opt/Hydra/resources/app.asar.unpacked/python/
+		else
+			msg_error "Falta ${f} (no esta en FILESDIR ni en wrksrc)\n"
+		fi
+	done
+
+	local rpc_dir="${DESTDIR}/opt/Hydra/resources/hydra-python-rpc"
+	if [ -d "${rpc_dir}" ]; then
+		rm -rf "${rpc_dir:?}"/*
+		vmkdir opt/Hydra/resources/hydra-python-rpc/bin
+
+		ln -sf /usr/bin/python3 "${rpc_dir}/python3"
+		ln -sf /usr/bin/python3 "${rpc_dir}/python"
+		ln -sf /usr/bin/python3 "${rpc_dir}/bin/python"
+
+		cat << 'EOF' > "${rpc_dir}/hydra-python-rpc"
+#!/bin/bash
+exec /usr/bin/python3 /opt/Hydra/resources/app.asar.unpacked/python/main.py "$@"
+EOF
+		chmod 755 "${rpc_dir}/hydra-python-rpc"
+	fi
+
+	rm -f "${DESTDIR}/opt/Hydra/chrome-sandbox"
+
+	if [ -f "${DESTDIR}/opt/Hydra/hydralauncher" ]; then
+		mv "${DESTDIR}/opt/Hydra/hydralauncher" "${DESTDIR}/opt/Hydra/hydralauncher.bin"
+	fi
+
+	cat << 'EOF' > "${DESTDIR}/opt/Hydra/hydralauncher"
+#!/bin/bash
+export PATH="/usr/bin:$PATH"
+exec /opt/Hydra/hydralauncher.bin --no-sandbox --disable-gpu-sandbox "$@"
+EOF
+	chmod 755 "${DESTDIR}/opt/Hydra/hydralauncher"
+
+	ln -sf /opt/Hydra/hydralauncher "${DESTDIR}/usr/bin/hydra-launcher"
 
 	if [ -d "${wrksrc}/usr/share/applications" ]; then
-		vcopy usr/share/applications usr/share/
+		vcopy "${wrksrc}/usr/share/applications" usr/share/
+	fi
+
+	if [ -f "${DESTDIR}/usr/share/applications/hydralauncher.desktop" ]; then
+		sed -i \
+			-e 's|^Exec=.*|Exec=hydra-launcher %U|' \
+			-e 's|^TryExec=.*|TryExec=hydra-launcher|' \
+			"${DESTDIR}/usr/share/applications/hydralauncher.desktop"
 	fi
 
 	if [ -d "${wrksrc}/usr/share/icons" ]; then
-		vcopy usr/share/icons usr/share/
+		vcopy "${wrksrc}/usr/share/icons" usr/share/
 	fi
-
 
 	vmkdir usr/share/pixmaps
 	if [ -f "${DESTDIR}/usr/share/icons/hicolor/512x512/apps/hydralauncher.png" ]; then
-		ln -sf /usr/share/icons/hicolor/512x512/apps/hydralauncher.png ${DESTDIR}/usr/share/pixmaps/hydralauncher.png
-		ln -sf /usr/share/icons/hicolor/512x512/apps/hydralauncher.png ${DESTDIR}/usr/share/pixmaps/hydra-launcher.png
+		ln -sf /usr/share/icons/hicolor/512x512/apps/hydralauncher.png \
+			"${DESTDIR}/usr/share/pixmaps/hydralauncher.png"
+		ln -sf /usr/share/icons/hicolor/512x512/apps/hydralauncher.png \
+			"${DESTDIR}/usr/share/pixmaps/hydra-launcher.png"
 	fi
 
-	if [ -f "${DESTDIR}/opt/Hydra/LICENSE.electron.txt" ]; then
-		vlicense opt/Hydra/LICENSE.electron.txt
+	if [ -f "${wrksrc}/opt/Hydra/LICENSE.electron.txt" ]; then
+		vlicense "${wrksrc}/opt/Hydra/LICENSE.electron.txt"
 	fi
-}
+	if [ -f "${wrksrc}/opt/Hydra/LICENSE" ]; then
+		vlicense "${wrksrc}/opt/Hydra/LICENSE"
+	fi
 
-post_install() {
-	find ${DESTDIR}/opt/Hydra -type f \( -name "liblog.so" -o -name "libc.musl-x86_64.so.1" -o -name "*.pyc" \) -delete 2>/dev/null || true
-	chmod -R o-w ${DESTDIR}/opt/Hydra
+	find "${DESTDIR}/opt/Hydra" -type f \
+		\( -name "liblog.so" -o -name "libc.musl-x86_64.so.1" -o -name "*.pyc" \) \
+		-delete 2>/dev/null || true
 }
