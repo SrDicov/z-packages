@@ -1,7 +1,7 @@
 # Template file for 'not-st'
 pkgname=not-st
 version=0.9.3.1
-revision=1
+revision=2
 build_style=gnu-makefile
 make_use_env=compliant
 hostmakedepends="pkg-config make"
@@ -15,8 +15,12 @@ homepage="https://github.com/Derszi65g/not-st"
 distfiles="https://github.com/Derszi65g/not-st/archive/refs/tags/v${version}.tar.gz"
 checksum=61f6787b605c1a60c7fd44a2a52e05fa3b2091208caaad6a9c30166cf000aeb4
 
+pre_build() {
+	vsed -i 's/-march=native//' config.mk
+}
+
 do_build() {
-	make
+	make ${makejobs} CC="$CC"
 }
 
 do_install() {
