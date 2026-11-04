@@ -4294,7 +4294,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:ec06415e69663e33cf901eaa5c110e03ac7b4645cb75782c770d64b88296bc1b"
+      "sha256:330b54f4b98e3520685cec2efd52ad5180f27342ac9474bed4acd5ecfe3843ca"
     ],
     "depends": [],
     "distfiles": [
@@ -4310,7 +4310,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.0.1"
+    "version": "0.0.2"
   },
   {
     "archs": [
