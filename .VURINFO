@@ -5102,7 +5102,7 @@
       "stremio-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "4.4.183"
   },
