@@ -1,7 +1,10 @@
 # Template file for 'noctalia'
 pkgname=noctalia
-version=5.4.1
+version=5.41.0
 revision=1
+_upstream_ver=5.4.1
+create_wrksrc=yes
+build_wrksrc="noctalia-${_upstream_ver}"
 build_style=meson
 configure_args="-Dnative_optimizations=false -Db_sanitize=none"
 hostmakedepends="pkg-config cmake wayland-devel wayland-protocols"
@@ -16,11 +19,11 @@ short_desc="Noctalia - Wayland compositor and desktop environment"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/noctalia-dev/noctalia"
-distfiles="https://github.com/noctalia-dev/noctalia/archive/refs/tags/v${version}.tar.gz"
+distfiles="https://github.com/noctalia-dev/noctalia/archive/refs/tags/v${_upstream_ver}.tar.gz>noctalia-${version}.tar.gz"
 checksum="6069d922e9d72488c74e4ce335314ce2203f08bd4641380bfe1bd137004597fa"
 
 post_patch() {
-	vsed -i "s|'VCS_TAG', 'unknown'|'VCS_TAG', 'v${version}'|" \
+	vsed -i "s|'VCS_TAG', 'unknown'|'VCS_TAG', 'v${_upstream_ver}'|" \
 		meson.build
 	vsed -i 's|^if git_program.found\(\)|if false|' \
 		meson.build

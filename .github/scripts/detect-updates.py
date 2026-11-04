@@ -163,6 +163,7 @@ VALID_VERSION_RE = re.compile(r"^[0-9][0-9A-Za-z.+~]*$")
 #    (commit, o run+commit, o fecha). Proponer "actualizaciones" aqui
 #    inventaria versiones.
 EXCLUDE = {
+    "noctalia": "version local 5.41.0 para superar el 5.11.1 del fork antiguo; upstream es 5.4.1",
     "xbps-triggers": "sincronizado de void-packages; el repo oficial ya lo trae",
     "neko-base": "metapaquete sin distfiles; la revision es manual a proposito",
     "librewolf": "Codeberg no expone listado de su registro de paquetes",
