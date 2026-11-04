@@ -16,6 +16,8 @@ provides="cinnabar-bin-${version}_${revision}"
 replaces="cinnabar-bin>=0"
 nostrip=yes
 noshlibprovides=yes
+ignore_elf_dirs="/usr/share/cinnabar/prep-kit/bin"
+ignore_elf_files="/usr/share/cinnabar/prep-kit/bin/assetc"
 
 post_extract() {
 	local appimg="Cinnabar-x86_64.AppImage"
