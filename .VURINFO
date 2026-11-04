@@ -1482,9 +1482,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.1.0"
+    "version": "1.1.1"
   },
   {
     "archs": [
@@ -1736,9 +1736,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.2.1"
+    "version": "0.3.1"
   },
   {
     "archs": [
@@ -2298,7 +2298,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:3f2e7d4fe2e64463cfca87886408d9429b63bc7e3c418668bb14de371dd0e6f3",
+      "sha256:975e256e166e059325c9103b194c2fb2038271f83a8565c82f227bc9cd7b28f7",
       "sha256:7f595ead422fa12c1aae2af65402d1cf78ac6a8726cfb5a511b208a788981e13"
     ],
     "depends": [
@@ -2354,7 +2354,7 @@
       "labwc>=0"
     ],
     "restricted": false,
-    "revision": 4,
+    "revision": 5,
     "subpackages": [],
     "version": "0.20.2"
   },
@@ -2494,14 +2494,14 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:5f619b42ae3f7db887d6d04cd012f009137e8b20f7eaea865c92199b061ca135"
+      "sha256:ae8ccad482461f1cc98fbb31dc04a62eb580472ed6e53627cedc928e60096361"
     ],
     "depends": [
       "libva",
       "libdrm"
     ],
     "distfiles": [
-      "https://github.com/irql-notlessorequal/intel-vaapi-driver/archive/0b648be50cd80e16469c135c76ff61bbd2f2d12b.tar.gz"
+      "https://github.com/irql-notlessorequal/intel-vaapi-driver/archive/${_commit}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -2524,7 +2524,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.4.5"
+    "version": "2.4.6.1"
   },
   {
     "archs": [
@@ -3086,11 +3086,11 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:ad00c32c8c5891211e2076ffcb908104a05999abc874bee157c8c2a95c95e5c3"
+      "sha256:6069d922e9d72488c74e4ce335314ce2203f08bd4641380bfe1bd137004597fa"
     ],
     "depends": [],
     "distfiles": [
-      "https://github.com/Neko-Void-Linux/noctalia/archive/${_commit}.tar.gz>${pkgname}-${version}.tar.gz"
+      "https://github.com/noctalia-dev/noctalia/archive/refs/tags/v${version}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -3138,9 +3138,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 10,
+    "revision": 1,
     "subpackages": [],
-    "version": "5.11.1"
+    "version": "5.4.1"
   },
   {
     "archs": [
@@ -3445,9 +3445,9 @@
       "pavoldcontrol-git>=0"
     ],
     "restricted": false,
-    "revision": 3,
+    "revision": 1,
     "subpackages": [],
-    "version": "r1.676d599"
+    "version": "r2.d7befd6"
   },
   {
     "archs": [
@@ -4027,7 +4027,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "r14.e3a3023"
+    "version": "r17.c15fa15"
   },
   {
     "archs": [
