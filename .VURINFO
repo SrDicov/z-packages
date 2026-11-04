@@ -79,11 +79,11 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:a0a4ca84b822a831381fecc73b59a30a7afe8e5260e672a5bdf95a7eb7a87852"
+      "sha256:bf5632a969a086e07e24e0fd6b79a45ed0abb59aaf76d2f674851a93d978f90f"
     ],
     "depends": [],
     "distfiles": [
-      "https://github.com/SrDicov/Neko-Wizard/archive/${_commit}.tar.gz>${pkgname}-${version}.tar.gz"
+      "https://github.com/Neko-Void-Linux/Neko-Wizard/releases/download/${version}/Neko-Wizard-${version}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -92,7 +92,7 @@
       "ninja",
       "cmake"
     ],
-    "maintainer": "Orphaned <orphan@voidlinux.org>",
+    "maintainer": "JavierC",
     "makedepends": [
       "gtk4-devel"
     ],
@@ -100,9 +100,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 7,
     "subpackages": [],
-    "version": "9.0.23"
+    "version": "9.0.16"
   },
   {
     "archs": [
