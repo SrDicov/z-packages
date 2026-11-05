@@ -114,11 +114,128 @@ TABLE = {
         "https://github.com/lua/lua",
         "v",
     ),
+    "spotify-app": (
+        "regex2",
+        "https://repository.spotify.com/pool/non-free/s/spotify-client/",
+        r"spotify-client_([0-9]+(?:\.[0-9]+)+)\.[a-z0-9]+_amd64\.deb",
+        r"spotify-client_[0-9]+(?:\.[0-9]+)+\.[a-z0-9]+_amd64\.deb",
+    ),
+    "spotify-app-bin": (
+        "regex2",
+        "https://repository.spotify.com/pool/non-free/s/spotify-client/",
+        r"spotify-client_([0-9]+(?:\.[0-9]+)+)\.[a-z0-9]+_amd64\.deb",
+        r"spotify-client_[0-9]+(?:\.[0-9]+)+\.[a-z0-9]+_amd64\.deb",
+    ),
     "spotify-bin": (
         "regex2",
         "https://repository.spotify.com/pool/non-free/s/spotify-client/",
         r"spotify-client_([0-9]+(?:\.[0-9]+)+)\.[a-z0-9]+_amd64\.deb",
         r"spotify-client_[0-9]+(?:\.[0-9]+)+\.[a-z0-9]+_amd64\.deb",
+    ),
+    "3utools": (
+        "user-agent-regex",
+        "https://www.3u.com",
+        r"com\.3u\.3utools_([0-9.]+)_amd64\.deb",
+        "Mozilla/5.0 (X11; Linux x86_64)",
+    ),
+    "3utools-bin": (
+        "user-agent-regex",
+        "https://www.3u.com",
+        r"com\.3u\.3utools_([0-9.]+)_amd64\.deb",
+        "Mozilla/5.0 (X11; Linux x86_64)",
+    ),
+    "librewolf": (
+        "codeberg-release-asset",
+        "https://codeberg.org/api/v1/repos/librewolf/bsys6/releases",
+        r"^librewolf-([0-9.]+)-[0-9]+-linux-x86_64-package\.tar\.xz$",
+    ),
+    "librewolf-bin": (
+        "codeberg-release-asset",
+        "https://codeberg.org/api/v1/repos/librewolf/bsys6/releases",
+        r"^librewolf-([0-9.]+)-[0-9]+-linux-x86_64-package\.tar\.xz$",
+    ),
+    "serein": (
+        "serein-release",
+        "https://api.github.com/repos/ViceVerse-cz/Serein/releases",
+    ),
+    "serein-bin": (
+        "serein-release",
+        "https://api.github.com/repos/ViceVerse-cz/Serein/releases",
+    ),
+    "libqt6pas": (
+        "github-release-asset-regex",
+        "https://api.github.com/repos/davidbannon/libqt6pas/releases",
+        r"^libqt6pas_([0-9_]+)-[0-9]+_amd64\.tar\.gz$",
+    ),
+    "libqt6pas-bin": (
+        "github-release-asset-regex",
+        "https://api.github.com/repos/davidbannon/libqt6pas/releases",
+        r"^libqt6pas_([0-9_]+)-[0-9]+_amd64\.tar\.gz$",
+    ),
+    "linux-cachy-void": (
+        "kernel-neko-asset",
+        "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest",
+        r"neko-kernel-void-([0-9.]+)-cachy-bore\+\.tar\.gz",
+    ),
+    "linux-cachy-void-bin": (
+        "kernel-neko-asset",
+        "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest",
+        r"neko-kernel-void-([0-9.]+)-cachy-bore\+\.tar\.gz",
+    ),
+    "linux-neko-rt": (
+        "kernel-neko-asset",
+        "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest",
+        r"neko-kernel-void-([0-9.]+)-rt-neko\+\.tar\.gz",
+    ),
+    "linux-neko-rt-bin": (
+        "kernel-neko-asset",
+        "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest",
+        r"neko-kernel-void-([0-9.]+)-rt-neko\+\.tar\.gz",
+    ),
+    "linux-neko-zen": (
+        "kernel-neko-asset",
+        "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest",
+        r"zen-kernel-void-([0-9.]+)-zen-neko\+\.tar\.gz",
+    ),
+    "linux-neko-zen-bin": (
+        "kernel-neko-asset",
+        "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest",
+        r"zen-kernel-void-([0-9.]+)-zen-neko\+\.tar\.gz",
+    ),
+    "steam-nk": (
+        "codeberg-tag-version",
+        "https://codeberg.org/api/v1/repos/Neko-Void/STEAM-ALT-VOID/releases",
+    ),
+    "steam-bin": (
+        "codeberg-tag-version",
+        "https://codeberg.org/api/v1/repos/Neko-Void/STEAM-ALT-VOID/releases",
+    ),
+    "steam-nk-bin": (
+        "codeberg-tag-version",
+        "https://codeberg.org/api/v1/repos/Neko-Void/STEAM-ALT-VOID/releases",
+    ),
+    "windscribe-desktop": (
+        "codeberg-release-asset",
+        "https://codeberg.org/api/v1/repos/Neko-Void/Windscribe-void/releases",
+        r"^windscribe_([0-9.]+)_amd64\.deb$",
+    ),
+    "windscribe-desktop-bin": (
+        "codeberg-release-asset",
+        "https://codeberg.org/api/v1/repos/Neko-Void/Windscribe-void/releases",
+        r"^windscribe_([0-9.]+)_amd64\.deb$",
+    ),
+    "vimix-cursor-theme": (
+        "tags-date-transform",
+        "https://github.com/vinceliuice/Vimix-cursors",
+    ),
+    "pam-fprint-grosshack": (
+        "tags-pattern",
+        "https://github.com/furbyhaxx/pam-fprint-grosshack",
+        r"^v(0\.\d+(?:\.\d+)*)$",
+    ),
+    "halley": (
+        "halley-tag",
+        "https://github.com/mikuri12/halley",
     ),
     "onlyoffice": (
         "tags",
@@ -166,58 +283,57 @@ VALID_VERSION_RE = re.compile(r"^[0-9][0-9A-Za-z.+~]*$")
 # Sin automatismo posible. El motivo va al reporte: no es un hueco, es una
 # decision. Si alguno se vuelve automatizable, sale de aqui.
 #
-# Tres familias, y conviene no confundirlas:
-#  - canal rodante: la URL no cambia nunca, no hay version que comparar. La
-#    caducidad la detecta el build por checksum, que es donde duele.
-#  - version desacoplada: la etiqueta upstream no es el `version=` de xbps
-#    (commit, o run+commit, o fecha). Proponer "actualizaciones" aqui
-#    inventaria versiones.
+# Familias de templates manuales:
+#  - metapaquete / empaquetado local sin distfiles externos (neko-base, triggers, arte)
+#  - plugins acoplados al ABI interno de C++ de Hyprland (version.h / hyprpm.toml)
+#  - repositorio upstream eliminado / 404 (kpm, pavoldcontrol)
+#  - fuentes historicas congeladas por Microsoft (msttcorefonts)
+#  - canales rodantes /latest/ sin version en asset o release (trinity-launcher)
+#  - bucket privado con build id no listable (antigravity)
+#  - proyectos marcados broken o con dependencias rotas (ly)
+#  - proyectos internos pineados a commits de master (singularity-desktop, Neko-Wizard)
 EXCLUDE = {
-    "xbps-triggers": "sincronizado de void-packages; el repo oficial ya lo trae",
+    "xbps-triggers": "sincronizado de void-packages; scripts locales en FILESDIR sin distfiles",
     "neko-base": "metapaquete sin distfiles; la revision es manual a proposito",
-    "librewolf": "Codeberg no expone listado de su registro de paquetes",
-    "librewolf-bin": "Codeberg no expone listado de su registro de paquetes",
-    "qrunsvmgr": "version=r<run>.<commit>: el run es un contador local",
-    "qrunsvmgr-git": "version=r<run>.<commit>: el run es un contador local",
-    "pavoldcontrol": "version=r<run>.<commit> y sin distfiles",
-    "pavoldcontrol-git": "version=r<run>.<commit> y sin distfiles",
+    "neko-backgrounds": "arte local ensamblado mediante git clone en do_build sin releases",
+    "neko-icons": "arte local ensamblado mediante git clone en do_build sin releases",
+    "neko-themes": "temas locales ensamblados mediante git clone en do_build sin releases",
+    "qrunsvmgr": "version=r<run>.<commit>: el run es un contador local y se clona en do_fetch",
+    "qrunsvmgr-git": "version=r<run>.<commit>: el run es un contador local y se clona en do_fetch",
+    "pavoldcontrol": "repo upstream eliminado (404); sin fuentes externas",
+    "pavoldcontrol-git": "repo upstream eliminado (404); sin fuentes externas",
     "jwmkit-neko": "los tags upstream son fechas (20240327) y el version= es local",
     "libva-intel-driver-irql": "el distfile es un commit y el version= es una etiqueta local",
-    "windscribe-desktop": "el tag upstream es una fecha y el version= es la app",
-    "windscribe-desktop-bin": "el tag upstream es una fecha y el version= es la app",
-    "libqt6pas": "el asset se llama libqt6pas_6_2_10-1: puntos->guiones bajos y rev de empaquetado",
-    "libqt6pas-bin": "el asset se llama libqt6pas_6_2_10-1: puntos->guiones bajos y rev de empaquetado",
     "kpm": "repo upstream original inexistente (404); binario archivado en z-packages",
-    "ly": "el asset es ly-v1.5.0-rc1 y el version= de xbps es 1.5.0.1: no son el mismo numero",
-    "trinity-launcher": "canal rodante /latest/: sin version que comparar",
-    "trinity-launcher-ap": "canal rodante /latest/: sin version que comparar",
-    "linux-cachy-void": "canal rodante /latest/: sin version que comparar",
-    "linux-cachy-void-bin": "canal rodante /latest/: sin version que comparar",
-    "linux-neko-rt": "canal rodante /latest/: sin version que comparar",
-    "linux-neko-rt-bin": "canal rodante /latest/: sin version que comparar",
-    "linux-neko-zen": "canal rodante /latest/: sin version que comparar",
-    "linux-neko-zen-bin": "canal rodante /latest/: sin version que comparar",
-    "steam-nk": "canal rodante: el .deb no lleva version en el nombre",
-    "steam-bin": "canal rodante: el .deb no lleva version en el nombre",
-    "steam-nk-bin": "canal rodante: el .deb no lleva version en el nombre",
-    "spotify-app": "el pool de Spotify solo indexa la serie 1.2.x; la 1.3.x no aparece",
-    "spotify-app-bin": "el pool de Spotify solo indexa la serie 1.2.x; la 1.3.x no aparece",
-    "stremio": "dl.strem.io no expone indice de versiones",
-    "stremio-bin": "dl.strem.io no expone indice de versiones",
+    "ly": "proyecto roto: requiere Zig 0.16 y sus deps otter no soportan 0.17",
+    "trinity-launcher": "canal rodante /latest/: sin version que comparar en asset ni release",
+    "trinity-launcher-ap": "canal rodante /latest/: sin version que comparar en asset ni release",
     "lsfg-vk": "el distfile es el tag v2.0.0-dev y el version= es 2026",
     "lsfg-vk-git": "el distfile es el tag v2.0.0-dev y el version= es 2026",
     "mangowc-nk": "el distfile es un commit y el version= es la version del fork",
     "mangowc-latest": "el distfile es un commit y el version= es la version del fork",
-    "msttcorefonts": "12 .exe de SourceForge sin version en la URL: el version= es fijo",
-    "3utools": "dl.3u.com no expone listado de versiones",
-    "3utools-bin": "dl.3u.com no expone listado de versiones",
-    "antigravity": "el asset lleva un build id propio y el bucket no es listable",
-    "antigravity-bin": "el asset lleva un build id propio y el bucket no es listable",
-    "dmemcg-booster": "el distfile es un commit pineado y el version= va aparte",
-    "dmemcg-booster-nk": "el distfile es un commit pineado y el version= va aparte",
+    "msttcorefonts": "12 .exe de SourceForge cerrados por Microsoft en 2002; sin nuevas versiones",
+    "antigravity": "el asset lleva un build id privado de 16 digitos y el bucket no es listable",
+    "antigravity-bin": "el asset lleva un build id privado de 16 digitos y el bucket no es listable",
+    "dmemcg-booster": "el distfile es un commit pineado y el version= va aparte sin tags en repo",
+    "dmemcg-booster-nk": "el distfile es un commit pineado y el version= va aparte sin tags en repo",
     "hyprgraphics": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
     "aquamarine": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
-    "serein": "version desacoplada: upstream solo publica tags nightly v1.0.0-nightly.<fecha>.<run>",
+    "hypr-dynamic-cursors": "plugin acoplado al ABI interno de Hyprland (version.h); sin releases externas",
+    "hyprglass": "plugin acoplado al ABI interno de Hyprland (version.h); sin releases externas",
+    "hyprgrass": "plugin acoplado al ABI interno de Hyprland (version.h); sin releases externas",
+    "hyprland-preview-share-picker": "plugin acoplado al ABI interno de Hyprland (version.h); sin releases externas",
+    "imgborders": "plugin acoplado al ABI interno de Hyprland (version.h); sin releases externas",
+    "ryoku-hypr-plugins": "plugin acoplado al ABI interno de Hyprland (version.h); sin releases externas",
+    "ryoku-keysounds": "plugin acoplado al ABI interno de Hyprland (version.h); sin releases externas",
+    "ryoku-desktop-hyprland": "ensamblador del entorno Ryoku sin releases semanticas independientes",
+    "ryoku-keysounds-profiles": "ensamblador del entorno Ryoku sin releases semanticas independientes",
+    "tracktion-download-manager": "binario propietario descargado via do_fetch con wget sin distfiles estandar",
+    "waveform-free": "binario propietario descargado via do_fetch con wget sin distfiles estandar",
+    "kyoz": "wrapper interno de Neko-Void que clona HEAD en do_build sin distfiles ni tags",
+    "singularity-desktop": "metadistribucion que pinea mas de 15 repositorios git a commits especificos",
+    "labwc-singularity": "fork de labwc fijado a commit sin tags de version",
+    "Neko-Wizard": "tienda de aplicaciones interna de Neko-Void fijada a commit de master",
 }
 # Caches de red. El detector pregunta por los mismos repos (brave-bin y
 # brave-origin-bin son el mismo repo) y compara las mismas versiones mil
@@ -364,6 +480,11 @@ def classify(t):
     if pkg in TABLE:
         return "table", TABLE[pkg]
     if t._commit:
+        if name == "geforcenow":
+            return "pin", (
+                "https://international.download.nvidia.com/GFNLinux/flatpak/geforcenow_repo/refs/heads/app/com.nvidia.geforcenow/x86_64/master",
+                t._commit,
+            )
         repo = t.repository or t._repository or t.homepage
         if not repo:
             return "none", "hay _commit pero no se de donde clonarlo"
@@ -520,8 +641,8 @@ def _api_releases(owner, repo, token):
     return out, err
 
 
-def from_table(spec, current):
-    """-> (lista de candidatos, distfiles nuevo o None)."""
+def from_table(spec, current, token=None):
+    """-> (lista de candidatos, distfiles nuevo o None, [tag nuevo o None])."""
     kind, url = spec[0], spec[1]
     if kind in ("tags", "tags-prerelease"):
         prefix = spec[2]
@@ -584,6 +705,120 @@ def from_table(spec, current):
         if new_url and not new_url.startswith("http"):
             new_url = url.rstrip("/") + "/" + new_url
         return [mv.group(1)], new_url
+    if kind == "user-agent-regex":
+        try:
+            body, _ = fetch(url, {"User-Agent": spec[3]})
+        except Exception:
+            return [], None
+        m = re.search(spec[2], body)
+        return ([m.group(1)] if m else []), None
+    if kind == "codeberg-release-asset":
+        try:
+            data, _ = fetch_json(url)
+        except Exception:
+            return [], None
+        cands = []
+        new_url = None
+        if isinstance(data, list):
+            for rel in data:
+                for a in rel.get("assets", []):
+                    m = re.match(spec[2], a.get("name", ""))
+                    if m:
+                        cands.append(m.group(1))
+                        if not new_url:
+                            new_url = a.get("browser_download_url")
+        return cands, new_url
+    if kind == "codeberg-tag-version":
+        try:
+            data, _ = fetch_json(url)
+        except Exception:
+            return [], None
+        cands = []
+        if isinstance(data, list):
+            for rel in data:
+                tag = (rel.get("tag_name") or "").strip()
+                if tag and re.match(r"^\d", tag):
+                    cands.append(tag)
+        return cands, None
+    if kind == "serein-release":
+        hdr = {"Accept": "application/vnd.github+json"}
+        if token:
+            hdr["Authorization"] = f"Bearer {token}"
+        try:
+            data, _ = fetch_json(url, hdr)
+        except Exception:
+            return [], None
+        cands = []
+        new_url = None
+        new_tag = None
+        if isinstance(data, list):
+            for rel in data:
+                tag = (rel.get("tag_name") or "").strip()
+                m = re.match(r"^v?1\.0\.0-nightly\.(\d{8})\.(\d+)$", tag)
+                if m:
+                    ver = f"1.0.0pre{m.group(1)}.{m.group(2)}"
+                    cands.append(ver)
+                    if not new_url:
+                        new_url = (f"https://github.com/ViceVerse-cz/Serein/releases/"
+                                   f"download/{tag}/serein-{tag}-Linux-X64.AppImage")
+                        new_tag = tag
+        return cands, new_url, new_tag
+    if kind == "github-release-asset-regex":
+        hdr = {"Accept": "application/vnd.github+json"}
+        if token:
+            hdr["Authorization"] = f"Bearer {token}"
+        try:
+            data, _ = fetch_json(url, hdr)
+        except Exception:
+            return [], None
+        cands = []
+        if isinstance(data, list):
+            for rel in data:
+                tag = (rel.get("tag_name") or "").lstrip("v").strip()
+                for a in rel.get("assets", []):
+                    if re.match(spec[2], a.get("name", "")):
+                        cands.append(tag)
+                        break
+        return cands, None
+    if kind == "kernel-neko-asset":
+        hdr = {"Accept": "application/vnd.github+json"}
+        if token:
+            hdr["Authorization"] = f"Bearer {token}"
+        try:
+            data, _ = fetch_json(url, hdr)
+        except Exception:
+            return [], None
+        cands = []
+        if isinstance(data, dict):
+            for a in data.get("assets", []):
+                m = re.match(spec[2], a.get("name", ""))
+                if m:
+                    cands.append(m.group(1))
+        return cands, None
+    if kind == "tags-date-transform":
+        out = git_ls_remote_tags(url)
+        cands = []
+        for tag in out:
+            m = re.match(r"^(\d{4})-(\d{2})-(\d{2})$", tag)
+            if m:
+                cands.append(f"{m.group(1)}.{m.group(2)}.{m.group(3)}")
+        return cands, None
+    if kind == "tags-pattern":
+        out = git_ls_remote_tags(url)
+        cands = []
+        for tag in out:
+            m = re.match(spec[2], tag)
+            if m:
+                cands.append(m.group(1))
+        return cands, None
+    if kind == "halley-tag":
+        out = git_ls_remote_tags(url)
+        cands = []
+        for tag in out:
+            m = re.match(r"^v?(\d+\.\d+\.\d+)-mikuri\.(\d+)$", tag)
+            if m:
+                cands.append(m.group(1))
+        return cands, None
     return [], None
 
 
@@ -726,7 +961,14 @@ def main():
                 continue
             if kind == "pin":
                 repo, cur_sha = detail
-                head = git_ls_remote_head(repo)
+                if repo.startswith("https://international.download.nvidia.com"):
+                    try:
+                        b, _ = fetch(repo)
+                        head = b.strip()
+                    except Exception:
+                        head = ""
+                else:
+                    head = git_ls_remote_head(repo)
                 if not head:
                     # El _repository no es un repositorio git clonable: el
                     # pin no se puede verificar, asi que no es automatizable.
@@ -749,7 +991,7 @@ def main():
                     counts["pin"] += 1
                 rows.append(row)
                 continue
-            new_dist, err = None, ""
+            new_dist, new_tag, err = None, None, ""
             if kind == "tags":
                 repo, prefix = detail
                 cands = tags(repo, prefix)
@@ -759,7 +1001,11 @@ def main():
                 asset = asset.replace("${pkgname}", t.pkgname)
                 cands, err = releases(owner, repo, prefix, token, asset)
             else:
-                cands, new_dist = from_table(detail, t.version)
+                res = from_table(detail, t.version, token)
+                if len(res) == 3:
+                    cands, new_dist, new_tag = res
+                else:
+                    cands, new_dist = res
             if err:
                 if err == "NO_ASSET":
                     row.update(status="manual",
@@ -776,6 +1022,8 @@ def main():
                 row.update(status="update", new_version=new, behind=behind)
                 if new_dist:
                     row["new_distfiles"] = new_dist
+                if new_tag:
+                    row["new_tag"] = new_tag
                 counts["update"] += 1
             else:
                 row.update(status="current")

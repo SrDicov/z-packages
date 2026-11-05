@@ -30,6 +30,7 @@ def main():
             "dir": r["dir"],
             "version": r["new_version"],
             "distfiles": r.get("new_distfiles") or "",
+            "tag": r.get("new_tag") or "",
         }
         for r in cands[:cap]
     ]

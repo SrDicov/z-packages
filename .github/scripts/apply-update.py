@@ -39,7 +39,7 @@ def find_template(root, name):
     return None
 
 
-def apply(path, version, new_distfiles=None):
+def apply(path, version, new_distfiles=None, new_tag=None):
     with open(path, encoding="utf-8") as fh:
         lines = fh.read().splitlines()
 
@@ -54,6 +54,11 @@ def apply(path, version, new_distfiles=None):
         if re.match(r"^revision=", line):
             out.append("revision=1")
             changed.append("revision")
+            i += 1
+            continue
+        if new_tag and re.match(r"^_tag=", line):
+            out.append(f'_tag="{new_tag}"')
+            changed.append("_tag")
             i += 1
             continue
         if new_distfiles and re.match(r"^distfiles=", line):
@@ -83,11 +88,12 @@ def main():
         raise SystemExit(__doc__)
     root = os.environ.get("REPO_ROOT", os.getcwd())
     name, version = sys.argv[1], sys.argv[2]
-    new_distfiles = sys.argv[3] if len(sys.argv) > 3 else None
+    new_distfiles = sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] else None
+    new_tag = sys.argv[4] if len(sys.argv) > 4 and sys.argv[4] else None
     path = find_template(root, name)
     if not path:
         raise SystemExit(f"no encuentro el template de {name}")
-    changed = apply(path, version, new_distfiles)
+    changed = apply(path, version, new_distfiles, new_tag)
     print(f"{name}: {version} ({', '.join(changed)}) en {path}")
 
 

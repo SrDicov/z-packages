@@ -76,6 +76,7 @@ jobs:
       DIR: ${{ matrix.dir }}
       VER: ${{ matrix.version }}
       DISTFILES: ${{ matrix.distfiles }}
+      TAG: ${{ matrix.tag }}
       REPO: ${{ github.repository }}
       # Un PAT (secret PR_TOKEN) es lo que hace que el CI del PR se dispare:
       # los workflows lanzados con GITHUB_TOKEN no activan otros workflows,
@@ -108,7 +109,7 @@ jobs:
         shell: bash
         run: |
           sudo -Eu builder env REPO_ROOT="$PWD" python3 \
-            .github/scripts/apply-update.py "$PKG" "$VER" "$DISTFILES"
+            .github/scripts/apply-update.py "$PKG" "$VER" "$DISTFILES" "$TAG"
 
       - name: Checksum
         # xgensum es la unica fuente de verdad del sha256: no se inventa.
