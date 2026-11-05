@@ -3932,9 +3932,12 @@
     "build_style": "python3-module",
     "checkdepends": [],
     "checksum": [
-      "sha256:9b8a4eca0c59c53c51e95862fb00c31f146f38d2ee88bb3fbda24ed53fdefa67"
+      "sha256:9b8a4eca0c59c53c51e95862fb00c31f146f38d2ee88bb3fbda24ed53fdefa67",
+      "sha256:4bf7eab3255332ffd97e1906a79d048fddb0d1bc40b6caefb899de9106e322cc"
     ],
     "depends": [
+      "NetworkManager",
+      "NetworkManager-openvpn",
       "python3",
       "python3-Jinja2",
       "python3-cairo",
@@ -3950,19 +3953,26 @@
       "protonvpn-local-agent"
     ],
     "distfiles": [
-      "https://github.com/ProtonVPN/python-proton-vpn-api-core/archive/refs/tags/v${version}.tar.gz"
+      "https://github.com/ProtonVPN/python-proton-vpn-api-core/archive/refs/tags/v${version}.tar.gz",
+      "https://github.com/ProtonVPN/protun/archive/refs/tags/v${_protun_version}.tar.gz"
     ],
     "format_version": 1,
-    "hostmakedepends": [],
+    "hostmakedepends": [
+      "cargo",
+      "pkg-config",
+      "python3-setuptools"
+    ],
     "maintainer": "Voiders <repo@voiders.dev>",
     "makedepends": [
-      "python3-setuptools"
+      "libmnl-devel",
+      "libnftnl-devel",
+      "python3-devel"
     ],
     "pkgname": "protonvpn-api-core",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "6.1.1"
   },
@@ -3976,8 +3986,10 @@
       "sha256:6911b3a9fe7872db5d0d7e835787007cc9dfa1d09a9ff92f906c1004c6339901"
     ],
     "depends": [
+      "python3",
       "python3-click",
       "python3-dbus-fast",
+      "python3-packaging",
       "python3-tabulate",
       "protonvpn-core",
       "protonvpn-api-core",
@@ -3996,7 +4008,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.1.0"
   },
@@ -4044,6 +4056,10 @@
       "sha256:f31549f1e7da96d9dc3e5e9d65e7c5f6c7517dbe5ca23828ad05b48191b10d5f"
     ],
     "depends": [
+      "gtk4",
+      "libnotify",
+      "librsvg",
+      "libnm",
       "python3",
       "python3-cairo",
       "python3-dbus",
@@ -4069,7 +4085,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "4.19.0"
   },
