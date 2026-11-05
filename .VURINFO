@@ -421,7 +421,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:24227cd5a9259ebdc5108db394cc5998df5ac3635f84f8838a7464a7b5cddd55"
+      "sha256:364e954a2ad84d5ba3e0e217a229d5873c4ae7107d15e6120e4207529539c88d"
     ],
     "depends": [],
     "distfiles": [
@@ -444,7 +444,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.98.63"
+    "version": "1.99.55"
   },
   {
     "archs": [
@@ -5274,7 +5274,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:9cc10306d8ab79d5e42fd5a51eea9dbcc8d6928a6342492ef42f41d3a9b24209"
+      "sha256:8487a3ba56c7cd0bb230c1d6b42373fa0a8a23bab6f0809c903988b4f3e9cefc"
     ],
     "depends": [
       "gtk+3",
@@ -5306,9 +5306,9 @@
       "vesktop-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.6.8"
+    "version": "1.6.9"
   },
   {
     "archs": [
