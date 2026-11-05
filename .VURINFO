@@ -4626,7 +4626,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:00ef45f419fe05450c774027c3148220078f5e8bb9a0803b4efa732ad0471e8d"
+      "sha256:b3c437c5ca0c2f3b68d746dd07ce752b28d66568bb2636c8b25f660ab896156a"
     ],
     "depends": [
       "gtk4",
@@ -4663,7 +4663,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.0.0pre20261103.74"
+    "version": "1.0.0pre20261105.76"
   },
   {
     "archs": [
