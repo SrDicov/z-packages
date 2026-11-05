@@ -453,7 +453,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:7714b3c2bb3e92c14f8f8ab373e2d298ff941abe1d81589c21c5f9227ac07c0b"
+      "sha256:9d0e39e4020bfdf7aafc51308017d440ec009f8f3bbd91b67876b0d65a55505d"
     ],
     "depends": [
       "alsa-lib",
@@ -489,7 +489,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.98.63"
+    "version": "1.99.55"
   },
   {
     "archs": [
