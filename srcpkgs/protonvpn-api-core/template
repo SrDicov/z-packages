@@ -26,6 +26,8 @@ checksum="9b8a4eca0c59c53c51e95862fb00c31f146f38d2ee88bb3fbda24ed53fdefa67
 pre_build() {
 	rm -rf dependencies/protun
 	cp -a "${wrksrc}/protun-${_protun_version}" dependencies/protun
+	vsed -i 's/TUNSETIFF, ifr/TUNSETIFF as _, ifr/' \
+		src/protun/nm_protun_service/service.rs
 	cargo build --locked --release --all-features
 	cp target/release/libproton_vpn_platform.so \
 		proton/vpn/platform.abi3.so
