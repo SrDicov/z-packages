@@ -1376,7 +1376,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:63fd66c39aa05e2ffeb11c4d0213243dfaad17631268f25187b1e34c5c020c61"
+      "sha256:7d27db73e8390afd05b59c2c10da56082b2287ce7a95f68c655861a500c75df6"
     ],
     "depends": [
       "gtk+3",
@@ -1420,9 +1420,9 @@
       "hydra-launcher-bin>=0"
     ],
     "restricted": false,
-    "revision": 3,
+    "revision": 1,
     "subpackages": [],
-    "version": "4.3.0"
+    "version": "4.4.0"
   },
   {
     "archs": [
@@ -4352,7 +4352,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "7.84"
+    "version": "7.85"
   },
   {
     "archs": [
