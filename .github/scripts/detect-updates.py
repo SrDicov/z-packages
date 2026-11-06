@@ -272,6 +272,41 @@ TABLE = {
         "https://github.com/horizon-rust/horizon",
         "launcher@",
     ),
+    "antigravity": (
+        "antigravity-manifest",
+        "https://antigravity-hub-auto-updater-974169037036.us-central1.run.app/manifest/latest-x64-linux.yml",
+    ),
+    "antigravity-bin": (
+        "antigravity-manifest",
+        "https://antigravity-hub-auto-updater-974169037036.us-central1.run.app/manifest/latest-x64-linux.yml",
+    ),
+    "trinity-launcher": (
+        "github-release-asset-date",
+        "https://api.github.com/repos/Trinity-LA/Trinity-Launcher/releases/tags/latest",
+        r"^Trinity_Launcher-x86_64\.AppImage$",
+    ),
+    "trinity-launcher-ap": (
+        "github-release-asset-date",
+        "https://api.github.com/repos/Trinity-LA/Trinity-Launcher/releases/tags/latest",
+        r"^Trinity_Launcher-x86_64\.AppImage$",
+    ),
+    "waveform-free": (
+        "waveform-debs-asset",
+        "https://api.github.com/repos/Neko-Void-Linux/Neko-Wizard/releases/tags/debs",
+        r"^waveform14_([0-9.]+)_amd64\.deb$",
+    ),
+    "tracktion-download-manager": (
+        "tracktion-aur",
+        "https://aur.archlinux.org/rpc/v5/info/tracktion-download-manager",
+    ),
+    "lsfg-vk": (
+        "lsfg-vk-cgit",
+        "https://git.lsfg-vk.dev/lsfg-vk.git",
+    ),
+    "lsfg-vk-git": (
+        "lsfg-vk-cgit",
+        "https://git.lsfg-vk.dev/lsfg-vk.git",
+    ),
 }
 # Tags con forma de fecha (jwmkit-neko usa 20240327). Compararlos contra un
 # version= normal daria "26.5 -> 20240327": un tag de 2024 contado como nuevo.
@@ -288,35 +323,20 @@ VALID_VERSION_RE = re.compile(r"^[0-9][0-9A-Za-z.+~]*$")
 #  - plugins acoplados al ABI interno de C++ de Hyprland (version.h / hyprpm.toml)
 #  - repositorio upstream eliminado / 404 (kpm, pavoldcontrol)
 #  - fuentes historicas congeladas por Microsoft (msttcorefonts)
-#  - canales rodantes /latest/ sin version en asset o release (trinity-launcher)
-#  - bucket privado con build id no listable (antigravity)
-#  - proyectos marcados broken o con dependencias rotas (ly)
-#  - proyectos internos pineados a commits de master (singularity-desktop, Neko-Wizard)
+#  - dependencias de build complejas fuera de estandar (ly con vendor.tar.zst)
+#  - singularity-desktop: metadistribucion con arbol fijado
 EXCLUDE = {
     "xbps-triggers": "sincronizado de void-packages; scripts locales en FILESDIR sin distfiles",
     "neko-base": "metapaquete sin distfiles; la revision es manual a proposito",
     "neko-backgrounds": "arte local ensamblado mediante git clone en do_build sin releases",
     "neko-icons": "arte local ensamblado mediante git clone en do_build sin releases",
     "neko-themes": "temas locales ensamblados mediante git clone en do_build sin releases",
-    "qrunsvmgr": "version=r<run>.<commit>: el run es un contador local y se clona en do_fetch",
-    "qrunsvmgr-git": "version=r<run>.<commit>: el run es un contador local y se clona en do_fetch",
     "pavoldcontrol": "repo upstream eliminado (404); sin fuentes externas",
     "pavoldcontrol-git": "repo upstream eliminado (404); sin fuentes externas",
     "jwmkit-neko": "los tags upstream son fechas (20240327) y el version= es local",
-    "libva-intel-driver-irql": "el distfile es un commit y el version= es una etiqueta local",
     "kpm": "repo upstream original inexistente (404); binario archivado en z-packages",
-    "ly": "proyecto roto: requiere Zig 0.16 y sus deps otter no soportan 0.17",
-    "trinity-launcher": "canal rodante /latest/: sin version que comparar en asset ni release",
-    "trinity-launcher-ap": "canal rodante /latest/: sin version que comparar en asset ni release",
-    "lsfg-vk": "el distfile es el tag v2.0.0-dev y el version= es 2026",
-    "lsfg-vk-git": "el distfile es el tag v2.0.0-dev y el version= es 2026",
-    "mangowc-nk": "el distfile es un commit y el version= es la version del fork",
-    "mangowc-latest": "el distfile es un commit y el version= es la version del fork",
+    "ly": "requiere empaquetado hermetico de dependencias offline (vendor.tar.zst) para Zig 0.17",
     "msttcorefonts": "12 .exe de SourceForge cerrados por Microsoft en 2002; sin nuevas versiones",
-    "antigravity": "el asset lleva un build id privado de 16 digitos y el bucket no es listable",
-    "antigravity-bin": "el asset lleva un build id privado de 16 digitos y el bucket no es listable",
-    "dmemcg-booster": "el distfile es un commit pineado y el version= va aparte sin tags en repo",
-    "dmemcg-booster-nk": "el distfile es un commit pineado y el version= va aparte sin tags en repo",
     "hyprgraphics": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
     "aquamarine": "los bumps suben el SONAME: exigen shlibs y revbump de rdeps en el mismo PR",
     "hypr-dynamic-cursors": "plugin acoplado al ABI interno de Hyprland (version.h); sin releases externas",
@@ -328,12 +348,7 @@ EXCLUDE = {
     "ryoku-keysounds": "plugin acoplado al ABI interno de Hyprland (version.h); sin releases externas",
     "ryoku-desktop-hyprland": "ensamblador del entorno Ryoku sin releases semanticas independientes",
     "ryoku-keysounds-profiles": "ensamblador del entorno Ryoku sin releases semanticas independientes",
-    "tracktion-download-manager": "binario propietario descargado via do_fetch con wget sin distfiles estandar",
-    "waveform-free": "binario propietario descargado via do_fetch con wget sin distfiles estandar",
-    "kyoz": "wrapper interno de Neko-Void que clona HEAD en do_build sin distfiles ni tags",
     "singularity-desktop": "metadistribucion que pinea mas de 15 repositorios git a commits especificos",
-    "labwc-singularity": "fork de labwc fijado a commit sin tags de version",
-    "Neko-Wizard": "tienda de aplicaciones interna de Neko-Void fijada a commit de master",
 }
 # Caches de red. El detector pregunta por los mismos repos (brave-bin y
 # brave-origin-bin son el mismo repo) y compara las mismas versiones mil
@@ -441,6 +456,8 @@ def parse(path):
     for k in ("pkgname", "version", "revision", "archs", "homepage",
               "repository", "_repository", "_commit", "_tag"):
         setattr(t, k, t.vals.get(k, ""))
+    if not t._commit and t.vals.get("_sha"):
+        t._commit = t.vals.get("_sha")
     return t
 
 
@@ -485,7 +502,13 @@ def classify(t):
                 "https://international.download.nvidia.com/GFNLinux/flatpak/geforcenow_repo/refs/heads/app/com.nvidia.geforcenow/x86_64/master",
                 t._commit,
             )
-        repo = t.repository or t._repository or t.homepage
+        repo = t.repository or t._repository
+        if not repo and t.distfiles:
+            m_dist = re.match(r"^(https?://[^/]+/[^/]+/[^/]+)/archive/", t.distfiles)
+            if m_dist:
+                repo = m_dist.group(1)
+        if not repo:
+            repo = t.homepage
         if not repo:
             return "none", "hay _commit pero no se de donde clonarlo"
         return "pin", (repo, t._commit)
@@ -818,6 +841,75 @@ def from_table(spec, current, token=None):
             m = re.match(r"^v?(\d+\.\d+\.\d+)-mikuri\.(\d+)$", tag)
             if m:
                 cands.append(m.group(1))
+        return cands, None
+    if kind == "antigravity-manifest":
+        try:
+            body, _ = fetch(url)
+        except Exception:
+            return [], None
+        mv = re.search(r"^version:\s*['\"]?([^'\"\s]+)['\"]?", body, re.M)
+        mu = re.search(r"url:\s*['\"]?(https://storage\.googleapis\.com/antigravity-public/\S+)/linux-x64/\S+['\"]?", body)
+        if mv:
+            ver = mv.group(1)
+            new_url = None
+            if mu:
+                new_url = f"{mu.group(1)}/linux-x64/Antigravity.tar.gz"
+            return [ver], new_url
+        return [], None
+    if kind == "github-release-asset-date":
+        hdr = {"Accept": "application/vnd.github+json"}
+        if token:
+            hdr["Authorization"] = f"Bearer {token}"
+        try:
+            data, _ = fetch_json(url, hdr)
+        except Exception:
+            return [], None
+        cands = []
+        if isinstance(data, dict):
+            for a in data.get("assets", []):
+                if re.match(spec[2], a.get("name", "")):
+                    updated = a.get("updated_at") or a.get("created_at") or ""
+                    m = re.match(r"^(\d{4})-(\d{2})-(\d{2})", updated)
+                    if m:
+                        cands.append(f"{m.group(1)}{m.group(2)}{m.group(3)}")
+        return cands, None
+    if kind == "waveform-debs-asset":
+        hdr = {"Accept": "application/vnd.github+json"}
+        if token:
+            hdr["Authorization"] = f"Bearer {token}"
+        try:
+            data, _ = fetch_json(url, hdr)
+        except Exception:
+            return [], None
+        cands = []
+        if isinstance(data, dict):
+            for a in data.get("assets", []):
+                m = re.match(spec[2], a.get("name", ""))
+                if m:
+                    cands.append(f"2026.{m.group(1)}")
+        return cands, None
+    if kind == "tracktion-aur":
+        try:
+            data, _ = fetch_json(url)
+        except Exception:
+            return [], None
+        cands = []
+        new_dist = None
+        if isinstance(data, dict) and data.get("results"):
+            raw_v = data["results"][0].get("Version", "").split("-")[0]
+            if raw_v and re.match(r"^\d", raw_v):
+                cands.append(f"2026.10.{raw_v}")
+                v_dir = raw_v.replace(".", "")
+                new_dist = (f"https://downloads.tracktion.com/download-mgr/{v_dir}/"
+                            f"tracktion_download_manager_v{raw_v}.deb")
+        return cands, new_dist
+    if kind == "lsfg-vk-cgit":
+        out = git_ls_remote_tags(url)
+        cands = []
+        for tag in out:
+            t_clean = tag.lstrip("v")
+            if t_clean and re.match(r"^\d", t_clean):
+                cands.append(f"2026.{t_clean}")
         return cands, None
     return [], None
 

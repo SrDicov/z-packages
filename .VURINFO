@@ -136,7 +136,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:9f9cbd2db9e196f656d9f4caf7bf99af756e9336f70412220af9f39669b69222"
+      "sha256:3a675704b9b3a3070e06c0d50d3533043af54521cd15c65494e9cdc2bf189664"
     ],
     "depends": [
       "gtk+3",
@@ -179,7 +179,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.25.0"
+    "version": "2.29.0"
   },
   {
     "archs": [
@@ -2374,19 +2374,19 @@
     ],
     "build_style": null,
     "checkdepends": [],
-    "checksum": [],
+    "checksum": [
+      "sha256:839e9149df5d0e6e75a3250f187a4bf189800b8d500558de0ab07f19f64b3317"
+    ],
     "depends": [],
-    "distfiles": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/kyoz/archive/${_commit}.tar.gz>${pkgname}-${version}.tar.gz"
+    ],
     "format_version": 1,
     "hostmakedepends": [
-      "zig-nk",
-      "git"
+      "zig-nk"
     ],
     "maintainer": "Javierc",
-    "makedepends": [
-      "zig-nk",
-      "git"
-    ],
+    "makedepends": [],
     "pkgname": "kyoz",
     "provides": [],
     "replaces": [],
@@ -2790,7 +2790,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:3184a29c61b4cc356e7b65d23c8c1c46cc39ba4f0153d1e909827162681c7533"
+      "sha256:abb688feac00d50f9e59dabb2476998bc1d3f0290fb971407d49cba26dd44b3b"
     ],
     "depends": [
       "vulkan-loader",
@@ -2798,7 +2798,7 @@
       "mesa"
     ],
     "distfiles": [
-      "https://github.com/PancakeTAS/lsfg-vk/archive/${_tag}.tar.gz"
+      "https://git.lsfg-vk.dev/lsfg-vk/snapshot/lsfg-vk-${_ver}.tar.xz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -2823,9 +2823,9 @@
       "lsfg-vk-git>=0"
     ],
     "restricted": false,
-    "revision": 9,
+    "revision": 1,
     "subpackages": [],
-    "version": "2026"
+    "version": "2026.2.0.0"
   },
   {
     "archs": [
@@ -4232,17 +4232,20 @@
     ],
     "build_style": "cmake",
     "checkdepends": [],
-    "checksum": [],
+    "checksum": [
+      "sha256:06e5eba6be805fe1fa246d7e268cbb92e14206d0e3dbe0b16a6d026e55b628bb"
+    ],
     "depends": [
       "polkit",
       "qt6-base"
     ],
-    "distfiles": [],
+    "distfiles": [
+      "https://codeberg.org/ItsZariep/qrunsvmgr/archive/${_commit}.tar.gz>${pkgname}-${version}.tar.gz"
+    ],
     "format_version": 1,
     "hostmakedepends": [
       "ninja",
-      "pkg-config",
-      "git"
+      "pkg-config"
     ],
     "maintainer": "Kevin <kevinzz@tutamail.com>",
     "makedepends": [
@@ -5130,18 +5133,22 @@
     ],
     "build_style": null,
     "checkdepends": [],
-    "checksum": [],
+    "checksum": [
+      "sha256:577b8480c9d33a8b5cc213c61e9c3ff90a6e6a0a00efa0cbe7f4c2ec4f99cfa7"
+    ],
     "depends": [
       "curl",
       "alsa-lib",
       "xprop"
     ],
-    "distfiles": [],
+    "distfiles": [
+      "https://downloads.tracktion.com/download-mgr/${_debdir}/tracktion_download_manager_v${_debver}.deb"
+    ],
     "format_version": 1,
     "hostmakedepends": [
+      "binutils",
       "tar",
-      "xz",
-      "wget"
+      "xz"
     ],
     "maintainer": "JavierC",
     "makedepends": [],
@@ -5151,7 +5158,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2026.10"
+    "version": "2026.10.1.5.3"
   },
   {
     "archs": [
@@ -5518,19 +5525,22 @@
     ],
     "build_style": null,
     "checkdepends": [],
-    "checksum": [],
+    "checksum": [
+      "sha256:73f4c4efb6a88022a14f01a0dfe790df8fa37f09539569ea463d9e52dc62b99c"
+    ],
     "depends": [
       "curl",
       "alsa-lib",
       "xprop",
       "tracktion-download-manager"
     ],
-    "distfiles": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/Neko-Wizard/releases/download/debs/waveform14_${_debver}_amd64.deb"
+    ],
     "format_version": 1,
     "hostmakedepends": [
-      "tar",
-      "xz",
-      "wget"
+      "binutils",
+      "tar"
     ],
     "maintainer": "JavierC",
     "makedepends": [],
@@ -5538,9 +5548,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "2026.10"
+    "version": "2026.14.1.23"
   },
   {
     "archs": [
