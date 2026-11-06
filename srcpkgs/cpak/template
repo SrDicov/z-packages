@@ -1,6 +1,6 @@
 # Template file for 'cpak'
 pkgname=cpak
-version=2.14.13
+version=2.14.16
 revision=1
 build_style=gnu-makefile
 build_helper="go"
@@ -14,7 +14,7 @@ maintainer="Javierc <javiercyt@atomicmail.io>"
 license="LGPL-2.1-only"
 homepage="https://github.com/Containerpak/cpak"
 distfiles="https://github.com/Containerpak/cpak/archive/refs/tags/v${version}.tar.gz"
-checksum=fefd723e5fdb3a2a34d6369d2c1e5564b3acb0c8f67b51d3517aa4ca21507038
+checksum=bce225beded823ce47323fc3d7adf3f76b1bf2b942d55481f785648dc2e7ae46
 make_check=no # upstream tests need a container runtime and network access
 replaces="cpak-bin>=0"
 
