@@ -1,6 +1,6 @@
 # Template file for 'artcraft-launcher'
 pkgname=artcraft-launcher
-version=0.16.0
+version=0.16.1
 revision=1
 build_style=cargo
 make_build_args="-p artcraft-launcher"
@@ -17,7 +17,7 @@ license="MIT, Apache-2.0"
 homepage="https://getartcraft.com/apps"
 changelog="https://github.com/storytold/craft-launcher/releases"
 distfiles="https://github.com/storytold/craft-launcher/archive/refs/tags/v${version}.tar.gz"
-checksum=26482caec788beafc7a3e3e5b73b61d9fb5c50c69f265e779178066d1dec5cd9
+checksum=3893afb9458cbff0fddf3ce8dc404a08b8fc6b7875ce3b8bdcea03a4195763fe
 replaces="artcraft-launcher-bin>=0"
 
 case "$XBPS_TARGET_MACHINE" in
