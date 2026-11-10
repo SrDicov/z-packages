@@ -1,6 +1,6 @@
 # Template file for 'hyprland'
 pkgname=hyprland
-version=0.57.1
+version=0.57.2
 revision=1
 archs="x86_64*"
 build_style=cmake
@@ -34,7 +34,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/Hyprland"
 distfiles="https://github.com/hyprwm/Hyprland/releases/download/v${version}/source-v${version}.tar.gz"
-checksum=24e7428f83115e58e5fc81f100f6b73691dcaaf7a503087391e44327a71c43ab
+checksum=34dbec0738ab88c8228caf89385662688ab1601ea58fbe5c60a6b6ab383db46d
 configure_args="-DCMAKE_BUILD_TYPE=None -DNO_HYPRPM=ON
  -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++"
 
