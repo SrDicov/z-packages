@@ -35,17 +35,27 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          # Regenerar sobre el master mas reciente, no sobre el commit del
-          # evento: un merge puede haber entrado mientras arrancaba el job.
-          git fetch origin master
-          git checkout -B master origin/master
-          python3 .github/scripts/gen-vurinfo.py .VURINFO srcpkgs
-          git add .VURINFO
-          if git diff --cached --quiet; then
-            echo "sin cambios en .VURINFO"
-            exit 0
-          fi
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "vur: regenerate root .VURINFO"
-          git push
+          # Regenerar sobre el master mas reciente y reintentar ante carreras
+          # entre ejecuciones/merges concurrentes.
+          for attempt in 1 2 3 4 5; do
+            git fetch origin master
+            git checkout -B master origin/master
+            python3 .github/scripts/gen-vurinfo.py .VURINFO srcpkgs
+            git add .VURINFO
+            if git diff --cached --quiet; then
+              echo "sin cambios en .VURINFO"
+              exit 0
+            fi
+            git commit -m "vur: regenerate root .VURINFO"
+            if git push origin HEAD:master; then
+              echo "pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push failed on attempt $attempt, retrying..."
+            sleep $((attempt * 5))
+          done
+          echo "failed to push .VURINFO after retries"
+          exit 1
