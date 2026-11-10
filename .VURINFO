@@ -5199,7 +5199,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:fbf711fb7f3caff1015c507c1eb5f71d1c79606522942f21e716314655321d43"
+      "sha256:f16b3441c6a5062245eef490415102b65d2034c491658f0b54b96cbba081f768"
     ],
     "depends": [
       "gtk+3",
@@ -5244,7 +5244,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "3.22.5"
+    "version": "3.22.6"
   },
   {
     "archs": [
@@ -5428,7 +5428,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:d44510383961b089f7b7ce848ebcd38a740f8591bb8b60f8153a210e45d8848c"
+      "sha256:3b01286639fa026fd860944b811d418f7b93bc5dc447d9e607b0cd1377cfbaa2"
     ],
     "depends": [
       "libXtst",
@@ -5442,7 +5442,7 @@
       "desktop-file-utils"
     ],
     "distfiles": [
-      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/a717861c07586a53d83b80d742cd3f59b20a6273/code-stable-x64-1793749246.tar.gz"
+      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/c4453f8ea430795f941c1b2ff6c9321135a74a02/code-stable-x64-1793945155.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -5461,7 +5461,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.145.0"
+    "version": "1.145.2"
   },
   {
     "archs": [
