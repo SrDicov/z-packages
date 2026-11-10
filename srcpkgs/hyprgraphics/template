@@ -20,7 +20,7 @@ post_install() {
 	vlicense LICENSE
 }
 
-hyprgraphics-devel_package() {
+hyprgraphics-devel libpng-devel_package() {
 	depends="hyprgraphics-${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {

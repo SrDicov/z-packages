@@ -8,7 +8,7 @@ hostmakedepends="pkg-config cmake ninja glslang-devel clang hyprwayland-scanner
  hyprwire hyprwire-devel python3 readline-devel SPIRV-Tools-devel
  ca-certificates git"
 makedepends="abseil-cpp-devel aquamarine-devel gdk-pixbuf-devel glib-devel
- hyprcursor-devel hyprgraphics-devel libheif-devel libjxl-devel file-devel hyprlang-devel hyprland-protocols
+ hyprcursor-devel hyprgraphics-devel libpng-devel libheif-devel libjxl-devel file-devel hyprlang-devel hyprland-protocols
  hyprutils-nk-devel hwids lcms2-devel libcanberra-devel libdisplay-info-devel
  libei-devel libinput-devel libseat-devel libuuid-devel libwebp-devel
  libzip-devel libXcursor-devel libdrm-devel libjpeg-turbo-devel libxcb-devel
