@@ -2190,16 +2190,17 @@
     ],
     "build_style": "cmake",
     "checkdepends": [],
-    "checksum": [],
+    "checksum": [
+      "sha256:81211cdae8deac0aac44fa469a8de0e33df7e0cb96ae90e467f7b8a9a21ecc29"
+    ],
     "depends": [
       "hyprland"
     ],
-    "distfiles": [],
+    "distfiles": [
+      "https://codeberg.org/zacoons/imgborders/archive/${version}.tar.gz"
+    ],
     "format_version": 1,
     "hostmakedepends": [
-      "cmake",
-      "curl",
-      "git",
       "pkg-config"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
@@ -2239,9 +2240,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.0.2"
+    "version": "2.1.0"
   },
   {
     "archs": [
