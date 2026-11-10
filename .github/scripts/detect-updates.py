@@ -349,6 +349,10 @@ EXCLUDE = {
     "ryoku-desktop-hyprland": "ensamblador del entorno Ryoku sin releases semanticas independientes",
     "ryoku-keysounds-profiles": "ensamblador del entorno Ryoku sin releases semanticas independientes",
     "singularity-desktop": "metadistribucion que pinea mas de 15 repositorios git a commits especificos",
+    "mozc-ut": "versionado complejo (fcitx/mozc, abseil, protobuf, diccionarios UT y snapshot mensual de jawiki con commits fijados); actualización manual coordinada",
+    "mozc-ut-base": "subpaquete de mozc-ut; se actualiza junto con mozc-ut",
+    "ibus-mozc-ut": "subpaquete de mozc-ut; se actualiza junto con mozc-ut",
+    "fcitx5-mozc-ut": "subpaquete de mozc-ut; se actualiza junto con mozc-ut",
 }
 # Caches de red. El detector pregunta por los mismos repos (brave-bin y
 # brave-origin-bin son el mismo repo) y compara las mismas versiones mil
