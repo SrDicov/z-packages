@@ -136,7 +136,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:3a675704b9b3a3070e06c0d50d3533043af54521cd15c65494e9cdc2bf189664"
+      "sha256:ef67dfea1a0a8f2d98ce1925fae3132d47b05c1a7e8d4b0a1f761d06085a7bdf"
     ],
     "depends": [
       "gtk+3",
@@ -179,7 +179,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.29.0"
+    "version": "2.30.0"
   },
   {
     "archs": [
@@ -1706,7 +1706,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:24e7428f83115e58e5fc81f100f6b73691dcaaf7a503087391e44327a71c43ab"
+      "sha256:34dbec0738ab88c8228caf89385662688ab1601ea58fbe5c60a6b6ab383db46d"
     ],
     "depends": [
       "${sourcepkg}>=${version}_${revision}"
@@ -1782,7 +1782,7 @@
         "pkgname": "hyprland-devel"
       }
     ],
-    "version": "0.57.1"
+    "version": "0.57.2"
   },
   {
     "archs": [
