@@ -79,7 +79,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:f48826c661634919527c8a855ea5f85d4ce383df545899c5ffda7031b9719b7c"
+      "sha256:3436e06be0dff7cc61b724ce57e91e777f00507772698374c0e73354264efa59"
     ],
     "depends": [],
     "distfiles": [
@@ -102,7 +102,7 @@
     "restricted": false,
     "revision": 2,
     "subpackages": [],
-    "version": "9.0.23"
+    "version": "9.0.25"
   },
   {
     "archs": [
@@ -2435,7 +2435,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:975e256e166e059325c9103b194c2fb2038271f83a8565c82f227bc9cd7b28f7",
+      "sha256:1d56d7f2003f35854c3423d65f83fd45c274faf1b3f574bc5890256487d72a05",
       "sha256:7f595ead422fa12c1aae2af65402d1cf78ac6a8726cfb5a511b208a788981e13"
     ],
     "depends": [
@@ -2631,7 +2631,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:ae8ccad482461f1cc98fbb31dc04a62eb580472ed6e53627cedc928e60096361"
+      "sha256:6cba2e4afa1f8199e18f5cd681ad831fdbad7c5a20109ee75ea213540404920a"
     ],
     "depends": [
       "libva",
@@ -4415,7 +4415,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:08dedd672a6ad5f8d26c49972ed16f9eacd5946339efab85540856d176e4fb4a"
+      "sha256:5a6769b90b39aa094b6e721e7d58429fdf2a74ab3b53f1128e2eb8035025bac5"
     ],
     "depends": [
       "hyprland",
