@@ -12,9 +12,9 @@ short_desc="Antigravity Hub (AI Agent IDE)"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="custom:Proprietary"
 homepage="https://antigravity.ai"
-_buildid=5723181030440960
+_buildid=6386428939206656
 _site="https://storage.googleapis.com/antigravity-public/antigravity-hub"
-distfiles="https://storage.googleapis.com/antigravity-public/antigravity-hub/2.30.0-6386428939206656/linux-x64/Antigravity.tar.gz"
+distfiles="${_site}/${version}-${_buildid}/linux-x64/Antigravity.tar.gz"
 checksum=ef67dfea1a0a8f2d98ce1925fae3132d47b05c1a7e8d4b0a1f761d06085a7bdf
 replaces="antigravity-bin>=0"
 provides="antigravity-bin-${version}_${revision}"
