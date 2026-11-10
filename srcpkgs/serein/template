@@ -1,6 +1,6 @@
 # Template file for 'serein'
 pkgname=serein
-version=1.0.0pre20261107.81
+version=1.0.0pre20261108.82
 revision=1
 archs="x86_64"
 build_style=fetch
@@ -12,9 +12,9 @@ short_desc="Experimental unofficial native Discord client"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="MIT, Apache-2.0"
 homepage="https://github.com/ViceVerse-cz/Serein"
-_tag="v1.0.0-nightly.20261107.81"
-distfiles="https://github.com/ViceVerse-cz/Serein/releases/download/v1.0.0-nightly.20261107.81/serein-v1.0.0-nightly.20261107.81-Linux-X64.AppImage"
-checksum=8f9bcd34c3a919cb4f2381af7a7f28e3f467fab7981e127338b7842bb9edf192
+_tag="v1.0.0-nightly.20261108.82"
+distfiles="https://github.com/ViceVerse-cz/Serein/releases/download/v1.0.0-nightly.20261108.82/serein-v1.0.0-nightly.20261108.82-Linux-X64.AppImage"
+checksum=41cbdc7abaaa7ac8911044da67e9e9cfe3be13959d6af84fd22721035724e98e
 provides="serein-bin-${version}_${revision}"
 replaces="serein-bin>=0"
 nostrip=yes
