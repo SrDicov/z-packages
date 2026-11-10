@@ -2,6 +2,7 @@
 pkgname=mozc-ut
 version=2.31.5851.102
 revision=1
+archs="x86_64*"
 build_wrksrc=mozc/src
 hostmakedepends="gettext ninja pkg-config bazel python3-six which qt6-base"
 makedepends="ibus-devel libzinnia-devel qt6-base-devel libfcitx5-devel"
@@ -40,16 +41,16 @@ skip_extraction="jawiki-20261001-pages-articles-multistream-index.txt.bz2"
 CXXFLAGS="-D_GNU_SOURCE"
 lib32disabled=yes
 
-if [ "$XBPS_TARGET_ENDIAN" = "be" ]; then
-	broken="Does not build"
-fi
+case "$XBPS_TARGET_ENDIAN" in
+	be*) broken="Does not build" ;;
+esac
 if [ "$XBPS_TARGET_LIBC" = musl ]; then
 	makedepends+=" musl-fts-devel"
 	LDFLAGS=-lfts
 fi
-if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
-	broken="I don't want to do it"
-fi
+case "$XBPS_TARGET_NO_ATOMIC8" in
+	1|yes) broken="I don't want to do it" ;;
+esac
 nocross="The include path '/usr/aarch64-linux-gnu/usr/include' references a path outside of the execution root."
 
 post_extract() {
