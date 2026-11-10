@@ -19,11 +19,11 @@ short_desc="Singularity fork of the labwc Wayland compositor"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/singularityos-lab/labwc"
-_commit="f579a4efc4f16f0f6c1ccc113fc553f16de4907e"
+_commit="8473ea4b722b7f255590078ac9868538d853f5dd"
 _repository="https://github.com/singularityos-lab/labwc.git"
 distfiles="https://github.com/singularityos-lab/labwc/archive/${_commit}.tar.gz>labwc-singularity-${version}.tar.gz
  https://github.com/wlrfx/scenefx/archive/37ccd723bef49e6891156ffafce8f549f01446cc.tar.gz>scenefx.tar.gz"
-checksum="975e256e166e059325c9103b194c2fb2038271f83a8565c82f227bc9cd7b28f7
+checksum="1d56d7f2003f35854c3423d65f83fd45c274faf1b3f574bc5890256487d72a05
  7f595ead422fa12c1aae2af65402d1cf78ac6a8726cfb5a511b208a788981e13"
 provides="labwc-${version}_${revision}"
 replaces="labwc>=0"

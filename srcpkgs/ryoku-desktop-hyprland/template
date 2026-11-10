@@ -11,9 +11,9 @@ short_desc="Ryoku Hyprland compositor, plugins, portal, and WM provider"
 maintainer="Ryoku <releases@ryoku.dev>"
 license="GPL-3.0-or-later"
 homepage="https://ryoku.dev"
-_repo_hash=da42f13ff8d8951dbd0b03b5b96c756e9e232385
+_repo_hash=080fd35248e2e7e779868e4a06e1e78560319354
 distfiles="https://codeload.github.com/SrDicov/ryoku-void/tar.gz/${_repo_hash}>ryoku-${version}.tar.gz"
-checksum=08dedd672a6ad5f8d26c49972ed16f9eacd5946339efab85540856d176e4fb4a
+checksum=5a6769b90b39aa094b6e721e7d58429fdf2a74ab3b53f1128e2eb8035025bac5
 provides="ryoku-desktop-compositor-${version}_${revision}"
 
 _do_payload() {
