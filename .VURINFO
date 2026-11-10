@@ -1470,7 +1470,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 5,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -1561,7 +1561,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.1.1"
   },
@@ -1572,7 +1572,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:861ecaad872835922dd5745a612d7a4cc7bfc4babb1d06bc92bc63c2ac013b74"
+      "sha256:27e9e19ff59ba75a2963d72c3dcb5c0840b266b90d7fca6d5df7cac105419b08"
     ],
     "depends": [
       "hyprgraphics-${version}_${revision}"
@@ -1602,13 +1602,13 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 1,
     "subpackages": [
       {
         "pkgname": "hyprgraphics-devel"
       }
     ],
-    "version": "0.5.1"
+    "version": "0.6.0"
   },
   {
     "archs": [
@@ -1659,7 +1659,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 5,
     "subpackages": [],
     "version": "0.8.2"
   },
@@ -1776,7 +1776,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [
       {
         "pkgname": "hyprland-devel"
@@ -1925,7 +1925,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.2.0"
   },
@@ -2023,7 +2023,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [
       {
         "pkgname": "hyprtoolkit-devel"
@@ -2195,7 +2195,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "1.0.2"
   },
@@ -4568,7 +4568,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -4621,7 +4621,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 5,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -5824,7 +5824,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "1.5.0"
   },
