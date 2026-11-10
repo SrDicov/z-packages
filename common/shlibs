@@ -2336,7 +2336,7 @@ libhwloc.so.15 libhwloc-2.0.4_1
 libhwy.so.1 highway-1.2.0_1
 libhyphen.so.0 hyphen-2.8.8_1
 libhyprcursor.so.0 hyprcursor-0.1.13_7
-libhyprgraphics.so.4 hyprgraphics-0.5.1_4
+libhyprgraphics.so.5 hyprgraphics-0.6.0_1
 libhyprlang.so.2 hyprlang-0.6.8_4
 libhyprtoolkit.so.6 hyprtoolkit-0.6.0_1
 libhyprutils.so.13 hyprutils-nk-0.14.3_1

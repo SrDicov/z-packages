@@ -1,7 +1,7 @@
 # Template file for 'hyprtoolkit'
 pkgname=hyprtoolkit
 version=0.6.0
-revision=3
+revision=4
 archs="x86_64*"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
