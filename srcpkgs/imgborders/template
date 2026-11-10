@@ -1,10 +1,10 @@
 # Template file for 'imgborders'
 pkgname=imgborders
-version=1.0.2
-revision=4
+version=2.1.0
+revision=1
 archs="x86_64*"
 build_style=cmake
-hostmakedepends="cmake curl git pkg-config"
+hostmakedepends="pkg-config"
 makedepends="aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
  hyprgraphics-devel librsvg-devel libpng-devel libwebp-devel libjpeg-turbo-devel libheif-devel libjxl-devel file-devel hyprland-devel hyprlang-devel hyprutils-nk-devel
  libdisplay-info-devel libdrm-devel libinput-devel libseat-devel libxcb-devel
@@ -16,30 +16,26 @@ short_desc="Hyprland plugin: image borders around windows"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://codeberg.org/zacoons/imgborders"
+distfiles="https://codeberg.org/zacoons/imgborders/archive/${version}.tar.gz"
+checksum=81211cdae8deac0aac44fa469a8de0e33df7e0cb96ae90e467f7b8a9a21ecc29
 
 export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm:/usr/include/hyprland/src"
 
-_bundle_url="https://raw.githubusercontent.com/SrDicov/ryoku-void/main/release/packages/imgborders/imgborders.bundle"
-_bundle_sha256="fcbe6bb4ec3a26b595231981cdeaf83376733b31875d0b36bac41bd0dc33e698"
-
-do_fetch() {
-	curl -fsSL -o imgborders.bundle "${_bundle_url}"
-	echo "${_bundle_sha256}  imgborders.bundle" | sha256sum -c -
-	git clone -q imgborders.bundle "${wrksrc}"
-	cd "${wrksrc}"
-	local hv commit
-	hv="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' \
-		/usr/include/hyprland/src/version.h)"
-	commit="$(grep -F "\"$hv\"" hyprpm.toml | grep -oE '[0-9a-f]{40}' | sed -n 2p)"
-	if [ -n "$commit" ]; then
-		git checkout -q "$commit"
-	fi
-}
-
 post_install() {
 	vmkdir usr/lib/hyprland/plugins
-	vinstall ${DESTDIR}/usr/lib/libimgborders.so 755 \
-	 usr/lib/hyprland/plugins imgborders.so
+	# cmake install puts libimgborders.so in usr/lib (default); move/link into hyprland plugins dir
+	if [ -f "${DESTDIR}/usr/lib/libimgborders.so" ]; then
+		mv "${DESTDIR}/usr/lib/libimgborders.so" \
+			"${DESTDIR}/usr/lib/hyprland/plugins/imgborders.so"
+	elif [ -f "${DESTDIR}/usr/lib64/libimgborders.so" ]; then
+		mv "${DESTDIR}/usr/lib64/libimgborders.so" \
+			"${DESTDIR}/usr/lib/hyprland/plugins/imgborders.so"
+	else
+		# fallback: search
+		so="$(find "${DESTDIR}" -name 'libimgborders.so' -type f | head -n1)"
+		[ -n "$so" ] || return 1
+		mv "$so" "${DESTDIR}/usr/lib/hyprland/plugins/imgborders.so"
+	fi
 	local h=/usr/include/hyprland/src/version.h
 	local abi v
 	abi="$(sed -n 's/^#define GIT_COMMIT_HASH *"\([^"]*\)".*/\1/p' "$h")"
