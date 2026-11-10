@@ -1,21 +1,19 @@
 # Template file for 'mozc-ut'
 pkgname=mozc-ut
-# src/data/version/mozc_version_template.bzl
 version=2.31.5851.102
 revision=1
-_commit=6a2e6e292efe4c2048e0c86b0818a4897c4aa5b7
-_abseil=20250512.0
-_protobuf_commit=74211c0dfc2777318ab53c2cd2c317a2ef9012de
-_jpn_dict=e5b3425575734c323e1d947009dd74709437b684
 build_wrksrc=mozc/src
 hostmakedepends="gettext ninja pkg-config bazel python3-six which qt6-base"
 makedepends="ibus-devel libzinnia-devel qt6-base-devel libfcitx5-devel"
 depends="tegaki-zinnia-japanese>=0.3 mozc-ut-base-${version}_${revision}"
-conflicts="mozc>=0"
 short_desc="Mozc Japanese IME with UT dictionary"
 maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
 homepage="https://github.com/linakichi/void-packages-mozc-ut"
+_commit=6a2e6e292efe4c2048e0c86b0818a4897c4aa5b7
+_abseil=20250512.0
+_protobuf_commit=74211c0dfc2777318ab53c2cd2c317a2ef9012de
+_jpn_dict=e5b3425575734c323e1d947009dd74709437b684
 distfiles="https://github.com/fcitx/mozc/archive/${_commit}.tar.gz
  https://github.com/abseil/abseil-cpp/archive/refs/tags/${_abseil}.tar.gz
  https://github.com/protocolbuffers/protobuf/archive/${_protobuf_commit}.tar.gz
@@ -36,6 +34,7 @@ checksum="4dd30982239184b2dc4f4d92a2ae0009e72120830570bb39298d9fad876e6685
  33743ec905601a961284406e96717be663b98a83e8f36cb55f19a387ffb354a2
  310e6ee9933e08cdeab6d3f41d079ad69268958f7cab01785878d9fb28a7f9aa
  8a040564302dc0ba57160172abef3d4f69cc7ca36ea67b6439959d441cd037e7"
+conflicts="mozc>=0"
 skip_extraction="jawiki-20261001-pages-articles-multistream-index.txt.bz2"
 
 CXXFLAGS="-D_GNU_SOURCE"
