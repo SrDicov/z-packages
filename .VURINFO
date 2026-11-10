@@ -2944,6 +2944,79 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
+      "sha256:4dd30982239184b2dc4f4d92a2ae0009e72120830570bb39298d9fad876e6685",
+      "sha256:7262daa7c1711406248c10f41026d685e88223bc92817d16fb93c19adb57f669",
+      "sha256:d0e3a75876a81e1536028bb9cf9181382b198da4cc6fa6aef86879ef629ac807",
+      "sha256:0b6efee0eebac2c1a8eeea333278aa40fcef7846bba9a379962c6e567e7e3dc1",
+      "sha256:45f5a873c73a222c0276d8b9fad166db984d53631e5bbf461ff9c26299efde24",
+      "sha256:5b44be4aed143857a4a5b21b246c2feb769a9b4781c38bbf1e3a3e1508688251",
+      "sha256:9f42cfbc977c6c1ed0d2ead57a9c6edbb45d811f638ce7e2bf64768e12ca72e3",
+      "sha256:33743ec905601a961284406e96717be663b98a83e8f36cb55f19a387ffb354a2",
+      "sha256:310e6ee9933e08cdeab6d3f41d079ad69268958f7cab01785878d9fb28a7f9aa",
+      "sha256:8a040564302dc0ba57160172abef3d4f69cc7ca36ea67b6439959d441cd037e7"
+    ],
+    "depends": [
+      "mozc-ut-base-${version}_${revision}",
+      "fcitx5"
+    ],
+    "distfiles": [
+      "https://github.com/fcitx/mozc/archive/${_commit}.tar.gz",
+      "https://github.com/abseil/abseil-cpp/archive/refs/tags/${_abseil}.tar.gz",
+      "https://github.com/protocolbuffers/protobuf/archive/${_protobuf_commit}.tar.gz",
+      "https://github.com/hiroyuki-komatsu/japanese-usage-dictionary/archive/${_jpn_dict}.tar.gz",
+      "https://github.com/utuhiro78/mozcdic-ut-jawiki/archive/57af6adefedab262c295c4bfff71a89902cbe05c.tar.gz>jawiki-57af6adefedab262c295c4bfff71a89902cbe05c.tar.gz",
+      "https://github.com/utuhiro78/mozcdic-ut-neologd/archive/d8307abf02b830b185c9320822cffa0d0787c54e.tar.gz>neologd-d8307abf02b830b185c9320822cffa0d0787c54e.tar.gz",
+      "https://github.com/utuhiro78/mozcdic-ut-personal-names/archive/b557dd4c1548cc7c2164d5f8b14170c40cbb6f81.tar.gz>personal-b557dd4c1548cc7c2164d5f8b14170c40cbb6f81.tar.gz",
+      "https://github.com/utuhiro78/mozcdic-ut-place-names/archive/98cf8e9d7731695a52e5bc72ed633933c71d1913.tar.gz>place-98cf8e9d7731695a52e5bc72ed633933c71d1913.tar.gz",
+      "https://github.com/utuhiro78/mozcdic-ut-sudachidict/archive/13129ddebe1cb8eabb63feccbe157adec4e1de01.tar.gz>sudachi-13129ddebe1cb8eabb63feccbe157adec4e1de01.tar.gz",
+      "https://download.wikimedia.org/jawiki/20261001/jawiki-20261001-pages-articles-multistream-index.txt.bz2"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "gettext",
+      "ninja",
+      "pkg-config",
+      "bazel",
+      "python3-six",
+      "which",
+      "qt6-base"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "ibus-devel",
+      "libzinnia-devel",
+      "qt6-base-devel",
+      "libfcitx5-devel"
+    ],
+    "pkgname": "mozc-ut",
+    "provides": [
+      "fcitx-mozc-5_1"
+    ],
+    "replaces": [
+      "fcitx-mozc>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [
+      {
+        "pkgname": "mozc-ut-base"
+      },
+      {
+        "pkgname": "ibus-mozc-ut"
+      },
+      {
+        "pkgname": "fcitx5-mozc-ut"
+      }
+    ],
+    "version": "2.31.5851.102"
+  },
+  {
+    "archs": [
+      "all"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
       "sha256:f61126a6d17b2d126a7f31b142504dce4934f7989c55f1c13c6477b3fe80b3d2",
       "sha256:64595b5abc1080fba8610c5c34fab5863408e806aafe84653ca8575bed17d75a",
       "sha256:c1cb61255e363166794e47664e2f21af8e3a26cb6346eb8d2ae2fa85dd5aad96",
