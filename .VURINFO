@@ -680,7 +680,7 @@
     "build_style": "gnu-makefile",
     "checkdepends": [],
     "checksum": [
-      "sha256:bce225beded823ce47323fc3d7adf3f76b1bf2b942d55481f785648dc2e7ae46"
+      "sha256:8b8ba72dabc3f17ce547e1680cf130fd6e1b806e8ea2dc2a9d2fb9ff8b6e6f26"
     ],
     "depends": [
       "fuse-overlayfs",
@@ -704,7 +704,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.14.16"
+    "version": "2.14.18"
   },
   {
     "archs": [
@@ -3542,7 +3542,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:09f44302c10fd036912f59c81fd1aef5df45dd06f649197f9dfc9bbe2a79614e"
+      "sha256:08bb21d6326ce740d91cce7ebe88a6536933f6e1e30353b91a06b01f25da306c"
     ],
     "depends": [
       "ripgrep"
@@ -3566,7 +3566,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.2.5"
+    "version": "2.2.6"
   },
   {
     "archs": [
