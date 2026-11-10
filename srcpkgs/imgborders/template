@@ -20,7 +20,7 @@ homepage="https://codeberg.org/zacoons/imgborders"
 export CPATH="/usr/include/pixman-1:/usr/include/lua5.5:/usr/include/libdrm:/usr/include/hyprland/src"
 
 _bundle_url="https://raw.githubusercontent.com/SrDicov/ryoku-void/main/release/packages/imgborders/imgborders.bundle"
-_bundle_sha256="48187e72ca62fc0b8d12809ca02082b8d27016516d84527a19abb3ff007d6a7d"
+_bundle_sha256="fcbe6bb4ec3a26b595231981cdeaf83376733b31875d0b36bac41bd0dc33e698"
 
 do_fetch() {
 	curl -fsSL -o imgborders.bundle "${_bundle_url}"
