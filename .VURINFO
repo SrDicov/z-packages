@@ -238,7 +238,7 @@
       "procps-ng"
     ],
     "checksum": [
-      "sha256:3c9148de017b2d13ce03fcfa0bfdb5589d4208f2273a92fe46e68d4f7a8cb944"
+      "sha256:be159616efbc750a7430e7ce95a731ee8ee5dda3cebbeaeaeda15df2bc40a646"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -266,7 +266,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.17.0"
+    "version": "0.18.0"
   },
   {
     "archs": [
@@ -3615,7 +3615,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:08bb21d6326ce740d91cce7ebe88a6536933f6e1e30353b91a06b01f25da306c"
+      "sha256:89a6cee227b54bc011179c528a5e63176032462b1a5e21723b616801cddc2ca7"
     ],
     "depends": [
       "ripgrep"
@@ -3639,7 +3639,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.2.6"
+    "version": "2.2.7"
   },
   {
     "archs": [
