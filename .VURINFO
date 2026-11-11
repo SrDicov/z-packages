@@ -136,7 +136,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:30ccdea1fff0bf643b7f6e7aa493240d13ec1d866acf4f89c2a6cc3a2c33369c"
+      "sha256:20be3cab21a2aeba9dca3eee9a212f0308cf34b22fb4a8a98b0dedf18ee63413"
     ],
     "depends": [
       "gtk+3",
@@ -179,7 +179,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.31.0"
+    "version": "2.31.2"
   },
   {
     "archs": [
@@ -1337,7 +1337,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:53f6c4da6a40c6d7daad3ec12096e75f54aee395e2262bf69e25205b0e748b57"
+      "sha256:a07912b481edd4e2d0fe9df00beff38eb2670a18abd1de72c0f43085fe1f889e"
     ],
     "depends": [
       "desktop-file-utils",
@@ -1367,7 +1367,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.59"
+    "version": "0.2.60"
   },
   {
     "archs": [
@@ -5692,7 +5692,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:5a4eed2d4caac39e5f358e81ae5a6782f6c4de3c22e28c5a826571ae9c20f9db"
+      "sha256:5a38d8cc12829b0a347441fe0ebc267514558adc6e1a535184bb22f114efcbd6"
     ],
     "depends": [
       "alsa-lib",
@@ -5726,7 +5726,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "26.11.3"
+    "version": "26.11.4"
   },
   {
     "archs": [
