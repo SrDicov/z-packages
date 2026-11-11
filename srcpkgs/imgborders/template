@@ -4,7 +4,7 @@ version=2.1.0
 revision=1
 archs="x86_64*"
 build_style=cmake
-hostmakedepends="pkg-config"
+hostmakedepends="cmake pkg-config"
 makedepends="aquamarine-devel cairo-devel glslang-devel hyprcursor-devel
  hyprgraphics-devel librsvg-devel libpng-devel libwebp-devel libjpeg-turbo-devel libheif-devel libjxl-devel file-devel hyprland-devel hyprlang-devel hyprutils-nk-devel
  libdisplay-info-devel libdrm-devel libinput-devel libseat-devel libxcb-devel
