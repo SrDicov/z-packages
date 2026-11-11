@@ -46,7 +46,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:bf8006b9bfa67bba77163b8bee216e40a2feb7f15b4da2819b1c641fbe64444b"
+      "sha256:e5395c0478227565b85c7a83f24aee5e4b208a2b33c458d15e24ff69097ddc30"
     ],
     "depends": [],
     "distfiles": [
@@ -68,9 +68,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.4.2"
+    "version": "1.5.0"
   },
   {
     "archs": [
@@ -136,7 +136,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:ef67dfea1a0a8f2d98ce1925fae3132d47b05c1a7e8d4b0a1f761d06085a7bdf"
+      "sha256:30ccdea1fff0bf643b7f6e7aa493240d13ec1d866acf4f89c2a6cc3a2c33369c"
     ],
     "depends": [
       "gtk+3",
@@ -179,7 +179,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.30.0"
+    "version": "2.31.0"
   },
   {
     "archs": [
@@ -238,7 +238,7 @@
       "procps-ng"
     ],
     "checksum": [
-      "sha256:be159616efbc750a7430e7ce95a731ee8ee5dda3cebbeaeaeda15df2bc40a646"
+      "sha256:dcd4b4459b0aa86b1a7a10f4ced9258b34ff155c2ebec6e2e4ba76b16a1e9682"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -266,7 +266,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.18.0"
+    "version": "0.19.0"
   },
   {
     "archs": [
@@ -421,7 +421,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:364e954a2ad84d5ba3e0e217a229d5873c4ae7107d15e6120e4207529539c88d"
+      "sha256:5b5af4d108758fe5e82b7cb119af203977a90fcb34b9b07319317f863f38bc72"
     ],
     "depends": [],
     "distfiles": [
@@ -444,7 +444,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.99.55"
+    "version": "1.99.56"
   },
   {
     "archs": [
@@ -453,7 +453,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:9d0e39e4020bfdf7aafc51308017d440ec009f8f3bbd91b67876b0d65a55505d"
+      "sha256:9c23fa625c124222c6c59d6d6f9819831838a715a7b8109c7f7ef8d85ec636a3"
     ],
     "depends": [
       "alsa-lib",
@@ -489,7 +489,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.99.55"
+    "version": "1.99.56"
   },
   {
     "archs": [
@@ -571,7 +571,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:0746e9ba575182f5dbe32617b82a645eb93ad57ca588e5a9358695a6b65aee71"
+      "sha256:8356a7821930b135b741347faccbc43e1692b4424c3eab710a9af56c0bebb135"
     ],
     "depends": [
       "gtk+3",
@@ -632,7 +632,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "26.1103.60933"
+    "version": "26.1106.51428"
   },
   {
     "archs": [
@@ -1337,7 +1337,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:0d4040b08b77240cfdca951078b92950d007a91354c5abb5b6f1e9939aa3a011"
+      "sha256:53f6c4da6a40c6d7daad3ec12096e75f54aee395e2262bf69e25205b0e748b57"
     ],
     "depends": [
       "desktop-file-utils",
@@ -1367,7 +1367,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.58"
+    "version": "0.2.59"
   },
   {
     "archs": [
@@ -2201,6 +2201,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [
+      "cmake",
       "pkg-config"
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
@@ -2611,7 +2612,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:a796a3c80e0c565048796a342b8eaf4d128608119c7447c43ecb5455c632f49c"
+      "sha256:7c751d4d279f05a2514298599ad3c43d4e85dd011ad2ecc07319c5a8c34a72e5"
     ],
     "depends": [
       "desktop-file-utils",
@@ -2622,7 +2623,7 @@
       "nss"
     ],
     "distfiles": [
-      "https://codeberg.org/api/packages/librewolf/generic/librewolf/159.0-1/librewolf-159.0-1-linux-x86_64-package.tar.xz"
+      "https://dl.librewolf.net/librewolf/${version}-1/librewolf-${version}-1-linux-x86_64-package.tar.xz"
     ],
     "format_version": 1,
     "hostmakedepends": [],
@@ -2638,7 +2639,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "159.0.1"
+    "version": "160.0"
   },
   {
     "archs": [
@@ -3111,7 +3112,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:7a13c1da7737b190bbf17f4b686cd58fe48f7fd17a42a942294c0604a8481377"
+      "sha256:bc9ad8436265574074eca6023c1fafa3ef2c394c36dad7e15ca7faa06ab24c39"
     ],
     "depends": [
       "gtk+3",
@@ -3142,7 +3143,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "16.0"
+    "version": "16.0.1"
   },
   {
     "archs": [
@@ -4762,7 +4763,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:41cbdc7abaaa7ac8911044da67e9e9cfe3be13959d6af84fd22721035724e98e"
+      "sha256:31715b643d380cc295ea4bd0b7e14815ca915bb79e76f1c38a67233c7ba783f1"
     ],
     "depends": [
       "gtk4",
@@ -4781,7 +4782,7 @@
       "dbus"
     ],
     "distfiles": [
-      "https://github.com/ViceVerse-cz/Serein/releases/download/v1.0.0-nightly.20261108.82/serein-v1.0.0-nightly.20261108.82-Linux-X64.AppImage"
+      "https://github.com/ViceVerse-cz/Serein/releases/download/v1.0.0-nightly.20261111.86/serein-v1.0.0-nightly.20261111.86-Linux-X64.AppImage"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -4799,7 +4800,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.0.0pre20261108.82"
+    "version": "1.0.0pre20261111.86"
   },
   {
     "archs": [
@@ -5518,7 +5519,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:3b5f3d05734319737eb6711cd29b561e02c90863ad47d4451fd6f8a1c5e04947"
+      "sha256:e20fa6f176f3367d4fae872bd6933ac446c49390c658f499588215ca466851b9"
     ],
     "depends": [
       "pipewire",
@@ -5551,7 +5552,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.2.0"
+    "version": "1.2.1"
   },
   {
     "archs": [
@@ -5560,7 +5561,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:3b01286639fa026fd860944b811d418f7b93bc5dc447d9e607b0cd1377cfbaa2"
+      "sha256:cbdb7bde3d358c7297cf1d9d6adc16dfb1d0179501fb2c152df48593e39e3600"
     ],
     "depends": [
       "libXtst",
@@ -5574,7 +5575,7 @@
       "desktop-file-utils"
     ],
     "distfiles": [
-      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/c4453f8ea430795f941c1b2ff6c9321135a74a02/code-stable-x64-1793945155.tar.gz"
+      "https://vscode.download.prss.microsoft.com/dbazure/download/stable/69047191fc427f2f92828279aae1d90d8eeda7ab/code-stable-x64-1794340754.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -5593,7 +5594,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.145.2"
+    "version": "1.146.0"
   },
   {
     "archs": [
