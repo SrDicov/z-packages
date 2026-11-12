@@ -10,7 +10,7 @@ depends="alsa-lib ca-certificates dbus hicolor-icon-theme libglvnd libX11
  xcb-util-cursor xcb-util-image xcb-util-keysyms xcb-util-renderutil
  xcb-util-wm xdg-utils"
 short_desc="Telegram-based messaging client with AI features"
-maintainer="ANOMALI0x00 <SrDicov@gmail.com>"
+maintainer="SrDicov <SrDicov@gmail.com>"
 license="custom:Proprietary"
 homepage="https://imem.me/"
 distfiles="https://imem.app/download/desktop/linux>iMe_Desktop_Linux-${version}.tar.xz"
