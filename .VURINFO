@@ -238,7 +238,7 @@
       "procps-ng"
     ],
     "checksum": [
-      "sha256:dcd4b4459b0aa86b1a7a10f4ced9258b34ff155c2ebec6e2e4ba76b16a1e9682"
+      "sha256:8eba378121d0f8805a113995fd915a95f9a7f58dfd71a74236c4df869e1cd919"
     ],
     "depends": [
       "hicolor-icon-theme",
@@ -264,9 +264,9 @@
       "artcraft-launcher-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.19.0"
+    "version": "0.19.2"
   },
   {
     "archs": [
@@ -3477,7 +3477,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:6069d922e9d72488c74e4ce335314ce2203f08bd4641380bfe1bd137004597fa"
+      "sha256:f3fe8a1f1d4306280413e04f934400b787dba212d296d97dfd638bcb55c78262"
     ],
     "depends": [],
     "distfiles": [
@@ -3531,7 +3531,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "5.4.1"
+    "version": "5.5.0"
   },
   {
     "archs": [
