@@ -2233,7 +2233,7 @@
     "hostmakedepends": [],
     "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [],
-    "pkgname": "ime-desktop-bin",
+    "pkgname": "ime-desktop",
     "provides": [],
     "replaces": [],
     "restricted": false,
