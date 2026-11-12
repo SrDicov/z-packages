@@ -24,6 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from builder.bootstrap import MasterdirBootstrapper
 from builder.runner import BuildRunner
 from builder.selective_seed import SelectiveSeeder
+from builder.workspace import prepare_build_tree
 from core.adapter import RepoAdapter
 from core.dag import DependencyPlanner
 from core.quarantine import QuarantineManager
@@ -284,6 +285,22 @@ def cmd_seed(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_prepare_tree(args: argparse.Namespace) -> int:
+    try:
+        tree = prepare_build_tree(
+            repo_root=args.repo,
+            dest=args.dest,
+            clone_url=args.clone_url,
+            ref=args.ref,
+            force=args.force,
+        )
+    except RuntimeError as exc:
+        logger.error("%s", exc)
+        return 1
+    print(tree)
+    return 0
+
+
 def cmd_build(args: argparse.Namespace) -> int:
     for pkg in (args.packages or []):
         if not re.match(r'^[a-zA-Z0-9_\+\-\.]+$', pkg):
@@ -441,6 +458,18 @@ def main() -> int:
     p_seed.add_argument("--token", default=None, help="GitHub token")
     p_seed.add_argument("packages", nargs="+", help="Target packages to resolve dependencies for")
     p_seed.set_defaults(func=cmd_seed)
+
+    # prepare-tree
+    p_tree = subparsers.add_parser(
+        "prepare-tree",
+        help="Compose a buildable void-packages tree for template-only repositories",
+    )
+    p_tree.add_argument("--repo", default=".", help="Repository root path")
+    p_tree.add_argument("--dest", required=True, help="Destination for the void-packages checkout")
+    p_tree.add_argument("--clone-url", default="https://github.com/void-linux/void-packages.git", help="void-packages clone URL")
+    p_tree.add_argument("--ref", default=None, help="Optional branch/tag to clone")
+    p_tree.add_argument("--force", action="store_true", help="Recreate the destination tree")
+    p_tree.set_defaults(func=cmd_prepare_tree)
 
     # build
     p_build = subparsers.add_parser("build", help="Compile packages with quarantine tracking")

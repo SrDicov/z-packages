@@ -13,7 +13,7 @@ class TestIntegration(unittest.TestCase):
     def setUp(self):
         self.tmpdir = tempfile.TemporaryDirectory()
         self.root = Path(self.tmpdir.name)
-        self.cli_path = Path("/home/dicov/Proyectos/autopkg/cli.py")
+        self.cli_path = Path(__file__).resolve().parents[1] / "cli.py"
 
         # Set up a mock repo structure
         (self.root / "srcpkgs" / "libcore").mkdir(parents=True)

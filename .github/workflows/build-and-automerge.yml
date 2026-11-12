@@ -23,10 +23,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - id: changed
         run: |
-          PKGS=$(git diff --name-only HEAD~1 HEAD | grep -E '(srcpkgs/|^)[^/]+/template' | awk -F/ '{if (NF==2) print $1; else print $2}' | sort -u | tr '\n' ' ')
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          PKGS=$(git diff --name-only "$BASE_SHA" HEAD | grep '/template$' | awk -F/ '{print $(NF-1)}' | sort -u | tr '\n' ' ' || true)
           echo "packages=$PKGS" >> "$GITHUB_OUTPUT"
           echo "Changed packages: $PKGS"
 
@@ -51,11 +52,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Configure xbps-src
+      - name: Prepare void-packages build tree
+        id: tree
         run: |
-          mkdir -p etc
-          echo "XBPS_ALLOW_RESTRICTED=yes" >> etc/conf
-          echo "XBPS_MAKEJOBS=$(nproc)" >> etc/conf
+          TREE=$(python3 .github/scripts/autopkg/cli.py prepare-tree \
+            --repo . \
+            --dest "$RUNNER_TEMP/void-packages")
+          echo "path=$TREE" >> "$GITHUB_OUTPUT"
+          echo "Build tree: $TREE"
 
       - name: Seed Dependencies (Surgical - avoids 30GB disk overflow)
         env:
@@ -63,7 +67,8 @@ jobs:
         run: |
           for pkg in ${{ needs.detect-changes.outputs.packages }}; do
             python3 .github/scripts/autopkg/cli.py seed \
-              --repo "." \
+              --repo "${{ steps.tree.outputs.path }}" \
+              --target-dir "${{ steps.tree.outputs.path }}/hostdir/binpkgs" \
               --from-github "SrDicov/z-repo" \
               --arch "${{ matrix.arch }}" \
               "$pkg" || true
@@ -74,7 +79,7 @@ jobs:
           for pkg in ${{ needs.detect-changes.outputs.packages }}; do
             docker run --rm --privileged \
               -v /dev:/dev \
-              -v "$PWD:/void-packages" \
+              -v "${{ steps.tree.outputs.path }}:/void-packages" \
               -w /void-packages \
               "${{ matrix.image }}" \
               sh -c '

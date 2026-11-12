@@ -27,7 +27,7 @@ Diseñado para reemplazar los scripts monolíticos y fragmentados de `z-packages
 
 ```text
 autopkg/
-├── cli.py                     # CLI unificado (detect, plan, update, seed, build, publish, quarantine)
+├── cli.py                     # CLI unificado (detect, plan, update, seed, prepare-tree, build, publish, quarantine)
 ├── core/
 │   ├── adapter.py             # URA: autodetección de layouts (srcpkgs, pkgs, ./) y subpaquetes
 │   ├── template.py            # Parser/editor léxico NO destructivo
@@ -41,6 +41,7 @@ autopkg/
 ├── builder/
 │   ├── bootstrap.py           # Configuración de etc/conf y masterdir
 │   ├── selective_seed.py      # Descarga quirúrgica de solo dependencias necesarias
+│   ├── workspace.py           # Compone void-packages + templates para repos sin xbps-src
 │   └── runner.py              # Ejecución de compilación glibc/musl y logs
 ├── publisher/
 │   ├── indexer.py             # xbps-rindex, firmado, podado y generación de <fp>.plist
@@ -96,13 +97,20 @@ El comando principal es `./cli.py` (o `python3 -m autopkg.cli`):
 ./cli.py seed --repo /ruta/al/repo --from-github "usuario/z-repo" --arch x86_64 hyprland
 ```
 
-### 5. Compilar paquetes con registro de cuarentena
+### 5. Preparar árbol de build para repos template-only
+```bash
+# Clona void-packages y superpone los templates del repo (conserva symlinks).
+# En repos que ya son un fork completo, devuelve la misma ruta sin clonar.
+./cli.py prepare-tree --repo /ruta/al/repo --dest /tmp/void-packages
+```
+
+### 6. Compilar paquetes con registro de cuarentena
 ```bash
 # Compilar paquete; en caso de error lo envía a cuarentena con backoff
 ./cli.py build --repo /ruta/al/repo --arch x86_64 artcraft-launcher
 ```
 
-### 6. Publicar repositorio binario (Firma + Repodata + Verificación)
+### 7. Publicar repositorio binario (Firma + Repodata + Verificación)
 ```bash
 # Publicar a GitHub Releases con verificación estricta de hash
 ./cli.py publish \
@@ -126,7 +134,7 @@ El comando principal es `./cli.py` (o `python3 -m autopkg.cli`):
   --privkey /ruta/a/rsa.pem
 ```
 
-### 7. Gestionar Cuarentena
+### 8. Gestionar Cuarentena
 ```bash
 # Listar paquetes actualmente en cuarentena y su fecha de desbloqueo
 ./cli.py quarantine list
