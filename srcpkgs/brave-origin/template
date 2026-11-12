@@ -1,6 +1,6 @@
 # Template file for 'brave-origin'
 pkgname=brave-origin
-version=1.99.56
+version=1.102.4
 revision=1
 archs="x86_64"
 create_wrksrc=yes

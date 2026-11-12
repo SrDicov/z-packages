@@ -1,6 +1,6 @@
 # Template file for 'opencode'
 pkgname=opencode
-version=2.2.7
+version=56106.video
 revision=1
 archs="x86_64"
 hostmakedepends="tar"

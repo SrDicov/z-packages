@@ -1,6 +1,6 @@
 # Template file for 'phinger-cursor-theme'
 pkgname=phinger-cursor-theme
-version=2.2
+version=1410987542
 revision=1
 short_desc="Simple and clean cursor theme with light and dark variants"
 maintainer="Dicov <SrDicov@gmail.com>"
