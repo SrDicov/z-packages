@@ -171,9 +171,13 @@ def cmd_update(args: argparse.Namespace) -> int:
     elif tmpl.distfiles:
         computed: List[str] = []
         streaming_ok = True
-        for df_url in tmpl.distfiles:
+        distfiles_to_resolve = tmpl.raw_distfiles if tmpl.raw_distfiles else tmpl.distfiles
+        for df_url in distfiles_to_resolve:
             clean_url = df_url.split(">")[0].strip()
-            resolved_url = clean_url.replace("${version}", new_version).replace("$version", new_version)
+            if "${version}" in clean_url or "$version" in clean_url:
+                resolved_url = clean_url.replace("${version}", new_version).replace("$version", new_version)
+            else:
+                resolved_url = clean_url.replace(tmpl.version, new_version)
             resolved_url = resolved_url.replace("${pkgname}", tmpl.pkgname).replace("$pkgname", tmpl.pkgname)
             try:
                 computed.append(compute_distfile_sha256(resolved_url))
@@ -182,7 +186,7 @@ def cmd_update(args: argparse.Namespace) -> int:
                 streaming_ok = False
                 break
 
-        if streaming_ok and len(computed) == len(tmpl.distfiles):
+        if streaming_ok and len(computed) == len(distfiles_to_resolve):
             new_checksums = computed
         else:
             xbps_src = adapter.root_dir / "xbps-src"
@@ -211,6 +215,10 @@ def cmd_update(args: argparse.Namespace) -> int:
 
     if tmpl.distfiles and not new_checksums:
         logger.error("Failed to obtain valid SHA256 checksum for %s (%s). Aborting template update.", args.pkgname, new_version)
+        return 1
+
+    if new_checksums and tmpl.checksums and new_version != tmpl.version and new_checksums == tmpl.checksums:
+        logger.error("Calculated checksum is identical to old checksum for a different version (%s -> %s). Aborting update.", tmpl.version, new_version)
         return 1
 
     # Update template cleanly with validated checksums

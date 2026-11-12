@@ -28,6 +28,7 @@ class TemplateData:
     short_desc: str = ""
     homepage: str = ""
     distfiles: List[str] = field(default_factory=list)
+    raw_distfiles: List[str] = field(default_factory=list)
     checksums: List[str] = field(default_factory=list)
     hostmakedepends: List[str] = field(default_factory=list)
     makedepends: List[str] = field(default_factory=list)
@@ -144,6 +145,7 @@ class TemplateEditor:
     def parse_string(cls, content: str, path: Optional[Path] = None) -> TemplateData:
         raw_lines = content.splitlines()
         variables: Dict[str, str] = dict(cls.DEFAULT_SITE_VARS)
+        raw_variables: Dict[str, str] = {}
 
         # 1. First pass: normalize backslash line continuations
         lines: List[str] = []
@@ -191,6 +193,7 @@ class TemplateEditor:
                     full_val = cls._strip_inline_comment(full_val)
 
                 clean_val = cls._strip_quotes(full_val.strip())
+                raw_variables[var_name] = clean_val
                 # Expand bash variables known up to this point
                 expanded = cls.expand_bash_vars(clean_val, variables)
                 variables[var_name] = expanded
@@ -206,6 +209,7 @@ class TemplateEditor:
             revision = 1
 
         distfiles = cls._split_tokens(variables.get("distfiles", ""))
+        raw_distfiles = cls._split_tokens(raw_variables.get("distfiles", ""))
         checksums = cls._split_tokens(variables.get("checksum", ""))
         hostmakedepends = cls._split_tokens(variables.get("hostmakedepends", ""))
         makedepends = cls._split_tokens(variables.get("makedepends", ""))
@@ -225,6 +229,7 @@ class TemplateEditor:
             short_desc=variables.get("short_desc", ""),
             homepage=variables.get("homepage", ""),
             distfiles=distfiles,
+            raw_distfiles=raw_distfiles,
             checksums=checksums,
             hostmakedepends=hostmakedepends,
             makedepends=makedepends,
