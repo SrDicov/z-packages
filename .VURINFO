@@ -6078,7 +6078,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:323f2682e73e38247a51fbcc75e5628ed2bb9b404db00cf9cf16af329a916fae"
+      "sha256:bcf7e43160ecfe5f29953ed2a984e7a8028a58f2ec0e3114d36bb904d5f5ce80"
     ],
     "depends": [
       "desktop-file-utils",
@@ -6107,7 +6107,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.24b"
+    "version": "1.24.2b"
   },
   {
     "archs": [
