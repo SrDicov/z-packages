@@ -253,7 +253,7 @@
       "rust",
       "pkg-config"
     ],
-    "maintainer": "Orphaned <orphan@voidlinux.org>",
+    "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
       "wayland-devel",
       "libxkbcommon-devel"
@@ -264,7 +264,7 @@
       "artcraft-launcher-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.19.0"
   },
@@ -1337,7 +1337,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:a07912b481edd4e2d0fe9df00beff38eb2670a18abd1de72c0f43085fe1f889e"
+      "sha256:6fdce0ab64c8a72dd4bfa260ded3d254ab6522f90eb460db2a1632a43605d95d"
     ],
     "depends": [
       "desktop-file-utils",
@@ -1367,7 +1367,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.60"
+    "version": "0.2.61"
   },
   {
     "archs": [
@@ -4855,7 +4855,7 @@
       "serein-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.0.0pre20261111.86"
   },
