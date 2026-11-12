@@ -88,6 +88,8 @@ jobs:
                 xbps-install -Syu -y bash python3 sudo git curl >/dev/null 2>&1 || true
                 useradd -m -d /tmp/builder -G xbuilder -s /bin/bash builder 2>/dev/null || true
                 echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+                chown -R builder:builder /void-packages /tmp/builder 2>/dev/null || true
+                su - builder -c "git config --global --add safe.directory /void-packages"
                 su - builder -c "python3 /void-packages/.github/scripts/autopkg/cli.py build --repo /void-packages --arch ${{ matrix.arch }} '"$pkg"'"
               '
           done
