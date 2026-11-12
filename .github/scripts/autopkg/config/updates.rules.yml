@@ -256,6 +256,25 @@ packages:
     url: "https://repo.palemoon.org/MoonchildProductions/Pale-Moon.git"
     pattern: "_Release$"
     version_regex: "^(\\d+(?:\\.\\d+)+)_Release$"
+  mullvad-browser:
+    backend: "github_api"
+    url: "https://api.github.com/repos/mullvad/mullvad-browser/releases"
+    pattern: "tag_name"
+    version_regex: "^mullvad-browser-([0-9]+(?:\\.[0-9]+)+)$"
+  mullvad-vpn:
+    backend: "github_api"
+    url: "https://api.github.com/repos/mullvad/mullvad-vpn-app/releases"
+    pattern: "tag_name"
+    version_regex: "^mullvad-vpn-app-([0-9]+(?:\\.[0-9]+)+)$"
+  opencode:
+    backend: "github_api"
+    url: "https://api.github.com/repos/pkgforge/opencode/releases"
+    pattern: "tag_name"
+    version_regex: "^v([0-9]+(?:\\.[0-9]+)+)$"
+  mesa-amber:
+    backend: "github_release-asset-regex"
+    url: "https://api.github.com/repos/Neko-Void-Linux/mesa-amber/releases"
+    pattern: "^mesa-amber-([0-9]+(?:\\.[0-9]+)+)-[0-9]+-linux-x86_64\\.tar\\.xz$"
   Neko-Wizard:
     backend: "git_commits"
     url: "https://github.com/Neko-Void-Linux/Neko-Wizard.git"
@@ -274,3 +293,31 @@ packages:
   qrunsvmgr-git:
     backend: "git_commits"
     url: "https://codeberg.org/ItsZariep/qrunsvmgr.git"
+  iruka-xbps:
+    backend: "git_tags"
+    url: "https://github.com/javiercplus/iruka-xbps.git"
+    pattern: "^v?([0-9]+(?:\\.[0-9]+)+(?:_[0-9]+)?)$"
+    options:
+      version_regex: "^v?([0-9]+(?:\\.[0-9]+)+(?:_[0-9]+)?)$"
+  mangowc-nk:
+    backend: "git_commits"
+    url: "https://github.com/Neko-Void-Linux/mango.git"
+    options:
+      commit_var: "_sha"
+  mangowc-latest:
+    backend: "git_commits"
+    url: "https://github.com/Neko-Void-Linux/mango.git"
+    options:
+      commit_var: "_sha"
+  soar:
+    backend: "git_tags"
+    url: "https://github.com/pkgforge/soar.git"
+    pattern: "^soar-config-v[0-9]+(\\.[0-9]+)+$"
+    options:
+      version_regex: "^soar-config-v([0-9]+(?:\\.[0-9]+)+)$"
+  soar-git:
+    backend: "git_tags"
+    url: "https://github.com/pkgforge/soar.git"
+    pattern: "^soar-config-v[0-9]+(\\.[0-9]+)+$"
+    options:
+      version_regex: "^soar-config-v([0-9]+(?:\\.[0-9]+)+)$"
