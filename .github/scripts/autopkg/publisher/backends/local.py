@@ -37,9 +37,13 @@ class LocalPublisher(BasePublisherBackend):
         dest_path.mkdir(parents=True, exist_ok=True)
 
         copied: List[str] = []
+        src_resolved = binpkgs_dir.resolve()
         for item in binpkgs_dir.iterdir():
             if item.is_file():
                 target = dest_path / item.name
+                if item.resolve() == target.resolve():
+                    copied.append(item.name)  # already in place
+                    continue
                 shutil.copy2(item, target)
                 copied.append(item.name)
 
