@@ -20,6 +20,11 @@ from detector.rules import PackageRule
 
 
 class GitHubBackend(BaseDetectorBackend):
+    @staticmethod
+    def _repo_from_url(url: str) -> Optional[str]:
+        m = re.search(r'(?:api\.)?github\.com/(?:repos/)?([^/]+/[^/]+)', url)
+        return m.group(1).rstrip(".git") if m else None
+
     def detect_latest(
         self,
         template_data: TemplateData,
@@ -28,18 +33,13 @@ class GitHubBackend(BaseDetectorBackend):
     ) -> Optional[DetectionResult]:
         repo_owner_name = None
         if rule and rule.url:
-            m = re.search(r'github\.com/([^/]+/[^/]+)', rule.url)
-            if m:
-                repo_owner_name = m.group(1).rstrip(".git")
+            repo_owner_name = self._repo_from_url(rule.url)
         elif template_data.homepage and "github.com" in template_data.homepage:
-            m = re.search(r'github\.com/([^/]+/[^/]+)', template_data.homepage)
-            if m:
-                repo_owner_name = m.group(1).rstrip(".git")
+            repo_owner_name = self._repo_from_url(template_data.homepage)
         elif template_data.distfiles:
             for df in template_data.distfiles:
-                m = re.search(r'github\.com/([^/]+/[^/]+)', df)
-                if m:
-                    repo_owner_name = m.group(1).rstrip(".git")
+                repo_owner_name = self._repo_from_url(df)
+                if repo_owner_name:
                     break
 
         if not repo_owner_name:
@@ -81,11 +81,28 @@ class GitHubBackend(BaseDetectorBackend):
                     return False
             return True
 
+        def _version_from_asset(rel: dict) -> Optional[str]:
+            if not (rule and rule.pattern):
+                return None
+            pat = rule.pattern
+            if r"\K" in pat:
+                parts = pat.split(r"\K", 1)
+                pat = f"(?:{parts[0]})({parts[1]})"
+            for asset in rel.get("assets", []):
+                name = asset.get("name", "")
+                m = re.match(pat, name)
+                if not m or not m.groups():
+                    continue
+                return m.group(1).replace("_", ".").replace("-", ".")
+            return None
+
         def _parse_release(rel: dict) -> DetectionResult:
             tag_name = rel.get("tag_name", "")
-            cleaned = re.sub(r'^(?:v|ver|release)[-_]?', '', tag_name, flags=re.IGNORECASE)
-            m = re.search(r'\b(\d+(?:[._-][a-zA-Z0-9]+)*)\b', cleaned)
-            latest_version = m.group(1).replace("-", ".").replace("_", ".") if m else cleaned
+            latest_version = _version_from_asset(rel)
+            if not latest_version:
+                cleaned = re.sub(r'^(?:v|ver|release)[-_]?', '', tag_name, flags=re.IGNORECASE)
+                m = re.search(r'\b(\d+(?:[._-][a-zA-Z0-9]+)*)\b', cleaned)
+                latest_version = m.group(1).replace("-", ".").replace("_", ".") if m else cleaned
             return DetectionResult(
                 latest_version=latest_version,
                 download_url=rel.get("html_url"),

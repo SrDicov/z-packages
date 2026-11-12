@@ -107,7 +107,14 @@ class GitTagsBackend(BaseDetectorBackend):
                 if re.search(r'(?:[-._]?(?:alpha|beta|rc|pre|dev|preview|nightly)[-._0-9]*)', tag, re.IGNORECASE):
                     continue
 
-            cleaned_version = self._clean_tag_to_version(tag, rule.strip_prefix if rule else None)
+            cleaned_version = None
+            version_regex = rule.options.get("version_regex") if rule else None
+            if version_regex:
+                m_ver = re.search(version_regex, tag)
+                if m_ver and m_ver.groups():
+                    cleaned_version = m_ver.group(1)
+            if not cleaned_version:
+                cleaned_version = self._clean_tag_to_version(tag, rule.strip_prefix if rule else None)
             if cleaned_version:
                 parsed_versions.append((cleaned_version, tag))
 

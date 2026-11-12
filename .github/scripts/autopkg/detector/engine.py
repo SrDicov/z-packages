@@ -143,17 +143,31 @@ class DetectionEngine:
         if not detection:
             return None
 
-        needs_update = self._is_newer_version(detection.latest_version, tmpl_data.version)
+        current_version = tmpl_data.version
+        if detection.extra and detection.extra.get("commit"):
+            commit_var = detection.extra.get("commit_var") or self._find_commit_var(tmpl_data.raw_content)
+            if not commit_var:
+                return None
+            detection.extra["commit_var"] = commit_var
+            m_pin = re.search(
+                rf'(?m)^\s*{re.escape(commit_var)}=["\']?([^"\'\s#]+)', tmpl_data.raw_content
+            )
+            current_version = m_pin.group(1) if m_pin else ""
+            if not current_version:
+                return None
+            needs_update = current_version != detection.extra["commit"]
+        else:
+            needs_update = self._is_newer_version(detection.latest_version, tmpl_data.version)
 
-        # If template uses custom _tag and already matches detected tag, it is up-to-date
-        if needs_update and detection.extra and detection.extra.get("tag"):
-            m_tag = re.search(r'^\s*_tag=[\"\'\']?([^\"\'\s#]+)', tmpl_data.raw_content, re.MULTILINE)
-            if m_tag and m_tag.group(1) == detection.extra["tag"]:
-                needs_update = False
+            # If template uses custom _tag and already matches detected tag, it is up-to-date
+            if needs_update and detection.extra and detection.extra.get("tag"):
+                m_tag = re.search(r'^\s*_tag=[\"\'\']?([^\"\'\s#]+)', tmpl_data.raw_content, re.MULTILINE)
+                if m_tag and m_tag.group(1) == detection.extra["tag"]:
+                    needs_update = False
 
         return UpdateCandidate(
             pkgname=pkgname,
-            current_version=tmpl_data.version,
+            current_version=current_version,
             latest_version=detection.latest_version,
             needs_update=needs_update,
             source_type=detection.source_type,
@@ -285,3 +299,10 @@ class DetectionEngine:
     @classmethod
     def _is_newer_version(cls, latest: str, current: str) -> bool:
         return cls.compare_versions(latest, current) > 0
+
+    @staticmethod
+    def _find_commit_var(raw: str) -> Optional[str]:
+        for var in ("_commit", "_githash", "_sha", "_v_commit"):
+            if re.search(rf'(?m)^\s*{re.escape(var)}=', raw):
+                return var
+        return None

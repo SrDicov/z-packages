@@ -239,3 +239,38 @@ packages:
   zig-nk-bin:
     backend: "json-keys"
     url: "https://ziglang.org/download/index.json"
+  libglib-testing:
+    backend: "tags"
+    url: "https://gitlab.gnome.org/pwithnall/libglib-testing.git"
+  libgsystemservice:
+    backend: "tags"
+    url: "https://gitlab.gnome.org/pwithnall/libgsystemservice.git"
+  malcontent:
+    backend: "tags"
+    url: "https://gitlab.freedesktop.org/pwithnall/malcontent.git"
+  logbookd:
+    backend: "tags"
+    url: "https://git.sr.ht/~martijnbraam/logbookd"
+  palemoon:
+    backend: "tags"
+    url: "https://repo.palemoon.org/MoonchildProductions/Pale-Moon.git"
+    pattern: "_Release$"
+    version_regex: "^(\\d+(?:\\.\\d+)+)_Release$"
+  Neko-Wizard:
+    backend: "git_commits"
+    url: "https://github.com/Neko-Void-Linux/Neko-Wizard.git"
+  kyoz:
+    backend: "git_commits"
+    url: "https://github.com/Neko-Void-Linux/kyoz.git"
+  dmemcg-booster:
+    backend: "git_commits"
+    url: "https://github.com/Neko-Void-Linux/dmemcg-booster-nk.git"
+  dmemcg-booster-nk:
+    backend: "git_commits"
+    url: "https://github.com/Neko-Void-Linux/dmemcg-booster-nk.git"
+  qrunsvmgr:
+    backend: "git_commits"
+    url: "https://codeberg.org/ItsZariep/qrunsvmgr.git"
+  qrunsvmgr-git:
+    backend: "git_commits"
+    url: "https://codeberg.org/ItsZariep/qrunsvmgr.git"
