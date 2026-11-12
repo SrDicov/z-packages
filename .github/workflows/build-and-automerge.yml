@@ -2,7 +2,7 @@ name: "Build Verification & Event-Driven Auto-Merge"
 
 on:
   pull_request:
-    branches: [master]
+    branches: [master, test-rewind-v4]
     paths:
       - "srcpkgs/**"
       - "**/template"
