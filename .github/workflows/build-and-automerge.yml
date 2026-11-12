@@ -77,7 +77,7 @@ jobs:
               -v "$PWD:/void-packages" \
               -w /void-packages \
               "${{ matrix.image }}" \
-              bash -c '
+              sh -c '
                 set -e
                 mkdir -p etc
                 echo "XBPS_ALLOW_RESTRICTED=yes" >> etc/conf
