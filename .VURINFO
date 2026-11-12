@@ -1589,7 +1589,8 @@
       "sha256:27e9e19ff59ba75a2963d72c3dcb5c0840b266b90d7fca6d5df7cac105419b08"
     ],
     "depends": [
-      "hyprgraphics-${version}_${revision}"
+      "${sourcepkg}>=${version}_${revision}",
+      "libpng-devel"
     ],
     "distfiles": [
       "https://github.com/hyprwm/hyprgraphics/archive/refs/tags/v${version}.tar.gz"
@@ -1619,7 +1620,11 @@
     "replaces": [],
     "restricted": false,
     "revision": 1,
-    "subpackages": [],
+    "subpackages": [
+      {
+        "pkgname": "hyprgraphics-devel"
+      }
+    ],
     "version": "0.6.0"
   },
   {
