@@ -280,7 +280,7 @@ TABLE = {
         "antigravity-manifest",
         "https://antigravity-hub-auto-updater-974169037036.us-central1.run.app/manifest/latest-x64-linux.yml",
     ),
-    "ime-desktop-bin": (
+    "ime-desktop": (
         "ime-current",
         "https://desktop-updates.imem.me/current2",
     ),

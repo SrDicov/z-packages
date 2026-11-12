@@ -1,5 +1,5 @@
-# Template file for 'ime-desktop-bin'
-pkgname=ime-desktop-bin
+# Template file for 'ime-desktop'
+pkgname=ime-desktop
 version=7.3.4
 revision=1
 archs="x86_64"
