@@ -2188,6 +2188,63 @@
     "archs": [
       "x86_64"
     ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:fe7567821f965d5548a3aa2b86f249aa3c761a3b7cac7c3119836507447c6c5b"
+    ],
+    "depends": [
+      "alsa-lib",
+      "ca-certificates",
+      "dbus",
+      "hicolor-icon-theme",
+      "libglvnd",
+      "libX11",
+      "libXcomposite",
+      "libXcursor",
+      "libXdamage",
+      "libXext",
+      "libXfixes",
+      "libXi",
+      "libXinerama",
+      "libXrandr",
+      "libXrender",
+      "libXtst",
+      "libxcb",
+      "libxkbcommon",
+      "libxkbcommon-x11",
+      "libpulseaudio",
+      "libpipewire",
+      "libsecret",
+      "libwebkitgtk60",
+      "mesa-dri",
+      "pango",
+      "xcb-util-cursor",
+      "xcb-util-image",
+      "xcb-util-keysyms",
+      "xcb-util-renderutil",
+      "xcb-util-wm",
+      "xdg-utils"
+    ],
+    "distfiles": [
+      "https://imem.app/download/desktop/linux>iMe_Desktop_Linux-${version}.tar.xz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [],
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "ime-desktop-bin",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "7.3.4"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
