@@ -1,6 +1,6 @@
 # Template file for 'hydra-launcher'
 pkgname=hydra-launcher
-version=4.4.0
+version=4.4.1
 revision=1
 archs="x86_64"
 create_wrksrc=yes
@@ -14,7 +14,7 @@ maintainer="ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>"
 license="MIT"
 homepage="https://github.com/hydralauncher/hydra"
 distfiles="https://github.com/hydralauncher/hydra/releases/download/v${version}/hydralauncher_${version}_amd64.deb"
-checksum=7d27db73e8390afd05b59c2c10da56082b2287ce7a95f68c655861a500c75df6
+checksum=0527fe3fec945b3463f14d7b61a6ff12f76215b9e5d3ba338a677d0c20c92cb8
 provides="hydra-launcher-bin-${version}_${revision}"
 replaces="hydra-launcher-bin>=0"
 nostrip=yes
