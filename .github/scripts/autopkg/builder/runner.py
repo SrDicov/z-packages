@@ -53,6 +53,13 @@ def is_arch_supported(archs: List[str], target_arch: str) -> bool:
 
 def get_host_arch() -> str:
     """Detect current host architecture including musl libc variant."""
+    try:
+        res = subprocess.run(["xbps-uhelper", "arch"], capture_output=True, text=True, check=False)
+        if res.returncode == 0 and res.stdout.strip():
+            return res.stdout.strip()
+    except Exception:
+        pass
+
     machine = platform.machine()
     base = "x86_64" if machine in ("x86_64", "AMD64") else machine
     is_musl = any(Path("/lib").glob("ld-musl*")) or any(Path("/usr/lib").glob("ld-musl*"))
@@ -102,17 +109,31 @@ class BuildRunner:
 
     def ensure_masterdir(self, arch: str, host_arch: Optional[str] = None) -> bool:
         """Bootstrap masterdir-<arch> if it does not exist yet."""
-        masterdir = self.adapter.root_dir / f"masterdir-{arch}"
+        host = host_arch or get_host_arch()
+        is_alt = needs_alt_host(arch, host)
+        is_cross = (arch != host and not is_alt)
+        mdir_name = f"masterdir-{arch}" if (is_alt or is_cross) else "masterdir"
+        masterdir = self.adapter.root_dir / mdir_name
         if masterdir.is_dir() and (masterdir / ".xbps_chroot_init").is_file():
             return True
 
-        host = host_arch or get_host_arch()
-        logger.info("Bootstrapping masterdir-%s (host=%s)...", arch, host)
+        # Ensure etc/conf has XBPS_CHROOT_CMD=uchroot for container CI environments
+        etc_conf = self.adapter.root_dir / "etc" / "conf"
+        etc_conf.parent.mkdir(parents=True, exist_ok=True)
+        conf_lines = []
+        if etc_conf.is_file():
+            conf_lines = etc_conf.read_text(encoding="utf-8").splitlines()
+        if not any(l.strip().startswith("XBPS_CHROOT_CMD=") for l in conf_lines):
+            conf_lines.append("XBPS_CHROOT_CMD=uchroot")
+            etc_conf.write_text("\n".join(conf_lines) + "\n", encoding="utf-8")
+            logger.info("Wrote XBPS_CHROOT_CMD=uchroot to %s", etc_conf)
+
+        logger.info("Bootstrapping %s (host=%s, target=%s)...", mdir_name, host, arch)
         cmd = [str(self.xbps_src)]
-        if needs_alt_host(arch, host):
-            cmd += ["-A", arch, "binary-bootstrap"]
-        elif arch != host:
-            cmd += ["-a", arch, "binary-bootstrap"]
+        if is_alt:
+            cmd += ["-A", arch, "-m", mdir_name, "binary-bootstrap"]
+        elif is_cross:
+            cmd += ["-a", arch, "-m", mdir_name, "binary-bootstrap"]
         else:
             cmd += ["binary-bootstrap"]
 

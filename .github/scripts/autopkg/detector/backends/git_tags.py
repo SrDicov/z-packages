@@ -18,6 +18,20 @@ from detector.backends.base import BaseDetectorBackend, DetectionResult
 from detector.rules import PackageRule
 
 
+def safe_re_search(pattern: str, string: str) -> bool:
+    r"""Safely match regex even if pattern includes PCRE conventions like \K."""
+    if not pattern:
+        return True
+    try:
+        pat = pattern
+        if r"\K" in pat:
+            parts = pat.split(r"\K", 1)
+            pat = f"(?:{parts[0]})({parts[1]})"
+        return bool(re.search(pat, string))
+    except Exception:
+        return False
+
+
 class GitTagsBackend(BaseDetectorBackend):
     def detect_latest(
         self,
@@ -80,12 +94,12 @@ class GitTagsBackend(BaseDetectorBackend):
         for tag in tags:
             # Check pattern filter if rule specifies one
             if rule and rule.pattern:
-                if not re.search(rule.pattern, tag):
+                if not safe_re_search(rule.pattern, tag):
                     continue
 
             # Check ignore filter
             if rule and rule.ignore:
-                if re.search(rule.ignore, tag):
+                if safe_re_search(rule.ignore, tag):
                     continue
 
             # Skip pre-releases (alpha, beta, rc) unless explicitly requested
@@ -125,7 +139,7 @@ class GitTagsBackend(BaseDetectorBackend):
         t = re.sub(r'^(?:v|ver|release|rel|v\.)[-_]?', '', t, flags=re.IGNORECASE)
 
         # Match version pattern: digits separated by dots/underscores/hyphens
-        m = re.search(r'\b(\d+(?:[._-]\d+)+(?:[a-zA-Z]|[-._][a-zA-Z0-9]+)?|\d+)\b', t)
+        m = re.search(r'\b(\d+(?:[._-][a-zA-Z0-9]+)*)\b', t)
         if m:
             candidate = m.group(1).replace("-", ".").replace("_", ".")
             # Reject isolated small integers extracted from non-version tags

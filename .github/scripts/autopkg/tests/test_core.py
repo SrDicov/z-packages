@@ -126,6 +126,49 @@ checksum="
         qm.record_success("broken-pkg")
         self.assertFalse(qm.is_quarantined("broken-pkg", "2.0.0"))
 
+    def test_git_tag_cleaning_and_pcre(self):
+        from detector.backends.git_tags import GitTagsBackend, safe_re_search
+
+        # 1. Complex tag cleaning
+        cleaned = GitTagsBackend._clean_tag_to_version("v0.8.0-mikuri.9")
+        self.assertEqual(cleaned, "0.8.0.mikuri.9")
+
+        cleaned2 = GitTagsBackend._clean_tag_to_version("v0.8.0-mikuri.20")
+        self.assertEqual(cleaned2, "0.8.0.mikuri.20")
+
+        # Natural sort order
+        k1 = GitTagsBackend._version_sort_key(cleaned)
+        k2 = GitTagsBackend._version_sort_key(cleaned2)
+        self.assertLess(k1, k2)
+
+        # Reject commit hash tags
+        self.assertIsNone(GitTagsBackend._clean_tag_to_version("hl-61a71c65ace5124cb123"))
+
+        # 2. Safe PCRE \K search
+        pcre_pattern = r"releases/tag/v\K[\d.]+"
+        self.assertTrue(safe_re_search(pcre_pattern, "releases/tag/v1.2.3"))
+        self.assertFalse(safe_re_search(pcre_pattern, "foo/bar/baz"))
+
+    def test_template_additional_vars(self):
+        content = """# Halley template
+pkgname=halley
+version=0.5.6
+revision=1
+_tag=v0.8.0-mikuri.9
+distfiles="https://github.com/mikuri12/halley/archive/refs/tags/${_tag}.tar.gz>halley-${version}.tar.gz"
+checksum=95d7293acc2fb068ecbcd4b961c9ab385ee3667d99a8867b3577369cdaea6cf0
+"""
+        updated = TemplateEditor.update_metadata(
+            content,
+            new_version="0.8.0",
+            new_revision=1,
+            new_checksum="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            additional_vars={"_tag": "v0.8.0-mikuri.20"},
+        )
+        self.assertIn("version=0.8.0", updated)
+        self.assertIn("_tag=v0.8.0-mikuri.20", updated)
+        self.assertIn("checksum=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", updated)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -154,6 +154,8 @@ def cmd_update(args: argparse.Namespace) -> int:
 
     tmpl = TemplateEditor.parse_file(tmpl_path)
     new_version = args.version
+    extra_vars: dict = {}
+    tag_val = None
 
     # If new version not explicitly passed, detect it
     if not new_version:
@@ -161,9 +163,14 @@ def cmd_update(args: argparse.Namespace) -> int:
         cand = engine.check_package(args.pkgname)
         if cand and cand.needs_update:
             new_version = cand.latest_version
+            if cand.extra and cand.extra.get("tag"):
+                tag_val = cand.extra["tag"]
         else:
             logger.info("Package %s is already up-to-date (%s)", args.pkgname, tmpl.version)
             return 0
+
+    if tag_val and ("_tag" in tmpl.raw_content or any("${_tag}" in df for df in tmpl.raw_distfiles)):
+        extra_vars["_tag"] = tag_val
 
     new_checksums: List[str] = []
     if args.checksum:
@@ -179,6 +186,8 @@ def cmd_update(args: argparse.Namespace) -> int:
             else:
                 resolved_url = clean_url.replace(tmpl.version, new_version)
             resolved_url = resolved_url.replace("${pkgname}", tmpl.pkgname).replace("$pkgname", tmpl.pkgname)
+            if tag_val:
+                resolved_url = resolved_url.replace("${_tag}", tag_val).replace("$_tag", tag_val)
             try:
                 computed.append(compute_distfile_sha256(resolved_url))
             except Exception as e:
@@ -197,6 +206,7 @@ def cmd_update(args: argparse.Namespace) -> int:
                     tmpl_path,
                     new_version=new_version,
                     new_revision=args.revision,
+                    additional_vars=extra_vars or None,
                 )
                 import subprocess
                 res = subprocess.run([str(xbps_src), "xgensum", "-f", args.pkgname], cwd=str(adapter.root_dir), check=False)
@@ -227,6 +237,7 @@ def cmd_update(args: argparse.Namespace) -> int:
         new_version=new_version,
         new_revision=args.revision,
         new_checksum=new_checksums if new_checksums else None,
+        additional_vars=extra_vars or None,
     )
     logger.info("Successfully updated %s to version %s (revision %d) with %d checksum(s)", args.pkgname, new_version, args.revision, len(new_checksums))
 
