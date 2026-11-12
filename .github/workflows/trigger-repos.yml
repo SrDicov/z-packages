@@ -26,17 +26,49 @@ jobs:
     name: Dispatch autobuild
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detectar paquetes cambiados
+        id: changed
+        shell: bash
+        run: |
+          before="${{ github.event.before }}"
+          after="${{ github.sha }}"
+          if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
+            pkgs=""
+          else
+            pkgs=$(git diff --name-only "$before" "$after" -- srcpkgs \
+              | awk -F/ '$1 == "srcpkgs" && $2 != "" {print $2}' \
+              | sort -u \
+              | while read -r p; do [ -f "srcpkgs/$p/template" ] && echo "$p"; done \
+              | tr '\n' ' ')
+          fi
+          echo "pkgs=$pkgs" >> "$GITHUB_OUTPUT"
+          echo "Paquetes cambiados: ${pkgs:-<ninguno>}"
+
       - name: Disparar z-repo y z-repo-musl
         env:
           GH_TOKEN: ${{ secrets.PR_TOKEN }}
+          PKGS: ${{ steps.changed.outputs.pkgs }}
         run: |
           set -e
           for repo in SrDicov/z-repo SrDicov/z-repo-musl; do
-            active=$(gh run list -R "$repo" --workflow autobuild.yml \
+            active=$(gh run list -R "$repo" --workflow autobuild-publish.yml \
               --json status --jq '[.[]|select(.status!="completed")]|length')
             if [ "$active" -gt 0 ]; then
               echo "skip $repo: $active run(s) already active"
               continue
+            fi
+            if [ -n "$PKGS" ]; then
+              if gh workflow run autobuild-publish.yml -R "$repo" --ref master \
+                -f packages="$PKGS"; then
+                echo "disparado $repo con paquetes: $PKGS"
+                continue
+              fi
+              echo "workflow_dispatch falló para $repo; usando repository_dispatch"
             fi
             gh api -X POST "repos/$repo/dispatches" \
               -f event_type=z-packages-update >/dev/null
