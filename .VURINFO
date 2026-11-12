@@ -444,7 +444,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.99.56"
+    "version": "1.102.4"
   },
   {
     "archs": [
@@ -489,7 +489,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.99.56"
+    "version": "1.102.4"
   },
   {
     "archs": [
@@ -2336,9 +2336,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.2.0"
+    "version": "0.2.0_1"
   },
   {
     "archs": [
@@ -3205,7 +3205,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "16.0.1"
+    "version": "153.7.0esr.16.0.1.build1"
   },
   {
     "archs": [
@@ -3240,9 +3240,9 @@
       "mullvad-vpn-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "2026.5"
+    "version": "2995.2"
   },
   {
     "archs": [
@@ -3747,7 +3747,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.2.7"
+    "version": "56106.video"
   },
   {
     "archs": [
@@ -3915,7 +3915,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.2"
+    "version": "1410987542"
   },
   {
     "archs": [
@@ -5192,7 +5192,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.46.4"
+    "version": "2.46.5"
   },
   {
     "archs": [
@@ -5227,7 +5227,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.3.4"
+    "version": "1.3.4.258"
   },
   {
     "archs": [
