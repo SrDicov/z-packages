@@ -280,6 +280,10 @@ TABLE = {
         "antigravity-manifest",
         "https://antigravity-hub-auto-updater-974169037036.us-central1.run.app/manifest/latest-x64-linux.yml",
     ),
+    "ime-desktop-bin": (
+        "ime-current",
+        "https://desktop-updates.imem.me/current2",
+    ),
     "trinity-launcher": (
         "github-release-asset-date",
         "https://api.github.com/repos/Trinity-LA/Trinity-Launcher/releases/tags/latest",
@@ -860,6 +864,18 @@ def from_table(spec, current, token=None):
                 new_url = f"{mu.group(1)}/linux-x64/Antigravity.tar.gz"
             return [ver], new_url
         return [], None
+    if kind == "ime-current":
+        try:
+            data, _ = fetch_json(url)
+        except Exception:
+            return [], None
+        try:
+            raw = int(data["linux"]["stable"]["released"])
+        except (KeyError, TypeError, ValueError):
+            return [], None
+        major, rest = divmod(raw, 1000000)
+        minor, patch = divmod(rest, 1000)
+        return [f"{major}.{minor}.{patch}"], None
     if kind == "github-release-asset-date":
         hdr = {"Accept": "application/vnd.github+json"}
         if token:
