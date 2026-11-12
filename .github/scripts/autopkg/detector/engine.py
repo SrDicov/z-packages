@@ -22,7 +22,7 @@ from typing import Dict, List, Optional
 
 from core.adapter import RepoAdapter
 from core.template import TemplateData, TemplateEditor
-from detector.backends import BACKENDS, DetectionResult, GitTagsBackend, RegexBackend
+from detector.backends import BACKENDS, DetectionResult, GitHubBackend, GitTagsBackend, RegexBackend
 from detector.rules import PackageRule, RulesLoader, RulesRegistry
 from detector.void_update import VoidUpdateConfig, VoidUpdateParser
 
@@ -116,7 +116,13 @@ class DetectionEngine:
                 if void_cfg:
                     detection = self._detect_from_void_update(tmpl_data, void_cfg)
 
-        # 3. Default fallback: GitTagsBackend (0 API cost)
+        # 3. Prefer GitHubBackend if distfiles points to GitHub releases
+        has_github_release = any("github.com" in df and "/releases/download/" in df for df in tmpl_data.distfiles)
+        if not detection and has_github_release:
+            gh_backend = GitHubBackend()
+            detection = gh_backend.detect_latest(tmpl_data, None, self.etag_cache)
+
+        # 4. Default fallback: GitTagsBackend (0 API cost)
         if not detection:
             git_backend = GitTagsBackend()
             detection = git_backend.detect_latest(tmpl_data, None, self.etag_cache)

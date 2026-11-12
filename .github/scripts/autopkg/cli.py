@@ -176,7 +176,18 @@ def cmd_update(args: argparse.Namespace) -> int:
         except Exception as e:
             logger.warning("Could not compute checksum via streaming: %s", e)
             logger.info("Attempting xbps-src xgensum fallback...")
-            pass
+            xbps_src = adapter.root_dir / "xbps-src"
+            if xbps_src.is_file():
+                import subprocess
+                res = subprocess.run([str(xbps_src), "xgensum", "-f", args.pkgname], cwd=str(adapter.root_dir), check=False)
+                if res.returncode == 0:
+                    updated_tmpl = TemplateEditor.parse_file(tmpl_path)
+                    if updated_tmpl.checksums:
+                        new_checksum = updated_tmpl.checksums[0]
+
+    if not new_checksum and tmpl.distfiles and not args.checksum:
+        logger.error("Failed to obtain valid SHA256 checksum for %s (%s). Aborting template update.", args.pkgname, new_version)
+        return 1
 
     # Update template cleanly
     TemplateEditor.update_file(
@@ -186,13 +197,6 @@ def cmd_update(args: argparse.Namespace) -> int:
         new_checksum=new_checksum if new_checksum else None,
     )
     logger.info("Successfully updated %s to version %s (revision %d)", args.pkgname, new_version, args.revision)
-
-    # If checksum wasn't retrieved via HTTP streaming, run xgensum if requested
-    if not new_checksum and args.use_xgensum:
-        xbps_src = adapter.root_dir / "xbps-src"
-        if xbps_src.is_file():
-            import subprocess
-            subprocess.run([str(xbps_src), "xgensum", "-f", args.pkgname], cwd=str(adapter.root_dir), check=False)
 
     return 0
 

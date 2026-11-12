@@ -31,10 +31,16 @@ class GitHubBackend(BaseDetectorBackend):
             m = re.search(r'github\.com/([^/]+/[^/]+)', rule.url)
             if m:
                 repo_owner_name = m.group(1).rstrip(".git")
-        elif template_data.homepage:
+        elif template_data.homepage and "github.com" in template_data.homepage:
             m = re.search(r'github\.com/([^/]+/[^/]+)', template_data.homepage)
             if m:
                 repo_owner_name = m.group(1).rstrip(".git")
+        elif template_data.distfiles:
+            for df in template_data.distfiles:
+                m = re.search(r'github\.com/([^/]+/[^/]+)', df)
+                if m:
+                    repo_owner_name = m.group(1).rstrip(".git")
+                    break
 
         if not repo_owner_name:
             return None

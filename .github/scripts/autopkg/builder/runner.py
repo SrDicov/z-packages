@@ -186,6 +186,7 @@ class BuildRunner:
                 if proc.stdout:
                     for line in proc.stdout:
                         f_log.write(line)
+                        print(line, end="", flush=True)
                         if any(err_kw in line.lower() for err_kw in ("error:", "fatal:", "failed:", "cannot find")):
                             error_lines.append(line.strip())
                     proc.stdout.close()
