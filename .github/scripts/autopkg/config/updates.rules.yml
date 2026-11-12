@@ -259,18 +259,15 @@ packages:
   mullvad-browser:
     backend: "github_api"
     url: "https://api.github.com/repos/mullvad/mullvad-browser/releases"
-    pattern: "tag_name"
-    version_regex: "^mullvad-browser-([0-9]+(?:\\.[0-9]+)+)$"
+    pattern: "^mullvad-browser[_-]v?([0-9]+(?:\\.[0-9]+)+)$"
   mullvad-vpn:
     backend: "github_api"
     url: "https://api.github.com/repos/mullvad/mullvad-vpn-app/releases"
-    pattern: "tag_name"
-    version_regex: "^mullvad-vpn-app-([0-9]+(?:\\.[0-9]+)+)$"
+    pattern: "^mullvad-vpn[_-]v?([0-9]+(?:\\.[0-9]+)+)$"
   opencode:
     backend: "github_api"
-    url: "https://api.github.com/repos/pkgforge/opencode/releases"
-    pattern: "tag_name"
-    version_regex: "^v([0-9]+(?:\\.[0-9]+)+)$"
+    url: "https://api.github.com/repos/sst/opencode/releases"
+    pattern: "^opencode[_-]v?([0-9]+(?:\\.[0-9]+)+)$"
   mesa-amber:
     backend: "github_release-asset-regex"
     url: "https://api.github.com/repos/Neko-Void-Linux/mesa-amber/releases"

@@ -1,6 +1,6 @@
 # Template file for 'horizon'
 pkgname=horizon
-version=0.2.61
+version=0.2.62
 revision=1
 archs="x86_64"
 build_style=fetch
