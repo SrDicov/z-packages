@@ -1,6 +1,6 @@
 # Template file for 'libudev-zero'
 pkgname=libudev-zero
-version=1.0.5
+version=1.0.1
 revision=1
 build_style=gnu-makefile
 make_build_args="PREFIX=/usr"
@@ -10,7 +10,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="ISC"
 homepage="https://github.com/illiliti/libudev-zero"
 distfiles="https://github.com/illiliti/libudev-zero/archive/refs/tags/${version}.tar.gz"
-checksum=bf4372f79ddbe6b0e266a3d2994ffac7018a7edf4f87632aecb5176565d96138
+checksum=c4cf149ea96295c1e6e86038d10c725344c751982ed4a790b06c76776923e0ea
 
 provides="libudev-251_${revision}"
 conflicts="eudev-libudev>=0"

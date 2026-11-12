@@ -1,7 +1,7 @@
 # Template file for 'hytale-installer'
 pkgname=hytale-installer
-version=0.1.3
-revision=2
+version=0.1.2
+revision=1
 archs="x86_64"
 build_style=fetch
 short_desc="Free GPL-3 wrapper that downloads, updates and launches the
@@ -10,7 +10,7 @@ maintainer="Dicov <srdicov@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/SrDicov/Hytale-Installer"
 distfiles="https://github.com/SrDicov/Hytale-Installer/archive/refs/tags/v${version}.tar.gz>hytale-installer-${version}.tar.gz"
-checksum=65707a7b7d8aa6fc034485db270d15c0a796faeab95fb868c24dc0e3c61e3d5b
+checksum=2f22ac52eabe8be958f434cf5b1cbb193a6e3dad6e9b361e66e2a022aa343fd2
 
 depends="bash curl unzip ca-certificates
  gtk+3 libwebkit2gtk41 libsoup3 gdk-pixbuf glib glib-networking

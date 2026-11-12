@@ -1,7 +1,7 @@
 # Template file for 'pineconemc'
 pkgname=pineconemc
-version=11.1.2
-revision=2
+version=11.1.1
+revision=1
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="binutils tar zstd"
@@ -13,8 +13,7 @@ license="GPL-3.0-only"
 homepage="https://pineconemc.ru"
 distfiles="https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst>pineconemc-${version}.zst
  https://archive.archlinux.org/packages/c/cmark/cmark-0.31.2-1-x86_64.pkg.tar.zst"
-checksum="57d7db6536ede38b86988e41f75b48e6a8653769c7a06c6a317b2a40e3a20a8d
- 20aa066e2f2051eca725f3f700580813a2d357814fd53c76d916ab641afa1fa8"
+checksum=7707f48da4f8eb48accc352b325ae0e3b93ed2c9d56071ce0b74b8a0dab0be7a
 conflicts="elyprismlauncher>=0"
 provides="elyprismlauncher-${version}_${revision}
  pineconemc-bin-${version}_${revision}"

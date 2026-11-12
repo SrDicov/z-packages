@@ -1,7 +1,7 @@
 # Template file for 'Neko-Wizard'
 pkgname=Neko-Wizard
-version=9.0.25
-revision=2
+version=9.0.21
+revision=1
 _commit="38b0b46d3192e8914221bd168a4c32edb1b1026c"
 build_style=meson
 hostmakedepends="pkg-config meson ninja cmake"

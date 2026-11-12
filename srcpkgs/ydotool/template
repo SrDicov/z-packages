@@ -1,6 +1,6 @@
 # Template file for 'ydotool'
 pkgname=ydotool
-version=1.0.4
+version=1.0.0
 revision=1
 build_style=cmake
 hostmakedepends="cmake pkg-config scdoc"
@@ -9,7 +9,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="AGPL-3.0-only"
 homepage="https://github.com/ReimuNotMoe/ydotool"
 distfiles="https://github.com/ReimuNotMoe/ydotool/archive/refs/tags/v${version}.tar.gz"
-checksum=ba075a43aa6ead51940e892ecffa4d0b8b40c241e4e2bc4bd9bd26b61fde23bd
+checksum=0e497946e70e87348f8c01f401792b217596f6c94c5620accd24d8ec8242619e
 
 post_install() {
 	vsv ydotoold

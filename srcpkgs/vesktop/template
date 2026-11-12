@@ -1,6 +1,6 @@
 # Template file for 'vesktop'
 pkgname=vesktop
-version=1.6.9
+version=1.6.7
 revision=1
 archs="x86_64"
 create_wrksrc=yes
@@ -12,7 +12,7 @@ maintainer="ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Vencord/Vesktop"
 distfiles="https://github.com/Vencord/Vesktop/releases/download/v${version}/vesktop_${version}_amd64.deb"
-checksum=8487a3ba56c7cd0bb230c1d6b42373fa0a8a23bab6f0809c903988b4f3e9cefc
+checksum=0204a3fcf8861d11debf72a9be70423d2dca6d4698766b6fda7cfe39beea6a61
 nostrip=yes
 nopie=yes
 noshlibprovides=yes

@@ -1,6 +1,6 @@
 # Template file for 'qrunsvmgr'
 pkgname=qrunsvmgr
-version=r17.c15fa15
+version=r14.e3a3023
 revision=1
 build_style=cmake
 make_use_env=yes

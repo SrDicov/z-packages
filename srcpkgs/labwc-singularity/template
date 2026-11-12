@@ -1,7 +1,7 @@
 # Template file for 'labwc-singularity'
 pkgname=labwc-singularity
-version=0.20.2
-revision=5
+version=0.9.5
+revision=1
 archs="x86_64 x86_64-musl"
 build_style=meson
 configure_args="--prefix=/usr --libdir=lib --buildtype=release
@@ -23,8 +23,7 @@ _commit="8473ea4b722b7f255590078ac9868538d853f5dd"
 _repository="https://github.com/singularityos-lab/labwc.git"
 distfiles="https://github.com/singularityos-lab/labwc/archive/${_commit}.tar.gz>labwc-singularity-${version}.tar.gz
  https://github.com/wlrfx/scenefx/archive/37ccd723bef49e6891156ffafce8f549f01446cc.tar.gz>scenefx.tar.gz"
-checksum="1d56d7f2003f35854c3423d65f83fd45c274faf1b3f574bc5890256487d72a05
- 7f595ead422fa12c1aae2af65402d1cf78ac6a8726cfb5a511b208a788981e13"
+checksum=fb3d3621b866e0b9f629c3171bcc8ac1d946d9f18073abdad66752922cdebc72
 provides="labwc-${version}_${revision}"
 replaces="labwc>=0"
 conflicts="labwc>=0"

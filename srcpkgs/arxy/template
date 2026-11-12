@@ -1,6 +1,6 @@
 # Template file for 'arxy'
 pkgname=arxy
-version=1.0.0
+version=0.6.0
 revision=1
 depends="bash bubblewrap curl tar zstd xz gzip file desktop-file-utils minisign
  sudo"

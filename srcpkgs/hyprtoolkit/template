@@ -1,7 +1,7 @@
 # Template file for 'hyprtoolkit'
 pkgname=hyprtoolkit
-version=0.6.0
-revision=4
+version=0.5.1
+revision=1
 archs="x86_64*"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -15,7 +15,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/hyprtoolkit"
 distfiles="https://github.com/hyprwm/hyprtoolkit/archive/refs/tags/v${version}.tar.gz"
-checksum=53c41be72af97d9ede274a63c9c1034c58726d862905763ed6e5a564ae42ba6b
+checksum=f9f481dc18ec1d293dbd4e508e784c3781d067972b053bf4db0a12cf506ca31d
 
 post_install() {
 	vlicense LICENSE

@@ -1,6 +1,6 @@
 # Template file for 'antigravity'
 pkgname=antigravity
-version=2.31.2
+version=2.25.0
 revision=1
 archs="x86_64"
 create_wrksrc=yes
@@ -15,7 +15,7 @@ homepage="https://antigravity.ai"
 _buildid=6470801290035200
 _site="https://storage.googleapis.com/antigravity-public/antigravity-hub"
 distfiles="${_site}/${version}-${_buildid}/linux-x64/Antigravity.tar.gz"
-checksum=20be3cab21a2aeba9dca3eee9a212f0308cf34b22fb4a8a98b0dedf18ee63413
+checksum=9f9cbd2db9e196f656d9f4caf7bf99af756e9336f70412220af9f39669b69222
 replaces="antigravity-bin>=0"
 provides="antigravity-bin-${version}_${revision}"
 nostrip=yes

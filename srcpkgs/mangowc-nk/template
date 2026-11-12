@@ -1,7 +1,7 @@
 # Template file for 'mangowc-nk'
 pkgname=mangowc-nk
-version=0.18.3
-revision=3
+version=0.18.2
+revision=1
 archs="x86_64*"
 build_style=meson
 configure_args="$(vopt_if xwayland -Dxwayland=enabled -Dxwayland=disabled)"
@@ -17,7 +17,7 @@ homepage="https://github.com/mangowm/mango"
 changelog="https://github.com/mangowm/mango/releases"
 _sha="6d9637e8ae1522b65723497a41e6cfb36e66668d"
 distfiles="https://github.com/Neko-Void-Linux/mango/archive/${_sha}.tar.gz"
-checksum=1e7d2df3854838aeef35b914ab49ad24c600e3ddaac5cc977cebda89608f10ba
+checksum=42552aeede3ddb5d413bb6d5a5783cb41a40595cec8c95b7aa28b07f0cb6b5fe
 replaces="mangowc-latest>=0 mangowc>=0"
 provides="mangowc-${version}_${revision}"
 build_options="xwayland"

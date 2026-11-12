@@ -1,6 +1,6 @@
 # Template file for 'tracktion-download-manager'
 pkgname=tracktion-download-manager
-version=2026.10.1.5.3
+version=2026.10
 revision=1
 _debver="1.5.3"
 _debdir="153"

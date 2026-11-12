@@ -1,6 +1,6 @@
 # Template file for 'lsfg-vk'
 pkgname=lsfg-vk
-version=2026.2.0.0
+version=2026
 revision=1
 _ver="${version#2026.}"
 build_style=cmake
@@ -17,7 +17,7 @@ license="GPL-3.0-only"
 homepage="https://lsfg-vk.dev"
 changelog="https://git.lsfg-vk.dev/lsfg-vk/log/"
 distfiles="https://git.lsfg-vk.dev/lsfg-vk/snapshot/lsfg-vk-${_ver}.tar.xz"
-checksum=abb688feac00d50f9e59dabb2476998bc1d3f0290fb971407d49cba26dd44b3b
+checksum=3184a29c61b4cc356e7b65d23c8c1c46cc39ba4f0153d1e909827162681c7533
 wrksrc="lsfg-vk-${_ver}"
 replaces="lsfg-vk-git>=0"
 provides="lsfg-vk-git-${version}_${revision}"

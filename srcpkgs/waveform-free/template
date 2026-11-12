@@ -1,6 +1,6 @@
 # Template file for 'waveform-free'
 pkgname=waveform-free
-version=2026.14.1.23
+version=2026.10
 revision=1
 _debver="14.1.23"
 archs="x86_64"

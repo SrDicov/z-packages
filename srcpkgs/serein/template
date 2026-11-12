@@ -1,7 +1,7 @@
 # Template file for 'serein'
 pkgname=serein
-version=1.0.0pre20261111.86
-revision=2
+version=1.0.0pre20261103.74
+revision=1
 archs="x86_64"
 build_style=fetch
 hostmakedepends="7zip"
@@ -14,7 +14,7 @@ license="MIT, Apache-2.0"
 homepage="https://github.com/ViceVerse-cz/Serein"
 _tag="v1.0.0-nightly.20261111.86"
 distfiles="https://github.com/ViceVerse-cz/Serein/releases/download/v1.0.0-nightly.20261111.86/serein-v1.0.0-nightly.20261111.86-Linux-X64.AppImage"
-checksum=31715b643d380cc295ea4bd0b7e14815ca915bb79e76f1c38a67233c7ba783f1
+checksum=00ef45f419fe05450c774027c3148220078f5e8bb9a0803b4efa732ad0471e8d
 provides="serein-bin-${version}_${revision}"
 replaces="serein-bin>=0"
 nostrip=yes

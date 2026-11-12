@@ -1,6 +1,6 @@
 # Template file for 'vary'
 pkgname=vary
-version=0.5.0
+version=0.2.4
 revision=1
 build_style=cargo
 hostmakedepends="git"
@@ -10,7 +10,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/SrDicov/Vary"
 distfiles="https://github.com/SrDicov/Vary/archive/refs/tags/v${version}.tar.gz"
-checksum=3a15e967111e433ecbf11fb3d3a18c058bbca28b3caf62312a7b181acd30547c
+checksum=bb83ae62eba675eefc40b93a88a6876f24601485407d4bbfcf92d62d640cd671
 
 do_build() {
 	cargo build --release
