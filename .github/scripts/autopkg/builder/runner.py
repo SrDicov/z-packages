@@ -7,6 +7,7 @@ Handles same-CPU different-libc architecture switching (-A) vs cross-compilation
 
 from __future__ import annotations
 
+import fnmatch
 import logging
 import platform
 import subprocess
@@ -19,6 +20,35 @@ from core.adapter import RepoAdapter
 from core.quarantine import QuarantineManager
 
 logger = logging.getLogger("autopkg.builder.runner")
+
+
+def is_arch_supported(archs: List[str], target_arch: str) -> bool:
+    """
+    Check if target_arch satisfies the archs restriction of a Void template.
+    Void Linux rules:
+    - Empty archs: all architectures supported.
+    - ~pattern: architecture blacklisted (e.g. ~*-musl, ~x86_64-musl).
+    - pattern: architecture whitelisted (e.g. x86_64, aarch64).
+    """
+    if not archs:
+        return True
+
+    # Check blacklist first
+    for a in archs:
+        if a.startswith("~"):
+            if fnmatch.fnmatch(target_arch, a[1:]):
+                return False
+
+    # Check whitelist if any positive archs exist
+    positive_archs = [a for a in archs if not a.startswith("~")]
+    if not positive_archs:
+        return True
+
+    for a in positive_archs:
+        if fnmatch.fnmatch(target_arch, a):
+            return True
+
+    return False
 
 
 def needs_alt_host(target_arch: str, host_arch: Optional[str] = None) -> bool:
@@ -93,6 +123,26 @@ class BuildRunner:
         """Compile a single package using xbps-src."""
         start_time = time.time()
         log_file = self.logs_dir / f"{pkgname}_{arch}_{int(start_time)}.log"
+
+        # Check architecture compatibility before invoking xbps-src
+        tmpl_path = self.adapter.get_template_path(pkgname)
+        if tmpl_path:
+            try:
+                from core.template import TemplateEditor
+                tmpl = TemplateEditor.parse_file(tmpl_path)
+                if not is_arch_supported(tmpl.archs, arch):
+                    logger.info("Skipping %s for %s: architecture not supported by template (archs=%s)", pkgname, arch, tmpl.archs)
+                    return BuildResult(
+                        pkgname=pkgname,
+                        arch=arch,
+                        success=True,
+                        returncode=0,
+                        duration_seconds=0.0,
+                        error_summary=f"Skipped: arch {arch} not supported by template archs={tmpl.archs}",
+                        log_path=log_file,
+                    )
+            except Exception as e:
+                logger.warning("Could not check arch compatibility for %s: %s", pkgname, e)
 
         cmd = [str(self.xbps_src)]
         if needs_alt_host(arch, host_arch):

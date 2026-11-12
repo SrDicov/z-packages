@@ -26,24 +26,30 @@ jobs:
           fetch-depth: 2
       - id: changed
         run: |
-          PKGS=$(git diff --name-only HEAD~1 HEAD | grep -E '(srcpkgs/|^)[^/]+/template' | awk -F/ '{if (NF==2) print $1; else print $2}' | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          PKGS=$(git diff --name-only HEAD~1 HEAD | grep -E '(srcpkgs/|^)[^/]+/template' | awk -F/ '{if (NF==2) print $1; else print $2}' | sort -u | tr '\n' ' ')
           echo "packages=$PKGS" >> "$GITHUB_OUTPUT"
           echo "Changed packages: $PKGS"
 
   build-matrix:
     needs: detect-changes
-    if: needs.detect-changes.outputs.packages != '[]'
+    if: needs.detect-changes.outputs.packages != ''
     strategy:
       fail-fast: false
       matrix:
-        arch: [x86_64, x86_64-musl]
+        include:
+          - arch: x86_64
+            image: ghcr.io/void-linux/void-glibc-full:latest
+          - arch: x86_64-musl
+            image: ghcr.io/void-linux/void-musl-full:latest
     runs-on: ubuntu-latest
-    container:
-      image: ${{ matrix.arch == 'x86_64-musl' && 'ghcr.io/void-linux/void-musl-full:latest' || 'ghcr.io/void-linux/void-glibc-full:latest' }}
-      options: --privileged
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
       - name: Configure xbps-src
         run: |
@@ -55,22 +61,31 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TARGETS=$(echo '${{ needs.detect-changes.outputs.packages }}' | jq -r '.[]')
-          for pkg in $TARGETS; do
+          for pkg in ${{ needs.detect-changes.outputs.packages }}; do
             python3 .github/scripts/autopkg/cli.py seed \
               --repo "." \
               --from-github "SrDicov/z-repo" \
               --arch "${{ matrix.arch }}" \
-              $pkg || true
+              "$pkg" || true
           done
 
-      - name: Build Packages with Quarantine Tracking
+      - name: Build Packages in Isolated Container
         run: |
-          TARGETS=$(echo '${{ needs.detect-changes.outputs.packages }}' | jq -r '.[]')
-          python3 .github/scripts/autopkg/cli.py build \
-            --repo "." \
-            --arch "${{ matrix.arch }}" \
-            $TARGETS
+          for pkg in ${{ needs.detect-changes.outputs.packages }}; do
+            docker run --rm --privileged \
+              -v "$PWD:/void-packages" \
+              -w /void-packages \
+              "${{ matrix.image }}" \
+              sh -c "
+                mkdir -p etc
+                echo 'XBPS_ALLOW_RESTRICTED=yes' >> etc/conf
+                echo 'XBPS_MAKEJOBS=\$(nproc)' >> etc/conf
+                mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
+                sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf 2>/dev/null || true
+                xbps-install -Syu -y python3 >/dev/null 2>&1 || true
+                python3 .github/scripts/autopkg/cli.py build --repo /void-packages --arch ${{ matrix.arch }} $pkg
+              "
+          done
 
   auto-merge:
     needs: [detect-changes, build-matrix]
@@ -81,4 +96,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
-          gh pr merge "${{ github.event.pull_request.number }}" --squash --delete-branch
+          gh pr merge "${{ github.event.pull_request.number }}" -R "${{ github.repository }}" --squash --delete-branch

@@ -115,6 +115,23 @@ def cmd_plan(args: argparse.Namespace) -> int:
     # Order topologically via DAG
     ordered = planner.plan_build_order(to_update)
 
+    target_arch = getattr(args, "arch", None)
+    if target_arch:
+        from builder.runner import is_arch_supported
+        filtered = []
+        for p in ordered:
+            tmpl_path = adapter.get_template_path(p)
+            if tmpl_path:
+                try:
+                    tmpl = TemplateEditor.parse_file(tmpl_path)
+                    if not is_arch_supported(tmpl.archs, target_arch):
+                        logger.info("Skipping %s in plan: arch %s not supported", p, target_arch)
+                        continue
+                except Exception:
+                    pass
+            filtered.append(p)
+        ordered = filtered
+
     if args.limit and args.limit > 0:
         ordered = ordered[:args.limit]
 
@@ -222,31 +239,33 @@ def cmd_build(args: argparse.Namespace) -> int:
 
 def cmd_publish(args: argparse.Namespace) -> int:
     binpkgs_dir = Path(args.binpkgs_dir).resolve()
-    indexer = RepoIndexer(binpkgs_dir, arch=args.arch, signed_by=args.signed_by)
 
-    # 1. Prune superseded versions
-    if args.prune:
-        pruned = indexer.prune_old_versions()
-        logger.info("Pruned %d older package versions", len(pruned))
+    if not getattr(args, "upload_only", False):
+        indexer = RepoIndexer(binpkgs_dir, arch=args.arch, signed_by=args.signed_by)
 
-    # 2. Sign and index
-    privkey = args.privkey or os.environ.get("XBPS_PRIVATE_KEY")
-    if not privkey:
-        logger.error("Missing private key for signing (use --privkey or XBPS_PRIVATE_KEY)")
-        return 1
+        # 1. Prune superseded versions
+        if args.prune:
+            pruned = indexer.prune_old_versions()
+            logger.info("Pruned %d older package versions", len(pruned))
 
-    key_info = indexer.sign_and_index(privkey)
-    if not key_info:
-        logger.error("Signing or indexing failed")
-        return 1
-
-    # 3. Validate local repository
-    validator = RepoValidator(binpkgs_dir, arch=args.arch)
-    report = validator.validate_local_repository()
-    if not report.is_valid:
-        logger.error("Repository validation failed: %s", report.errors)
-        if not args.force:
+        # 2. Sign and index
+        privkey = args.privkey or os.environ.get("XBPS_PRIVATE_KEY")
+        if not privkey:
+            logger.error("Missing private key for signing (use --privkey or XBPS_PRIVATE_KEY)")
             return 1
+
+        key_info = indexer.sign_and_index(privkey)
+        if not key_info:
+            logger.error("Signing or indexing failed")
+            return 1
+
+        # 3. Validate local repository
+        validator = RepoValidator(binpkgs_dir, arch=args.arch)
+        report = validator.validate_local_repository()
+        if not report.is_valid:
+            logger.error("Repository validation failed: %s", report.errors)
+            if not args.force:
+                return 1
 
     # 4. Dispatch to publisher backend
     backend_cls = PUBLISHER_BACKENDS.get(args.backend)
@@ -321,6 +340,7 @@ def main() -> int:
     p_plan.add_argument("--rules", default=None, help="Path to updates.rules.yml")
     p_plan.add_argument("--cache-dir", default=".cache", help="Cache directory")
     p_plan.add_argument("--quarantine-file", default="quarantine.json", help="Quarantine state file")
+    p_plan.add_argument("--arch", default=None, help="Target architecture (e.g. x86_64, x86_64-musl)")
     p_plan.add_argument("--all", "-a", action="store_true", help="Plan for all specified packages regardless of update status")
     p_plan.add_argument("--limit", type=int, default=5, help="Max batch size (0 for unlimited)")
     p_plan.add_argument("--json", action="store_true", help="Output JSON list")
@@ -365,6 +385,7 @@ def main() -> int:
     p_publish.add_argument("--arch", default="x86_64", help="Architecture")
     p_publish.add_argument("--privkey", default=None, help="Private key PEM path or env")
     p_publish.add_argument("--signed-by", default="Void Community Autobuilder", help="Signed-by identity string")
+    p_publish.add_argument("--upload-only", action="store_true", help="Skip signing/indexing and only upload existing indexed artifacts to backend")
     p_publish.add_argument("--backend", choices=list(PUBLISHER_BACKENDS.keys()), default="github", help="Publishing backend")
     p_publish.add_argument("--dest", required=True, help="Destination (owner/repo, branch, URL or local path)")
     p_publish.add_argument("--tag", default=None, help="Release tag (for GitHub Releases)")
