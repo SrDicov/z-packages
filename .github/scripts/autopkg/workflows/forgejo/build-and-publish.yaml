@@ -1,0 +1,61 @@
+name: "Forgejo Build & Publish to binpkgs"
+
+on: [push, workflow_dispatch]
+
+env:
+  ARCHS: "x86_64 x86_64-musl"
+  BINPKGS_BRANCH: "binpkgs"
+
+concurrency:
+  group: forgejo-build-${{ forgejo.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: void-glibc-full
+    steps:
+      - name: Install required tools
+        run: xbps-install -Sy git curl util-linux bash xtools python3
+
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+        with:
+          path: repo-source
+
+      - name: Checkout binpkgs branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BINPKGS_BRANCH }}
+          path: binpkgs-dest
+
+      - name: Build and Publish Packages
+        working-directory: repo-source
+        env:
+          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
+          XBPS_PRIVATE_KEY: ${{ secrets.XBPS_PRIVATE_KEY }}
+          SIGNED_BY: "Voiders Community <builder@voiders.dev>"
+        run: |
+          set -e
+          for arch in $ARCHS; do
+            echo "Processing architecture: $arch"
+
+            # 1. Build unbuilt packages
+            python3 /path/to/autopkg/cli.py build \
+              --repo "." \
+              --arch "$arch" \
+              $(python3 /path/to/autopkg/cli.py plan --repo "." --limit 0) || true
+
+            # 2. Copy artifacts to binpkgs branch directory
+            mkdir -p "../binpkgs-dest/$arch"
+            cp -r hostdir/binpkgs/"$arch"/* "../binpkgs-dest/$arch/" 2>/dev/null || true
+
+            # 3. Sign, Index and Publish directly to git branch
+            python3 /path/to/autopkg/cli.py publish \
+              --binpkgs-dir "../binpkgs-dest/$arch" \
+              --arch "$arch" \
+              --backend forgejo \
+              --dest "${{ forgejo.repository_url }}" \
+              --branch "${{ env.BINPKGS_BRANCH }}" \
+              --signed-by "$SIGNED_BY" \
+              --prune
+          done

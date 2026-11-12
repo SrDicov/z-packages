@@ -165,38 +165,62 @@ def cmd_update(args: argparse.Namespace) -> int:
             logger.info("Package %s is already up-to-date (%s)", args.pkgname, tmpl.version)
             return 0
 
-    new_checksum = args.checksum
-    if not new_checksum and tmpl.distfiles:
-        # Interpolate version in first distfile URL
-        df_url = tmpl.distfiles[0]
-        resolved_url = df_url.replace("${version}", new_version).replace("$version", new_version)
-        resolved_url = resolved_url.replace("${pkgname}", tmpl.pkgname).replace("$pkgname", tmpl.pkgname)
-        try:
-            new_checksum = compute_distfile_sha256(resolved_url)
-        except Exception as e:
-            logger.warning("Could not compute checksum via streaming: %s", e)
-            logger.info("Attempting xbps-src xgensum fallback...")
+    new_checksums: List[str] = []
+    if args.checksum:
+        new_checksums = [args.checksum] if isinstance(args.checksum, str) else list(args.checksum)
+    elif tmpl.distfiles:
+        computed: List[str] = []
+        streaming_ok = True
+        for df_url in tmpl.distfiles:
+            clean_url = df_url.split(">")[0].strip()
+            resolved_url = clean_url.replace("${version}", new_version).replace("$version", new_version)
+            resolved_url = resolved_url.replace("${pkgname}", tmpl.pkgname).replace("$pkgname", tmpl.pkgname)
+            try:
+                computed.append(compute_distfile_sha256(resolved_url))
+            except Exception as e:
+                logger.warning("Could not compute checksum via streaming for %s: %s", resolved_url, e)
+                streaming_ok = False
+                break
+
+        if streaming_ok and len(computed) == len(tmpl.distfiles):
+            new_checksums = computed
+        else:
             xbps_src = adapter.root_dir / "xbps-src"
             if xbps_src.is_file():
+                logger.info("Attempting xbps-src xgensum fallback with new version...")
+                # Write new version first so xbps-src xgensum computes hashes for the new release
+                TemplateEditor.update_file(
+                    tmpl_path,
+                    new_version=new_version,
+                    new_revision=args.revision,
+                )
                 import subprocess
                 res = subprocess.run([str(xbps_src), "xgensum", "-f", args.pkgname], cwd=str(adapter.root_dir), check=False)
                 if res.returncode == 0:
                     updated_tmpl = TemplateEditor.parse_file(tmpl_path)
                     if updated_tmpl.checksums:
-                        new_checksum = updated_tmpl.checksums[0]
+                        new_checksums = updated_tmpl.checksums
+                else:
+                    # Revert to original state on failure
+                    TemplateEditor.update_file(
+                        tmpl_path,
+                        new_version=tmpl.version,
+                        new_revision=tmpl.revision,
+                        new_checksum=tmpl.checksums,
+                    )
 
-    if not new_checksum and tmpl.distfiles and not args.checksum:
+    if tmpl.distfiles and not new_checksums:
         logger.error("Failed to obtain valid SHA256 checksum for %s (%s). Aborting template update.", args.pkgname, new_version)
         return 1
 
-    # Update template cleanly
+    # Update template cleanly with validated checksums
     TemplateEditor.update_file(
         tmpl_path,
         new_version=new_version,
         new_revision=args.revision,
-        new_checksum=new_checksum if new_checksum else None,
+        new_checksum=new_checksums if new_checksums else None,
     )
-    logger.info("Successfully updated %s to version %s (revision %d)", args.pkgname, new_version, args.revision)
+    logger.info("Successfully updated %s to version %s (revision %d) with %d checksum(s)", args.pkgname, new_version, args.revision, len(new_checksums))
 
     return 0
 

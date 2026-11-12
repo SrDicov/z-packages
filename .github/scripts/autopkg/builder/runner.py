@@ -51,6 +51,14 @@ def is_arch_supported(archs: List[str], target_arch: str) -> bool:
     return False
 
 
+def get_host_arch() -> str:
+    """Detect current host architecture including musl libc variant."""
+    machine = platform.machine()
+    base = "x86_64" if machine in ("x86_64", "AMD64") else machine
+    is_musl = any(Path("/lib").glob("ld-musl*")) or any(Path("/usr/lib").glob("ld-musl*"))
+    return f"{base}-musl" if is_musl else base
+
+
 def needs_alt_host(target_arch: str, host_arch: Optional[str] = None) -> bool:
     """
     xbps-src can't build a cross-toolchain for a same-CPU different-libc target
@@ -59,16 +67,13 @@ def needs_alt_host(target_arch: str, host_arch: Optional[str] = None) -> bool:
     a different host (xbps-src -A <host>) inside a libc-specific masterdir,
     not as a cross-target via -a. Returns True when -A should be used.
     """
-    if not host_arch:
-        machine = platform.machine()
-        host_arch = "x86_64" if machine in ("x86_64", "AMD64") else machine
-
-    if target_arch == host_arch:
+    host = host_arch or get_host_arch()
+    if target_arch == host:
         return False
 
-    base_target, sep_target, _ = target_arch.partition("-")
-    base_host, sep_host, _ = host_arch.partition("-")
-    return base_target == base_host and target_arch != host_arch
+    base_target, _, _ = target_arch.partition("-")
+    base_host, _, _ = host.partition("-")
+    return base_target == base_host and target_arch != host
 
 
 @dataclass
@@ -101,11 +106,12 @@ class BuildRunner:
         if masterdir.is_dir() and (masterdir / ".xbps_chroot_init").is_file():
             return True
 
-        logger.info("Bootstrapping masterdir-%s...", arch)
+        host = host_arch or get_host_arch()
+        logger.info("Bootstrapping masterdir-%s (host=%s)...", arch, host)
         cmd = [str(self.xbps_src)]
-        if needs_alt_host(arch, host_arch):
+        if needs_alt_host(arch, host):
             cmd += ["-A", arch, "binary-bootstrap"]
-        elif arch != (host_arch or "x86_64"):
+        elif arch != host:
             cmd += ["-a", arch, "binary-bootstrap"]
         else:
             cmd += ["binary-bootstrap"]
@@ -144,10 +150,11 @@ class BuildRunner:
             except Exception as e:
                 logger.warning("Could not check arch compatibility for %s: %s", pkgname, e)
 
+        host = host_arch or get_host_arch()
         cmd = [str(self.xbps_src)]
-        if needs_alt_host(arch, host_arch):
+        if needs_alt_host(arch, host):
             # Same-CPU different-libc: ensure masterdir is bootstrapped deterministically
-            if not self.ensure_masterdir(arch, host_arch):
+            if not self.ensure_masterdir(arch, host):
                 logger.error("Failed to bootstrap masterdir-%s for same-CPU alt host build", arch)
                 return BuildResult(
                     pkgname=pkgname,
@@ -159,7 +166,7 @@ class BuildRunner:
                     log_path=log_file,
                 )
             cmd += ["-A", arch, "-m", f"masterdir-{arch}"]
-        elif arch != (host_arch or "x86_64"):
+        elif arch != host:
             # Cross-compilation to a different CPU architecture
             cmd += ["-a", arch, "-m", f"masterdir-{arch}"]
 

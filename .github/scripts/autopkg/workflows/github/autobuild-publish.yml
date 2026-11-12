@@ -1,0 +1,74 @@
+name: "Autobuild & Publish Binary Repository"
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: "Space-separated list of packages to build and publish"
+        required: false
+        default: ""
+  repository_dispatch:
+    types: [package-updated]
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86_64, x86_64-musl]
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.arch == 'x86_64-musl' && 'ghcr.io/void-linux/void-musl-full:latest' || 'ghcr.io/void-linux/void-glibc-full:latest' }}
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure xbps-src
+        run: |
+          mkdir -p etc
+          echo "XBPS_ALLOW_RESTRICTED=yes" >> etc/conf
+          echo "XBPS_MAKEJOBS=$(nproc)" >> etc/conf
+
+      - name: Seed Dependencies Surgically
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PKGS="${{ github.event.inputs.packages || github.event.client_payload.packages }}"
+          if [ -n "$PKGS" ]; then
+            python3 /path/to/autopkg/cli.py seed \
+              --repo "." \
+              --from-github "${{ github.repository }}" \
+              --arch "${{ matrix.arch }}" \
+              $PKGS
+          fi
+
+      - name: Build Packages
+        run: |
+          PKGS="${{ github.event.inputs.packages || github.event.client_payload.packages }}"
+          if [ -n "$PKGS" ]; then
+            python3 /path/to/autopkg/cli.py build \
+              --repo "." \
+              --arch "${{ matrix.arch }}" \
+              $PKGS
+          fi
+
+      - name: Sign, Index and Publish (Strict Verification)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          XBPS_PRIVATE_KEY: ${{ secrets.XBPS_PRIVATE_KEY }}
+          SIGNED_BY: "Z Linux Core <SrDicov@gmail.com>"
+        run: |
+          python3 /path/to/autopkg/cli.py publish \
+            --binpkgs-dir "hostdir/binpkgs/${{ matrix.arch }}" \
+            --arch "${{ matrix.arch }}" \
+            --backend github \
+            --dest "${{ github.repository }}" \
+            --tag "rolling-${{ matrix.arch }}" \
+            --signed-by "$SIGNED_BY" \
+            --prune

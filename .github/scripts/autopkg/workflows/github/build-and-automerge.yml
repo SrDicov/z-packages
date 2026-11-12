@@ -1,0 +1,88 @@
+name: "Build Verification & Event-Driven Auto-Merge"
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "srcpkgs/**"
+      - "pkgs/**"
+      - "**/template"
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.changed.outputs.packages }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - id: changed
+        run: |
+          # Identify changed package templates
+          PKGS=$(git diff --name-only HEAD~1 HEAD | grep -E '(srcpkgs/|pkgs/|^)[^/]+/template' | awk -F/ '{if (NF==2) print $1; else print $2}' | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          echo "packages=$PKGS" >> "$GITHUB_OUTPUT"
+          echo "Changed packages: $PKGS"
+
+  build-matrix:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.packages != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86_64, x86_64-musl]
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.arch == 'x86_64-musl' && 'ghcr.io/void-linux/void-musl-full:latest' || 'ghcr.io/void-linux/void-glibc-full:latest' }}
+      options: --privileged
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure xbps-src
+        run: |
+          mkdir -p etc
+          echo "XBPS_ALLOW_RESTRICTED=yes" >> etc/conf
+          echo "XBPS_MAKEJOBS=$(nproc)" >> etc/conf
+
+      - name: Seed Dependencies (Surgical - avoids 30GB disk overflow)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TARGETS=$(echo '${{ needs.detect-changes.outputs.packages }}' | jq -r '.[]')
+          for pkg in $TARGETS; do
+            # Download ONLY direct build dependencies needed for this template
+            python3 /path/to/autopkg/cli.py seed \
+              --repo "." \
+              --from-github "${{ github.repository_owner }}/z-repo" \
+              --arch "${{ matrix.arch }}" \
+              $pkg || true
+          done
+
+      - name: Build Packages with Quarantine Tracking
+        run: |
+          TARGETS=$(echo '${{ needs.detect-changes.outputs.packages }}' | jq -r '.[]')
+          python3 /path/to/autopkg/cli.py build \
+            --repo "." \
+            --arch "${{ matrix.arch }}" \
+            $TARGETS
+
+  auto-merge:
+    needs: [detect-changes, build-matrix]
+    if: success() && contains(github.event.pull_request.labels.*.name, 'autopkg-update')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge Green PR (Zero Sleep Loop)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Merge PR immediately upon green matrix without active polling
+          gh pr merge "${{ github.event.pull_request.number }}" --squash --delete-branch

@@ -116,12 +116,21 @@ class GitTagsBackend(BaseDetectorBackend):
         t = tag.strip()
         if custom_prefix and t.startswith(custom_prefix):
             t = t[len(custom_prefix):]
+
+        # Ignore tags that are commit SHAs or contain commit SHAs (e.g. hl-61a71c65ace5124cb...)
+        if re.search(r'[-_]?[0-9a-f]{7,40}$', t, re.IGNORECASE) and re.search(r'[a-f]', t, re.IGNORECASE):
+            return None
+
         # Strip common prefixes like 'v' or 'v.' or '<pkgname>-'
         t = re.sub(r'^(?:v|ver|release|rel|v\.)[-_]?', '', t, flags=re.IGNORECASE)
-        # If tag has form pkg-1.2.3, strip non-digits before the first digit
-        m = re.search(r'(\d+[\d._+-]*\d+|\d+)', t)
+
+        # Match version pattern: digits separated by dots/underscores/hyphens
+        m = re.search(r'\b(\d+(?:[._-]\d+)+(?:[a-zA-Z]|[-._][a-zA-Z0-9]+)?|\d+)\b', t)
         if m:
             candidate = m.group(1).replace("-", ".").replace("_", ".")
+            # Reject isolated small integers extracted from non-version tags
+            if candidate.isdigit() and len(t) > len(candidate) + 4:
+                return None
             return candidate
         return None
 

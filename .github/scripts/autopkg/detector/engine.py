@@ -52,15 +52,24 @@ class DetectionEngine:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.etag_cache_file = self.cache_dir / "etag_cache.json"
 
-        # Load rules
-        if rules_path and Path(rules_path).is_file():
-            self.rules = RulesLoader.load_file(rules_path)
-        else:
-            default_rule_file = self.adapter.root_dir / "config" / "updates.rules.yml"
-            if default_rule_file.is_file():
-                self.rules = RulesLoader.load_file(default_rule_file)
-            else:
-                self.rules = RulesRegistry()
+        # Load rules with multi-path fallback
+        loaded = False
+        rule_candidates = []
+        if rules_path:
+            rule_candidates.append(Path(rules_path))
+        rule_candidates.extend([
+            self.adapter.root_dir / "config" / "updates.rules.yml",
+            self.adapter.root_dir / ".github" / "scripts" / "autopkg" / "config" / "updates.rules.yml",
+            Path(__file__).resolve().parent.parent / "config" / "updates.rules.yml",
+        ])
+        for p in rule_candidates:
+            if p.is_file():
+                self.rules = RulesLoader.load_file(p)
+                logger.info("Loaded package rules from %s (%d rules, %d exclusions)", p, len(self.rules.packages), len(self.rules.exclude))
+                loaded = True
+                break
+        if not loaded:
+            self.rules = RulesRegistry()
 
         self.etag_cache: Dict[str, dict] = self._load_etag_cache()
 

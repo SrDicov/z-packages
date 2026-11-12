@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Optional
 
 from core.adapter import RepoAdapter
+from builder.runner import get_host_arch, needs_alt_host
 
 logger = logging.getLogger("autopkg.builder.bootstrap")
 
@@ -52,23 +53,26 @@ class MasterdirBootstrapper:
             f.write("\n".join(lines) + "\n")
         logger.info("Wrote %s with optimal build flags", self.etc_conf)
 
-    def is_bootstrapped(self, arch: str = "x86_64") -> bool:
+    def is_bootstrapped(self, arch: str = "x86_64", host_arch: Optional[str] = None) -> bool:
+        host = host_arch or get_host_arch()
+        if arch != host:
+            masterdir_arch = self.root_dir / f"masterdir-{arch}"
+            if masterdir_arch.is_dir():
+                return (masterdir_arch / "usr" / "bin").is_dir()
         masterdir = self.root_dir / "masterdir"
-        if arch.endswith("-musl"):
-            masterdir_musl = self.root_dir / f"masterdir-{arch}"
-            if masterdir_musl.is_dir():
-                return (masterdir_musl / "usr" / "bin").is_dir()
-
         return masterdir.is_dir() and (masterdir / "usr" / "bin").is_dir()
 
-    def bootstrap(self, arch: str = "x86_64") -> bool:
+    def bootstrap(self, arch: str = "x86_64", host_arch: Optional[str] = None) -> bool:
         """Run binary-bootstrap for the target architecture."""
         if not self.xbps_src.is_file():
             logger.error("xbps-src binary not found in %s", self.root_dir)
             return False
 
+        host = host_arch or get_host_arch()
         cmd = [str(self.xbps_src)]
-        if arch.endswith("-musl"):
+        if needs_alt_host(arch, host):
+            cmd += ["-A", arch, "-m", f"masterdir-{arch}"]
+        elif arch != host:
             cmd += ["-a", arch, "-m", f"masterdir-{arch}"]
         cmd += ["binary-bootstrap", arch]
 

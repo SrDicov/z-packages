@@ -82,7 +82,7 @@ jobs:
                 echo 'XBPS_MAKEJOBS=$(nproc)' >> etc/conf
                 mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/ 2>/dev/null || true
                 sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf 2>/dev/null || true
-                xbps-install -Syu -y bash python3 sudo >/dev/null 2>&1 || true
+                xbps-install -Syu -y bash python3 sudo git >/dev/null 2>&1 || true
                 useradd -u $(id -u) -m -d /tmp/builder -s /bin/bash builder 2>/dev/null || true
                 echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
                 su builder -c 'python3 .github/scripts/autopkg/cli.py build --repo /void-packages --arch ${{ matrix.arch }} $pkg'
