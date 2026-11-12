@@ -2231,7 +2231,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
+    "maintainer": "SrDicov <SrDicov@gmail.com>",
     "makedepends": [],
     "pkgname": "ime-desktop",
     "provides": [],
