@@ -228,8 +228,8 @@ def cmd_update(args: argparse.Namespace) -> int:
         return 1
 
     if new_checksums and tmpl.checksums and new_version != tmpl.version and new_checksums == tmpl.checksums:
-        logger.error("Calculated checksum is identical to old checksum for a different version (%s -> %s). Aborting update.", tmpl.version, new_version)
-        return 1
+        logger.info("Calculated checksum for %s (%s) is identical to existing checksum. Package is already up-to-date with this artifact.", args.pkgname, new_version)
+        return 0
 
     # Update template cleanly with validated checksums
     TemplateEditor.update_file(

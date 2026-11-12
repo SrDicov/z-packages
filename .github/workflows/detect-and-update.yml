@@ -69,7 +69,11 @@ jobs:
             git checkout -b "$BRANCH" "$BASE_BRANCH" || git checkout "$BRANCH"
 
             # Run non-destructive template updater
-            python3 .github/scripts/autopkg/cli.py update --repo "." "$pkg"
+            python3 .github/scripts/autopkg/cli.py update --repo "." "$pkg" || {
+              echo "Update skipped or failed for $pkg, continuing"
+              git checkout "$BASE_BRANCH"
+              continue
+            }
 
             if ! git diff --quiet; then
               git config user.name "github-actions[bot]"

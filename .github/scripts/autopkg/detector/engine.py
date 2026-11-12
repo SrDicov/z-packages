@@ -141,6 +141,12 @@ class DetectionEngine:
 
         needs_update = self._is_newer_version(detection.latest_version, tmpl_data.version)
 
+        # If template uses custom _tag and already matches detected tag, it is up-to-date
+        if needs_update and detection.extra and detection.extra.get("tag"):
+            m_tag = re.search(r'^\s*_tag=[\"\'\']?([^\"\'\s#]+)', tmpl_data.raw_content, re.MULTILINE)
+            if m_tag and m_tag.group(1) == detection.extra["tag"]:
+                needs_update = False
+
         return UpdateCandidate(
             pkgname=pkgname,
             current_version=tmpl_data.version,
