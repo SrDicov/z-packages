@@ -1,0 +1,235 @@
+# Declarative Package Update Rules for autopkg-engine
+exclude:
+  - "aquamarine"
+  - "fcitx5-mozc-ut"
+  - "hypr-dynamic-cursors"
+  - "hyprglass"
+  - "hyprgraphics"
+  - "hyprgrass"
+  - "hyprland-preview-share-picker"
+  - "ibus-mozc-ut"
+  - "imgborders"
+  - "jwmkit-neko"
+  - "kpm"
+  - "ly"
+  - "mozc-ut"
+  - "mozc-ut-base"
+  - "msttcorefonts"
+  - "neko-backgrounds"
+  - "neko-base"
+  - "neko-icons"
+  - "neko-themes"
+  - "pavoldcontrol"
+  - "pavoldcontrol-git"
+  - "ryoku-desktop-hyprland"
+  - "ryoku-hypr-plugins"
+  - "ryoku-keysounds"
+  - "ryoku-keysounds-profiles"
+  - "singularity-desktop"
+  - "xbps-triggers"
+
+packages:
+  3utools:
+    backend: "user-agent-regex"
+    url: "https://www.3u.com"
+    pattern: "com\\.3u\\.3utools_([0-9.]+)_amd64\\.deb"
+  3utools-bin:
+    backend: "user-agent-regex"
+    url: "https://www.3u.com"
+    pattern: "com\\.3u\\.3utools_([0-9.]+)_amd64\\.deb"
+  antigravity:
+    backend: "antigravity-manifest"
+    url: "https://antigravity-hub-auto-updater-974169037036.us-central1.run.app/manifest/latest-x64-linux.yml"
+  antigravity-bin:
+    backend: "antigravity-manifest"
+    url: "https://antigravity-hub-auto-updater-974169037036.us-central1.run.app/manifest/latest-x64-linux.yml"
+  arxy:
+    backend: "tags"
+    url: "https://github.com/SrDicov/arxy"
+    pattern: "v"
+  codex:
+    backend: "apt"
+    url: "https://persistent.oaistatic.com/codex-app-prod/linux/deb/dists/stable/main/binary-amd64/Packages"
+  codex-bin:
+    backend: "apt"
+    url: "https://persistent.oaistatic.com/codex-app-prod/linux/deb/dists/stable/main/binary-amd64/Packages"
+  gpu-screen-recorder-nk:
+    backend: "tags"
+    url: "https://repo.dec05eba.com/gpu-screen-recorder"
+  gpu-screen-recorder-notification-nk:
+    backend: "tags"
+    url: "https://repo.dec05eba.com/gpu-screen-recorder-notification"
+  gpu-screen-recorder-ui-nk:
+    backend: "tags"
+    url: "https://repo.dec05eba.com/gpu-screen-recorder-ui"
+  halley:
+    backend: "halley-tag"
+    url: "https://github.com/mikuri12/halley"
+  horizon:
+    backend: "tags"
+    url: "https://github.com/horizon-rust/horizon"
+    pattern: "launcher@"
+  horizon-launcher:
+    backend: "tags"
+    url: "https://github.com/horizon-rust/horizon"
+    pattern: "launcher@"
+  ime-desktop:
+    backend: "ime-current"
+    url: "https://desktop-updates.imem.me/current2"
+  libqt6pas:
+    backend: "github-release-asset-regex"
+    url: "https://api.github.com/repos/davidbannon/libqt6pas/releases"
+    pattern: "^libqt6pas_([0-9_]+)-[0-9]+_amd64\\.tar\\.gz$"
+  libqt6pas-bin:
+    backend: "github-release-asset-regex"
+    url: "https://api.github.com/repos/davidbannon/libqt6pas/releases"
+    pattern: "^libqt6pas_([0-9_]+)-[0-9]+_amd64\\.tar\\.gz$"
+  librewolf:
+    backend: "codeberg-release-asset"
+    url: "https://codeberg.org/api/v1/repos/librewolf/bsys6/releases"
+    pattern: "^librewolf-([0-9.]+)-[0-9]+-linux-x86_64-package\\.tar\\.xz$"
+  librewolf-bin:
+    backend: "codeberg-release-asset"
+    url: "https://codeberg.org/api/v1/repos/librewolf/bsys6/releases"
+    pattern: "^librewolf-([0-9.]+)-[0-9]+-linux-x86_64-package\\.tar\\.xz$"
+  linux-cachy-void:
+    backend: "kernel-neko-asset"
+    url: "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest"
+    pattern: "neko-kernel-void-([0-9.]+)-cachy-bore\\+\\.tar\\.gz"
+  linux-cachy-void-bin:
+    backend: "kernel-neko-asset"
+    url: "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest"
+    pattern: "neko-kernel-void-([0-9.]+)-cachy-bore\\+\\.tar\\.gz"
+  linux-neko-rt:
+    backend: "kernel-neko-asset"
+    url: "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest"
+    pattern: "neko-kernel-void-([0-9.]+)-rt-neko\\+\\.tar\\.gz"
+  linux-neko-rt-bin:
+    backend: "kernel-neko-asset"
+    url: "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest"
+    pattern: "neko-kernel-void-([0-9.]+)-rt-neko\\+\\.tar\\.gz"
+  linux-neko-zen:
+    backend: "kernel-neko-asset"
+    url: "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest"
+    pattern: "zen-kernel-void-([0-9.]+)-zen-neko\\+\\.tar\\.gz"
+  linux-neko-zen-bin:
+    backend: "kernel-neko-asset"
+    url: "https://api.github.com/repos/Neko-Void-Linux/kernel-neko-void/releases/tags/latest"
+    pattern: "zen-kernel-void-([0-9.]+)-zen-neko\\+\\.tar\\.gz"
+  lsfg-vk:
+    backend: "lsfg-vk-cgit"
+    url: "https://git.lsfg-vk.dev/lsfg-vk.git"
+  lsfg-vk-git:
+    backend: "lsfg-vk-cgit"
+    url: "https://git.lsfg-vk.dev/lsfg-vk.git"
+  lua55:
+    backend: "tags"
+    url: "https://github.com/lua/lua"
+    pattern: "v"
+  onlyoffice:
+    backend: "tags"
+    url: "https://github.com/ONLYOFFICE/DesktopEditors"
+    pattern: "v"
+  onlyoffice-bin:
+    backend: "tags"
+    url: "https://github.com/ONLYOFFICE/DesktopEditors"
+    pattern: "v"
+  pam-fprint-grosshack:
+    backend: "tags-pattern"
+    url: "https://github.com/furbyhaxx/pam-fprint-grosshack"
+    pattern: "^v(0\\.\\d+(?:\\.\\d+)*)$"
+  python3-steam:
+    backend: "tags-prerelease"
+    url: "https://github.com/solsticegamestudios/steam"
+    pattern: "v"
+  reaper:
+    backend: "regex"
+    url: "https://www.reaper.fm/download.php"
+    pattern: "Version\\s+(\\d+\\.\\d+)\\s*:"
+  reaper-bin:
+    backend: "regex"
+    url: "https://www.reaper.fm/download.php"
+    pattern: "Version\\s+(\\d+\\.\\d+)\\s*:"
+  serein:
+    backend: "serein-release"
+    url: "https://api.github.com/repos/ViceVerse-cz/Serein/releases"
+  serein-bin:
+    backend: "serein-release"
+    url: "https://api.github.com/repos/ViceVerse-cz/Serein/releases"
+  spotify-app:
+    backend: "regex2"
+    url: "https://repository.spotify.com/pool/non-free/s/spotify-client/"
+    pattern: "spotify-client_([0-9]+(?:\\.[0-9]+)+)\\.[a-z0-9]+_amd64\\.deb"
+  spotify-app-bin:
+    backend: "regex2"
+    url: "https://repository.spotify.com/pool/non-free/s/spotify-client/"
+    pattern: "spotify-client_([0-9]+(?:\\.[0-9]+)+)\\.[a-z0-9]+_amd64\\.deb"
+  spotify-bin:
+    backend: "regex2"
+    url: "https://repository.spotify.com/pool/non-free/s/spotify-client/"
+    pattern: "spotify-client_([0-9]+(?:\\.[0-9]+)+)\\.[a-z0-9]+_amd64\\.deb"
+  steam-bin:
+    backend: "codeberg-tag-version"
+    url: "https://codeberg.org/api/v1/repos/Neko-Void/STEAM-ALT-VOID/releases"
+  steam-nk:
+    backend: "codeberg-tag-version"
+    url: "https://codeberg.org/api/v1/repos/Neko-Void/STEAM-ALT-VOID/releases"
+  steam-nk-bin:
+    backend: "codeberg-tag-version"
+    url: "https://codeberg.org/api/v1/repos/Neko-Void/STEAM-ALT-VOID/releases"
+  tracktion-download-manager:
+    backend: "tracktion-aur"
+    url: "https://aur.archlinux.org/rpc/v5/info/tracktion-download-manager"
+  trinity-launcher:
+    backend: "github-release-asset-date"
+    url: "https://api.github.com/repos/Trinity-LA/Trinity-Launcher/releases/tags/latest"
+    pattern: "^Trinity_Launcher-x86_64\\.AppImage$"
+  trinity-launcher-ap:
+    backend: "github-release-asset-date"
+    url: "https://api.github.com/repos/Trinity-LA/Trinity-Launcher/releases/tags/latest"
+    pattern: "^Trinity_Launcher-x86_64\\.AppImage$"
+  unityhub:
+    backend: "regex"
+    url: "https://public-cdn.cloud.unity3d.com/hub/prod/latest-linux.yml"
+    pattern: "^version:\\s*(\\S+)\\s*$"
+  unityhub-bin:
+    backend: "regex"
+    url: "https://public-cdn.cloud.unity3d.com/hub/prod/latest-linux.yml"
+    pattern: "^version:\\s*(\\S+)\\s*$"
+  vimix-cursor-theme:
+    backend: "tags-date-transform"
+    url: "https://github.com/vinceliuice/Vimix-cursors"
+  vscode-bin:
+    backend: "regex2"
+    url: "https://update.code.visualstudio.com/api/update/linux-x64/stable/latest"
+    pattern: "\"name\"\\s*:\\s*\"([^\"]+)\""
+  vscode-nk:
+    backend: "regex2"
+    url: "https://update.code.visualstudio.com/api/update/linux-x64/stable/latest"
+    pattern: "\"name\"\\s*:\\s*\"([^\"]+)\""
+  waterfox:
+    backend: "html-hrefs"
+    url: "https://cdn.waterfox.com/waterfox/releases/"
+    pattern: "href=\"(?:/waterfox/releases/)?(\\d+(?:\\.\\d+)+)/\""
+  waterfox-bin:
+    backend: "html-hrefs"
+    url: "https://cdn.waterfox.com/waterfox/releases/"
+    pattern: "href=\"(?:/waterfox/releases/)?(\\d+(?:\\.\\d+)+)/\""
+  waveform-free:
+    backend: "waveform-debs-asset"
+    url: "https://api.github.com/repos/Neko-Void-Linux/Neko-Wizard/releases/tags/debs"
+    pattern: "^waveform14_([0-9.]+)_amd64\\.deb$"
+  windscribe-desktop:
+    backend: "codeberg-release-asset"
+    url: "https://codeberg.org/api/v1/repos/Neko-Void/Windscribe-void/releases"
+    pattern: "^windscribe_([0-9.]+)_amd64\\.deb$"
+  windscribe-desktop-bin:
+    backend: "codeberg-release-asset"
+    url: "https://codeberg.org/api/v1/repos/Neko-Void/Windscribe-void/releases"
+    pattern: "^windscribe_([0-9.]+)_amd64\\.deb$"
+  zig-nk:
+    backend: "json-keys"
+    url: "https://ziglang.org/download/index.json"
+  zig-nk-bin:
+    backend: "json-keys"
+    url: "https://ziglang.org/download/index.json"
