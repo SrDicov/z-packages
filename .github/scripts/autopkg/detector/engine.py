@@ -110,31 +110,35 @@ class DetectionEngine:
 
         detection: Optional[DetectionResult] = None
 
-        # 1. Check explicit rule from updates.rules.yml
-        rule = self.rules.get_rule(pkgname)
-        if rule:
-            backend_cls = BACKENDS.get(rule.backend, GitTagsBackend)
-            backend = backend_cls()
-            detection = backend.detect_latest(tmpl_data, rule, self.etag_cache)
+        try:
+            # 1. Check explicit rule from updates.rules.yml
+            rule = self.rules.get_rule(pkgname)
+            if rule:
+                backend_cls = BACKENDS.get(rule.backend, GitTagsBackend)
+                backend = backend_cls()
+                detection = backend.detect_latest(tmpl_data, rule, self.etag_cache)
 
-        # 2. Check native Void 'update' file
-        if not detection:
-            update_file = self.adapter.get_update_file_path(pkgname)
-            if update_file:
-                void_cfg = VoidUpdateParser.parse_file(update_file)
-                if void_cfg:
-                    detection = self._detect_from_void_update(tmpl_data, void_cfg)
+            # 2. Check native Void 'update' file
+            if not detection:
+                update_file = self.adapter.get_update_file_path(pkgname)
+                if update_file:
+                    void_cfg = VoidUpdateParser.parse_file(update_file)
+                    if void_cfg:
+                        detection = self._detect_from_void_update(tmpl_data, void_cfg)
 
-        # 3. Prefer GitHubBackend if distfiles points to GitHub releases
-        has_github_release = any("github.com" in df and "/releases/download/" in df for df in tmpl_data.distfiles)
-        if not detection and has_github_release:
-            gh_backend = GitHubBackend()
-            detection = gh_backend.detect_latest(tmpl_data, None, self.etag_cache)
+            # 3. Prefer GitHubBackend if distfiles points to GitHub releases
+            has_github_release = any("github.com" in df and "/releases/download/" in df for df in tmpl_data.distfiles)
+            if not detection and has_github_release:
+                gh_backend = GitHubBackend()
+                detection = gh_backend.detect_latest(tmpl_data, None, self.etag_cache)
 
-        # 4. Default fallback: GitTagsBackend (0 API cost)
-        if not detection:
-            git_backend = GitTagsBackend()
-            detection = git_backend.detect_latest(tmpl_data, None, self.etag_cache)
+            # 4. Default fallback: GitTagsBackend (0 API cost)
+            if not detection:
+                git_backend = GitTagsBackend()
+                detection = git_backend.detect_latest(tmpl_data, None, self.etag_cache)
+        except Exception as e:
+            logger.warning("Error checking updates for %s: %s", pkgname, e)
+            return None
 
         if not detection:
             return None

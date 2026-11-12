@@ -146,6 +146,9 @@ def cmd_plan(args: argparse.Namespace) -> int:
 
 
 def cmd_update(args: argparse.Namespace) -> int:
+    if not re.match(r'^[a-zA-Z0-9_\+\-\.]+$', args.pkgname):
+        logger.error("Invalid package name '%s'", args.pkgname)
+        return 1
     adapter = RepoAdapter(args.repo)
     tmpl_path = adapter.get_template_path(args.pkgname)
     if not tmpl_path:
@@ -262,6 +265,9 @@ def cmd_seed(args: argparse.Namespace) -> int:
 
 
 def cmd_build(args: argparse.Namespace) -> int:
+    if args.pkgname and not re.match(r'^[a-zA-Z0-9_\+\-\.]+$', args.pkgname):
+        logger.error("Invalid package name '%s'", args.pkgname)
+        return 1
     adapter = RepoAdapter(args.repo)
     qm = QuarantineManager(args.quarantine_file)
     runner = BuildRunner(adapter, quarantine_mgr=qm, logs_dir=args.logs_dir)
