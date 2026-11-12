@@ -308,9 +308,17 @@ jobs:
               rc=1
               continue
             fi
-            if gh pr merge "$pr" --repo "$repo" --squash --delete-branch; then
-              echo "PR #$pr mergeado"
-            else
+            merged=0
+            for attempt in 1 2 3; do
+              if gh pr merge "$pr" --repo "$repo" --squash --delete-branch; then
+                echo "PR #$pr mergeado"
+                merged=1
+                break
+              fi
+              echo "PR #$pr: merge fallo en intento $attempt, reintentando tras esperar..." >&2
+              sleep 10
+            done
+            if [ "$merged" -ne 1 ]; then
               echo "PR #$pr: no se pudo mergear" >&2
               rc=1
             fi
