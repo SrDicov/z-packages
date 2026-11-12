@@ -182,7 +182,7 @@ def cmd_update(args: argparse.Namespace) -> int:
         computed: List[str] = []
         streaming_ok = True
         distfiles_to_resolve = tmpl.raw_distfiles if tmpl.raw_distfiles else tmpl.distfiles
-        for df_url in distfiles_to_resolve:
+        for i, df_url in enumerate(distfiles_to_resolve):
             clean_url = df_url.split(">")[0].strip()
             if "${version}" in clean_url or "$version" in clean_url:
                 resolved_url = clean_url.replace("${version}", new_version).replace("$version", new_version)
@@ -191,6 +191,11 @@ def cmd_update(args: argparse.Namespace) -> int:
             resolved_url = resolved_url.replace("${pkgname}", tmpl.pkgname).replace("$pkgname", tmpl.pkgname)
             if tag_val:
                 resolved_url = resolved_url.replace("${_tag}", tag_val).replace("$_tag", tag_val)
+
+            # If unresolved bash variables remain, fallback to expanded distfiles
+            if "${" in resolved_url and i < len(tmpl.distfiles):
+                fallback_clean = tmpl.distfiles[i].split(">")[0].strip()
+                resolved_url = fallback_clean.replace(tmpl.version, new_version)
             try:
                 computed.append(compute_distfile_sha256(resolved_url))
             except Exception as e:
@@ -265,9 +270,10 @@ def cmd_seed(args: argparse.Namespace) -> int:
 
 
 def cmd_build(args: argparse.Namespace) -> int:
-    if args.pkgname and not re.match(r'^[a-zA-Z0-9_\+\-\.]+$', args.pkgname):
-        logger.error("Invalid package name '%s'", args.pkgname)
-        return 1
+    for pkg in (args.packages or []):
+        if not re.match(r'^[a-zA-Z0-9_\+\-\.]+$', pkg):
+            logger.error("Invalid package name '%s'", pkg)
+            return 1
     adapter = RepoAdapter(args.repo)
     qm = QuarantineManager(args.quarantine_file)
     runner = BuildRunner(adapter, quarantine_mgr=qm, logs_dir=args.logs_dir)

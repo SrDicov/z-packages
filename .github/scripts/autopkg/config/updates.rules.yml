@@ -150,6 +150,12 @@ packages:
     backend: "regex"
     url: "https://www.reaper.fm/download.php"
     pattern: "Version\\s+(\\d+\\.\\d+)\\s*:"
+  jwmkit:
+    backend: "codeberg-tag-version"
+    url: "https://codeberg.org/api/v1/repos/Neko-Void/jwmkit-neko/releases"
+  soar:
+    backend: "git_tags"
+    pattern: "^v[0-9]+(\\.[0-9]+)+$"
   serein:
     backend: "serein-release"
     url: "https://api.github.com/repos/ViceVerse-cz/Serein/releases"
