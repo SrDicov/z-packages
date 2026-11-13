@@ -132,6 +132,7 @@ class RulesLoader:
         registry = RulesRegistry()
         current_section = None
         current_pkg = None
+        current_options = False
 
         for raw_line in text.splitlines():
             line = raw_line.rstrip()
@@ -154,14 +155,18 @@ class RulesLoader:
             elif current_section == "packages":
                 if indent == 2 and line.endswith(":"):
                     current_pkg = stripped[:-1].strip()
+                    current_options = False
                     registry.packages[current_pkg] = PackageRule(pkgname=current_pkg, backend="git_tags")
                 elif indent == 4 and current_pkg:
+                    current_options = False
                     rule = registry.packages[current_pkg]
                     if ":" in stripped:
                         k, v = stripped.split(":", 1)
                         k = k.strip()
                         v = cls._unquote_yaml_value(v)
-                        if k == "backend":
+                        if k == "options" and not v:
+                            current_options = True
+                        elif k == "backend":
                             rule.backend = v
                         elif k == "url":
                             rule.url = v
@@ -173,5 +178,10 @@ class RulesLoader:
                             rule.strip_prefix = v
                         else:
                             rule.options[k] = v
+                elif indent >= 6 and current_pkg and current_options:
+                    rule = registry.packages[current_pkg]
+                    if ":" in stripped:
+                        k, v = stripped.split(":", 1)
+                        rule.options[k.strip()] = cls._unquote_yaml_value(v)
 
         return registry

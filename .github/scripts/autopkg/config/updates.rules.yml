@@ -155,7 +155,10 @@ packages:
     url: "https://codeberg.org/api/v1/repos/Neko-Void/jwmkit-neko/releases"
   soar:
     backend: "git_tags"
-    pattern: "^v[0-9]+(\\.[0-9]+)+$"
+    url: "https://github.com/pkgforge/soar.git"
+    pattern: "^v([0-9]+(?:\\.[0-9]+)+)$"
+    options:
+      version_regex: "^v([0-9]+(?:\\.[0-9]+)+)$"
   serein:
     backend: "serein-release"
     url: "https://api.github.com/repos/ViceVerse-cz/Serein/releases"
@@ -293,9 +296,9 @@ packages:
   iruka-xbps:
     backend: "git_tags"
     url: "https://github.com/javiercplus/iruka-xbps.git"
-    pattern: "^v?([0-9]+(?:\\.[0-9]+)+(?:_[0-9]+)?)$"
+    pattern: "^v?([0-9]+(?:\\.[0-9]+)+)(?:_[0-9]+)?$"
     options:
-      version_regex: "^v?([0-9]+(?:\\.[0-9]+)+(?:_[0-9]+)?)$"
+      version_regex: "^v?([0-9]+(?:\\.[0-9]+)+)(?:_[0-9]+)?$"
   mangowc-nk:
     backend: "git_commits"
     url: "https://github.com/Neko-Void-Linux/mango.git"
@@ -306,15 +309,9 @@ packages:
     url: "https://github.com/Neko-Void-Linux/mango.git"
     options:
       commit_var: "_sha"
-  soar:
-    backend: "git_tags"
-    url: "https://github.com/pkgforge/soar.git"
-    pattern: "^soar-config-v[0-9]+(\\.[0-9]+)+$"
-    options:
-      version_regex: "^soar-config-v([0-9]+(?:\\.[0-9]+)+)$"
   soar-git:
     backend: "git_tags"
     url: "https://github.com/pkgforge/soar.git"
-    pattern: "^soar-config-v[0-9]+(\\.[0-9]+)+$"
+    pattern: "^v([0-9]+(?:\\.[0-9]+)+)$"
     options:
-      version_regex: "^soar-config-v([0-9]+(?:\\.[0-9]+)+)$"
+      version_regex: "^v([0-9]+(?:\\.[0-9]+)+)$"
