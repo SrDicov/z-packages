@@ -53,6 +53,56 @@ packages:
         self.assertEqual(rule.backend, "git_tags")
         self.assertEqual(rule.url, "https://github.com/foo/mypkg.git")
 
+    def test_rules_loader_nested_options(self):
+        yaml_content = """
+packages:
+  mypkg:
+    backend: "git_tags"
+    url: "https://github.com/foo/mypkg.git"
+    options:
+      version_regex: "^v([0-9.]+)$"
+      allow_prerelease: true
+"""
+        rule_file = self.root / "rules.yml"
+        rule_file.write_text(yaml_content)
+
+        registry = RulesLoader.load_file(rule_file)
+        rule = registry.get_rule("mypkg")
+        self.assertIsNotNone(rule)
+        self.assertEqual(rule.options["version_regex"], "^v([0-9.]+)$")
+        self.assertEqual(str(rule.options["allow_prerelease"]).lower(), "true")
+
+    def test_repo_soar_rules_use_release_tags(self):
+        rules_file = Path(__file__).resolve().parents[1] / "config" / "updates.rules.yml"
+        registry = RulesLoader.load_file(rules_file)
+        for pkg in ("soar", "soar-git"):
+            rule = registry.get_rule(pkg)
+            self.assertIsNotNone(rule, pkg)
+            self.assertIn("^v(", rule.pattern, pkg)
+            self.assertIn("^v(", rule.options.get("version_regex", ""), pkg)
+
+    def test_git_tags_revision_suffix_is_not_part_of_version(self):
+        from unittest import mock
+
+        from detector.backends.git_tags import GitTagsBackend
+        from detector.rules import PackageRule
+
+        out = "aaa\trefs/tags/0.2.0_1\n"
+        done = mock.Mock(returncode=0, stdout=out)
+        rule = PackageRule(
+            pkgname="iruka-xbps",
+            backend="git_tags",
+            url="https://example.test/iruka.git",
+            pattern=r"^v?([0-9]+(?:\.[0-9]+)+)(?:_[0-9]+)?$",
+            options={"version_regex": r"^v?([0-9]+(?:\.[0-9]+)+)(?:_[0-9]+)?$"},
+        )
+        with mock.patch("detector.backends.git_tags.subprocess.run", return_value=done):
+            res = GitTagsBackend().detect_latest(None, rule)
+
+        self.assertIsNotNone(res)
+        self.assertEqual(res.latest_version, "0.2.0")
+        self.assertEqual(res.extra["tag"], "0.2.0_1")
+
     def test_detection_engine_version_comparison(self):
         self.assertTrue(DetectionEngine._is_newer_version("1.2.4", "1.2.3"))
         self.assertTrue(DetectionEngine._is_newer_version("2.0.0", "1.99.9"))
