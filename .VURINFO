@@ -1265,7 +1265,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:e55c253e082f78fb5ae094ca465a59e06882fd7c87ebf383165beb3560e0b519"
+      "sha256:88f3c53a237182e872ac3061cc8c129e75aecbce84aead834225d8103096c254"
     ],
     "depends": [],
     "distfiles": [
@@ -1285,7 +1285,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.21.2.1"
+    "version": "0.21.3.1"
   },
   {
     "archs": [
