@@ -2314,14 +2314,14 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:5f1a69202f9e2b5dda461d1c2ace521857f08988bd015f184bb41c03f0127a1b"
+      "sha256:07850b09be6aea225e8267b73bcb50d2be70b55f2751b93b89263bd7f5f8d08d"
     ],
     "depends": [
       "hicolor-icon-theme",
       "polkit"
     ],
     "distfiles": [
-      "https://github.com/javiercplus/iruka-xbps/archive/refs/tags/${version}.tar.gz"
+      "https://github.com/javiercplus/iruka-xbps/archive/refs/tags/${_tag}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -2336,9 +2336,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 5,
     "subpackages": [],
-    "version": "0.2.0_1"
+    "version": "0.2.0"
   },
   {
     "archs": [
