@@ -3756,7 +3756,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:d13eb0a9cd618ed080ab6b82c64c0a60c4501aac91e88d5ac2c3b526fb141a7c"
+      "sha256:073b8105c928356141db0ddbce88b81d52c7a9e2442f9baae0a9089c89ff04eb"
     ],
     "depends": [],
     "distfiles": [
@@ -3774,9 +3774,9 @@
       "orcaslicer-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "2.5.0"
+    "version": "2.5.1"
   },
   {
     "archs": [
