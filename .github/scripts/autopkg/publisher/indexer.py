@@ -193,7 +193,7 @@ class RepoIndexer:
                 except OSError:
                     pass
 
-        add_cmd = ["xbps-rindex", "-a"] + [f.name for f in xbps_files]
+        add_cmd = ["xbps-rindex", "-f", "-a"] + [f.name for f in xbps_files]
         res_add = subprocess.run(add_cmd, cwd=str(self.binpkgs_dir), check=False)
         if res_add.returncode != 0:
             logger.error("xbps-rindex -a failed with code %d", res_add.returncode)
