@@ -1,7 +1,7 @@
 # Template file for 'zen-browser'
 pkgname=zen-browser
 version=1.24.2b
-revision=1
+revision=2
 archs="x86_64"
 depends="desktop-file-utils hicolor-icon-theme ca-certificates ffmpeg gtk+3
  libXtst libpulseaudio nss"
@@ -14,6 +14,7 @@ checksum=bcf7e43160ecfe5f29953ed2a984e7a8028a58f2ec0e3114d36bb904d5f5ce80
 nodebug=yes
 provides="zen-browser-bin-${version}_${revision}"
 replaces="zen-browser-bin>=0"
+noshlibprovides=yes
 nostrip=yes
 
 do_install() {

@@ -98,8 +98,19 @@ def cmd_detect(args: argparse.Namespace) -> int:
     return 0
 
 
-def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optional[Path] = None) -> Optional[dict]:
-    """Download {arch}-repodata and parse published assets from GitHub release 'stable'."""
+class BinRepoSummary(dict):
+    """
+    Container holding parsed index.plist (accessible via dict interface) and release .xbps assets.
+    """
+    def __init__(self, index_plist: dict, assets: Dict[str, dict], raw_assets: list):
+        super().__init__(index_plist)
+        self.index_plist = index_plist
+        self.assets = assets
+        self.raw_assets = raw_assets
+
+
+def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optional[Path] = None) -> Optional[BinRepoSummary]:
+    """Download {arch}-repodata (index.plist) AND parse published assets from GitHub release 'stable'."""
     import tempfile
     token = get_github_token()
     headers = {"User-Agent": "autopkg-engine/1.0", "Accept": "application/vnd.github.v3+json"}
@@ -115,18 +126,22 @@ def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optio
         logger.warning("Could not fetch release 'stable' for %s: %s", repo, e)
         return None
 
-    index_dict: dict = {}
-
     # 1. Parse all physical .xbps assets in the release
+    assets_dict: Dict[str, dict] = {}
     asset_regex = re.compile(rf'^(.+)-([0-9][a-zA-Z0-9_\.]*_\d+)\.{re.escape(arch)}\.xbps$')
     for asset in data.get("assets", []):
         aname = asset.get("name", "")
         m = asset_regex.match(aname)
         if m:
             pkg, ver_rev = m.group(1), m.group(2)
-            index_dict[pkg] = {"pkgver": f"{pkg}-{ver_rev}"}
+            assets_dict[pkg] = {
+                "pkgver": f"{pkg}-{ver_rev}",
+                "asset_name": aname,
+                "browser_download_url": asset.get("browser_download_url"),
+            }
 
-    # 2. Overlay index.plist from {arch}-repodata if available
+    # 2. Download and extract index.plist from {arch}-repodata archive
+    index_plist: Dict[str, dict] = {}
     target_asset = f"{arch}-repodata"
     download_url = None
     for asset in data.get("assets", []):
@@ -143,11 +158,11 @@ def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optio
                 f.write(resp.read())
             plist_data = RepoValidator._extract_index_plist(local_repodata)
             if plist_data:
-                index_dict.update(plist_data)
+                index_plist = plist_data
         except Exception as e:
             logger.warning("Could not download or parse %s: %s", download_url, e)
 
-    return index_dict if index_dict else None
+    return BinRepoSummary(index_plist=index_plist, assets=assets_dict, raw_assets=data.get("assets", []))
 
 
 def cmd_plan(args: argparse.Namespace) -> int:
@@ -440,14 +455,18 @@ def cmd_publish(args: argparse.Namespace) -> int:
             logger.error("Missing private key for signing (use --privkey or XBPS_PRIVATE_KEY)")
             return 1
 
-        key_info = indexer.sign_and_index(privkey)
+        clean_repodata = getattr(args, "clean_repodata", False)
+        key_info = indexer.sign_and_index(privkey, clean_repodata=clean_repodata)
         if not key_info:
             logger.error("Signing or indexing failed")
             return 1
 
         # 3. Validate local repository
         validator = RepoValidator(binpkgs_dir, arch=args.arch)
-        report = validator.validate_local_repository()
+        index_data = RepoValidator._extract_index_plist(binpkgs_dir / f"{args.arch}-repodata") or {}
+        local_xbps = list(binpkgs_dir.glob(f"*.{args.arch}.xbps"))
+        is_incremental = len(index_data) > len(local_xbps) and not clean_repodata
+        report = validator.validate_local_repository(incremental=is_incremental)
         if not report.is_valid:
             logger.error("Repository validation failed: %s", report.errors)
             if not args.force:
@@ -558,15 +577,28 @@ def cmd_doctor(args: argparse.Namespace) -> int:
             # 7. Check binary repo state
             if repodata_index is not None:
                 local_ver = f"{tmpl.version}_{tmpl.revision}"
-                remote_entry = repodata_index.get(pkgname)
-                if not remote_entry:
+                plist_entry = repodata_index.index_plist.get(pkgname)
+                asset_entry = repodata_index.assets.get(pkgname)
+
+                # Strict cross-audit: index.plist vs .xbps assets
+                if asset_entry and not plist_entry:
+                    issues.append(
+                        f"CRITICAL: Package has .xbps asset '{asset_entry.get('asset_name')}' in release "
+                        f"but is MISSING from {target_arch}-repodata index.plist"
+                    )
+                elif plist_entry and not asset_entry:
+                    issues.append(
+                        f"CRITICAL: Package exists in {target_arch}-repodata index.plist "
+                        f"but .xbps asset is missing from release"
+                    )
+                elif not plist_entry and not asset_entry:
                     warnings.append(f"Not published in binary repo (local: {local_ver})")
                 else:
-                    remote_pkgver = remote_entry.get("pkgver", "")
+                    remote_pkgver = plist_entry.get("pkgver", "")
                     remote_ver = remote_pkgver[len(pkgname) + 1:] if remote_pkgver.startswith(f"{pkgname}-") else remote_pkgver
                     cmp = DetectionEngine.compare_versions(local_ver, remote_ver, pkgname=pkgname)
                     if cmp > 0:
-                        warnings.append(f"Binary repo outdated: local {local_ver} > remote {remote_ver}")
+                        warnings.append(f"Binary repo outdated: local {local_ver} > remote {remote_ver} (queued for build)")
                     elif cmp < 0:
                         issues.append(f"Binary repo ahead of template: remote {remote_ver} > local {local_ver}")
 
@@ -733,6 +765,7 @@ def main() -> int:
     p_publish.add_argument("--privkey", default=None, help="Private key PEM path or env")
     p_publish.add_argument("--signed-by", default="Void Community Autobuilder", help="Signed-by identity string")
     p_publish.add_argument("--upload-only", action="store_true", help="Skip signing/indexing and only upload existing indexed artifacts to backend")
+    p_publish.add_argument("--clean-repodata", action="store_true", help="Rebuild repodata from scratch instead of incremental update")
     p_publish.add_argument("--backend", choices=list(PUBLISHER_BACKENDS.keys()), default="github", help="Publishing backend")
     p_publish.add_argument("--dest", required=True, help="Destination (owner/repo, branch, URL or local path)")
     p_publish.add_argument("--tag", default=None, help="Release tag (for GitHub Releases)")

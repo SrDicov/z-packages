@@ -1,7 +1,7 @@
 # Template file for 'helium-browser'
 pkgname=helium-browser
 version=0.21.3.1
-revision=1
+revision=2
 archs="x86_64"
 short_desc="Private, fast, and honest web browser based on ungoogled-chromium"
 maintainer="YuG <SrDicov@gmail.com>"
@@ -16,6 +16,7 @@ checksum=88f3c53a237182e872ac3061cc8c129e75aecbce84aead834225d8103096c254
 
 
 
+noshlibprovides=yes
 nostrip=yes
 
 do_install() {

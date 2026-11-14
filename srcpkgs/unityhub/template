@@ -1,7 +1,7 @@
 # Template file for 'unityhub'
 pkgname=unityhub
 version=3.22.6
-revision=1
+revision=2
 archs="x86_64"
 hostmakedepends="tar zstd xz"
 depends="gtk+3 libnotify nss xdg-utils at-spi2-core libdrm mesa libxcb
@@ -15,6 +15,7 @@ distfiles="https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup-amd64.deb
 checksum=f16b3441c6a5062245eef490415102b65d2034c491658f0b54b96cbba081f768
 provides="unityhub-bin-${version}_${revision}"
 replaces="unityhub-bin>=0"
+noshlibprovides=yes
 nostrip=yes
 
 do_extract() {

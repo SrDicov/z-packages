@@ -36,6 +36,7 @@ class TemplateData:
     archs: List[str] = field(default_factory=list)
     build_style: str = ""
     noshlibprovides: Optional[str] = None
+    shlib_provides: Optional[str] = None
     broken: Optional[str] = None
     subpackages: List[str] = field(default_factory=list)
     raw_content: str = ""
@@ -217,6 +218,7 @@ class TemplateEditor:
         archs = cls._split_tokens(variables.get("archs", ""))
         build_style = variables.get("build_style", "")
         noshlibprovides = variables.get("noshlibprovides")
+        shlib_provides = variables.get("shlib_provides")
         broken = variables.get("broken")
 
         # Discover subpackages
@@ -237,6 +239,7 @@ class TemplateEditor:
             archs=archs,
             build_style=build_style,
             noshlibprovides=noshlibprovides,
+            shlib_provides=shlib_provides,
             broken=broken,
             subpackages=subpackages,
             raw_content=content,
@@ -250,22 +253,29 @@ class TemplateEditor:
         Warn if the template packages prebuilt binaries/Electron apps without noshlibprovides=yes.
         Prevents bundled internal shared libraries (like libc.so) from corrupting repository shlib-provides.
         """
-        pkgname = data.pkgname.lower()
-        short_desc = data.short_desc.lower()
-        distfiles_str = " ".join(data.distfiles).lower()
-        hostmakedeps_str = " ".join(data.hostmakedepends).lower()
-        raw = data.raw_content
+        # If the template explicitly declares shlib_provides, it intentionally advertises libraries
+        if getattr(data, "shlib_provides", None):
+            return None
 
         # 1. If it has build_style or do_build(), it is compiled from source - no warning
         if data.build_style.strip():
             return None
+        raw = data.raw_content
         if "do_build()" in raw:
             return None
 
-        # 2. Python source packages - no warning
+        pkgname = data.pkgname.lower()
+        short_desc = data.short_desc.lower()
+        # Use filename basenames to avoid matching domain/path tokens (e.g. org names like Neko-Void-Linux)
+        distfile_basenames = " ".join(df.split("/")[-1].split(">")[0].lower() for df in data.distfiles)
+        hostmakedeps_str = " ".join(data.hostmakedepends).lower()
+
+        # 2. Python packages - no warning
         python_source_indicators = [
-            "files.pythonhosted.org/packages/source/" in distfiles_str,
-            "pypi.org/packages/source/" in distfiles_str,
+            "files.pythonhosted.org/packages/source/" in " ".join(data.distfiles).lower(),
+            "pypi.org/packages/source/" in " ".join(data.distfiles).lower(),
+            ".whl" in " ".join(data.distfiles).lower(),
+            "python_version=" in raw,
             "python3-setuptools" in hostmakedeps_str,
             "python3-pep517" in hostmakedeps_str,
             "python3-flit_core" in hostmakedeps_str,
@@ -275,7 +285,15 @@ class TemplateEditor:
         if any(python_source_indicators):
             return None
 
-        # 3. Prebuilt app heuristics
+        # 3. If none of the distfiles is an archive (e.g. standalone raw executable), no bundled .so
+        is_archive = any(
+            re.search(r'\.(appimage|deb|rpm|tar(?:\.[a-z0-9]+)?|zip|7z|tgz)(?:[>\s"\'?]|$)', df.lower())
+            for df in data.distfiles
+        )
+        if not is_archive:
+            return None
+
+        # 4. Prebuilt app heuristics
         app_keywords = ("browser", "editor", "ide", "electron")
         binary_archive_patterns = [
             r"\.(appimage|deb|rpm)(?:[>\s\"']|$)",
@@ -285,7 +303,7 @@ class TemplateEditor:
 
         prebuilt_indicators = [
             any(word in short_desc or word in pkgname for word in app_keywords),
-            any(re.search(pattern, distfiles_str) for pattern in binary_archive_patterns),
+            any(re.search(pattern, distfile_basenames) for pattern in binary_archive_patterns),
         ]
 
         if any(prebuilt_indicators):

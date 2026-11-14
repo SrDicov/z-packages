@@ -35,8 +35,9 @@ class RepoValidator:
         self.arch = arch
         self.repodata_file = self.binpkgs_dir / f"{arch}-repodata"
 
-    def validate_local_repository(self) -> ValidationReport:
+    def validate_local_repository(self, incremental: bool = False) -> ValidationReport:
         """Validate all local files against the local repodata archive."""
+        import re
         if not self.repodata_file.is_file():
             return ValidationReport(is_valid=False, checked_count=0, errors=[f"Missing {self.repodata_file.name}"])
 
@@ -58,6 +59,9 @@ class RepoValidator:
 
             # 1. Existence check
             if not file_path.is_file():
+                if incremental:
+                    # In incremental mode, older packages preserved in index are already remote
+                    continue
                 errors.append(f"Indexed package does not exist on disk: {filename}")
                 continue
 
@@ -71,6 +75,14 @@ class RepoValidator:
             sig_file = self.binpkgs_dir / f"{filename}.sig2"
             if not sig_file.is_file():
                 errors.append(f"Missing signature file for {filename}: {sig_file.name}")
+
+        # In incremental mode: ensure every .xbps on disk is properly indexed
+        if incremental:
+            for local_file in self.binpkgs_dir.glob(f"*.{self.arch}.xbps"):
+                m = re.match(rf"^(.+)-[0-9].*\.{re.escape(self.arch)}\.xbps$", local_file.name)
+                pkg_key = m.group(1) if m else local_file.name.split("-")[0]
+                if pkg_key not in index_data:
+                    errors.append(f"Local package {local_file.name} is missing from repodata index.plist")
 
         return ValidationReport(
             is_valid=(len(errors) == 0),

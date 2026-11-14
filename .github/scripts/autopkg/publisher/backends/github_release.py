@@ -261,9 +261,9 @@ class GitHubReleasePublisher(BasePublisherBackend):
                 continue
 
             should_delete = False
-            # Repodata, pubkey and plist are always recreated fresh
+            # Repodata, pubkey and plist are overwritten safely via --clobber, never pre-deleted
             if asset_name.endswith(".plist") or asset_name.endswith(".pub") or "-repodata" in asset_name:
-                should_delete = True
+                should_delete = False
             elif asset_name.endswith(".xbps") or asset_name.endswith(".xbps.sig2"):
                 # Only delete if this package was rebuilt in the current run!
                 m = re.match(r"^(.+)-[0-9].*\.xbps(?:\.sig2)?$", asset_name)

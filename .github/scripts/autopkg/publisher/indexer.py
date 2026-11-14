@@ -98,9 +98,11 @@ class RepoIndexer:
         self,
         privkey_pem: str | Path,
         pubkey_name: str = "repo.pub",
+        clean_repodata: bool = False,
     ) -> Optional[KeyInfo]:
         """
-        Signs all packages, generates clean repodata, and creates <fingerprint>.plist.
+        Signs all packages, generates clean or incremental repodata, and creates <fingerprint>.plist.
+        In incremental mode (default), existing *-repodata is preserved and xbps-rindex -a appends/updates.
         """
         # Ensure private key is accessible
         if isinstance(privkey_pem, str) and not Path(privkey_pem).is_file():
@@ -136,15 +138,25 @@ class RepoIndexer:
         ] + [f.name for f in xbps_files]
         subprocess.run(sign_cmd, cwd=str(self.binpkgs_dir), check=False)
 
-        # 2. Clean repodata and rebuild fresh
-        for old_repodata in self.binpkgs_dir.glob("*-repodata*"):
-            try:
-                old_repodata.unlink()
-            except OSError:
-                pass
+        # 2. Update repodata (Preserve existing repodata in incremental mode)
+        if clean_repodata:
+            for old_repodata in self.binpkgs_dir.glob("*-repodata*"):
+                try:
+                    old_repodata.unlink()
+                except OSError:
+                    pass
+        else:
+            # Only remove existing signature so xbps-rindex --sign creates a fresh signature
+            for old_sig in self.binpkgs_dir.glob("*-repodata*.sig*"):
+                try:
+                    old_sig.unlink()
+                except OSError:
+                    pass
 
         add_cmd = ["xbps-rindex", "-a"] + [f.name for f in xbps_files]
-        subprocess.run(add_cmd, cwd=str(self.binpkgs_dir), check=False)
+        res_add = subprocess.run(add_cmd, cwd=str(self.binpkgs_dir), check=False)
+        if res_add.returncode != 0:
+            logger.error("xbps-rindex -a failed with code %d", res_add.returncode)
 
         # 3. Sign the repository metadata
         sign_repo_cmd = [
@@ -153,7 +165,9 @@ class RepoIndexer:
             "--privkey", str(key_path),
             ".",
         ]
-        subprocess.run(sign_repo_cmd, cwd=str(self.binpkgs_dir), check=False)
+        res_sign = subprocess.run(sign_repo_cmd, cwd=str(self.binpkgs_dir), check=False)
+        if res_sign.returncode != 0:
+            logger.error("xbps-rindex --sign failed with code %d", res_sign.returncode)
 
         return key_info
 

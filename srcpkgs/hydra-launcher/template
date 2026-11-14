@@ -1,7 +1,7 @@
 # Template file for 'hydra-launcher'
 pkgname=hydra-launcher
 version=4.4.1
-revision=1
+revision=2
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="bsdtar"
