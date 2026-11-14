@@ -92,7 +92,7 @@
       "ninja",
       "cmake"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [
       "gtk4-devel"
     ],
@@ -1410,7 +1410,7 @@
     "hostmakedepends": [
       "bsdtar"
     ],
-    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [],
     "pkgname": "hydra-launcher",
     "provides": [
@@ -2466,7 +2466,7 @@
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [],
     "pkgname": "kpm",
     "provides": [],
@@ -2493,7 +2493,7 @@
     "hostmakedepends": [
       "zig-nk"
     ],
-    "maintainer": "Javierc",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [],
     "pkgname": "kyoz",
     "provides": [],
@@ -3157,7 +3157,7 @@
     "hostmakedepends": [
       "cabextract"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [],
     "pkgname": "msttcorefonts",
     "provides": [],
@@ -3267,7 +3267,7 @@
       "cmake",
       "pkg-config"
     ],
-    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [
       "gtk+3-devel"
     ],
@@ -3290,7 +3290,7 @@
     "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [
       "git"
     ],
@@ -3409,7 +3409,7 @@
     "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [
       "git"
     ],
@@ -3432,7 +3432,7 @@
     "distfiles": [],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [
       "git"
     ],
@@ -3702,7 +3702,7 @@
     "hostmakedepends": [
       "bsdtar"
     ],
-    "maintainer": "ANOMALI0x00",
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [],
     "pkgname": "onlyoffice",
     "provides": [
@@ -5345,7 +5345,7 @@
       "tar",
       "xz"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [],
     "pkgname": "tracktion-download-manager",
     "provides": [],
@@ -5499,7 +5499,7 @@
       "tar",
       "xz"
     ],
-    "maintainer": "ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>",
+    "maintainer": "ANOMALI0x00 <SrDicov@gmail.com>",
     "makedepends": [],
     "pkgname": "vesktop",
     "provides": [
@@ -5737,7 +5737,7 @@
       "binutils",
       "tar"
     ],
-    "maintainer": "JavierC",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [],
     "pkgname": "waveform-free",
     "provides": [],
