@@ -128,7 +128,7 @@ def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optio
 
     # 1. Parse all physical .xbps assets in the release
     assets_dict: Dict[str, dict] = {}
-    asset_regex = re.compile(rf'^(.+)-([0-9][a-zA-Z0-9_\.]*_\d+)\.{re.escape(arch)}\.xbps$')
+    asset_regex = re.compile(rf'^(.+)-([0-9a-zA-Z][a-zA-Z0-9_\.]*_\d+)\.{re.escape(arch)}\.xbps$')
     for asset in data.get("assets", []):
         aname = asset.get("name", "")
         m = asset_regex.match(aname)
