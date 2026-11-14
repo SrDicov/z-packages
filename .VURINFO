@@ -5143,7 +5143,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:6544821a1cea17397cff1db5cbde5ff45bfd92770c18a22ce2d7421e4aec1684"
+      "sha256:1d25902da726b992200cfd573b9e8ffe34585f5e19ffd3bf6644255716390e34"
     ],
     "depends": [],
     "distfiles": [
@@ -5165,7 +5165,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.14.0"
+    "version": "0.14.1"
   },
   {
     "archs": [
