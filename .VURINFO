@@ -5581,7 +5581,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:e20fa6f176f3367d4fae872bd6933ac446c49390c658f499588215ca466851b9"
+      "sha256:59d5ebb3450e47418716f4168a3c21d85056b09c8762bc0aa0c55953bfd62bc2"
     ],
     "depends": [
       "pipewire",
@@ -5614,7 +5614,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.2.1"
+    "version": "1.2.2"
   },
   {
     "archs": [
