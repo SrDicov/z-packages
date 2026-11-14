@@ -124,6 +124,46 @@ class RepoIndexer:
             logger.warning("No xbps packages found to index in %s", self.binpkgs_dir)
             return key_info
 
+        # In incremental mode, filter out packages that are already indexed in existing_repodata
+        # with identical pkgver and sha256 checksum (e.g. seeded dependencies from the release).
+        # Re-signing them would change their sha256 while xbps-rindex -a skips updating them in index.plist.
+        if not clean_repodata:
+            existing_repodata = self.binpkgs_dir / f"{self.arch}-repodata"
+            if existing_repodata.is_file():
+                from publisher.validator import RepoValidator
+                existing_index = RepoValidator._extract_index_plist(existing_repodata)
+                if existing_index:
+                    pkg_pattern = re.compile(rf"^(.+)-([0-9a-zA-Z][a-zA-Z0-9_\.]*_\d+)\.{re.escape(self.arch)}\.xbps$")
+                    filtered_files: List[Path] = []
+                    for f in xbps_files:
+                        m = pkg_pattern.match(f.name)
+                        if m:
+                            pkgname = m.group(1)
+                            pkgver = f"{pkgname}-{m.group(2)}"
+                            if pkgname in existing_index:
+                                entry = existing_index[pkgname]
+                                if entry.get("pkgver") == pkgver:
+                                    current_sha = RepoValidator._compute_sha256(f)
+                                    if entry.get("filename-sha256") == current_sha:
+                                        logger.info(
+                                            "Skipping re-signing of pre-existing identical package: %s (already published in release)",
+                                            f.name,
+                                        )
+                                        try:
+                                            f.unlink()
+                                            for sig_ext in (".sig", ".sig2"):
+                                                sig_f = f.parent / f"{f.name}{sig_ext}"
+                                                if sig_f.is_file():
+                                                    sig_f.unlink()
+                                        except OSError:
+                                            pass
+                                        continue
+                        filtered_files.append(f)
+                    xbps_files = filtered_files
+                    if not xbps_files:
+                        logger.info("All xbps files in %s were pre-existing identical dependencies; nothing new to index.", self.binpkgs_dir)
+                        return key_info
+
         # 1. Sign all .xbps packages
         # Remove leftover signatures from retired keys
         for sig in self.binpkgs_dir.glob(f"*.{self.arch}.xbps.sig2"):

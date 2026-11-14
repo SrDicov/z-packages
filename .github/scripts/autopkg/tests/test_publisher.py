@@ -2,6 +2,7 @@
 Unit tests for publisher: indexer pruning, validator, and local publisher.
 """
 
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -113,6 +114,50 @@ class TestPublisher(unittest.TestCase):
         self.assertIn("pkg-b", index_data, "pkg-b was not added to index.plist!")
         self.assertEqual(index_data["pkg-a"]["pkgver"], "pkg-a-1.0_1")
         self.assertEqual(index_data["pkg-b"]["pkgver"], "pkg-b-2.0_1")
+
+    def test_incremental_indexing_skips_identical_preexisting_package(self):
+        """Test that identical pre-existing packages (seeded dependencies) are unlinked and not re-signed."""
+        import shutil
+        if not shutil.which("xbps-rindex"):
+            self.skipTest("xbps-rindex not installed on host")
+
+        arch = "x86_64"
+        indexer = RepoIndexer(self.root, arch=arch)
+
+        # 1. Create a dummy repodata with pkg-seed-1.0_1
+        pkg_seed = self.root / f"pkg-seed-1.0_1.{arch}.xbps"
+        pkg_seed_src = self.root / "pkg-seed"
+        pkg_seed_src.mkdir()
+        (pkg_seed_src / "seed.txt").write_text("seeded content")
+        subprocess.run(
+            ["xbps-create", "-A", arch, "-n", "pkg-seed-1.0_1", "-s", "desc seed", "-m", "s <s@s.com>", "-l", "MIT", str(pkg_seed_src)],
+            cwd=str(self.root),
+            check=True,
+        )
+        subprocess.run(["xbps-rindex", "-a", pkg_seed.name], cwd=str(self.root), check=True)
+
+        # 2. Add a newly built package pkg-new-1.0_1
+        pkg_new = self.root / f"pkg-new-1.0_1.{arch}.xbps"
+        pkg_new_src = self.root / "pkg-new"
+        pkg_new_src.mkdir()
+        (pkg_new_src / "new.txt").write_text("new content")
+        subprocess.run(
+            ["xbps-create", "-A", arch, "-n", "pkg-new-1.0_1", "-s", "desc new", "-m", "n <n@n.com>", "-l", "MIT", str(pkg_new_src)],
+            cwd=str(self.root),
+            check=True,
+        )
+
+        # 3. Generate test key and run sign_and_index with clean_repodata=False
+        privkey_path = self.root / "privkey.pem"
+        subprocess.run(["openssl", "genrsa", "-out", str(privkey_path), "1024"], check=True, capture_output=True)
+        key_info = indexer.sign_and_index(privkey_path, clean_repodata=False)
+        self.assertIsNotNone(key_info)
+
+        # pkg-seed should have been detected as pre-existing identical and unlinked
+        self.assertFalse(pkg_seed.is_file(), "pkg-seed was not unlinked from dist")
+        # pkg-new should remain on disk and have .sig2
+        self.assertTrue(pkg_new.is_file(), "pkg-new was unexpectedly removed")
+        self.assertTrue((self.root / f"pkg-new-1.0_1.{arch}.xbps.sig2").is_file(), "pkg-new was not signed")
 
 
 if __name__ == "__main__":
