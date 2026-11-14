@@ -2,9 +2,9 @@
 pkgname=neko-backgrounds
 version=7.2
 revision=7
-wrksrc="neko-backgrounds"
+create_wrksrc=yes
 short_desc="Colección de fondos de pantalla Neko"
-maintainer="JavierC"
+maintainer="JavierC <javiercyt@atomicmail.io>"
 makedepends="git"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Neko-Void-Linux/neko-backgrounds"

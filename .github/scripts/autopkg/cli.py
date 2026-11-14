@@ -29,6 +29,7 @@ from core.adapter import RepoAdapter
 from core.dag import DependencyPlanner
 from core.quarantine import QuarantineManager
 from core.template import TemplateData, TemplateEditor
+from detector.backends.base import get_github_token, verify_distfile_url
 from detector.engine import DetectionEngine
 from publisher.backends import PUBLISHER_BACKENDS
 from publisher.indexer import RepoIndexer
@@ -97,18 +98,96 @@ def cmd_detect(args: argparse.Namespace) -> int:
     return 0
 
 
+def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optional[Path] = None) -> Optional[dict]:
+    """Download {arch}-repodata from GitHub release 'stable' and return index.plist dictionary."""
+    import tempfile
+    token = get_github_token()
+    headers = {"User-Agent": "autopkg-engine/1.0", "Accept": "application/vnd.github.v3+json"}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    api_url = f"https://api.github.com/repos/{repo}/releases/tags/stable"
+    req = urllib.request.Request(api_url, headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except Exception as e:
+        logger.warning("Could not fetch release 'stable' for %s: %s", repo, e)
+        return None
+
+    target_asset = f"{arch}-repodata"
+    download_url = None
+    for asset in data.get("assets", []):
+        if asset.get("name") == target_asset:
+            download_url = asset.get("browser_download_url")
+            break
+
+    if not download_url:
+        logger.warning("Asset %s not found in release 'stable' of %s", target_asset, repo)
+        return None
+
+    temp_dir = cache_dir or Path(tempfile.gettempdir())
+    local_repodata = temp_dir / f"{repo.replace('/', '_')}_{target_asset}"
+    req_dl = urllib.request.Request(download_url, headers={"User-Agent": "autopkg-engine/1.0"})
+    try:
+        with urllib.request.urlopen(req_dl, timeout=30) as resp, open(local_repodata, "wb") as f:
+            f.write(resp.read())
+        return RepoValidator._extract_index_plist(local_repodata)
+    except Exception as e:
+        logger.warning("Failed to download or parse %s: %s", download_url, e)
+        return None
+
+
 def cmd_plan(args: argparse.Namespace) -> int:
     adapter = RepoAdapter(args.repo)
     engine = DetectionEngine(adapter, rules_path=args.rules, cache_dir=args.cache_dir)
     qm = QuarantineManager(args.quarantine_file)
     planner = DependencyPlanner(adapter)
 
-    if getattr(args, "all", False):
+    to_update: List[str] = []
+
+    # Check if state-diff comparison against binary repo or repodata is requested
+    check_binrepo = getattr(args, "check_binrepo", None)
+    repodata_path = getattr(args, "repodata", None)
+    index_data: Optional[dict] = None
+
+    if check_binrepo:
+        target_arch = getattr(args, "arch", "x86_64") or "x86_64"
+        logger.info("Fetching binary repodata from %s (arch: %s) for state-diff planning...", check_binrepo, target_arch)
+        index_data = fetch_repodata_from_github(check_binrepo, arch=target_arch)
+    elif repodata_path:
+        p = Path(repodata_path).resolve()
+        if p.is_file():
+            index_data = RepoValidator._extract_index_plist(p)
+
+    if index_data is not None:
+        targets = args.packages if args.packages else adapter.list_packages()
+        for p in targets:
+            if qm.is_quarantined(p):
+                continue
+            tmpl_path = adapter.get_template_path(p)
+            if not tmpl_path:
+                continue
+            try:
+                tmpl = TemplateEditor.parse_file(tmpl_path)
+            except Exception:
+                continue
+            local_ver = f"{tmpl.version}_{tmpl.revision}"
+            remote_entry = index_data.get(p)
+            if not remote_entry:
+                logger.info("State-diff: %s not in remote repodata, queued for build", p)
+                to_update.append(p)
+            else:
+                remote_pkgver = remote_entry.get("pkgver", "")
+                remote_ver = remote_pkgver[len(p) + 1:] if remote_pkgver.startswith(f"{p}-") else remote_pkgver
+                if DetectionEngine.compare_versions(local_ver, remote_ver, pkgname=p) > 0:
+                    logger.info("State-diff: %s local (%s) > remote (%s), queued for build", p, local_ver, remote_ver)
+                    to_update.append(p)
+    elif getattr(args, "all", False):
         targets = args.packages if args.packages else adapter.list_packages()
         to_update = [p for p in targets if not qm.is_quarantined(p)]
     else:
         candidates = engine.check_all(args.packages if args.packages else None)
-        to_update = []
         for c in candidates:
             if c.needs_update and not qm.is_quarantined(c.pkgname, c.latest_version):
                 to_update.append(c.pkgname)
@@ -180,6 +259,8 @@ def cmd_update(args: argparse.Namespace) -> int:
                 new_version = cand.latest_version
                 if cand.extra and cand.extra.get("tag"):
                     tag_val = cand.extra["tag"]
+                if cand.extra and cand.extra.get("named_vars"):
+                    extra_vars.update(cand.extra["named_vars"])
         else:
             logger.info("Package %s is already up-to-date (%s)", args.pkgname, tmpl.version)
             return 0
@@ -196,15 +277,15 @@ def cmd_update(args: argparse.Namespace) -> int:
         distfiles_to_resolve = tmpl.raw_distfiles if tmpl.raw_distfiles else tmpl.distfiles
         for i, df_url in enumerate(distfiles_to_resolve):
             clean_url = df_url.split(">")[0].strip()
-            if "${version}" in clean_url or "$version" in clean_url:
-                resolved_url = clean_url.replace("${version}", new_version).replace("$version", new_version)
-            else:
-                resolved_url = clean_url.replace(tmpl.version, new_version)
-            resolved_url = resolved_url.replace("${pkgname}", tmpl.pkgname).replace("$pkgname", tmpl.pkgname)
-            for k, v in extra_vars.items():
-                resolved_url = resolved_url.replace("${" + k + "}", v).replace("$" + k, v)
+            vars_dict = {
+                **TemplateEditor.DEFAULT_SITE_VARS,
+                **extra_vars,
+                "pkgname": tmpl.pkgname,
+                "version": new_version,
+            }
             if tag_val:
-                resolved_url = resolved_url.replace("${_tag}", tag_val).replace("$_tag", tag_val)
+                vars_dict["_tag"] = tag_val
+            resolved_url = TemplateEditor.expand_bash_vars(clean_url, vars_dict)
 
             # If unresolved bash variables remain, fallback to expanded distfiles
             if "${" in resolved_url and i < len(tmpl.distfiles):
@@ -231,6 +312,7 @@ def cmd_update(args: argparse.Namespace) -> int:
                     new_version=new_version,
                     new_revision=effective_revision,
                     additional_vars=extra_vars or None,
+                    allow_same_checksum=True,
                 )
                 import subprocess
                 res = subprocess.run([str(xbps_src), "xgensum", "-f", args.pkgname], cwd=str(adapter.root_dir), check=False)
@@ -245,6 +327,7 @@ def cmd_update(args: argparse.Namespace) -> int:
                         new_version=tmpl.version,
                         new_revision=tmpl.revision,
                         new_checksum=tmpl.checksums,
+                        allow_same_checksum=True,
                     )
 
     if tmpl.distfiles and not new_checksums:
@@ -384,6 +467,144 @@ def cmd_publish(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_doctor(args: argparse.Namespace) -> int:
+    import shutil
+    import subprocess
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    adapter = RepoAdapter(args.repo)
+    packages = args.packages if getattr(args, "packages", None) else adapter.list_packages()
+
+    logger.info("Running autopkg doctor across %d packages in %s...", len(packages), adapter.root_dir)
+
+    repodata_index: Optional[dict] = None
+    if getattr(args, "check_binrepo", None):
+        target_arch = getattr(args, "arch", "x86_64") or "x86_64"
+        logger.info("Fetching remote binary repodata from %s (arch: %s)...", args.check_binrepo, target_arch)
+        repodata_index = fetch_repodata_from_github(args.check_binrepo, arch=target_arch)
+
+    xlint_bin = shutil.which("xlint")
+    check_urls = getattr(args, "check_urls", False)
+
+    def diagnose_package(pkgname: str) -> dict:
+        issues: List[str] = []
+        warnings: List[str] = []
+        tmpl_path = adapter.get_template_path(pkgname)
+        if not tmpl_path or not tmpl_path.is_file():
+            return {"pkgname": pkgname, "status": "FAIL", "issues": ["Template file not found"], "warnings": []}
+
+        # 1. bash -n syntax check
+        res_bash = subprocess.run(["bash", "-n", str(tmpl_path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+        if res_bash.returncode != 0:
+            issues.append(f"Syntax error (bash -n): {res_bash.stderr.strip()}")
+
+        # 2. xlint advisory check
+        if xlint_bin:
+            res_xlint = subprocess.run([xlint_bin, str(tmpl_path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+            if res_xlint.returncode != 0:
+                out = (res_xlint.stderr + "\n" + res_xlint.stdout).strip()
+                if out:
+                    warnings.append(f"xlint: {out}")
+
+        # 3. Parse template and validate structure
+        try:
+            tmpl = TemplateEditor.parse_file(tmpl_path)
+            is_valid, tmpl_errors, tmpl_warnings = TemplateEditor.validate_template(tmpl)
+            if not is_valid:
+                issues.extend(tmpl_errors)
+            warnings.extend(tmpl_warnings)
+
+            # 4. Check unbound secondary variables in raw_distfiles
+            assigned_vars = set(re.findall(r'^\s*([a-zA-Z_][a-zA-Z0-9_]*)=', tmpl.raw_content, re.MULTILINE))
+            assigned_vars.update(TemplateEditor.DEFAULT_SITE_VARS.keys())
+            assigned_vars.update(["pkgname", "version", "revision", "arch", "XBPS_TARGET_MACHINE"])
+            for df in tmpl.raw_distfiles:
+                var_refs = re.findall(r'\$\{([a-zA-Z_][a-zA-Z0-9_]*)[^}]*\}|\$([a-zA-Z_][a-zA-Z0-9_]*)', df)
+                for v1, v2 in var_refs:
+                    v = v1 or v2
+                    if v and v not in assigned_vars:
+                        issues.append(f"Unbound variable '${v}' referenced in raw_distfiles")
+
+            # 5. Checksum integrity
+            if tmpl.distfiles:
+                if not tmpl.checksums:
+                    issues.append("Template has distfiles but checksums list is empty")
+                elif len(tmpl.checksums) != len(tmpl.distfiles):
+                    issues.append(f"Checksum mismatch: {len(tmpl.checksums)} checksums vs {len(tmpl.distfiles)} distfiles")
+                for c in tmpl.checksums:
+                    clean_c = c.strip()
+                    if not re.match(r'^[0-9a-fA-F]{64}$', clean_c):
+                        issues.append(f"Invalid sha256 checksum format: '{clean_c}'")
+
+            # 6. Check URLs if requested
+            if check_urls and tmpl.distfiles:
+                for df in tmpl.distfiles:
+                    clean_url = df.split(">")[0].strip()
+                    if not verify_distfile_url(clean_url, timeout=12):
+                        issues.append(f"Distfile URL unreachable (non-200/404): {clean_url}")
+
+            # 7. Check binary repo state
+            if repodata_index is not None:
+                local_ver = f"{tmpl.version}_{tmpl.revision}"
+                remote_entry = repodata_index.get(pkgname)
+                if not remote_entry:
+                    warnings.append(f"Not published in binary repo (local: {local_ver})")
+                else:
+                    remote_pkgver = remote_entry.get("pkgver", "")
+                    remote_ver = remote_pkgver[len(pkgname) + 1:] if remote_pkgver.startswith(f"{pkgname}-") else remote_pkgver
+                    cmp = DetectionEngine.compare_versions(local_ver, remote_ver, pkgname=pkgname)
+                    if cmp > 0:
+                        warnings.append(f"Binary repo outdated: local {local_ver} > remote {remote_ver}")
+                    elif cmp < 0:
+                        issues.append(f"Binary repo ahead of template: remote {remote_ver} > local {local_ver}")
+
+        except Exception as e:
+            issues.append(f"Parser exception: {e}")
+
+        status = "FAIL" if issues else ("WARN" if warnings else "OK")
+        return {
+            "pkgname": pkgname,
+            "status": status,
+            "issues": issues,
+            "warnings": warnings,
+        }
+
+    results = []
+    with ThreadPoolExecutor(max_workers=16) as executor:
+        future_map = {executor.submit(diagnose_package, p): p for p in packages}
+        for future in as_completed(future_map):
+            results.append(future.result())
+
+    results.sort(key=lambda r: r["pkgname"])
+
+    print("\n" + "=" * 90)
+    print(f"{'PACKAGE':<30} {'STATUS':<10} {'DETAILS'}")
+    print("=" * 90)
+    fail_count = 0
+    warn_count = 0
+    ok_count = 0
+
+    for r in results:
+        status = r["status"]
+        if status == "FAIL":
+            fail_count += 1
+            details = "; ".join(r["issues"])
+            print(f"\033[91m{r['pkgname']:<30} {status:<10} {details}\033[0m")
+        elif status == "WARN":
+            warn_count += 1
+            details = "; ".join(r["warnings"])
+            print(f"\033[93m{r['pkgname']:<30} {status:<10} {details}\033[0m")
+        else:
+            ok_count += 1
+            print(f"\033[92m{r['pkgname']:<30} {status:<10} Clean\033[0m")
+
+    print("=" * 90)
+    print(f"Doctor Summary: {ok_count} OK, {warn_count} Warnings, {fail_count} Failed (Total: {len(results)})")
+    print("=" * 90 + "\n")
+
+    return 1 if fail_count > 0 else 0
+
+
 def cmd_quarantine(args: argparse.Namespace) -> int:
     qm = QuarantineManager(args.quarantine_file)
     if args.action == "list":
@@ -432,11 +653,22 @@ def main() -> int:
     p_plan.add_argument("--cache-dir", default=".cache", help="Cache directory")
     p_plan.add_argument("--quarantine-file", default="quarantine.json", help="Quarantine state file")
     p_plan.add_argument("--arch", default=None, help="Target architecture (e.g. x86_64, x86_64-musl)")
+    p_plan.add_argument("--check-binrepo", default=None, help="Compare against GitHub Release stable in owner/repo")
+    p_plan.add_argument("--repodata", default=None, help="Path to local repodata archive")
     p_plan.add_argument("--all", "-a", action="store_true", help="Plan for all specified packages regardless of update status")
     p_plan.add_argument("--limit", type=int, default=5, help="Max batch size (0 for unlimited)")
     p_plan.add_argument("--json", action="store_true", help="Output JSON list")
     p_plan.add_argument("packages", nargs="*", help="Optional package subset")
     p_plan.set_defaults(func=cmd_plan)
+
+    # doctor
+    p_doctor = subparsers.add_parser("doctor", help="Run comprehensive linting, syntax, unbound variable, URL and repo checks")
+    p_doctor.add_argument("--repo", default=".", help="Repository root path")
+    p_doctor.add_argument("--check-urls", action="store_true", help="Verify HTTP 200 on all distfiles")
+    p_doctor.add_argument("--check-binrepo", default=None, help="Compare with remote GitHub binary repo (owner/repo)")
+    p_doctor.add_argument("--arch", default="x86_64", help="Architecture for binary repo comparison")
+    p_doctor.add_argument("packages", nargs="*", help="Optional package subset")
+    p_doctor.set_defaults(func=cmd_doctor)
 
     # update
     p_update = subparsers.add_parser("update", help="Update template version/checksum without losing comments")

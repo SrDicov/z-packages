@@ -54,35 +54,42 @@ class RegexBackend(BaseDetectorBackend):
             except Exception:
                 return None
 
+        candidates = []
         try:
-            matches = compiled_re.findall(text)
+            for m in compiled_re.finditer(text):
+                named_dict = m.groupdict() if m.groupdict() else None
+                val = None
+                if named_dict and "version" in named_dict:
+                    val = named_dict["version"]
+                elif m.groups():
+                    val = m.group(1)
+                else:
+                    val = m.group(0)
+                val = str(val).strip()
+                if rule.ignore:
+                    try:
+                        if re.search(rule.ignore, val):
+                            continue
+                    except Exception:
+                        pass
+                candidates.append((val, named_dict))
         except Exception:
             return None
-
-        if not matches:
-            return None
-
-        candidates = []
-        for match in matches:
-            val = match if isinstance(match, str) else match[0]
-            val = val.strip()
-            if rule.ignore:
-                try:
-                    if re.search(rule.ignore, val):
-                        continue
-                except Exception:
-                    pass
-            candidates.append(val)
 
         if not candidates:
             return None
 
         # Natural sort
-        candidates.sort(key=lambda s: [int(t) if t.isdigit() else 0 for t in re.split(r'[^0-9]+', s)])
-        latest = candidates[-1]
+        candidates.sort(key=lambda item: [int(t) if t.isdigit() else 0 for t in re.split(r'[^0-9]+', item[0])])
+        latest, named_vars = candidates[-1]
+
+        extra = {}
+        if named_vars:
+            extra["named_vars"] = named_vars
 
         return DetectionResult(
             latest_version=latest,
             download_url=url,
             source_type="regex_http",
+            extra=extra if extra else None,
         )

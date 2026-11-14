@@ -108,28 +108,37 @@ class GitTagsBackend(BaseDetectorBackend):
                     continue
 
             cleaned_version = None
+            named_vars = None
             version_regex = rule.options.get("version_regex") if rule else None
             if version_regex:
                 m_ver = re.search(version_regex, tag)
-                if m_ver and m_ver.groups():
-                    cleaned_version = m_ver.group(1)
+                if m_ver:
+                    named_vars = m_ver.groupdict() if m_ver.groupdict() else None
+                    if named_vars and "version" in named_vars:
+                        cleaned_version = named_vars["version"]
+                    elif m_ver.groups():
+                        cleaned_version = m_ver.group(1)
             if not cleaned_version:
                 cleaned_version = self._clean_tag_to_version(tag, rule.strip_prefix if rule else None)
             if cleaned_version:
-                parsed_versions.append((cleaned_version, tag))
+                parsed_versions.append((cleaned_version, tag, named_vars))
 
         if not parsed_versions:
             return None
 
         # Sort versions using natural / tuple sort
         parsed_versions.sort(key=lambda item: self._version_sort_key(item[0]))
-        latest_version, original_tag = parsed_versions[-1]
+        latest_version, original_tag, named_vars = parsed_versions[-1]
+
+        extra = {"tag": original_tag}
+        if named_vars:
+            extra["named_vars"] = named_vars
 
         return DetectionResult(
             latest_version=latest_version,
             download_url=git_url,
             source_type="git_tags",
-            extra={"tag": original_tag},
+            extra=extra,
         )
 
     @classmethod

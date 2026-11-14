@@ -23,6 +23,7 @@ from typing import Dict, List, Optional
 from core.adapter import RepoAdapter
 from core.template import TemplateData, TemplateEditor
 from detector.backends import BACKENDS, DetectionResult, GitHubBackend, GitTagsBackend, RegexBackend
+from detector.backends.base import verify_distfile_url
 from detector.rules import PackageRule, RulesLoader, RulesRegistry
 from detector.void_update import VoidUpdateConfig, VoidUpdateParser
 
@@ -117,25 +118,30 @@ class DetectionEngine:
                 backend_cls = BACKENDS.get(rule.backend, GitTagsBackend)
                 backend = backend_cls()
                 detection = backend.detect_latest(tmpl_data, rule, self.etag_cache)
-
-            # 2. Check native Void 'update' file
-            if not detection:
+                if not detection:
+                    logger.warning(
+                        "Package %s has explicit rule (%s) but detection returned None. Strict rule: aborting fallback.",
+                        pkgname, rule.backend
+                    )
+                    return None
+            else:
+                # 2. Check native Void 'update' file
                 update_file = self.adapter.get_update_file_path(pkgname)
                 if update_file:
                     void_cfg = VoidUpdateParser.parse_file(update_file)
                     if void_cfg:
                         detection = self._detect_from_void_update(tmpl_data, void_cfg)
 
-            # 3. Prefer GitHubBackend if distfiles points to GitHub releases
-            has_github_release = any("github.com" in df and "/releases/download/" in df for df in tmpl_data.distfiles)
-            if not detection and has_github_release:
-                gh_backend = GitHubBackend()
-                detection = gh_backend.detect_latest(tmpl_data, None, self.etag_cache)
+                # 3. Prefer GitHubBackend if distfiles points to GitHub releases
+                has_github_release = any("github.com" in df and "/releases/download/" in df for df in tmpl_data.distfiles)
+                if not detection and has_github_release:
+                    gh_backend = GitHubBackend()
+                    detection = gh_backend.detect_latest(tmpl_data, None, self.etag_cache)
 
-            # 4. Default fallback: GitTagsBackend (0 API cost)
-            if not detection:
-                git_backend = GitTagsBackend()
-                detection = git_backend.detect_latest(tmpl_data, None, self.etag_cache)
+                # 4. Default fallback: GitTagsBackend (0 API cost)
+                if not detection:
+                    git_backend = GitTagsBackend()
+                    detection = git_backend.detect_latest(tmpl_data, None, self.etag_cache)
         except Exception as e:
             logger.warning("Error checking updates for %s: %s", pkgname, e)
             return None
@@ -165,6 +171,26 @@ class DetectionEngine:
                 if m_tag and m_tag.group(1) == detection.extra["tag"]:
                     needs_update = False
 
+        if needs_update:
+            # 1. Semantic Anti-Garbage Filter
+            if not self.is_sane_version_transition(tmpl_data.version, detection.latest_version, rule):
+                logger.warning(
+                    "Rejecting update candidate for %s: transition from '%s' to '%s' failed semantic sanity check",
+                    pkgname, tmpl_data.version, detection.latest_version
+                )
+                return None
+
+            # 2. Pre-flight HTTP 200 Distfile Verification
+            if tmpl_data.distfiles and not (detection.extra and detection.extra.get("commit")):
+                cand_url = self.resolve_candidate_distfile_url(tmpl_data, detection.latest_version, detection.extra)
+                if cand_url and cand_url.startswith(("http://", "https://")):
+                    if not verify_distfile_url(cand_url, timeout=10):
+                        logger.warning(
+                            "Rejecting update candidate for %s (%s): candidate distfile %s returned non-200/404",
+                            pkgname, detection.latest_version, cand_url
+                        )
+                        return None
+
         return UpdateCandidate(
             pkgname=pkgname,
             current_version=current_version,
@@ -187,6 +213,79 @@ class DetectionEngine:
 
         self.save_etag_cache()
         return results
+
+    @classmethod
+    def is_sane_version_transition(
+        cls,
+        current_version: str,
+        candidate_version: str,
+        rule: Optional[PackageRule] = None,
+    ) -> bool:
+        """
+        Anti-garbage semantic filter.
+        Rejects candidate versions that contain garbage tags (video, build, etc.)
+        or represent absurd version jumps (e.g. 2.2 -> 56106 or 1410987542, or 2026.5 -> 2995.2).
+        """
+        if not candidate_version or not current_version:
+            return True
+
+        # Check for disallowed words/tokens
+        garbage_pattern = r'(?:^|[-._])(video|build|nightly|alpha|android|ios|desktop|mobile|sdk)(?:[0-9]*)(?:[-._]|$)'
+        if re.search(garbage_pattern, candidate_version, re.IGNORECASE):
+            if not (rule and rule.options.get("allow_prerelease")):
+                return False
+
+        if rule and rule.options.get("allow_major_jump"):
+            return True
+
+        # Check for absurd major version jumps
+        cur_m = re.match(r'^(\d+)', current_version)
+        cand_m = re.match(r'^(\d+)', candidate_version)
+        if cur_m and cand_m:
+            try:
+                cur_maj = int(cur_m.group(1))
+                cand_maj = int(cand_m.group(1))
+
+                # Case 1: current version has small major (< 100) jumping to build number/epoch (> 500)
+                if cur_maj < 100 and cand_maj > 500:
+                    return False
+
+                # Case 2: candidate major is more than 500 above current major (e.g. 2026.5 vs 2995.2)
+                if cand_maj > cur_maj + 500:
+                    return False
+            except Exception:
+                pass
+
+        return True
+
+    @classmethod
+    def resolve_candidate_distfile_url(
+        cls,
+        tmpl_data: TemplateData,
+        candidate_version: str,
+        extra: Optional[dict] = None,
+    ) -> Optional[str]:
+        if not tmpl_data.distfiles:
+            return None
+        dfs = tmpl_data.raw_distfiles if tmpl_data.raw_distfiles else tmpl_data.distfiles
+        primary_raw = dfs[0].split(">")[0].strip()
+
+        extra_vars = {}
+        if extra and extra.get("named_vars"):
+            extra_vars.update(extra["named_vars"])
+        if extra and extra.get("tag"):
+            extra_vars["_tag"] = extra["tag"]
+
+        vars_dict = {
+            **TemplateEditor.DEFAULT_SITE_VARS,
+            **extra_vars,
+            "pkgname": tmpl_data.pkgname,
+            "version": candidate_version,
+        }
+        try:
+            return TemplateEditor.expand_bash_vars(primary_raw, vars_dict)
+        except Exception:
+            return None
 
     def _detect_from_void_update(
         self, tmpl_data: TemplateData, void_cfg: VoidUpdateConfig

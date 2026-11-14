@@ -3,6 +3,7 @@ GitHub API Backend with ETag / If-None-Match conditional request caching.
 
 Drastically reduces rate limit consumption by returning 304 Not Modified
 when releases or tags have not changed upstream.
+Includes automated token resolution and asset distfile pre-validation.
 """
 
 from __future__ import annotations
@@ -12,10 +13,15 @@ import os
 import re
 import urllib.error
 import urllib.request
-from typing import Optional
+from typing import Optional, Tuple
 
 from core.template import TemplateData
-from detector.backends.base import BaseDetectorBackend, DetectionResult
+from detector.backends.base import (
+    BaseDetectorBackend,
+    DetectionResult,
+    get_github_token,
+    verify_distfile_url,
+)
 from detector.rules import PackageRule
 
 
@@ -56,6 +62,42 @@ class GitHubBackend(BaseDetectorBackend):
                         expected_ext = m_ext.group(1)
                         break
 
+        def _version_from_asset(rel: dict) -> Tuple[Optional[str], Optional[dict]]:
+            if rule and rule.pattern:
+                pat = rule.pattern
+                if r"\K" in pat:
+                    parts = pat.split(r"\K", 1)
+                    pat = f"(?:{parts[0]})({parts[1]})"
+                for asset in rel.get("assets", []):
+                    name = asset.get("name", "")
+                    m = re.search(pat, name)
+                    if not m:
+                        continue
+                    named_vars = m.groupdict() if m.groupdict() else None
+                    ver = None
+                    if named_vars and "version" in named_vars:
+                        ver = named_vars["version"]
+                    elif m.groups():
+                        ver = m.group(1)
+                    if ver:
+                        return ver.replace("_", ".").replace("-", "."), named_vars
+
+            if rule and rule.options.get("version_regex"):
+                v_pat = rule.options.get("version_regex")
+                tag = rel.get("tag_name", "")
+                m_tag = re.search(v_pat, tag)
+                if m_tag:
+                    named_vars = m_tag.groupdict() if m_tag.groupdict() else None
+                    ver = None
+                    if named_vars and "version" in named_vars:
+                        ver = named_vars["version"]
+                    elif m_tag.groups():
+                        ver = m_tag.group(1)
+                    if ver:
+                        return ver.replace("_", ".").replace("-", "."), named_vars
+
+            return None, None
+
         def _is_release_matching(rel: dict) -> bool:
             if not isinstance(rel, dict):
                 return False
@@ -79,38 +121,50 @@ class GitHubBackend(BaseDetectorBackend):
                 asset_match = any(bool(re.search(pat, a)) for a in assets)
                 if not (tag_match or asset_match):
                     return False
-            return True
 
-        def _version_from_asset(rel: dict) -> Optional[str]:
-            if not (rule and rule.pattern):
-                return None
-            pat = rule.pattern
-            if r"\K" in pat:
-                parts = pat.split(r"\K", 1)
-                pat = f"(?:{parts[0]})({parts[1]})"
-            for asset in rel.get("assets", []):
-                name = asset.get("name", "")
-                m = re.match(pat, name)
-                if not m or not m.groups():
-                    continue
-                return m.group(1).replace("_", ".").replace("-", ".")
-            return None
+            # Check if expected assets exist in this release (e.g., skip Nightly releases with different asset names)
+            if template_data.distfiles:
+                cand_ver, _ = _version_from_asset(rel)
+                if not cand_ver:
+                    cleaned = re.sub(r'^(?:v|ver|release)[-_]?', '', tag, flags=re.IGNORECASE)
+                    m = re.search(r'\b(\d+(?:[._-][a-zA-Z0-9]+)*)\b', cleaned)
+                    cand_ver = m.group(1).replace("-", ".").replace("_", ".") if m else cleaned
+
+                if assets and cand_ver:
+                    expected_filenames = []
+                    dfs = template_data.raw_distfiles if template_data.raw_distfiles else template_data.distfiles
+                    for df in dfs:
+                        if "/releases/download/" in df:
+                            fn = df.split("/")[-1].split(">")[0].strip()
+                            if "${version}" in fn:
+                                expected_filenames.append(fn.replace("${version}", cand_ver))
+                            elif template_data.version and template_data.version in fn:
+                                expected_filenames.append(fn.replace(template_data.version, cand_ver))
+                    if expected_filenames and not all(ef in assets for ef in expected_filenames):
+                        return False
+
+            return True
 
         def _parse_release(rel: dict) -> DetectionResult:
             tag_name = rel.get("tag_name", "")
-            latest_version = _version_from_asset(rel)
+            latest_version, named_vars = _version_from_asset(rel)
             if not latest_version:
                 cleaned = re.sub(r'^(?:v|ver|release)[-_]?', '', tag_name, flags=re.IGNORECASE)
                 m = re.search(r'\b(\d+(?:[._-][a-zA-Z0-9]+)*)\b', cleaned)
                 latest_version = m.group(1).replace("-", ".").replace("_", ".") if m else cleaned
+
+            extra = {"tag": tag_name}
+            if named_vars:
+                extra["named_vars"] = named_vars
+
             return DetectionResult(
                 latest_version=latest_version,
                 download_url=rel.get("html_url"),
                 source_type="github_api",
-                extra={"tag": tag_name},
+                extra=extra,
             )
 
-        token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+        token = get_github_token()
         headers = {
             "User-Agent": "autopkg-engine/1.0 (Void Linux package updater)",
             "Accept": "application/vnd.github.v3+json",
@@ -149,7 +203,7 @@ class GitHubBackend(BaseDetectorBackend):
         except Exception:
             pass
 
-        # 2. Fallback to /releases?per_page=15 when latest is non-matching (e.g. mobile release)
+        # 2. Fallback to /releases?per_page=15 when latest is non-matching (e.g. nightly or mobile release)
         list_url = f"https://api.github.com/repos/{repo_owner_name}/releases?per_page=15"
         req_list = urllib.request.Request(list_url, headers=headers)
         try:

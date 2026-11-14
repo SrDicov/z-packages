@@ -10,7 +10,7 @@ depends="gtk+3 nss alsa-lib nspr at-spi2-core libsecret libnotify libXtst
  libxkbcommon libgbm mesa-dri xrandr hicolor-icon-theme p7zip python3
  libtorrent-rasterbar-python3 xdg-utils"
 short_desc="Game launcher with built-in bittorrent client"
-maintainer="ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>"
+maintainer="ANOMALI0x00 <SrDicov@gmail.com>"
 license="MIT"
 homepage="https://github.com/hydralauncher/hydra"
 distfiles="https://github.com/hydralauncher/hydra/releases/download/v${version}/hydralauncher_${version}_amd64.deb"
@@ -18,7 +18,7 @@ checksum=0527fe3fec945b3463f14d7b61a6ff12f76215b9e5d3ba338a677d0c20c92cb8
 provides="hydra-launcher-bin-${version}_${revision}"
 replaces="hydra-launcher-bin>=0"
 nostrip=yes
-noshlibextract=yes
+noshlibprovides=yes
 noverifyrdeps=yes
 nopie=yes
 python_version=ignore

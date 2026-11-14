@@ -409,11 +409,32 @@ class TemplateEditor:
         new_revision: Optional[int] = 1,
         new_checksum: Optional[str | List[str]] = None,
         additional_vars: Optional[Dict[str, str]] = None,
+        allow_same_checksum: bool = False,
     ) -> bool:
         """Update template file in place. Returns True on success."""
         filepath = Path(path).resolve()
         with open(filepath, "r", encoding="utf-8", errors="replace") as f:
             content = f.read()
+
+        parsed = cls.parse_string(content, path=filepath)
+
+        # Enforce fail-closed checksum policy:
+        # Never allow version change on templates with distfiles without a new, valid checksum.
+        if new_version is not None and str(new_version) != str(parsed.version) and parsed.distfiles:
+            if not allow_same_checksum:
+                if not new_checksum:
+                    raise ValueError(
+                        f"Refusing to update version of '{parsed.pkgname}' from '{parsed.version}' "
+                        f"to '{new_version}' without new checksum(s) on a template with distfiles."
+                    )
+                new_csums = [new_checksum] if isinstance(new_checksum, str) else list(new_checksum)
+                new_csums_clean = [c.strip() for c in new_csums if c and c.strip()]
+                old_csums_clean = [c.strip() for c in parsed.checksums if c and c.strip()]
+                if new_csums_clean and old_csums_clean and set(new_csums_clean) == set(old_csums_clean):
+                    raise ValueError(
+                        f"Refusing to update version of '{parsed.pkgname}' from '{parsed.version}' "
+                        f"to '{new_version}' with identical checksum(s)."
+                    )
 
         updated = cls.update_metadata(
             content=content,

@@ -8,7 +8,7 @@ hostmakedepends="binutils tar xz"
 depends="gtk+3 libnotify nss libXScrnSaver libXtst xdg-utils at-spi2-core
  util-linux-libs libsecret"
 short_desc="Custom Discord desktop client"
-maintainer="ANOMALI0x00 <ANOMALI0x00@users.noreply.github.com>"
+maintainer="ANOMALI0x00 <SrDicov@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Vencord/Vesktop"
 distfiles="https://github.com/Vencord/Vesktop/releases/download/v${version}/vesktop_${version}_amd64.deb"
