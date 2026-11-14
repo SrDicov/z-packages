@@ -99,7 +99,7 @@ def cmd_detect(args: argparse.Namespace) -> int:
 
 
 def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optional[Path] = None) -> Optional[dict]:
-    """Download {arch}-repodata from GitHub release 'stable' and return index.plist dictionary."""
+    """Download {arch}-repodata and parse published assets from GitHub release 'stable'."""
     import tempfile
     token = get_github_token()
     headers = {"User-Agent": "autopkg-engine/1.0", "Accept": "application/vnd.github.v3+json"}
@@ -115,6 +115,18 @@ def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optio
         logger.warning("Could not fetch release 'stable' for %s: %s", repo, e)
         return None
 
+    index_dict: dict = {}
+
+    # 1. Parse all physical .xbps assets in the release
+    asset_regex = re.compile(rf'^(.+)-([0-9][a-zA-Z0-9_\.]*_\d+)\.{re.escape(arch)}\.xbps$')
+    for asset in data.get("assets", []):
+        aname = asset.get("name", "")
+        m = asset_regex.match(aname)
+        if m:
+            pkg, ver_rev = m.group(1), m.group(2)
+            index_dict[pkg] = {"pkgver": f"{pkg}-{ver_rev}"}
+
+    # 2. Overlay index.plist from {arch}-repodata if available
     target_asset = f"{arch}-repodata"
     download_url = None
     for asset in data.get("assets", []):
@@ -122,20 +134,20 @@ def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optio
             download_url = asset.get("browser_download_url")
             break
 
-    if not download_url:
-        logger.warning("Asset %s not found in release 'stable' of %s", target_asset, repo)
-        return None
+    if download_url:
+        temp_dir = cache_dir or Path(tempfile.gettempdir())
+        local_repodata = temp_dir / f"{repo.replace('/', '_')}_{target_asset}"
+        req_dl = urllib.request.Request(download_url, headers={"User-Agent": "autopkg-engine/1.0"})
+        try:
+            with urllib.request.urlopen(req_dl, timeout=30) as resp, open(local_repodata, "wb") as f:
+                f.write(resp.read())
+            plist_data = RepoValidator._extract_index_plist(local_repodata)
+            if plist_data:
+                index_dict.update(plist_data)
+        except Exception as e:
+            logger.warning("Could not download or parse %s: %s", download_url, e)
 
-    temp_dir = cache_dir or Path(tempfile.gettempdir())
-    local_repodata = temp_dir / f"{repo.replace('/', '_')}_{target_asset}"
-    req_dl = urllib.request.Request(download_url, headers={"User-Agent": "autopkg-engine/1.0"})
-    try:
-        with urllib.request.urlopen(req_dl, timeout=30) as resp, open(local_repodata, "wb") as f:
-            f.write(resp.read())
-        return RepoValidator._extract_index_plist(local_repodata)
-    except Exception as e:
-        logger.warning("Failed to download or parse %s: %s", download_url, e)
-        return None
+    return index_dict if index_dict else None
 
 
 def cmd_plan(args: argparse.Namespace) -> int:
@@ -498,13 +510,13 @@ def cmd_doctor(args: argparse.Namespace) -> int:
         if res_bash.returncode != 0:
             issues.append(f"Syntax error (bash -n): {res_bash.stderr.strip()}")
 
-        # 2. xlint advisory check
+        # 2. xlint check (Strict enforcement: 0 errors allowed)
         if xlint_bin:
             res_xlint = subprocess.run([xlint_bin, str(tmpl_path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
             if res_xlint.returncode != 0:
                 out = (res_xlint.stderr + "\n" + res_xlint.stdout).strip()
                 if out:
-                    warnings.append(f"xlint: {out}")
+                    issues.append(f"xlint: {out}")
 
         # 3. Parse template and validate structure
         try:

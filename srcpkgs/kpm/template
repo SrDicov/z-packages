@@ -12,18 +12,17 @@ distfiles="https://github.com/SrDicov/z-packages/releases/download/assets/kpm-li
 checksum=737f6765be6c5861ec6146ba67197264936ff51105ab6eb91ba700fc3dfeb063
 
 do_configure() {
-    :
+	:
 }
 
 do_build() {
-    :
+	:
 }
 
 do_install() {
-    vbin kpm
-    vbin kpm-gui
-
-    vinstall kore-ico.png 644 usr/share/icons/hicolor/48x48/apps
-
-    vinstall kpm.desktop 644 usr/share/applications
+	vbin kpm
+	vbin kpm-gui
+	vinstall kore-ico.png 644 usr/share/icons/hicolor/48x48/apps
+	vinstall kpm.desktop 644 usr/share/applications
+	vlicense LICENSE
 }

@@ -3,19 +3,21 @@ pkgname=neko-backgrounds
 version=7.2
 revision=7
 create_wrksrc=yes
+makedepends="git"
 short_desc="Colección de fondos de pantalla Neko"
 maintainer="JavierC <javiercyt@atomicmail.io>"
-makedepends="git"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Neko-Void-Linux/neko-backgrounds"
-do_build(){
-    cd $wrksrc
-    git clone --depth 1 https://github.com/Neko-Void-Linux/neko-backgrounds.git .
-    mkdir usr/share/wallpapers
-    cd usr/share/wallpapers
-    ln -s ../backgrounds/* .
-    cd $wrksrc
+
+do_build() {
+	cd "${wrksrc}"
+	git clone --depth 1 https://github.com/Neko-Void-Linux/neko-backgrounds.git .
+	mkdir usr/share/wallpapers
+	cd usr/share/wallpapers
+	ln -s ../backgrounds/* .
+	cd "${wrksrc}"
 }
+
 do_install() {
-    vcopy usr/share usr
+	vcopy usr/share usr
 }

@@ -4,16 +4,18 @@ version=7.8
 revision=3
 archs=x86_64
 create_wrksrc=yes
-short_desc="Colección de temas"
 makedepends="git"
+short_desc="Colección de temas"
 maintainer="JavierC <javiercyt@atomicmail.io>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Neko-Void-Linux/neko-themes"
-do_build(){
-    cd $wrksrc
-    git clone https://github.com/Neko-Void-Linux/neko-themes.git .
-    git clone --depth 1 https://github.com/Neko-Void-Linux/Dracula.git usr/share/themes/Dracula
+
+do_build() {
+	cd "${wrksrc}"
+	git clone https://github.com/Neko-Void-Linux/neko-themes.git .
+	git clone --depth 1 https://github.com/Neko-Void-Linux/Dracula.git usr/share/themes/Dracula
 }
-do_install() {    
-    vcopy usr/share usr
+
+do_install() {
+	vcopy usr/share usr
 }
