@@ -421,7 +421,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:5b5af4d108758fe5e82b7cb119af203977a90fcb34b9b07319317f863f38bc72"
+      "sha256:89e9e1a34e5ab9c45cd3ebc7c73a09582c2c3f5bddaa728abe27c5f64af6c11d"
     ],
     "depends": [],
     "distfiles": [
@@ -444,7 +444,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.102.4"
+    "version": "1.100.56"
   },
   {
     "archs": [
@@ -453,7 +453,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:9c23fa625c124222c6c59d6d6f9819831838a715a7b8109c7f7ef8d85ec636a3"
+      "sha256:dd8878680f1877463bc643b6c5667f075b47e376703e25f5a581260428490492"
     ],
     "depends": [
       "alsa-lib",
@@ -489,7 +489,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.102.4"
+    "version": "1.100.56"
   },
   {
     "archs": [
@@ -3205,7 +3205,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "153.7.0esr.16.0.1.build1"
+    "version": "16.0.1"
   },
   {
     "archs": [
@@ -3240,9 +3240,9 @@
       "mullvad-vpn-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
-    "version": "2995.2"
+    "version": "2026.5"
   },
   {
     "archs": [
@@ -3723,7 +3723,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:89a6cee227b54bc011179c528a5e63176032462b1a5e21723b616801cddc2ca7"
+      "sha256:fc0f81522aceeabac47693d88389efa2bc517ce74c2c38fd6967819fcc6e4d3b"
     ],
     "depends": [
       "ripgrep"
@@ -3747,7 +3747,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "56106.video"
+    "version": "2.3.0"
   },
   {
     "archs": [
@@ -3915,7 +3915,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1410987542"
+    "version": "2.2"
   },
   {
     "archs": [
@@ -4483,7 +4483,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:d87b39862bec6a82bbb530731ae1fa36bba4bc9954ff72518a187420eed9ec7d"
+      "sha256:c2f9d8616bd1dc6175993b82451e1c6e352c6761e7ae6d72400a3f3dfb03bedb"
     ],
     "depends": [
       "alsa-lib",
@@ -4513,7 +4513,7 @@
       "xdg-utils"
     ],
     "distfiles": [
-      "https://www.reaper.fm/files/7.x/reaper784_linux_x86_64.tar.xz>reaper-${version}-linux-x86_64.tar.xz"
+      "https://www.reaper.fm/files/7.x/reaper786_linux_x86_64.tar.xz>reaper-${version}-linux-x86_64.tar.xz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -4533,7 +4533,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "7.85"
+    "version": "7.86"
   },
   {
     "archs": [
@@ -5227,7 +5227,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.3.4.258"
+    "version": "1.3.4"
   },
   {
     "archs": [
@@ -6028,7 +6028,7 @@
       "liberation-fonts-ttf"
     ],
     "checksum": [
-      "sha256:39437cdb259aa6576d19172e2b3e98a524619923497e4751cb0282e86bf54338"
+      "sha256:1b1b0dad8184148ca2834d8c500d2f72e1869d4b72afc1d43629db121624c3c7"
     ],
     "depends": [
       "gnome-keyring"
@@ -6069,7 +6069,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.21.1"
+    "version": "0.21.2"
   },
   {
     "archs": [
