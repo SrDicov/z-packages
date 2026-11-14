@@ -1,6 +1,6 @@
 # Template file for 'mullvad-browser'
 pkgname=mullvad-browser
-version=153.7.0esr.16.0.1.build1
+version=16.0.1
 revision=1
 archs="x86_64"
 create_wrksrc=no

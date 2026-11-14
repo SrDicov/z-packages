@@ -26,6 +26,8 @@ exclude:
   - "ryoku-keysounds"
   - "ryoku-keysounds-profiles"
   - "singularity-desktop"
+  - "spotify"
+  - "spotify-app"
   - "xbps-triggers"
 
 packages:
@@ -261,16 +263,38 @@ packages:
     version_regex: "^(\\d+(?:\\.\\d+)+)_Release$"
   mullvad-browser:
     backend: "github_api"
-    url: "https://api.github.com/repos/mullvad/mullvad-browser/releases"
-    pattern: "^mullvad-browser[_-]v?([0-9]+(?:\\.[0-9]+)+)$"
+    url: "https://github.com/mullvad/mullvad-browser"
+    pattern: "^([0-9]+(?:\\.[0-9]+)+)$"
   mullvad-vpn:
     backend: "github_api"
-    url: "https://api.github.com/repos/mullvad/mullvad-vpn-app/releases"
-    pattern: "^mullvad-vpn[_-]v?([0-9]+(?:\\.[0-9]+)+)$"
+    url: "https://github.com/mullvad/mullvadvpn-app"
+    pattern: "^([0-9]{4}\\.[0-9]+)$"
   opencode:
+    backend: "git_tags"
+    url: "https://github.com/anomalyco/opencode.git"
+    pattern: "^v([0-9]+(?:\\.[0-9]+)+)$"
+  phinger-cursor-theme:
     backend: "github_api"
-    url: "https://api.github.com/repos/sst/opencode/releases"
-    pattern: "^opencode[_-]v?([0-9]+(?:\\.[0-9]+)+)$"
+    url: "https://github.com/phisch/phinger-cursors"
+    pattern: "^v([0-9]+(?:\\.[0-9]+)+)$"
+  brave:
+    backend: "github_api"
+    url: "https://github.com/brave/brave-browser"
+    pattern: "^brave-browser_([0-9]+(?:\\.[0-9]+)+)_amd64\\.deb$"
+    options:
+      allow_prerelease: true
+  brave-bin:
+    backend: "github_api"
+    url: "https://github.com/brave/brave-browser"
+    pattern: "^brave-browser_([0-9]+(?:\\.[0-9]+)+)_amd64\\.deb$"
+    options:
+      allow_prerelease: true
+  brave-origin:
+    backend: "github_api"
+    url: "https://github.com/brave/brave-browser"
+    pattern: "^brave-origin-([0-9]+(?:\\.[0-9]+)+)-linux-amd64\\.zip$"
+    options:
+      allow_prerelease: true
   mesa-amber:
     backend: "github_release-asset-regex"
     url: "https://api.github.com/repos/Neko-Void-Linux/mesa-amber/releases"
