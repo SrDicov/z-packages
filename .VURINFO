@@ -442,7 +442,7 @@
       "brave-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.100.56"
   },
@@ -1058,7 +1058,7 @@
       "goverlay-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.9.4"
   },
@@ -1283,7 +1283,7 @@
       "helium-browser-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.21.3.1"
   },
@@ -1420,7 +1420,7 @@
       "hydra-launcher-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "4.4.1"
   },
@@ -2699,7 +2699,7 @@
       "librewolf-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "160.0"
   },
@@ -2887,7 +2887,7 @@
       "localsend-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "1.18.2"
   },
@@ -3203,7 +3203,7 @@
       "mullvad-browser-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "16.0.1"
   },
@@ -3240,7 +3240,7 @@
       "mullvad-vpn-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "2026.5"
   },
@@ -3745,7 +3745,7 @@
       "opencode-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2.3.0"
   },
@@ -3962,7 +3962,7 @@
       "pineconemc-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "11.1.2"
   },
@@ -5351,7 +5351,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2026.10.1.5.3"
   },
@@ -5437,7 +5437,7 @@
       "unityhub-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "3.22.6"
   },
@@ -5710,7 +5710,7 @@
       "waterfox-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "6.7.8"
   },
@@ -5743,7 +5743,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2026.14.1.23"
   },
@@ -6105,7 +6105,7 @@
       "zen-browser-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "1.24.2b"
   },
@@ -6172,7 +6172,7 @@
       "zig>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "0.17.1"
   }
