@@ -4103,7 +4103,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [],
     "version": "2.16.0"
   },
@@ -5019,7 +5019,7 @@
       "xkeyboard-config"
     ],
     "distfiles": [
-      "https://github.com/SrDicov/singularity-desktop/archive/0d20055795a87a88fda77726814b19533a2c318c.tar.gz>singularity-desktop-0.1.0.tar.gz",
+      "https://github.com/SrDicov/singularity-desktop/archive/0d20055795a87a88fda77726814b19533a2c318c.tar.gz>singularity-desktop-${version}.tar.gz",
       "https://github.com/SrDicov/libsingularity/archive/7380815641ccb90291dd6d7d39fd9305fca36495.tar.gz>libsingularity.tar.gz",
       "https://github.com/singularityos-lab/singularity-accounts/archive/dba72ec721a9caee8ad5b91d26ad92a5af133aae.tar.gz>singularity-accounts.tar.gz",
       "https://github.com/singularityos-lab/singularity-atelier/archive/4e7356a43481ff41b287556906aac0c7e5111535.tar.gz>singularity-atelier.tar.gz",
@@ -5102,7 +5102,7 @@
       "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task>face_landmarker.task",
       "https://github.com/yakhyo/gaze-estimation/releases/download/weights/mobileone_s0_gaze.onnx>mobileone_s0_gaze.onnx",
       "https://github.com/microsoft/onnxruntime/releases/download/v1.23.2/onnxruntime-linux-x64-1.23.2.tgz>onnxruntime.tgz",
-      "https://files.pythonhosted.org/packages/2a/58/bdd5bada89d7a132375df05e962bf702c148b47043dca98d820d9395152b/mediapipe-1.0.1-py3-none-manylinux_2_28_x86_64.whl>mediapipe.whl"
+      "${_mediapipe_whl}>mediapipe.whl"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -5509,7 +5509,7 @@
       "vesktop-bin>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 3,
     "subpackages": [],
     "version": "1.6.9"
   },
