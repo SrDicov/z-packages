@@ -205,6 +205,67 @@ class TestPublisher(unittest.TestCase):
         # libstdc++.so.6 should have been stripped from mullvad-browser shlib-provides
         self.assertEqual(new_index["mullvad-browser"]["shlib-provides"], ["libcustom.so.1"])
 
+    def test_empty_zero_byte_stage_plist_handling(self):
+        """Verify that 0-byte stage.plist is handled gracefully without plistlib.InvalidFileException,
+        and unpromoted stage.plist packages are detected and committed."""
+        import plistlib
+        from publisher.validator import write_repodata_members, read_repodata_members, load_plist_safe, RepoValidator
+
+        arch = "x86_64"
+        indexer = RepoIndexer(self.root, arch=arch)
+        repodata = self.root / f"{arch}-repodata"
+
+        # 1. Test load_plist_safe directly on empty/whitespace/invalid inputs
+        self.assertEqual(load_plist_safe(b""), {})
+        self.assertEqual(load_plist_safe(b"   "), {})
+        self.assertEqual(load_plist_safe(b"not a valid xml"), {})
+
+        # 2. Case A: Archive with empty 0-byte stage.plist (as produced by clean xbps-rindex)
+        index_data = {"test-pkg": {"pkgver": "test-pkg-1.0_1"}}
+        write_repodata_members(
+            repodata,
+            {
+                "index.plist": plistlib.dumps(index_data),
+                "stage.plist": b"",
+            },
+        )
+
+        # Validator should safely parse and not crash with InvalidFileException
+        validator = RepoValidator(self.root, arch=arch)
+        self.assertEqual(RepoValidator._extract_stage_plist(repodata), {})
+        self.assertEqual(RepoValidator._extract_index_plist(repodata), index_data)
+
+        # _sanitize_existing_repodata should purge 0-byte stage.plist
+        indexer._sanitize_existing_repodata()
+        members = read_repodata_members(repodata)
+        self.assertNotIn("stage.plist", members)
+
+        # Case B: Archive with trapped packages in stage.plist
+        trapped_stage = {"trapped-pkg": {"pkgver": "trapped-pkg-2.0_1"}}
+        write_repodata_members(
+            repodata,
+            {
+                "index.plist": plistlib.dumps(index_data),
+                "stage.plist": plistlib.dumps(trapped_stage),
+            },
+        )
+
+        # Validator should detect trapped packages
+        staged = RepoValidator._extract_stage_plist(repodata)
+        self.assertIn("trapped-pkg", staged)
+        report = validator.validate_local_repository()
+        self.assertFalse(report.is_valid)
+        self.assertTrue(any("unpromoted" in e for e in report.errors))
+
+        # Committing staged repodata should promote trapped package into index and purge stage.plist
+        indexer._commit_staged_repodata()
+        members_after = read_repodata_members(repodata)
+        self.assertNotIn("stage.plist", members_after)
+        final_index = load_plist_safe(members_after["index.plist"])
+        self.assertIn("trapped-pkg", final_index)
+        self.assertEqual(final_index["trapped-pkg"]["pkgver"], "trapped-pkg-2.0_1")
+        self.assertIn("test-pkg", final_index)
+
 
 if __name__ == "__main__":
     unittest.main()

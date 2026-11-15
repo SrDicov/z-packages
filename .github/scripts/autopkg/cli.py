@@ -102,15 +102,22 @@ class BinRepoSummary(dict):
     """
     Container holding parsed index.plist (accessible via dict interface) and release .xbps assets.
     """
-    def __init__(self, index_plist: dict, assets: Dict[str, dict], raw_assets: list):
+    def __init__(
+        self,
+        index_plist: dict,
+        assets: Dict[str, dict],
+        raw_assets: list,
+        stage_plist: Optional[Dict[str, dict]] = None,
+    ):
         super().__init__(index_plist)
         self.index_plist = index_plist
         self.assets = assets
         self.raw_assets = raw_assets
+        self.stage_plist = stage_plist or {}
 
 
 def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optional[Path] = None) -> Optional[BinRepoSummary]:
-    """Download {arch}-repodata (index.plist) AND parse published assets from GitHub release 'stable'."""
+    """Download {arch}-repodata (index.plist and stage.plist) AND parse published assets from GitHub release 'stable'."""
     import tempfile
     token = get_github_token()
     headers = {"User-Agent": "autopkg-engine/1.0", "Accept": "application/vnd.github.v3+json"}
@@ -140,8 +147,9 @@ def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optio
                 "browser_download_url": asset.get("browser_download_url"),
             }
 
-    # 2. Download and extract index.plist from {arch}-repodata archive
+    # 2. Download and extract index.plist and stage.plist from {arch}-repodata archive
     index_plist: Dict[str, dict] = {}
+    stage_plist: Dict[str, dict] = {}
     target_asset = f"{arch}-repodata"
     download_url = None
     for asset in data.get("assets", []):
@@ -159,10 +167,18 @@ def fetch_repodata_from_github(repo: str, arch: str = "x86_64", cache_dir: Optio
             plist_data = RepoValidator._extract_index_plist(local_repodata)
             if plist_data:
                 index_plist = plist_data
+            stage_data = RepoValidator._extract_stage_plist(local_repodata)
+            if stage_data:
+                stage_plist = stage_data
         except Exception as e:
             logger.warning("Could not download or parse %s: %s", download_url, e)
 
-    return BinRepoSummary(index_plist=index_plist, assets=assets_dict, raw_assets=data.get("assets", []))
+    return BinRepoSummary(
+        index_plist=index_plist,
+        assets=assets_dict,
+        raw_assets=data.get("assets", []),
+        stage_plist=stage_plist,
+    )
 
 
 def cmd_plan(args: argparse.Namespace) -> int:
@@ -576,6 +592,12 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 
             # 7. Check binary repo state
             if repodata_index is not None:
+                # Check if package is trapped in stage.plist
+                if hasattr(repodata_index, "stage_plist") and pkgname in repodata_index.stage_plist:
+                    issues.append(
+                        f"CRITICAL: Package '{pkgname}' is trapped in {target_arch}-repodata stage.plist (diverted by xbps-rindex, not published in index.plist)"
+                    )
+
                 local_ver = f"{tmpl.version}_{tmpl.revision}"
                 plist_entry = repodata_index.index_plist.get(pkgname)
                 asset_entry = repodata_index.assets.get(pkgname)

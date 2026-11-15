@@ -335,12 +335,12 @@ class RepoIndexer:
             return
 
         try:
-            from publisher.validator import read_repodata_members, write_repodata_members
+            from publisher.validator import read_repodata_members, write_repodata_members, load_plist_safe
             members = read_repodata_members(repodata)
             if "index.plist" not in members:
                 return
-            index_data = plistlib.loads(members["index.plist"])
-            stage_data = plistlib.loads(members["stage.plist"]) if "stage.plist" in members else {}
+            index_data = load_plist_safe(members.get("index.plist", b""))
+            stage_data = load_plist_safe(members.get("stage.plist", b"")) if "stage.plist" in members else {}
             meta_bytes = members.get("index-meta.plist")
 
             modified = False
@@ -383,21 +383,19 @@ class RepoIndexer:
             return
 
         try:
-            from publisher.validator import read_repodata_members, write_repodata_members
+            from publisher.validator import read_repodata_members, write_repodata_members, load_plist_safe
             members = read_repodata_members(repodata)
             if "stage.plist" not in members or "index.plist" not in members:
                 return
 
-            index_data = plistlib.loads(members["index.plist"])
-            stage_data = plistlib.loads(members["stage.plist"])
+            index_data = load_plist_safe(members.get("index.plist", b""))
+            stage_data = load_plist_safe(members.get("stage.plist", b""))
             meta_bytes = members.get("index-meta.plist")
 
-            if not stage_data:
-                return
-
-            logger.info("Committing %d packages from stage.plist into index.plist", len(stage_data))
-            for pkg, val in stage_data.items():
-                index_data[pkg] = val
+            if stage_data:
+                logger.info("Committing %d packages from stage.plist into index.plist", len(stage_data))
+                for pkg, val in stage_data.items():
+                    index_data[pkg] = val
 
             new_members = {"index.plist": plistlib.dumps(index_data)}
             if meta_bytes:

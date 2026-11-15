@@ -22,6 +22,17 @@ from typing import Dict, List, Optional, Tuple
 logger = logging.getLogger("autopkg.publisher.validator")
 
 
+def load_plist_safe(raw_bytes: bytes) -> dict:
+    """Safely parse plist bytes, returning empty dict if bytes are empty (e.g. 0-byte stage.plist) or invalid."""
+    if not raw_bytes or not raw_bytes.strip():
+        return {}
+    try:
+        data = plistlib.loads(raw_bytes)
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
 @dataclass
 class ValidationReport:
     is_valid: bool
@@ -162,6 +173,13 @@ class RepoValidator:
                 if pkg_key not in index_data:
                     errors.append(f"Local package {local_file.name} is missing from repodata index.plist")
 
+        # Verify no unpromoted packages trapped in stage.plist
+        members = read_repodata_members(self.repodata_file)
+        if "stage.plist" in members:
+            stage_data = load_plist_safe(members["stage.plist"])
+            if stage_data:
+                errors.append(f"stage.plist contains {len(stage_data)} unpromoted package(s): {', '.join(stage_data.keys())}")
+
         return ValidationReport(
             is_valid=(len(errors) == 0),
             checked_count=checked,
@@ -205,6 +223,13 @@ class RepoValidator:
             if sig_name not in remote_assets_map:
                 errors.append(f"Missing remote signature asset: {sig_name}")
 
+        # Verify no unpromoted packages trapped in stage.plist
+        members = read_repodata_members(self.repodata_file)
+        if "stage.plist" in members:
+            stage_data = load_plist_safe(members["stage.plist"])
+            if stage_data:
+                errors.append(f"Remote {self.repodata_file.name} stage.plist contains {len(stage_data)} unpromoted package(s): {', '.join(stage_data.keys())}")
+
         return ValidationReport(
             is_valid=(len(errors) == 0),
             checked_count=checked,
@@ -216,12 +241,17 @@ class RepoValidator:
         """Extract index.plist from the repodata tar archive."""
         members = read_repodata_members(repodata_path)
         if "index.plist" in members:
-            try:
-                data = plistlib.loads(members["index.plist"])
-                return data if isinstance(data, dict) else {}
-            except Exception:
-                pass
+            data = load_plist_safe(members["index.plist"])
+            return data if data else None
         return None
+
+    @classmethod
+    def _extract_stage_plist(cls, repodata_path: Path) -> Dict[str, dict]:
+        """Extract stage.plist from the repodata tar archive if present and non-empty."""
+        members = read_repodata_members(repodata_path)
+        if "stage.plist" in members:
+            return load_plist_safe(members["stage.plist"])
+        return {}
 
     @staticmethod
     def _compute_sha256(file_path: Path) -> str:
