@@ -3285,20 +3285,22 @@
     ],
     "build_style": null,
     "checkdepends": [],
-    "checksum": [],
+    "checksum": [
+      "sha256:3dbc16e9270732e2921f6f72e46afd4a2086f5603176fa22e926d4a4f115c624"
+    ],
     "depends": [],
-    "distfiles": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/neko-backgrounds/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
+    ],
     "format_version": 1,
     "hostmakedepends": [],
     "maintainer": "JavierC <javiercyt@atomicmail.io>",
-    "makedepends": [
-      "git"
-    ],
+    "makedepends": [],
     "pkgname": "neko-backgrounds",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 7,
+    "revision": 8,
     "subpackages": [],
     "version": "7.2"
   },
@@ -3404,20 +3406,26 @@
     ],
     "build_style": null,
     "checkdepends": [],
-    "checksum": [],
+    "checksum": [
+      "sha256:40c7775094a9c4f1acc0a8419832007cd9af7e9def7dad69692e587f6810dff5",
+      "sha256:e4b47e76d96f6a3592f41961a7540bd8d7416230434a9c7c845ea995e1591210",
+      "sha256:b374567fb70db9cb524d0251bdd3ac737fe91546ce38c111eccd6b2850407e19"
+    ],
     "depends": [],
-    "distfiles": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/neko-icons/archive/${_commit}.tar.gz>neko-icons-${_commit}.tar.gz",
+      "https://github.com/ItsZariep/pixelitos-icon-theme/archive/${_pixelitos_commit}.tar.gz>pixelitos-${_pixelitos_commit}.tar.gz",
+      "https://github.com/tsora1603/pixora-icons/archive/${_pixora_commit}.tar.gz>pixora-${_pixora_commit}.tar.gz"
+    ],
     "format_version": 1,
     "hostmakedepends": [],
     "maintainer": "JavierC <javiercyt@atomicmail.io>",
-    "makedepends": [
-      "git"
-    ],
+    "makedepends": [],
     "pkgname": "neko-icons",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 6,
+    "revision": 7,
     "subpackages": [],
     "version": "7.8"
   },
@@ -3427,20 +3435,24 @@
     ],
     "build_style": null,
     "checkdepends": [],
-    "checksum": [],
+    "checksum": [
+      "sha256:60b65d39ca70b8af5a81af630f6fdba546a34f8dd8bbc02ef6d17b6a1059f0d6",
+      "sha256:bedf8cad3bfa2af2baaecc42d6ab817c60f701e9f6ef0128e083d3ec8bedda72"
+    ],
     "depends": [],
-    "distfiles": [],
+    "distfiles": [
+      "https://github.com/Neko-Void-Linux/neko-themes/archive/${_commit}.tar.gz>neko-themes-${_commit}.tar.gz",
+      "https://github.com/Neko-Void-Linux/Dracula/archive/${_dracula_commit}.tar.gz>Dracula-${_dracula_commit}.tar.gz"
+    ],
     "format_version": 1,
     "hostmakedepends": [],
     "maintainer": "JavierC <javiercyt@atomicmail.io>",
-    "makedepends": [
-      "git"
-    ],
+    "makedepends": [],
     "pkgname": "neko-themes",
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "7.8"
   },
@@ -5843,15 +5855,15 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:ac58048238ad2c3c59cb22b0c8ea0741f7583d90baa2ec258acc04c70632c225"
+      "sha256:9a27a51ede9cb24f5ffbc830db890c380700f328248b94351bd48e9811dbf2f4"
     ],
     "depends": [],
     "distfiles": [
-      "https://codeberg.org/Neko-Void/Windscribe-void/releases/download/deb/windscribe_${version}_amd64.deb"
+      "https://deploy.totallyacdn.com/desktop-apps/${version}/windscribe_${version}_amd64.deb"
     ],
     "format_version": 1,
     "hostmakedepends": [],
-    "maintainer": "Orphaned <orphan@voidlinux.org>",
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
     "makedepends": [],
     "pkgname": "windscribe-desktop",
     "provides": [
@@ -5863,7 +5875,7 @@
     "restricted": false,
     "revision": 4,
     "subpackages": [],
-    "version": "2.22.10"
+    "version": "2.24.12"
   },
   {
     "archs": [
@@ -6175,5 +6187,29 @@
     "revision": 2,
     "subpackages": [],
     "version": "0.17.1"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [],
+    "depends": [],
+    "distfiles": [],
+    "format_version": 1,
+    "hostmakedepends": [
+      "zig-nk",
+      "git"
+    ],
+    "maintainer": "JavierC <javiercyt@atomicmail.io>",
+    "makedepends": [],
+    "pkgname": "zls-nk",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 10,
+    "subpackages": [],
+    "version": "0.17.0"
   }
 ]
