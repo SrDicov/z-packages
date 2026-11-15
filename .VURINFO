@@ -3865,7 +3865,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:cbf8996f565cbe01cd3a37cc9df0e52da3dcc3b889541117b512be7e4f2afde3"
+      "sha256:be08b48dd9d43c8c468e06890dc84cce2950f93d38b4b854d5ccaf0e4127b2d6"
     ],
     "depends": [
       "gtk+3",
@@ -3900,9 +3900,9 @@
       "pear-desktop-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "3.12.0"
+    "version": "3.12.1"
   },
   {
     "archs": [
