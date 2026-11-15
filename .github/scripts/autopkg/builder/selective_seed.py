@@ -128,6 +128,11 @@ class SelectiveSeeder:
                     self._download_file(asset.get("browser_download_url"), dest)
                     downloaded.append(dest)
 
+        if downloaded:
+            import shutil
+            if shutil.which("xbps-rindex"):
+                subprocess.run(["xbps-rindex", "-a"] + [p.name for p in downloaded], cwd=str(self.binpkgs_arch_dir), check=False)
+
         return downloaded
 
     def _download_file(self, url: str, dest_path: Path) -> bool:
