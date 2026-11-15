@@ -66,6 +66,14 @@ jobs:
           for pkg in $PKGS; do
             echo "Processing update for $pkg..."
             BRANCH="autopkg/$pkg"
+
+            # Check if an open PR already exists for this package branch
+            EXISTING_PR=$(gh pr list -R "${{ github.repository }}" --head "$BRANCH" --state open --json number -q '.[0].number' 2>/dev/null || true)
+            if [ -n "$EXISTING_PR" ]; then
+              echo "PR #$EXISTING_PR already open for $pkg on $BRANCH, skipping duplicate creation"
+              continue
+            fi
+
             git checkout -b "$BRANCH" "$BASE_BRANCH" || git checkout "$BRANCH"
 
             # Run non-destructive template updater

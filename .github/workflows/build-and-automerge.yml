@@ -6,6 +6,7 @@ on:
     paths:
       - "srcpkgs/**"
       - "**/template"
+  workflow_dispatch:
 
 concurrency:
   group: pr-${{ github.event.pull_request.number }}
@@ -109,3 +110,19 @@ jobs:
           GH_TOKEN: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           gh pr merge "${{ github.event.pull_request.number }}" -R "${{ github.repository }}" --squash --delete-branch
+
+      - name: Explicitly Dispatch Binary Builds to z-repo and z-repo-musl
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
+          PKGS: ${{ needs.detect-changes.outputs.packages }}
+        run: |
+          for repo in SrDicov/z-repo SrDicov/z-repo-musl; do
+            echo "Dispatching build for $repo with packages: $PKGS"
+            if [ -n "$PKGS" ]; then
+              gh workflow run autobuild-publish.yml -R "$repo" --ref master -f packages="$PKGS" 2>/dev/null || \
+              gh api -X POST "repos/$repo/dispatches" -f event_type=z-packages-update 2>/dev/null || echo "Could not dispatch to $repo"
+            else
+              gh api -X POST "repos/$repo/dispatches" -f event_type=z-packages-update 2>/dev/null || echo "Could not dispatch to $repo"
+            fi
+          done

@@ -109,6 +109,36 @@ class TemplateEditor:
                     return base_val.replace(pat, repl)
                 return base_val.replace(pat, repl, 1)
 
+            # Longest prefix removal ${var##pattern} and shortest prefix removal ${var#pattern}
+            if "##" in raw:
+                vname, pat = raw.split("##", 1)
+                base_val = vars_dict.get(vname, "")
+                if pat in ("*.", "*.") or pat.startswith("*."):
+                    if "." in base_val:
+                        return base_val.rsplit(".", 1)[-1]
+                elif pat.startswith("*"):
+                    delim = pat[1:]
+                    if delim in base_val:
+                        return base_val.rsplit(delim, 1)[-1]
+                elif base_val.startswith(pat):
+                    return base_val[len(pat):]
+                return base_val
+
+            # Longest suffix removal ${var%%pattern} and shortest suffix removal ${var%pattern}
+            if "%%" in raw:
+                vname, pat = raw.split("%%", 1)
+                base_val = vars_dict.get(vname, "")
+                if pat.startswith(".*"):
+                    if "." in base_val:
+                        return base_val.split(".", 1)[0]
+                elif pat.endswith("*"):
+                    delim = pat[:-1]
+                    if delim in base_val:
+                        return base_val.split(delim, 1)[0]
+                elif base_val.endswith(pat):
+                    return base_val[:-len(pat)]
+                return base_val
+
             # Suffix removal ${var%.*}, ${var%pattern}
             if "%" in raw:
                 parts = raw.split("%", 1)
@@ -130,7 +160,10 @@ class TemplateEditor:
                 parts = raw.split("#", 1)
                 vname, pat = parts[0], parts[1]
                 base_val = vars_dict.get(vname, "")
-                if pat.endswith("*"):
+                if pat.startswith("*."):
+                    if "." in base_val:
+                        return base_val.rsplit(".", 1)[-1]
+                elif pat.endswith("*"):
                     prefix = pat[:-1]
                     if base_val.startswith(prefix):
                         return base_val[len(prefix):]

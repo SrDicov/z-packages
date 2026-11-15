@@ -248,6 +248,38 @@ checksum="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         self.assertEqual(parsed.version, "1.2.0")
         self.assertEqual(parsed.checksums, ["bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"])
 
+    def test_verify_distfile_url_git_tag_fallback(self):
+        """
+        Verify that if an archive URL returns text/html (e.g. anti-bot challenge like Anubis),
+        verify_distfile_url falls back to git ls-remote tag verification.
+        """
+        from detector.backends.base import verify_distfile_url
+
+        url = "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/archive/34.3.1_Release.tar.gz"
+
+        # Mock urllib to simulate an anti-bot HTML challenge
+        mock_response = MagicMock()
+        mock_response.status = 200
+        mock_response.headers.get.return_value = "text/html; charset=utf-8"
+        mock_response.__enter__.return_value = mock_response
+
+        # Case 1: git ls-remote confirms tag exists -> returns True
+        with patch("urllib.request.urlopen", return_value=mock_response):
+            with patch("detector.backends.base._verify_git_tag_remote", return_value=True) as mock_git:
+                res = verify_distfile_url(url)
+                self.assertTrue(res)
+                mock_git.assert_called_once_with(
+                    "https://repo.palemoon.org/MoonchildProductions/Pale-Moon",
+                    "34.3.1_Release",
+                    timeout=10,
+                )
+
+        # Case 2: git ls-remote fails -> returns False
+        with patch("urllib.request.urlopen", return_value=mock_response):
+            with patch("detector.backends.base._verify_git_tag_remote", return_value=False):
+                res2 = verify_distfile_url(url)
+                self.assertFalse(res2)
+
 
 if __name__ == "__main__":
     unittest.main()
