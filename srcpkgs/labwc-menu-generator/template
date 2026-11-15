@@ -14,5 +14,5 @@ distfiles="https://github.com/labwc/labwc-menu-generator/archive/refs/tags/${ver
 checksum=be8c336efe655845e9501416f2ba9b3e4668685f88f18974ba8acc2128799a6d
 
 post_patch() {
-	vsed -i "s|'mandir'), 'man', 'man1'|'mandir'), 'man1'|" data/meson.build
+	vsed -i "s|'man', 'man1'|'man1'|" data/meson.build
 }
