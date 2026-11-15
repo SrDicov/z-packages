@@ -1337,7 +1337,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:93db06bd03a84d3f2fdf3715def9f142e4c4e9a5ba1596ebf3a6cd287cd3b454"
+      "sha256:8eeb2d17779173c1b0a19bbae93d0a6255fafb008611c605e49481ce3ba77612"
     ],
     "depends": [
       "desktop-file-utils",
@@ -1367,7 +1367,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.66"
+    "version": "0.2.68"
   },
   {
     "archs": [
