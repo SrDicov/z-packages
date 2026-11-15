@@ -5766,7 +5766,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:5a38d8cc12829b0a347441fe0ebc267514558adc6e1a535184bb22f114efcbd6"
+      "sha256:4b738dea7c6b28c10b428ab24a6f41410925ac17d0c7ad701a1a4dd07a09e52f"
     ],
     "depends": [
       "alsa-lib",
@@ -5800,7 +5800,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "26.11.4"
+    "version": "26.11.5"
   },
   {
     "archs": [
