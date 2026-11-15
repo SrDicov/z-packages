@@ -46,7 +46,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:e5395c0478227565b85c7a83f24aee5e4b208a2b33c458d15e24ff69097ddc30"
+      "sha256:654f10d2fb2950c438d7ecd697bc9fdde111c19c88b0e52de9e042d5380dc02c"
     ],
     "depends": [],
     "distfiles": [
@@ -70,7 +70,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.5.0"
+    "version": "1.5.2"
   },
   {
     "archs": [
@@ -1337,7 +1337,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:bcca3d364d171ad6ca7e7531893b992840b8564609f4304c35218106e18de3a0"
+      "sha256:93db06bd03a84d3f2fdf3715def9f142e4c4e9a5ba1596ebf3a6cd287cd3b454"
     ],
     "depends": [
       "desktop-file-utils",
@@ -1367,7 +1367,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.65"
+    "version": "0.2.66"
   },
   {
     "archs": [
@@ -2510,7 +2510,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:5c66b12234aa7d5797a4d3ebbf7011ea29ad7d66b26ff4c250df08700fdc630d"
+      "sha256:be8c336efe655845e9501416f2ba9b3e4668685f88f18974ba8acc2128799a6d"
     ],
     "depends": [],
     "distfiles": [
@@ -2531,9 +2531,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "0.2.0"
+    "version": "0.2.1"
   },
   {
     "archs": [
