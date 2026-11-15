@@ -159,6 +159,52 @@ class TestPublisher(unittest.TestCase):
         self.assertTrue(pkg_new.is_file(), "pkg-new was unexpectedly removed")
         self.assertTrue((self.root / f"pkg-new-1.0_1.{arch}.xbps.sig2").is_file(), "pkg-new was not signed")
 
+    def test_sanitize_and_commit_staged_repodata(self):
+        """Verify that stalled packages in stage.plist are committed to index.plist and system shlibs stripped."""
+        import plistlib
+        from publisher.validator import write_repodata_members, read_repodata_members
+
+        arch = "x86_64"
+        indexer = RepoIndexer(self.root, arch=arch)
+        repodata = self.root / f"{arch}-repodata"
+
+        index_data = {
+            "mullvad-browser": {
+                "pkgver": "mullvad-browser-16.0.1_1",
+                "shlib-provides": ["libstdc++.so.6", "libcustom.so.1"],
+            },
+            "other-pkg": {
+                "pkgver": "other-pkg-1.0_1",
+            },
+        }
+        stage_data = {
+            "goverlay": {
+                "pkgver": "goverlay-1.9.4_2",
+            },
+        }
+
+        # Write repodata with stage.plist and bad shlib-provides
+        write_repodata_members(
+            repodata,
+            {
+                "index.plist": plistlib.dumps(index_data),
+                "stage.plist": plistlib.dumps(stage_data),
+            },
+        )
+
+        # Sanitize repodata
+        indexer._sanitize_existing_repodata()
+
+        members = read_repodata_members(repodata)
+        new_index = plistlib.loads(members["index.plist"])
+
+        # goverlay should have been promoted to index.plist
+        self.assertIn("goverlay", new_index)
+        self.assertEqual(new_index["goverlay"]["pkgver"], "goverlay-1.9.4_2")
+
+        # libstdc++.so.6 should have been stripped from mullvad-browser shlib-provides
+        self.assertEqual(new_index["mullvad-browser"]["shlib-provides"], ["libcustom.so.1"])
+
 
 if __name__ == "__main__":
     unittest.main()

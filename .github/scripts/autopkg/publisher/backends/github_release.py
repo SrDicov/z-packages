@@ -58,13 +58,13 @@ class GitHubReleasePublisher(BasePublisherBackend):
 
         # 3. Categorize local files to upload
         local_files: List[Path] = []
-        repodata_file: Optional[Path] = None
+        repodata_files: List[Path] = []
 
         for item in binpkgs_dir.iterdir():
             if not item.is_file():
                 continue
             if item.name.startswith(f"{arch}-repodata"):
-                repodata_file = item
+                repodata_files.append(item)
             elif item.name.endswith(".xbps") or item.name.endswith(".sig2") or item.name.endswith(".plist") or item.name.endswith(".pub"):
                 local_files.append(item)
 
@@ -78,9 +78,10 @@ class GitHubReleasePublisher(BasePublisherBackend):
                 uploaded.append(file_path.name)
 
         # 6. Upload repodata STRICTLY LAST
-        if repodata_file and repodata_file.is_file():
-            if self._upload_if_changed(repo, tag, repodata_file, remote_assets):
-                uploaded.append(repodata_file.name)
+        if repodata_files:
+            for rf in sorted(repodata_files, key=lambda f: f.name):
+                if self._upload_if_changed(repo, tag, rf, remote_assets):
+                    uploaded.append(rf.name)
         else:
             logger.warning("No repodata file found to upload for %s", arch)
 

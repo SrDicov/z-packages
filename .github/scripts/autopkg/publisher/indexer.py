@@ -12,12 +12,14 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import io
 import logging
 import os
 import plistlib
 import re
 import shutil
 import subprocess
+import tarfile
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
@@ -192,11 +194,16 @@ class RepoIndexer:
                     old_sig.unlink()
                 except OSError:
                     pass
+            # Sanitize existing repodata to promote stalled staged packages and strip bogus system shlibs
+            self._sanitize_existing_repodata()
 
         add_cmd = ["xbps-rindex", "-f", "-a"] + [f.name for f in xbps_files]
         res_add = subprocess.run(add_cmd, cwd=str(self.binpkgs_dir), check=False)
         if res_add.returncode != 0:
             logger.error("xbps-rindex -a failed with code %d", res_add.returncode)
+
+        # Commit any packages that xbps-rindex diverted to stage.plist
+        self._commit_staged_repodata()
 
         # 3. Sign the repository metadata
         sign_repo_cmd = [
@@ -310,3 +317,91 @@ class RepoIndexer:
             return base64.b64decode("".join(lines))
         except Exception:
             return None
+
+    SYSTEM_SHLIBS = {
+        "libc.so.6", "libm.so.6", "libdl.so.2", "libpthread.so.0", "librt.so.1",
+        "libresolv.so.2", "libutil.so.1", "libstdc++.so.6", "libgcc_s.so.1",
+    }
+
+    def _sanitize_existing_repodata(self) -> None:
+        """
+        Sanitize existing repodata before xbps-rindex -a:
+        1. Promotes any previously stalled packages from stage.plist into index.plist.
+        2. Strips core system shlibs (e.g. libstdc++.so.6) from non-base packages' shlib-provides,
+           which prevents xbps-rindex from trapping new package updates in stage.plist.
+        """
+        repodata = self.binpkgs_dir / f"{self.arch}-repodata"
+        if not repodata.is_file():
+            return
+
+        try:
+            from publisher.validator import read_repodata_members, write_repodata_members
+            members = read_repodata_members(repodata)
+            if "index.plist" not in members:
+                return
+            index_data = plistlib.loads(members["index.plist"])
+            stage_data = plistlib.loads(members["stage.plist"]) if "stage.plist" in members else {}
+            meta_bytes = members.get("index-meta.plist")
+
+            modified = False
+            if stage_data:
+                logger.info("Promoting %d staged packages from previous run into index.plist", len(stage_data))
+                for pkg, val in stage_data.items():
+                    index_data[pkg] = val
+                modified = True
+
+            # Sanitize bogus system shlib-provides from third-party app packages
+            for pkgname, pkgentry in list(index_data.items()):
+                if pkgname in ("glibc", "musl", "gcc-libs", "libstdc++", "libgcc"):
+                    continue
+                shlib_provides = pkgentry.get("shlib-provides")
+                if isinstance(shlib_provides, list):
+                    filtered = [s for s in shlib_provides if s not in self.SYSTEM_SHLIBS]
+                    if len(filtered) != len(shlib_provides):
+                        logger.info("Stripped system shlibs from %s shlib-provides: %s", pkgname, set(shlib_provides) - set(filtered))
+                        if filtered:
+                            pkgentry["shlib-provides"] = filtered
+                        else:
+                            del pkgentry["shlib-provides"]
+                        modified = True
+
+            if modified or "stage.plist" in members:
+                new_members = {"index.plist": plistlib.dumps(index_data)}
+                if meta_bytes:
+                    new_members["index-meta.plist"] = meta_bytes
+                write_repodata_members(repodata, new_members)
+        except Exception as e:
+            logger.warning("Could not sanitize existing repodata: %s", e)
+
+    def _commit_staged_repodata(self) -> None:
+        """
+        If xbps-rindex -a created a stage.plist due to external repository shlib dependencies,
+        promote those packages into index.plist and eliminate stage.plist so packages are not hidden.
+        """
+        repodata = self.binpkgs_dir / f"{self.arch}-repodata"
+        if not repodata.is_file():
+            return
+
+        try:
+            from publisher.validator import read_repodata_members, write_repodata_members
+            members = read_repodata_members(repodata)
+            if "stage.plist" not in members or "index.plist" not in members:
+                return
+
+            index_data = plistlib.loads(members["index.plist"])
+            stage_data = plistlib.loads(members["stage.plist"])
+            meta_bytes = members.get("index-meta.plist")
+
+            if not stage_data:
+                return
+
+            logger.info("Committing %d packages from stage.plist into index.plist", len(stage_data))
+            for pkg, val in stage_data.items():
+                index_data[pkg] = val
+
+            new_members = {"index.plist": plistlib.dumps(index_data)}
+            if meta_bytes:
+                new_members["index-meta.plist"] = meta_bytes
+            write_repodata_members(repodata, new_members)
+        except Exception as e:
+            logger.warning("Could not commit staged repodata: %s", e)

@@ -10,6 +10,7 @@ Guarantees:
 from __future__ import annotations
 
 import hashlib
+import io
 import logging
 import plistlib
 import subprocess
@@ -27,6 +28,83 @@ class ValidationReport:
     checked_count: int
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
+
+
+def _decompress_zstd_bytes(data: bytes) -> Optional[bytes]:
+    """Decompress zstd bytes via ctypes libzstd or return None."""
+    try:
+        import ctypes
+        for soname in ("libzstd.so.1", "libzstd.so"):
+            try:
+                zstd = ctypes.CDLL(soname)
+                break
+            except OSError:
+                continue
+        else:
+            return None
+
+        zstd.ZSTD_decompress.restype = ctypes.c_size_t
+        zstd.ZSTD_decompress.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_void_p, ctypes.c_size_t]
+        zstd.ZSTD_getFrameContentSize.restype = ctypes.c_ulonglong
+        zstd.ZSTD_getFrameContentSize.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+
+        content_size = zstd.ZSTD_getFrameContentSize(data, len(data))
+        if content_size in (0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFE):
+            buf_size = len(data) * 20
+        else:
+            buf_size = content_size
+
+        dst = ctypes.create_string_buffer(buf_size)
+        res = zstd.ZSTD_decompress(dst, buf_size, data, len(data))
+        if res > 0:
+            return dst.raw[:res]
+    except Exception:
+        pass
+    return None
+
+
+def read_repodata_members(repodata_path: Path) -> Dict[str, bytes]:
+    """Extract all member files from a repodata archive (supporting zstd, gz, bz2, xz, uncompressed)."""
+    if not repodata_path.is_file():
+        return {}
+    try:
+        raw = repodata_path.read_bytes()
+        if not raw:
+            return {}
+        if raw.startswith(b"\x28\xb5\x2f\xfd"):
+            decomp = _decompress_zstd_bytes(raw)
+            if decomp:
+                with tarfile.open(fileobj=io.BytesIO(decomp), mode="r:") as tar:
+                    return {m.name: tar.extractfile(m).read() for m in tar.getmembers() if m.isreg() and tar.extractfile(m)}
+        with tarfile.open(repodata_path, "r:*") as tar:
+            return {m.name: tar.extractfile(m).read() for m in tar.getmembers() if m.isreg() and tar.extractfile(m)}
+    except Exception:
+        pass
+
+    # Fallback to tar CLI
+    members = {}
+    for member_name in ("index.plist", "index-meta.plist", "stage.plist"):
+        try:
+            res = subprocess.run(
+                ["tar", "-xOf", str(repodata_path), member_name],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+            if res.returncode == 0 and res.stdout:
+                members[member_name] = res.stdout
+        except Exception:
+            pass
+    return members
+
+
+def write_repodata_members(repodata_path: Path, members: Dict[str, bytes]) -> None:
+    """Write members dict into a repodata archive (gzip format for universal compatibility)."""
+    with tarfile.open(repodata_path, "w:gz") as tar:
+        for name, data in members.items():
+            ti = tarfile.TarInfo(name)
+            ti.size = len(data)
+            tar.addfile(ti, io.BytesIO(data))
 
 
 class RepoValidator:
@@ -136,30 +214,13 @@ class RepoValidator:
     @classmethod
     def _extract_index_plist(cls, repodata_path: Path) -> Optional[Dict[str, dict]]:
         """Extract index.plist from the repodata tar archive."""
-        try:
-            # First attempt: standard python tarfile
-            with tarfile.open(repodata_path, "r:*") as tar:
-                member = tar.extractfile("index.plist")
-                if member:
-                    data = plistlib.load(member)
-                    return data if isinstance(data, dict) else {}
-        except Exception:
-            pass
-
-        # Fallback to bsdtar or tar CLI
-        try:
-            res = subprocess.run(
-                ["tar", "-xOf", str(repodata_path), "index.plist"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                check=False,
-            )
-            if res.returncode == 0 and res.stdout:
-                data = plistlib.loads(res.stdout)
+        members = read_repodata_members(repodata_path)
+        if "index.plist" in members:
+            try:
+                data = plistlib.loads(members["index.plist"])
                 return data if isinstance(data, dict) else {}
-        except Exception:
-            pass
-
+            except Exception:
+                pass
         return None
 
     @staticmethod
