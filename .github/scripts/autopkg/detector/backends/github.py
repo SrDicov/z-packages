@@ -242,8 +242,10 @@ class GitHubBackend(BaseDetectorBackend):
                             }
                         return res
         except urllib.error.HTTPError as e:
-            if e.code == 304 and cached_ver:
+            if e.code == 304 and cached_ver and re.search(r'\d', cached_ver):
                 return DetectionResult(latest_version=cached_ver, source_type="github_api_cached")
+            elif e.code == 304 and etag_cache is not None and api_url in etag_cache:
+                del etag_cache[api_url]
         except Exception:
             pass
 
