@@ -173,12 +173,13 @@ class DetectionEngine:
 
         if needs_update:
             # 1. Semantic Anti-Garbage Filter
-            if not self.is_sane_version_transition(tmpl_data.version, detection.latest_version, rule):
-                logger.warning(
-                    "Rejecting update candidate for %s: transition from '%s' to '%s' failed semantic sanity check",
-                    pkgname, tmpl_data.version, detection.latest_version
-                )
-                return None
+            if not (detection.extra and detection.extra.get("commit")):
+                if not self.is_sane_version_transition(tmpl_data.version, detection.latest_version, rule):
+                    logger.warning(
+                        "Rejecting update candidate for %s: transition from '%s' to '%s' failed semantic sanity check",
+                        pkgname, tmpl_data.version, detection.latest_version
+                    )
+                    return None
 
             # 2. Pre-flight HTTP 200 Distfile Verification
             if tmpl_data.distfiles and not (detection.extra and detection.extra.get("commit")):
@@ -228,6 +229,10 @@ class DetectionEngine:
         """
         if not candidate_version or not current_version:
             return True
+
+        # Candidate version must contain at least one digit (Void Linux requirement)
+        if not re.search(r'\d', candidate_version):
+            return False
 
         # Check for disallowed words/tokens
         garbage_pattern = r'(?:^|[-._])(video|build|nightly|alpha|android|ios|desktop|mobile|sdk)(?:[0-9]*)(?:[-._]|$)'
@@ -358,16 +363,21 @@ class DetectionEngine:
 
         def tokenize(s: str):
             tokens = []
+            parts = s.split(".")
+            while len(parts) > 1 and parts[-1] == "0":
+                parts.pop()
+            s = ".".join(parts)
+
             for t in re.findall(r'\d+|[a-zA-Z]+', s):
                 if t.isdigit():
-                    tokens.append((0, int(t)))
+                    tokens.append((1, int(t)))
                 else:
                     tl = t.lower()
                     if tl in ("alpha", "beta", "rc", "pre"):
                         prerelease_rank = {"alpha": -4, "beta": -3, "rc": -2, "pre": -1}[tl]
-                        tokens.append((1, prerelease_rank))
+                        tokens.append((-1, prerelease_rank))
                     else:
-                        tokens.append((2, tl))
+                        tokens.append((0, tl))
             return tokens
 
         toks1 = tokenize(base1)
@@ -380,11 +390,11 @@ class DetectionEngine:
                 return 1
 
         if len(toks1) < len(toks2):
-            if toks2[len(toks1)][0] == 1:
+            if toks2[len(toks1)][0] == -1:
                 return 1
             return -1
         elif len(toks1) > len(toks2):
-            if toks1[len(toks2)][0] == 1:
+            if toks1[len(toks2)][0] == -1:
                 return -1
             return 1
 

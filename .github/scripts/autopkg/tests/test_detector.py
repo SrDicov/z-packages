@@ -217,6 +217,60 @@ packages:
         self.assertIsNotNone(res)
         self.assertEqual(res.latest_version, "35.0.3")
 
+    def test_github_release_asset_date(self):
+        import json
+        from unittest import mock
+        from core.template import TemplateData
+        from detector.backends.github import GitHubBackend
+        from detector.rules import PackageRule
+
+        tmpl = TemplateData(
+            pkgname="trinity-launcher",
+            version="20261102",
+            revision=1,
+            distfiles=["https://github.com/Trinity-LA/Trinity-Launcher/releases/download/latest/Trinity_Launcher-x86_64.AppImage"],
+        )
+        rule = PackageRule(
+            pkgname="trinity-launcher",
+            backend="github-release-asset-date",
+            url="https://api.github.com/repos/Trinity-LA/Trinity-Launcher/releases/tags/latest",
+            pattern=r"^Trinity_Launcher-x86_64\.AppImage$",
+        )
+
+        mock_release = {
+            "tag_name": "latest",
+            "html_url": "https://github.com/Trinity-LA/Trinity-Launcher/releases/tag/latest",
+            "assets": [
+                {
+                    "name": "Trinity_Launcher-x86_64.AppImage",
+                    "updated_at": "2026-11-15T23:16:14Z",
+                }
+            ],
+        }
+
+        backend = GitHubBackend()
+        with mock.patch("urllib.request.urlopen") as mock_url:
+            mock_resp = mock.MagicMock()
+            mock_resp.headers.get.return_value = None
+            mock_resp.read.return_value = json.dumps(mock_release).encode("utf-8")
+            mock_resp.__enter__.return_value = mock_resp
+            mock_url.return_value = mock_resp
+
+            res = backend.detect_latest(tmpl, rule)
+
+        self.assertIsNotNone(res)
+        self.assertEqual(res.latest_version, "20261115")
+
+    def test_version_without_digits_rejected(self):
+        self.assertFalse(DetectionEngine.is_sane_version_transition("20261102", "latest"))
+        self.assertFalse(DetectionEngine.is_sane_version_transition("1.0", "nightly"))
+        self.assertTrue(DetectionEngine.is_sane_version_transition("20261102", "20261115"))
+
+    def test_compare_versions_string_vs_number(self):
+        # Numeric versions must compare newer than non-numeric strings
+        self.assertEqual(DetectionEngine.compare_versions("latest", "20261102"), -1)
+        self.assertEqual(DetectionEngine.compare_versions("20261115", "20261102"), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

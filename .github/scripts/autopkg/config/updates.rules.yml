@@ -199,6 +199,10 @@ packages:
     backend: "github-release-asset-date"
     url: "https://api.github.com/repos/Trinity-LA/Trinity-Launcher/releases/tags/latest"
     pattern: "^Trinity_Launcher-x86_64\\.AppImage$"
+  trinity-launcher-app:
+    backend: "github-release-asset-date"
+    url: "https://api.github.com/repos/Trinity-LA/Trinity-Launcher/releases/tags/latest"
+    pattern: "^Trinity_Launcher-x86_64\\.AppImage$"
   unityhub:
     backend: "regex"
     url: "https://public-cdn.cloud.unity3d.com/hub/prod/latest-linux.yml"

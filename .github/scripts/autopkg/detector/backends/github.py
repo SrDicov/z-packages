@@ -63,6 +63,17 @@ class GitHubBackend(BaseDetectorBackend):
                         break
 
         def _version_from_asset(rel: dict) -> Tuple[Optional[str], Optional[dict]]:
+            if rule and rule.backend == "github-release-asset-date":
+                pat = rule.pattern
+                for asset in rel.get("assets", []):
+                    name = asset.get("name", "")
+                    if pat and not re.search(pat, name):
+                        continue
+                    ts = asset.get("updated_at") or asset.get("created_at") or rel.get("published_at") or rel.get("created_at")
+                    if ts and len(ts) >= 10:
+                        ver = ts[:10].replace("-", "")
+                        return ver, None
+
             if rule and rule.pattern:
                 pat = rule.pattern
                 if r"\K" in pat:
@@ -128,7 +139,24 @@ class GitHubBackend(BaseDetectorBackend):
                 if not cand_ver:
                     cleaned = re.sub(r'^(?:v|ver|release)[-_]?', '', tag, flags=re.IGNORECASE)
                     m = re.search(r'\b(\d+(?:[._-][a-zA-Z0-9]+)*)\b', cleaned)
-                    cand_ver = m.group(1).replace("-", ".").replace("_", ".") if m else cleaned
+                    if m:
+                        cand_ver = m.group(1).replace("-", ".").replace("_", ".")
+                    else:
+                        ts = None
+                        if assets:
+                            for a in rel.get("assets", []):
+                                if a.get("updated_at"):
+                                    ts = a.get("updated_at")
+                                    break
+                        if not ts:
+                            ts = rel.get("published_at") or rel.get("created_at")
+                        if ts and len(ts) >= 10:
+                            cand_ver = ts[:10].replace("-", "")
+                        else:
+                            cand_ver = None
+
+                if not cand_ver or not re.search(r'\d', cand_ver):
+                    return False
 
                 if assets and cand_ver:
                     expected_filenames = []
@@ -145,13 +173,28 @@ class GitHubBackend(BaseDetectorBackend):
 
             return True
 
-        def _parse_release(rel: dict) -> DetectionResult:
+        def _parse_release(rel: dict) -> Optional[DetectionResult]:
             tag_name = rel.get("tag_name", "")
             latest_version, named_vars = _version_from_asset(rel)
             if not latest_version:
                 cleaned = re.sub(r'^(?:v|ver|release)[-_]?', '', tag_name, flags=re.IGNORECASE)
                 m = re.search(r'\b(\d+(?:[._-][a-zA-Z0-9]+)*)\b', cleaned)
-                latest_version = m.group(1).replace("-", ".").replace("_", ".") if m else cleaned
+                if m:
+                    latest_version = m.group(1).replace("-", ".").replace("_", ".")
+                else:
+                    ts = None
+                    if rel.get("assets"):
+                        for a in rel.get("assets", []):
+                            if a.get("updated_at"):
+                                ts = a.get("updated_at")
+                                break
+                    if not ts:
+                        ts = rel.get("published_at") or rel.get("created_at")
+                    if ts and len(ts) >= 10:
+                        latest_version = ts[:10].replace("-", "")
+
+            if not latest_version or not re.search(r'\d', latest_version):
+                return None
 
             extra = {"tag": tag_name}
             if named_vars:
@@ -190,13 +233,14 @@ class GitHubBackend(BaseDetectorBackend):
                 data = json.loads(raw_body)
                 if _is_release_matching(data):
                     res = _parse_release(data)
-                    if etag_cache is not None and new_etag:
-                        etag_cache[api_url] = {
-                            "etag": new_etag,
-                            "version": res.latest_version,
-                            "tag": res.extra.get("tag") if res.extra else "",
-                        }
-                    return res
+                    if res:
+                        if etag_cache is not None and new_etag:
+                            etag_cache[api_url] = {
+                                "etag": new_etag,
+                                "version": res.latest_version,
+                                "tag": res.extra.get("tag") if res.extra else "",
+                            }
+                        return res
         except urllib.error.HTTPError as e:
             if e.code == 304 and cached_ver:
                 return DetectionResult(latest_version=cached_ver, source_type="github_api_cached")
@@ -211,7 +255,9 @@ class GitHubBackend(BaseDetectorBackend):
                 releases = json.loads(resp.read().decode("utf-8"))
                 for rel in releases:
                     if _is_release_matching(rel):
-                        return _parse_release(rel)
+                        res = _parse_release(rel)
+                        if res:
+                            return res
         except Exception:
             pass
 
