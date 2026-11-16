@@ -2510,7 +2510,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:be8c336efe655845e9501416f2ba9b3e4668685f88f18974ba8acc2128799a6d"
+      "sha256:4ea0947e5bebddaefd1bcf13933a4348e5a8e4322b7298d7311cb87f285db066"
     ],
     "depends": [],
     "distfiles": [
@@ -2533,7 +2533,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.1"
+    "version": "0.2.2"
   },
   {
     "archs": [
