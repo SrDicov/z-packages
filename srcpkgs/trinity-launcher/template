@@ -1,6 +1,6 @@
 # Template file for 'trinity-launcher'
 pkgname=trinity-launcher
-version=latest
+version=20261116
 revision=1
 archs="x86_64*"
 create_wrksrc=yes
