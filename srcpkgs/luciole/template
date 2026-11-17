@@ -20,8 +20,15 @@ distfiles="https://github.com/noctalia-dev/luciole/archive/${_commit}.tar.gz>${p
 checksum=edb2857adeaea6f410b89ea0f6c329731913a98d54112ea164108005acd8cfd0
 
 post_patch() {
-	vsed -i 's/\<m_root\>/this->m_root/g; s/\<m_foldersOnly\>/this->m_foldersOnly/g; s/\<m_nodes\>/this->m_nodes/g' src/browser/directory_tree.cpp
-	vsed -i 's/m_rows\.push_back/this->m_rows.push_back/g' src/browser/directory_model.cpp
+	vsed -i src/browser/directory_tree.cpp \
+		-e 's/\(this auto&& self/\(auto\&\& self/' \
+		-e 's/self\(child, depth \+ 1\);/self\(self, child, depth + 1\);/' \
+		-e 's/append\(entry, 0\);/append\(append, entry, 0\);/'
+
+	vsed -i src/browser/directory_model.cpp \
+		-e 's/\(this auto&& self/\(auto\&\& self/' \
+		-e 's/self\(child, depth \+ 1\);/self\(self, child, depth + 1\);/' \
+		-e 's/append\(id, 0\);/append\(append, id, 0\);/'
 }
 
 post_install() {
