@@ -345,7 +345,9 @@
       "alsa-lib-devel"
     ],
     "pkgname": "aseprite",
-    "provides": [],
+    "provides": [
+      "aseprite-bin-${version}_${revision}"
+    ],
     "replaces": [
       "aseprite-bin>=0"
     ],
@@ -3099,7 +3101,7 @@
     "makedepends": [
       "cJSON-devel",
       "wlroots0.20-devel",
-      "scenefx-nk-devel",
+      "scenefx-devel-nk",
       "pcre2-devel",
       "pango-devel",
       "cairo-devel",
@@ -3112,7 +3114,8 @@
     ],
     "pkgname": "mangowc-nk",
     "provides": [
-      "mangowc-${version}_${revision}"
+      "mangowc-${version}_${revision}",
+      "mangowc-latest-${version}_${revision}"
     ],
     "replaces": [
       "mangowc-latest>=0",
@@ -4922,13 +4925,14 @@
     ],
     "replaces": [
       "scenefx-devel>=0",
-      "scenefx-latest-devel>=0"
+      "scenefx-latest-devel>=0",
+      "scenefx-nk-devel>=0"
     ],
     "restricted": false,
     "revision": 2,
     "subpackages": [
       {
-        "pkgname": "scenefx-nk-devel"
+        "pkgname": "scenefx-devel-nk"
       }
     ],
     "version": "0.5"
@@ -5332,12 +5336,14 @@
     ],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
-    "pkgname": "spotify-app",
+    "pkgname": "spotify-nk",
     "provides": [
+      "spotify-app-${version}_${revision}",
       "spotify-app-bin-${version}_${revision}"
     ],
     "replaces": [
-      "spotify-app-bin>=0"
+      "spotify-app-bin>=0",
+      "spotify-app>=0"
     ],
     "restricted": false,
     "revision": 1,
@@ -5371,14 +5377,13 @@
     "makedepends": [],
     "pkgname": "steam-nk",
     "provides": [
-      "steam-${version}_${revision}",
       "steam-bin-${version}_${revision}",
       "steam-nk-bin-${version}_${revision}"
     ],
     "replaces": [
-      "steam>=0",
       "steam-bin>=0",
-      "steam-nk-bin>=0"
+      "steam-nk-bin>=0",
+      "steam>=0"
     ],
     "restricted": false,
     "revision": 15,
@@ -5492,10 +5497,12 @@
     "makedepends": [],
     "pkgname": "trinity-launcher",
     "provides": [
-      "trinity-launcher-ap-${version}_${revision}"
+      "trinity-launcher-ap-${version}_${revision}",
+      "trinity-launcher-app-${version}_${revision}"
     ],
     "replaces": [
-      "trinity-launcher-ap>=0"
+      "trinity-launcher-ap>=0",
+      "trinity-launcher-app>=0"
     ],
     "restricted": false,
     "revision": 1,
@@ -5813,7 +5820,8 @@
     "makedepends": [],
     "pkgname": "vscode-nk",
     "provides": [
-      "vscode-${version}_${revision}"
+      "vscode-${version}_${revision}",
+      "vscode-bin-${version}_${revision}"
     ],
     "replaces": [
       "vscode-bin>=0",
