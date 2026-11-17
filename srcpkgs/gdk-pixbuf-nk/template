@@ -9,7 +9,7 @@ configure_args="$(vopt_feature gir introspection) -Dpng=enabled
  -Dothers=enabled -Dinstalled_tests=false -Dtests=false -Ddocumentation=false
  -Dman=false"
 hostmakedepends="gettext-devel glib-devel pkg-config"
-makedepends="libglib-devel libpng-devel tiff-devel libjpeg-turbo-devel
+makedepends="glib-devel libpng-devel tiff-devel libjpeg-turbo-devel
  shared-mime-info glycin-devel"
 depends="shared-mime-info"
 short_desc="Image loading library for The GTK+ toolkit (v2) - latest 2.44 release"
