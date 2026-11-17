@@ -978,7 +978,7 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [
-      "libglib-devel",
+      "glib-devel",
       "libpng-devel",
       "tiff-devel",
       "libjpeg-turbo-devel",
