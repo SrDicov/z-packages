@@ -2989,7 +2989,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:edb2857adeaea6f410b89ea0f6c329731913a98d54112ea164108005acd8cfd0"
+      "sha256:66d4f5a2e655386e7997d509ebdbc18e71b1a03ee4d1d4268af74c5bbeeccbb2"
     ],
     "depends": [
       "glycin-loaders",
@@ -4228,7 +4228,7 @@
     "build_style": "python3-module",
     "checkdepends": [],
     "checksum": [
-      "sha256:9b8a4eca0c59c53c51e95862fb00c31f146f38d2ee88bb3fbda24ed53fdefa67",
+      "sha256:eea6e3eef40926b8a5500fe375c525c46f2a0f8f9534a73fc2bd633a68b86662",
       "sha256:4bf7eab3255332ffd97e1906a79d048fddb0d1bc40b6caefb899de9106e322cc"
     ],
     "depends": [
@@ -4268,9 +4268,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "6.1.1"
+    "version": "6.1.2"
   },
   {
     "archs": [
@@ -4279,7 +4279,7 @@
     "build_style": "python3-module",
     "checkdepends": [],
     "checksum": [
-      "sha256:6911b3a9fe7872db5d0d7e835787007cc9dfa1d09a9ff92f906c1004c6339901"
+      "sha256:b914b50bfbdd447a9c5eb09eed2de00475c729e672410f754070de730d117396"
     ],
     "depends": [
       "python3",
@@ -4304,9 +4304,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.1.0"
+    "version": "1.1.1"
   },
   {
     "archs": [
@@ -4349,7 +4349,7 @@
     "build_style": "python3-module",
     "checkdepends": [],
     "checksum": [
-      "sha256:f31549f1e7da96d9dc3e5e9d65e7c5f6c7517dbe5ca23828ad05b48191b10d5f"
+      "sha256:e5aff1d4c3947fc9a311a63c47258f3c3d9b25b574d20012feda622de878bd37"
     ],
     "depends": [
       "gtk4",
@@ -4381,9 +4381,9 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "4.19.0"
+    "version": "4.19.1"
   },
   {
     "archs": [
@@ -5508,7 +5508,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:f8bebff1c6f1889231584beb2af8aac19b737deb9c14d31fbabed61b2823e95d"
+      "sha256:f7b8f90648d497943d13561be79f804f71cd514c766015d79182bba831b10b35"
     ],
     "depends": [
       "dbus",
@@ -6193,7 +6193,7 @@
       "liberation-fonts-ttf"
     ],
     "checksum": [
-      "sha256:1b1b0dad8184148ca2834d8c500d2f72e1869d4b72afc1d43629db121624c3c7"
+      "sha256:20f0a2cb1d05f910f0a3f5b8db15dfe65c8d50cb7d208fd7bb4cbf0fa8029d71"
     ],
     "depends": [
       "gnome-keyring"
@@ -6234,7 +6234,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.21.2"
+    "version": "0.21.3"
   },
   {
     "archs": [
