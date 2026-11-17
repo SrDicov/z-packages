@@ -12,9 +12,8 @@ license="MIT"
 homepage="https://playhorizon.dev"
 distfiles="https://github.com/horizon-rust/horizon/releases/download/launcher@${version}/horizon-launcher-linux-x86_64.AppImage"
 checksum=de6ab5e7b8d36c394cad163347b2eeade815d048bdaa18922c10ed7082ca78c9
-provides="horizon-${version}_${revision}
- horizon-bin-${version}_${revision}"
-replaces="horizon>=0 horizon-bin>=0"
+provides="horizon-bin-${version}_${revision}"
+replaces="horizon<=0.2.69_1 horizon-bin>=0"
 nostrip=yes
 noshlibprovides=yes
 
