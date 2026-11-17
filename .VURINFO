@@ -987,16 +987,18 @@
     ],
     "pkgname": "gdk-pixbuf-nk",
     "provides": [
-      "gdk-pixbuf-devel-${version}_${revision}"
+      "gdk-pixbuf-devel-${version}_${revision}",
+      "gdk-pixbuf-nk-devel-${version}_${revision}"
     ],
     "replaces": [
-      "gdk-pixbuf-devel>=0"
+      "gdk-pixbuf-devel>=0",
+      "gdk-pixbuf-nk-devel>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [
       {
-        "pkgname": "gdk-pixbuf-nk-devel"
+        "pkgname": "gdk-pixbuf-devel-nk"
       }
     ],
     "version": "2.44.8"
@@ -1402,13 +1404,13 @@
     ],
     "maintainer": "Dicov <SrDicov@gmail.com>",
     "makedepends": [],
-    "pkgname": "horizon",
+    "pkgname": "horizon-launcher",
     "provides": [
-      "horizon-launcher-${version}_${revision}",
+      "horizon-${version}_${revision}",
       "horizon-bin-${version}_${revision}"
     ],
     "replaces": [
-      "horizon-launcher>=0",
+      "horizon>=0",
       "horizon-bin>=0"
     ],
     "restricted": false,
@@ -3011,7 +3013,7 @@
       "cairo-devel",
       "fontconfig-devel",
       "freetype-devel",
-      "gdk-pixbuf-nk-devel",
+      "gdk-pixbuf-devel-nk",
       "glib-devel",
       "glycin-devel",
       "harfbuzz-devel",
