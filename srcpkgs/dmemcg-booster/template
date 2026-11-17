@@ -11,9 +11,9 @@ _base="https://github.com/Neko-Void-Linux/dmemcg-booster-nk"
 _sha="3dfb0804a41eaf44407908f9f05ff354d797bc3f"
 distfiles="${_base}/archive/${_sha}.tar.gz"
 checksum=b903f4474d3aafa7261ac9e597654760369e179bc5e67eb0660aa2a601e77e31
+
 replaces="dmemcg-booster-nk>=0"
 provides="dmemcg-booster-nk-${version}_${revision}"
-
 do_build() {
 	cargo build --release --locked ${makejobs}
 }

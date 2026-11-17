@@ -17,7 +17,6 @@ distfiles="https://github.com/aseprite/aseprite/releases/download/v${version}/As
  https://github.com/aseprite/skia/releases/download/m124-08a5439a6b/Skia-Linux-Release-x64.zip>skia-m124.zip"
 checksum="fa9dd07a0c2a5ec91a4166333296bbb9e5c237933b59875d0cfee849d2358306
  a327e89b244f24cecaa34eb37544bae00d447b96c583d26ed29d6a3ad2e8a8b8"
-replaces="aseprite-bin>=0"
 
 create_wrksrc=yes
 
@@ -35,6 +34,8 @@ configure_args="
  -DENABLE_CCACHE=OFF
 "
 
+replaces="aseprite-bin>=0"
+provides="aseprite-bin-${version}_${revision}"
 pre_configure() {
 	configure_args+=" -DSKIA_DIR=${wrksrc}/skia"
 	configure_args+=" -DSKIA_LIBRARY_DIR=${wrksrc}/skia/out/Release-x64"

@@ -193,6 +193,17 @@ class RepoAdapter:
             return target
         return None
 
+    @staticmethod
+    def _has_subpackage_func(template_path: Path, subpkg_name: str) -> bool:
+        if not template_path.is_file():
+            return False
+        pat = re.compile(rf'^\s*{re.escape(subpkg_name)}_package\s*\(\s*\)', re.MULTILINE)
+        try:
+            content = template_path.read_text(encoding="utf-8", errors="replace")
+            return bool(pat.search(content))
+        except Exception:
+            return False
+
     def list_packages(self, include_subpackages: bool = False) -> List[str]:
         """
         List all packages found in the repository.
@@ -229,7 +240,8 @@ class RepoAdapter:
                         if not include_subpackages:
                             continue
                         target = pkg_path.resolve()
-                        if (target / "template").is_file() or (target.name == "template" and target.is_file()):
+                        tmpl = target / "template" if target.is_dir() else (target if target.name == "template" else None)
+                        if tmpl and tmpl.is_file() and self._has_subpackage_func(tmpl, entry.name):
                             packages.append(entry.name)
                         continue
 
@@ -244,7 +256,7 @@ class RepoAdapter:
     def get_subpackages(self) -> Dict[str, str]:
         """
         Return a mapping of subpackage_name -> canonical_parent_name
-        by inspecting directory symlinks in the packages dir.
+        by inspecting directory symlinks in the packages dir that declare *_package().
         """
         if self.kind == RepoKind.CATEGORIZED:
             return dict(self._subpackages_map)
@@ -257,17 +269,49 @@ class RepoAdapter:
             with os.scandir(self.pkgs_dir) as it:
                 for entry in it:
                     if entry.is_symlink():
-                        link_target = os.readlink(entry.path)
-                        canonical = os.path.basename(os.path.normpath(link_target))
-                        subpkgs[entry.name] = canonical
+                        try:
+                            link_target = os.readlink(entry.path)
+                            canonical = os.path.basename(os.path.normpath(link_target))
+                            tmpl_path = self.get_template_path(canonical)
+                            if tmpl_path and self._has_subpackage_func(tmpl_path, entry.name):
+                                subpkgs[entry.name] = canonical
+                        except OSError:
+                            pass
         except OSError:
             pass
 
         return subpkgs
 
+    def get_compatibility_symlinks(self) -> Dict[str, str]:
+        """Return mapping of old_compat_name -> canonical_package_name for symlinks without *_package()."""
+        compat: Dict[str, str] = {}
+        if not self.pkgs_dir.is_dir():
+            return compat
+        try:
+            with os.scandir(self.pkgs_dir) as it:
+                for entry in it:
+                    if entry.is_symlink():
+                        try:
+                            canonical = os.path.basename(os.path.normpath(os.readlink(entry.path)))
+                            tmpl = self.get_template_path(canonical)
+                            if tmpl and not self._has_subpackage_func(tmpl, entry.name):
+                                compat[entry.name] = canonical
+                        except OSError:
+                            pass
+        except OSError:
+            pass
+        return compat
+
     def is_subpackage(self, pkgname: str) -> bool:
-        """Check if a package is actually a symlink to another package."""
+        """Check if a package is a real subpackage symlink to another package."""
         if self.kind == RepoKind.CATEGORIZED:
             return pkgname in self._subpackages_map
         target = self.pkgs_dir / pkgname
-        return target.is_symlink()
+        if not target.is_symlink():
+            return False
+        try:
+            canonical = os.path.basename(os.path.normpath(os.readlink(target)))
+            tmpl = self.get_template_path(canonical)
+            return bool(tmpl and self._has_subpackage_func(tmpl, pkgname))
+        except OSError:
+            return False

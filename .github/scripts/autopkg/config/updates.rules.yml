@@ -167,6 +167,9 @@ packages:
   serein-bin:
     backend: "serein-release"
     url: "https://api.github.com/repos/ViceVerse-cz/Serein/releases"
+  spotify-nk:
+    url: "https://repository.spotify.com/pool/non-free/s/spotify-client/"
+    pattern: "spotify-client_([0-9]+(?:\.[0-9]+)+)\.[a-z0-9]+_amd64\.deb"
   spotify-app:
     backend: "regex2"
     url: "https://repository.spotify.com/pool/non-free/s/spotify-client/"

@@ -660,7 +660,7 @@ libQt6NetworkAuth.so.6 qt6-networkauth-6.11.1_1
 libQt6Nfc.so.6 qt6-connectivity-6.11.1_1
 libQt6OpenGL.so.6 qt6-gui-6.11.1_1
 libQt6OpenGLWidgets.so.6 qt6-opengl-widgets-6.11.1_1
-libQt6Pas.so.6 libqt6pas-bin-6.2.10_4
+libQt6Pas.so.6 libqt6pas-6.2.10_4
 libQt6Pdf.so.6 qt6-pdf-6.11.1_1
 libQt6PdfQuick.so.6 qt6-pdf-6.11.1_1
 libQt6PdfWidgets.so.6 qt6-pdf-6.11.1_1

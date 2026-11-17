@@ -9,9 +9,9 @@ license="AGPL-3.0-only"
 homepage="https://www.orcaslicer.com"
 distfiles="https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v${version}/OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
 checksum=073b8105c928356141db0ddbce88b81d52c7a9e2442f9baae0a9089c89ff04eb
+skip_extraction="OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
 replaces="orcaslicer-bin>=0"
 provides="orcaslicer-bin-${version}_${revision}"
-skip_extraction="OrcaSlicer_Linux_AppImage_Ubuntu2404_V${version}.AppImage"
 nostrip=yes
 noshlibprovides=yes
 noverifyrdeps=yes

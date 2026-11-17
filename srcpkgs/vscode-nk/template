@@ -14,7 +14,7 @@ homepage="https://code.visualstudio.com"
 distfiles="https://vscode.download.prss.microsoft.com/dbazure/download/stable/69047191fc427f2f92828279aae1d90d8eeda7ab/code-stable-x64-1794340754.tar.gz"
 checksum=cbdb7bde3d358c7297cf1d9d6adc16dfb1d0179501fb2c152df48593e39e3600
 replaces="vscode-bin>=0 vscode>=0"
-provides="vscode-${version}_${revision}"
+provides="vscode-${version}_${revision} vscode-bin-${version}_${revision}"
 nostrip=yes
 nopie=yes
 noshlibprovides=yes

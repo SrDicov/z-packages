@@ -9,12 +9,12 @@ license="LGPL-2.1-or-later"
 homepage="https://github.com/davidbannon/libqt6pas"
 distfiles="https://github.com/davidbannon/libqt6pas/releases/download/v${version}/libqt6pas_${version//./_}-1_amd64.tar.gz"
 checksum=28c677a5eb6f260b32a8ee30bbed97d927f22607174bc520474c94a137d7c494
-replaces="libqt6pas-bin>=0"
-provides="libqt6pas-bin-${version}_${revision}"
 
 shlib_provides="libQt6Pas.so.6"
 
 
+replaces="libqt6pas-bin>=0"
+provides="libqt6pas-bin-${version}_${revision}"
 do_install() {
 	vinstall libQt6Pas.so.6.2.10 755 usr/lib
 

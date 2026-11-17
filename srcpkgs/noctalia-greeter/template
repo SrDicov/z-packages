@@ -15,9 +15,9 @@ license="MIT"
 homepage="https://github.com/noctalia-dev/noctalia-greeter"
 distfiles="${homepage}/archive/v${version}.tar.gz"
 checksum=5b092784c0147bb6739efc2e8146d2d07e3572a59d7a370e93092f9f56d4fcc8
+
 replaces="noctalia-greeter-latest>=0"
 provides="noctalia-greeter-latest-${version}_${revision}"
-
 post_install() {
 	vlicense LICENSE
 }

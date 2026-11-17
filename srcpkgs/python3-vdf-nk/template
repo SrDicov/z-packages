@@ -11,9 +11,9 @@ license="MIT"
 homepage="https://github.com/solsticegamestudios/vdf"
 distfiles="https://github.com/solsticegamestudios/vdf/archive/refs/tags/v${version}.tar.gz"
 checksum=1d778663f1158be0f70aa1cdd5b2685ae6eee14e4d11a0d96684b7ed86e89c93
+
 replaces="python3-vdf-dev>=0"
 provides="python3-vdf-dev-${version}_${revision}"
-
 do_install() {
 	vlicense LICENSE
 }
