@@ -21,14 +21,14 @@ checksum=edb2857adeaea6f410b89ea0f6c329731913a98d54112ea164108005acd8cfd0
 
 post_patch() {
 	vsed -i src/browser/directory_tree.cpp \
-		-e 's/\(this auto&& self/\(auto\&\& self/' \
-		-e 's/self\(child, depth \+ 1\);/self\(self, child, depth + 1\);/' \
-		-e 's/append\(entry, 0\);/append\(append, entry, 0\);/'
+		-e 's/this auto&& self/auto\&\& self/' \
+		-e 's/self[(]child/self(self, child/' \
+		-e 's/append[(]entry/append(append, entry/'
 
 	vsed -i src/browser/directory_model.cpp \
-		-e 's/\(this auto&& self/\(auto\&\& self/' \
-		-e 's/self\(child, depth \+ 1\);/self\(self, child, depth + 1\);/' \
-		-e 's/append\(id, 0\);/append\(append, id, 0\);/'
+		-e 's/this auto&& self/auto\&\& self/' \
+		-e 's/self[(]child/self(self, child/' \
+		-e 's/append[(]id/append(append, id/'
 }
 
 post_install() {
