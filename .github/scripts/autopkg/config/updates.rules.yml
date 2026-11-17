@@ -343,3 +343,9 @@ packages:
     pattern: "^v([0-9]+(?:\\.[0-9]+)+)$"
     options:
       version_regex: "^v([0-9]+(?:\\.[0-9]+)+)$"
+  luciole:
+    backend: "git_commits"
+    url: "https://github.com/noctalia-dev/luciole.git"
+  umbriel:
+    backend: "git_commits"
+    url: "https://github.com/noctalia-dev/umbriel.git"
