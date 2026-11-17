@@ -3280,7 +3280,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:bc9ad8436265574074eca6023c1fafa3ef2c394c36dad7e15ca7faa06ab24c39"
+      "sha256:6b2ce9510216ff8ad186fdd8ee0a80360d3e4362e96cce87b757580e929cc98f"
     ],
     "depends": [
       "gtk+3",
@@ -3309,9 +3309,9 @@
       "mullvad-browser-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "16.0.1"
+    "version": "16.0.2"
   },
   {
     "archs": [
