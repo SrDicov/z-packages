@@ -2,7 +2,7 @@
 pkgname=umbriel
 version=0.1.0
 revision=1
-_commit=038434eabbecf4583b1dc7efa6edc17d997b3781
+_commit=d1329334efd85adbb8990ee8af0fd805f34951a4
 archs="x86_64*"
 build_style=meson
 configure_args="-Dtests=disabled -Dharness=disabled -Dtracy=disabled -Dlocaled=disabled"
@@ -17,7 +17,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="MIT"
 homepage="https://github.com/noctalia-dev/umbriel"
 distfiles="https://github.com/noctalia-dev/umbriel/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
-checksum=f8bebff1c6f1889231584beb2af8aac19b737deb9c14d31fbabed61b2823e95d
+checksum=f7b8f90648d497943d13561be79f804f71cd514c766015d79182bba831b10b35
 
 post_patch() {
 	vsed -i "s|'VCS_TAG', 'unknown'|'VCS_TAG', '${_commit:0:7}'|" \
