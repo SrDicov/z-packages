@@ -1,7 +1,7 @@
 # Template file for 'luciole'
 pkgname=luciole
 version=0.1.0
-revision=1
+revision=2
 _commit=b40c96336d97a15a3874bc93cb7b61627aeb3563
 archs="x86_64*"
 build_style=meson
