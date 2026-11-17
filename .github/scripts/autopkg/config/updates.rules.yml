@@ -349,3 +349,7 @@ packages:
   umbriel:
     backend: "git_commits"
     url: "https://github.com/noctalia-dev/umbriel.git"
+  gdk-pixbuf-nk:
+    backend: "git_tags"
+    url: "https://gitlab.gnome.org/GNOME/gdk-pixbuf.git"
+    pattern: "^(2\\.44\\.[0-9]+)$"
