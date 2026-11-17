@@ -1,7 +1,7 @@
 # Template file for 'steam-nk'
 pkgname=steam-nk
 version=1.0.0.85
-revision=15
+revision=16
 archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="binutils tar xz"
