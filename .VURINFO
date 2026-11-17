@@ -2939,6 +2939,61 @@
     "archs": [
       "x86_64"
     ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:edb2857adeaea6f410b89ea0f6c329731913a98d54112ea164108005acd8cfd0"
+    ],
+    "depends": [
+      "glycin-loaders",
+      "hicolor-icon-theme",
+      "xdg-desktop-portal"
+    ],
+    "distfiles": [
+      "https://github.com/noctalia-dev/luciole/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "wayland-devel",
+      "glib-devel"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "acl-devel",
+      "cairo-devel",
+      "fontconfig-devel",
+      "freetype-devel",
+      "gdk-pixbuf-devel",
+      "glib-devel",
+      "glycin-devel",
+      "harfbuzz-devel",
+      "json-c++",
+      "libarchive-devel",
+      "libglvnd-devel",
+      "liblzma-devel",
+      "libpng-devel",
+      "librsvg-devel",
+      "libxkbcommon-devel",
+      "MesaLib-devel",
+      "pango-devel",
+      "stb",
+      "tomlplusplus-devel",
+      "wayland-devel",
+      "wayland-protocols"
+    ],
+    "pkgname": "luciole",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.0"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
     "build_style": null,
     "checkdepends": [],
     "checksum": [
@@ -5398,6 +5453,57 @@
     "revision": 1,
     "subpackages": [],
     "version": "20261116"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": "meson",
+    "checkdepends": [],
+    "checksum": [
+      "sha256:f8bebff1c6f1889231584beb2af8aac19b737deb9c14d31fbabed61b2823e95d"
+    ],
+    "depends": [
+      "dbus",
+      "xorg-server-xwayland"
+    ],
+    "distfiles": [
+      "https://github.com/noctalia-dev/umbriel/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "pkg-config",
+      "wayland-devel"
+    ],
+    "maintainer": "Dicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "cairo-devel",
+      "eudev-libudev-devel",
+      "jemalloc-devel",
+      "json-c++",
+      "lcms2-devel",
+      "libdisplay-info-devel",
+      "libdrm-devel",
+      "libei-devel",
+      "libinput-devel",
+      "libxcb-devel",
+      "libxkbcommon-devel",
+      "MesaLib-devel",
+      "pango-devel",
+      "pixman-devel",
+      "tomlplusplus-devel",
+      "wayland-devel",
+      "wayland-protocols",
+      "wlroots0.20-devel",
+      "xcb-util-wm-devel"
+    ],
+    "pkgname": "umbriel",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.1.0"
   },
   {
     "archs": [
