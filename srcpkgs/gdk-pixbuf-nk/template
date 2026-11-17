@@ -1,7 +1,7 @@
 # Template file for 'gdk-pixbuf-nk'
 pkgname=gdk-pixbuf-nk
 version=2.44.8
-revision=1
+revision=2
 build_style=meson
 build_helper="gir"
 configure_args="$(vopt_feature gir introspection) -Dpng=enabled
@@ -36,12 +36,12 @@ pre_configure() {
 	fi
 }
 
-gdk-pixbuf-nk-devel_package() {
+gdk-pixbuf-devel-nk_package() {
 	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
-	provides="gdk-pixbuf-devel-${version}_${revision}"
-	replaces="gdk-pixbuf-devel>=0"
-	conflicts="gdk-pixbuf-devel>=0"
+	provides="gdk-pixbuf-devel-${version}_${revision} gdk-pixbuf-nk-devel-${version}_${revision}"
+	replaces="gdk-pixbuf-devel>=0 gdk-pixbuf-nk-devel>=0"
+	conflicts="gdk-pixbuf-devel>=0 gdk-pixbuf-nk-devel>=0"
 	pkg_install() {
 		vmove "usr/lib/*.so"
 		vmove usr/lib/pkgconfig
