@@ -5376,19 +5376,44 @@
     ],
     "maintainer": "Orphaned <orphan@voidlinux.org>",
     "makedepends": [],
-    "pkgname": "steam-nk",
-    "provides": [
-      "steam-bin-${version}_${revision}",
-      "steam-${version}_${revision}",
-      "steam-nk-bin-${version}_${revision}"
-    ],
-    "replaces": [
-      "steam-bin>=0",
-      "steam-nk-bin>=0",
-      "steam>=0"
-    ],
+    "pkgname": "steam-bin",
+    "provides": [],
+    "replaces": [],
     "restricted": false,
     "revision": 16,
+    "subpackages": [],
+    "version": "1.0.0.85"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:b44634a6a604ca7c8b23809d0f2a921a0348bb2081c8cb8944116d0799872b70"
+    ],
+    "depends": [
+      "binutils",
+      "tar",
+      "xz"
+    ],
+    "distfiles": [
+      "${_site}/releases/download/deb-build/steam_latest.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "tar",
+      "xz"
+    ],
+    "maintainer": "Orphaned <orphan@voidlinux.org>",
+    "makedepends": [],
+    "pkgname": "steam-nk",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 17,
     "subpackages": [],
     "version": "1.0.0.85"
   },
