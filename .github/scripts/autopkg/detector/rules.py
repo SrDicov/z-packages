@@ -83,6 +83,10 @@ class RulesLoader:
         pkgs_data = data.get("packages", {})
         for name, entry in pkgs_data.items():
             if isinstance(entry, dict):
+                options = dict(entry.get("options", {})) if isinstance(entry.get("options"), dict) else {}
+                for k, v in entry.items():
+                    if k not in {"backend", "url", "pattern", "ignore", "strip_prefix", "options"}:
+                        options[k] = v
                 rule = PackageRule(
                     pkgname=name,
                     backend=entry.get("backend", "git_tags"),
@@ -90,9 +94,7 @@ class RulesLoader:
                     pattern=entry.get("pattern"),
                     ignore=entry.get("ignore"),
                     strip_prefix=entry.get("strip_prefix"),
-                    options={k: v for k, v in entry.items() if k not in {
-                        "backend", "url", "pattern", "ignore", "strip_prefix"
-                    }},
+                    options=options,
                 )
             elif isinstance(entry, (list, tuple)):
                 # Tuple format legacy from detect-updates.py TABLE:

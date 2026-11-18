@@ -423,7 +423,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:89e9e1a34e5ab9c45cd3ebc7c73a09582c2c3f5bddaa728abe27c5f64af6c11d"
+      "sha256:2d9d1e664efd60343c77324c836be402cbe57ce12549975584dfa7d073f156a5"
     ],
     "depends": [],
     "distfiles": [
@@ -444,9 +444,9 @@
       "brave-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.100.56"
+    "version": "1.100.58"
   },
   {
     "archs": [
@@ -455,7 +455,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:dd8878680f1877463bc643b6c5667f075b47e376703e25f5a581260428490492"
+      "sha256:c10bb3951e03b430263024f35ae4356fe092e93cf7e5df54162b8982992baba2"
     ],
     "depends": [
       "alsa-lib",
@@ -491,7 +491,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.100.56"
+    "version": "1.100.58"
   },
   {
     "archs": [
@@ -573,7 +573,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:8197424cbcea3a7c0d445a544eaa6b99df8b8ef8b1d182e2b743f702753c7a70"
+      "sha256:01eef7c77c835f7e1afb92ba1c29178a4c19d6c66573bdd3b86520e2abf806a4"
     ],
     "depends": [
       "gtk+3",
@@ -625,7 +625,8 @@
     "makedepends": [],
     "pkgname": "codex",
     "provides": [
-      "codex-bin-${version}_${revision}"
+      "codex-bin-${version}_${revision}",
+      "chatgpt-${version}_${revision}"
     ],
     "replaces": [
       "codex-bin>=0",
@@ -634,7 +635,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "26.1111.71025"
+    "version": "26.1111.71704"
   },
   {
     "archs": [
@@ -2992,7 +2993,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:14497d81225466a45288095790d01cc4ad959b0dbecf35d253f2af616917470c"
+      "sha256:12bff2bad3e62b4f06c66909bdad6dbf97e0fddb56bce224b58dc69da99cfefc"
     ],
     "depends": [
       "glycin-loaders",
@@ -3037,7 +3038,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -5074,7 +5075,7 @@
       "sha256:fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
       "sha256:64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
       "sha256:8b4fdc4e3da44733c9a82e7776b411e4a39f94e8e285aee0fc85a548a55f7d9f",
-      "sha256:1fa4dcaef22f6f7d5cd81b28c2800414350c10116f5fdd46a2160082551c5f9b",
+      "sha256:30f6600efa7a8e86ff329613a8203ee1121ce11a6508a723658cb3a1c5c8a664",
       "sha256:121522251afc3c135e4b7b0c341dd5e050ad1ec87631127484f3c389ae385044"
     ],
     "depends": [
@@ -5221,7 +5222,7 @@
       "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task>hand_landmarker.task",
       "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task>face_landmarker.task",
       "https://github.com/yakhyo/gaze-estimation/releases/download/weights/mobileone_s0_gaze.onnx>mobileone_s0_gaze.onnx",
-      "https://github.com/microsoft/onnxruntime/releases/download/v1.23.2/onnxruntime-linux-x64-1.23.2.tgz>onnxruntime.tgz",
+      "https://github.com/SrDicov/singularity-desktop/releases/download/assets/onnxruntime-linux-x64-1.23.2.tgz>onnxruntime.tgz",
       "${_mediapipe_whl}>mediapipe.whl"
     ],
     "format_version": 1,
@@ -5543,7 +5544,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:82c00b77fe32a8553b86b261879289ae7d2f81f18dff0edba3112fd9a830b3b5"
+      "sha256:bff689261a56677a01f04b6d81a0dac652eb00350edcc94987429afd8fdcb8b8"
     ],
     "depends": [
       "dbus",
@@ -5583,7 +5584,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 5,
+    "revision": 6,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -5781,7 +5782,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:59d5ebb3450e47418716f4168a3c21d85056b09c8762bc0aa0c55953bfd62bc2"
+      "sha256:aee9d36164d055904e82fccbf381d6fac794b4534af7ac58522bf6042c759899"
     ],
     "depends": [
       "pipewire",
@@ -5814,7 +5815,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.2.2"
+    "version": "1.3.0"
   },
   {
     "archs": [
@@ -6279,7 +6280,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:bcf7e43160ecfe5f29953ed2a984e7a8028a58f2ec0e3114d36bb904d5f5ce80"
+      "sha256:dde4b4e44002128c2ff3efc56074e671c24effe56fd192ab2eee3972541e1a2d"
     ],
     "depends": [
       "desktop-file-utils",
@@ -6306,9 +6307,9 @@
       "zen-browser-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.24.2b"
+    "version": "1.24.3b"
   },
   {
     "archs": [
