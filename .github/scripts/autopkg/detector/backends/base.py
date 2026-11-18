@@ -75,12 +75,13 @@ def _verify_git_tag_remote(base_repo_url: str, tag: str, timeout: int = 10) -> b
     return False
 
 
-def verify_distfile_url(url: str, timeout: int = 10) -> bool:
+def verify_distfile_url(url: str, timeout: int = 10, retries: int = 2) -> bool:
     """
     Verify that a distfile URL is reachable and returns HTTP 200 or 206 (Range).
     Detects and rejects HTTP 404 or text/html responses for binary archives.
     If a git web frontend returns an anti-bot HTML challenge on an archive URL,
     falls back to verifying tag presence via Git Smart-HTTP (git ls-remote).
+    Includes retries on transient connection timeouts or secondary rate limits.
     """
     if not url or not url.startswith(("http://", "https://")):
         return False
@@ -94,33 +95,44 @@ def verify_distfile_url(url: str, timeout: int = 10) -> bool:
     if token and "api.github.com" in clean_url:
         headers["Authorization"] = f"Bearer {token}"
 
-    req = urllib.request.Request(clean_url, headers=headers)
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            code = getattr(resp, "status", getattr(resp, "code", 200))
-            if code not in (200, 206):
+    import time
+    for attempt in range(retries + 1):
+        try:
+            req = urllib.request.Request(clean_url, headers=headers)
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                code = getattr(resp, "status", getattr(resp, "code", 200))
+                if code not in (200, 206):
+                    return False
+                content_type = resp.headers.get("Content-Type", "").lower()
+                # If the URL looks like a binary archive/package, it must not be text/html
+                is_archive = bool(re.search(r'\.(?:deb|rpm|tar\.[a-z0-9]+|tgz|txz|zip|7z|AppImage|gz|xz|bin)$', clean_url.split("?")[0]))
+                if is_archive and "text/html" in content_type:
+                    tag_match = re.match(r'^(https?://[^/]+/[^/]+/[^/]+)/archive/(?:refs/tags/)?(.+?)\.(?:tar\.[a-z0-9]+|tgz|txz|zip|gz|xz|bz2)$', clean_url.split("?")[0])
+                    if tag_match:
+                        base_repo, tag_name = tag_match.group(1), tag_match.group(2)
+                        if _verify_git_tag_remote(base_repo, tag_name, timeout=timeout):
+                            return True
+                    return False
+                return True
+        except urllib.error.HTTPError as he:
+            if he.code == 404:
                 return False
-            content_type = resp.headers.get("Content-Type", "").lower()
-            # If the URL looks like a binary archive/package, it must not be text/html
-            is_archive = bool(re.search(r'\.(?:deb|rpm|tar\.[a-z0-9]+|tgz|txz|zip|7z|AppImage|gz|xz|bin)$', clean_url.split("?")[0]))
-            if is_archive and "text/html" in content_type:
+            if he.code in (403, 429, 503):
                 tag_match = re.match(r'^(https?://[^/]+/[^/]+/[^/]+)/archive/(?:refs/tags/)?(.+?)\.(?:tar\.[a-z0-9]+|tgz|txz|zip|gz|xz|bz2)$', clean_url.split("?")[0])
                 if tag_match:
                     base_repo, tag_name = tag_match.group(1), tag_match.group(2)
                     if _verify_git_tag_remote(base_repo, tag_name, timeout=timeout):
                         return True
-                return False
-            return True
-    except urllib.error.HTTPError as he:
-        if he.code in (403, 503):
-            tag_match = re.match(r'^(https?://[^/]+/[^/]+/[^/]+)/archive/(?:refs/tags/)?(.+?)\.(?:tar\.[a-z0-9]+|tgz|txz|zip|gz|xz|bz2)$', clean_url.split("?")[0])
-            if tag_match:
-                base_repo, tag_name = tag_match.group(1), tag_match.group(2)
-                if _verify_git_tag_remote(base_repo, tag_name, timeout=timeout):
-                    return True
-        return False
-    except Exception:
-        return False
+            if attempt < retries:
+                time.sleep(1)
+                continue
+            return False
+        except Exception:
+            if attempt < retries:
+                time.sleep(1)
+                continue
+            return False
+    return False
 
 
 @dataclass
