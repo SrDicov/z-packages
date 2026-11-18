@@ -2724,7 +2724,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:7c751d4d279f05a2514298599ad3c43d4e85dd011ad2ecc07319c5a8c34a72e5"
+      "sha256:07ab4fc73f401764890eb5c87dd7b5815c7783b1c7378ea789ca1330d362209b"
     ],
     "depends": [
       "desktop-file-utils",
@@ -2749,9 +2749,9 @@
       "librewolf-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "160.0"
+    "version": "160.0.1"
   },
   {
     "archs": [
