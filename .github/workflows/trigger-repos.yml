@@ -43,7 +43,7 @@ jobs:
             pkgs=$(git diff --name-only "$before" "$after" -- srcpkgs \
               | awk -F/ '$1 == "srcpkgs" && $2 != "" {print $2}' \
               | sort -u \
-              | while read -r p; do [ -f "srcpkgs/$p/template" ] && echo "$p"; done \
+              | while read -r p; do if [ -f "srcpkgs/$p/template" ]; then echo "$p"; fi; done \
               | tr '\n' ' ')
           fi
           echo "pkgs=$pkgs" >> "$GITHUB_OUTPUT"
