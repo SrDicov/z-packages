@@ -2130,7 +2130,7 @@
     "build_style": "cmake",
     "checkdepends": [],
     "checksum": [
-      "sha256:87bbfc9549ed96316b0d592c16d01f58729b23a2999a5293b73eec620b40c5f5"
+      "sha256:f8097938eee51ef82db73ff884f5b0780c251ef1a3c3ea28da0c19d2408013db"
     ],
     "depends": [
       "${sourcepkg}>=${version}_${revision}",
@@ -2160,7 +2160,7 @@
         "pkgname": "hyprutils-nk-devel"
       }
     ],
-    "version": "0.14.3"
+    "version": "0.14.4"
   },
   {
     "archs": [
@@ -2992,7 +2992,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:66d4f5a2e655386e7997d509ebdbc18e71b1a03ee4d1d4268af74c5bbeeccbb2"
+      "sha256:14497d81225466a45288095790d01cc4ad959b0dbecf35d253f2af616917470c"
     ],
     "depends": [
       "glycin-loaders",
@@ -3036,7 +3036,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -5516,7 +5516,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:e83885fb6566639b3ddb73ec03a1de8fa811d0215dcdeeded2ee6de8464a2514"
+      "sha256:82c00b77fe32a8553b86b261879289ae7d2f81f18dff0edba3112fd9a830b3b5"
     ],
     "depends": [
       "dbus",
@@ -5556,7 +5556,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 5,
     "subpackages": [],
     "version": "0.1.0"
   },
