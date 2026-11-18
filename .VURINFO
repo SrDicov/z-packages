@@ -3020,6 +3020,7 @@
       "harfbuzz-devel",
       "json-c++",
       "libarchive-devel",
+      "libcurl-devel",
       "libglvnd-devel",
       "liblzma-devel",
       "libpng-devel",
