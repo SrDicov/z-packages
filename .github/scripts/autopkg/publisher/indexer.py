@@ -216,6 +216,13 @@ class RepoIndexer:
         if res_sign.returncode != 0:
             logger.error("xbps-rindex --sign failed with code %d", res_sign.returncode)
 
+        # Clean up any leftover xbps lock files
+        for lock in self.binpkgs_dir.glob("*-repodata*.lock"):
+            try:
+                lock.unlink()
+            except OSError:
+                pass
+
         return key_info
 
     def _generate_key_metadata(self, privkey_path: Path, pubkey_name: str) -> Optional[KeyInfo]:

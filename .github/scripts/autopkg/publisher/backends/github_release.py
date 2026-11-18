@@ -63,9 +63,11 @@ class GitHubReleasePublisher(BasePublisherBackend):
         for item in binpkgs_dir.iterdir():
             if not item.is_file():
                 continue
-            if item.name.startswith(f"{arch}-repodata"):
+            if item.name.endswith((".lock", ".tmp", ".part")):
+                continue
+            if item.name.startswith(f"{arch}-repodata") and not item.name.endswith((".lock", ".tmp", ".part")):
                 repodata_files.append(item)
-            elif item.name.endswith(".xbps") or item.name.endswith(".sig2") or item.name.endswith(".plist") or item.name.endswith(".pub"):
+            elif item.name.endswith((".xbps", ".sig2", ".plist", ".pub")):
                 local_files.append(item)
 
         # 4. Prune stale assets on GitHub Release
