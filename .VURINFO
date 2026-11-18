@@ -5516,7 +5516,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:a9331b928a4a6a518b981ed6a0e612e971c5a8d650073c90552706535efd2894"
+      "sha256:e83885fb6566639b3ddb73ec03a1de8fa811d0215dcdeeded2ee6de8464a2514"
     ],
     "depends": [
       "dbus",
@@ -5556,7 +5556,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "0.1.0"
   },
