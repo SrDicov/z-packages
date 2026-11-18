@@ -111,6 +111,8 @@ def read_repodata_members(repodata_path: Path) -> Dict[str, bytes]:
 
 def write_repodata_members(repodata_path: Path, members: Dict[str, bytes]) -> None:
     """Write members dict into a repodata archive (gzip format for universal compatibility)."""
+    if "index-meta.plist" not in members:
+        members["index-meta.plist"] = plistlib.dumps({"type": 0})
     with tarfile.open(repodata_path, "w:gz") as tar:
         for name, data in members.items():
             ti = tarfile.TarInfo(name)

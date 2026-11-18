@@ -201,6 +201,7 @@ class RepoIndexer:
         res_add = subprocess.run(add_cmd, cwd=str(self.binpkgs_dir), check=False)
         if res_add.returncode != 0:
             logger.error("xbps-rindex -a failed with code %d", res_add.returncode)
+            raise RuntimeError(f"xbps-rindex -a failed with code {res_add.returncode}")
 
         # Commit any packages that xbps-rindex diverted to stage.plist
         self._commit_staged_repodata()
@@ -215,6 +216,7 @@ class RepoIndexer:
         res_sign = subprocess.run(sign_repo_cmd, cwd=str(self.binpkgs_dir), check=False)
         if res_sign.returncode != 0:
             logger.error("xbps-rindex --sign failed with code %d", res_sign.returncode)
+            raise RuntimeError(f"xbps-rindex --sign failed with code {res_sign.returncode}")
 
         # Clean up any leftover xbps lock files
         for lock in self.binpkgs_dir.glob("*-repodata*.lock"):
@@ -348,9 +350,12 @@ class RepoIndexer:
                 return
             index_data = load_plist_safe(members.get("index.plist", b""))
             stage_data = load_plist_safe(members.get("stage.plist", b"")) if "stage.plist" in members else {}
-            meta_bytes = members.get("index-meta.plist")
-
-            modified = False
+            if "index-meta.plist" not in members:
+                meta_bytes = plistlib.dumps({"type": 0})
+                modified = True
+            else:
+                meta_bytes = members.get("index-meta.plist")
+                modified = False
             if stage_data:
                 logger.info("Promoting %d staged packages from previous run into index.plist", len(stage_data))
                 for pkg, val in stage_data.items():
@@ -397,7 +402,7 @@ class RepoIndexer:
 
             index_data = load_plist_safe(members.get("index.plist", b""))
             stage_data = load_plist_safe(members.get("stage.plist", b""))
-            meta_bytes = members.get("index-meta.plist")
+            meta_bytes = members.get("index-meta.plist") or plistlib.dumps({"type": 0})
 
             if stage_data:
                 logger.info("Committing %d packages from stage.plist into index.plist", len(stage_data))
