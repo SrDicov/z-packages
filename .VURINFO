@@ -3212,7 +3212,7 @@
       "fcitx-mozc>=0"
     ],
     "restricted": false,
-    "revision": 1,
+    "revision": 2,
     "subpackages": [
       {
         "pkgname": "mozc-ut-base"
