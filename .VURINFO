@@ -1389,7 +1389,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:d8ed3e14aae702bc05be81cb179d667e7636c389dc726933bc690be60a844d02"
+      "sha256:3af12cad6b41d9fc49fd59362df75697ded3a2c3fada324166ae2c130998ed96"
     ],
     "depends": [
       "desktop-file-utils",
@@ -1418,7 +1418,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.80"
+    "version": "0.2.81"
   },
   {
     "archs": [
