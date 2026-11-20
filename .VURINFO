@@ -5678,7 +5678,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:8487a3ba56c7cd0bb230c1d6b42373fa0a8a23bab6f0809c903988b4f3e9cefc"
+      "sha256:ddddd9b50d3075ff2e9f298605fe1a90aec7dc9804ae0bfeea1f55ab7928850d"
     ],
     "depends": [
       "gtk+3",
@@ -5710,9 +5710,9 @@
       "vesktop-bin>=0"
     ],
     "restricted": false,
-    "revision": 3,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.6.9"
+    "version": "1.7.0"
   },
   {
     "archs": [
