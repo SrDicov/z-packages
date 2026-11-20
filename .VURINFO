@@ -1389,7 +1389,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:a7f6629d6b6a59eb8e67a37e0c6b1f278cf9e1b317bd264752c78f0664511707"
+      "sha256:360f614eb9ab5d300cede40840e29984cc02b3dd7da5efdcf4e259b5d3ff92be"
     ],
     "depends": [
       "desktop-file-utils",
@@ -1418,7 +1418,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.88"
+    "version": "0.2.91"
   },
   {
     "archs": [
@@ -3666,7 +3666,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:5b092784c0147bb6739efc2e8146d2d07e3572a59d7a370e93092f9f56d4fcc8"
+      "sha256:79344d9629393ab3f4d605068eec94d2bfe8e12402618e1521f46111e27ff6ed"
     ],
     "depends": [
       "cage",
@@ -3676,7 +3676,7 @@
       "wlr-randr"
     ],
     "distfiles": [
-      "${homepage}/archive/v${version}.tar.gz"
+      "https://github.com/noctalia-dev/noctalia-greeter/archive/v${version}.tar.gz"
     ],
     "format_version": 1,
     "hostmakedepends": [
@@ -3713,7 +3713,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "1.7.0"
+    "version": "1.7.1"
   },
   {
     "archs": [
@@ -5545,7 +5545,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:8d604e093d79b123ed33bb78b6e9399d606b7f28c4f31fd9cbbdaea98f0bdec6"
+      "sha256:9e784aae3e2e138b1e966743ede6fddfe10d7d727d5621f083327792aada6d6a"
     ],
     "depends": [
       "dbus",
@@ -5585,7 +5585,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 9,
+    "revision": 10,
     "subpackages": [],
     "version": "0.1.0"
   },
