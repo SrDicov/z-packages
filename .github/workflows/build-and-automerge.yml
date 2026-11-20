@@ -2,6 +2,7 @@ name: "Build Verification & Event-Driven Auto-Merge"
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     branches: [master, test-rewind-v4]
     paths:
       - "srcpkgs/**"
@@ -102,17 +103,27 @@ jobs:
 
   auto-merge:
     needs: [detect-changes, build-matrix]
-    if: success() && contains(github.event.pull_request.labels.*.name, 'autopkg-update')
+    if: success() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Merge Green PR (Zero Sleep Loop)
+        id: merge
         env:
           GH_TOKEN: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
-          gh pr merge "${{ github.event.pull_request.number }}" -R "${{ github.repository }}" --squash --delete-branch
+          PR_NUM="${{ github.event.pull_request.number }}"
+          LABELS=$(gh pr view "$PR_NUM" -R "${{ github.repository }}" --json labels --jq '.labels[].name' 2>/dev/null || true)
+          if echo "$LABELS" | grep -qx "autopkg-update"; then
+            echo "PR #$PR_NUM tiene etiqueta autopkg-update. Fusionando..."
+            gh pr merge "$PR_NUM" -R "${{ github.repository }}" --squash --delete-branch
+            echo "merged=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "PR #$PR_NUM no tiene etiqueta autopkg-update. Saltando fusión automática."
+            echo "merged=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Explicitly Dispatch Binary Builds to z-repo and z-repo-musl
-        if: success()
+        if: steps.merge.outputs.merged == 'true'
         env:
           GH_TOKEN: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
           PKGS: ${{ needs.detect-changes.outputs.packages }}

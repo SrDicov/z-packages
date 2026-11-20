@@ -2993,7 +2993,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:12bff2bad3e62b4f06c66909bdad6dbf97e0fddb56bce224b58dc69da99cfefc"
+      "sha256:265e082d6c6ed31081d33ab6b148b20cd7d796f1b073d07c1dd74296f0bbc504"
     ],
     "depends": [
       "glycin-loaders",
@@ -3027,6 +3027,7 @@
       "libpng-devel",
       "librsvg-devel",
       "libxkbcommon-devel",
+      "libxml2-devel",
       "MesaLib-devel",
       "pango-devel",
       "stb",
@@ -3038,7 +3039,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 4,
+    "revision": 5,
     "subpackages": [],
     "version": "0.1.0"
   },
