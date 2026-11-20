@@ -20,10 +20,8 @@ distfiles="https://github.com/noctalia-dev/noctalia/archive/refs/tags/v${version
 checksum=c2f0fcc30bae289ecc39ab495ae68120c5882902371cde14f4f08b8bf14210a1
 
 post_patch() {
-	vsed -i "s|'VCS_TAG', 'unknown'|'VCS_TAG', 'v${version}'|" \
-		meson.build
-	vsed -i 's|^if git_program.found\(\)|if false|' \
-		meson.build
+	vsed -i meson.build -e 's/git_program.found()/false/'
+	vsed -i meson.build -e "s/'VCS_TAG', 'unknown'/'VCS_TAG', 'v${version}'/"
 }
 
 post_install() {
