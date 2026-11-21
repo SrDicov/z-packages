@@ -644,7 +644,7 @@
     "build_style": "cargo",
     "checkdepends": [],
     "checksum": [
-      "sha256:de1624f460b1fb4148256d7b9141bb1ed6b9cf9b9e3b05fd166798370f35e031"
+      "sha256:f555af799377e684a3f1e4846c8087fb01d24084435efd8d6426382bc0efdb5c"
     ],
     "depends": [
       "libglvnd",
@@ -674,7 +674,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.7.1"
+    "version": "2.7.2"
   },
   {
     "archs": [
@@ -1389,7 +1389,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:604efd9d5b9c8dfa77d9fb7dcfa0a22dedcf949bb4c0fc421768640cdbae5b3f"
+      "sha256:232429c26964dec17cec315753f74ad6ff6052f85e0a1a61b986ea60ad734d10"
     ],
     "depends": [
       "desktop-file-utils",
@@ -1418,7 +1418,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "0.2.97"
+    "version": "0.2.98"
   },
   {
     "archs": [
@@ -2993,7 +2993,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:46bb14a6d8d7fd6520f52a0d99822761e7defde089c1f0dd300c21f7db8a61d7"
+      "sha256:78bce80f9649e19d57a2fea20cf634590e427b0e5f88a393341a18a6fda78c06"
     ],
     "depends": [
       "glycin-loaders",
@@ -3039,7 +3039,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 8,
+    "revision": 9,
     "subpackages": [],
     "version": "0.1.0"
   },
@@ -3877,7 +3877,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:073b8105c928356141db0ddbce88b81d52c7a9e2442f9baae0a9089c89ff04eb"
+      "sha256:22fa88884dec3fdbd29e90cba9912fcff6fb57a60b1bdc1a6c189c61a6b0a870"
     ],
     "depends": [],
     "distfiles": [
@@ -3897,7 +3897,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.5.1"
+    "version": "2.5.2"
   },
   {
     "archs": [
@@ -5545,7 +5545,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:c7ea5b6fcee7bef31343bfc01377aed7937c4b9ca05503633750fa7452bd4766"
+      "sha256:06f8550884b216f20b33a2664d6a051317a1d942092528c850e6558cee9d09b5"
     ],
     "depends": [
       "dbus",
@@ -5585,7 +5585,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 12,
+    "revision": 13,
     "subpackages": [],
     "version": "0.1.0"
   },
