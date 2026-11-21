@@ -31,6 +31,10 @@ exclude:
   - "xbps-triggers"
 
 packages:
+  epic-games-launcher:
+    backend: "regex"
+    url: "https://launcher.epicgames.com/release-notes"
+    pattern: 'data-release="([0-9.]+)"'
   3utools:
     backend: "user-agent-regex"
     url: "https://www.3u.com"

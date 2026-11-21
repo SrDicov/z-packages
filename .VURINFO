@@ -747,6 +747,42 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
+      "sha256:9d5a8de058f47aac4581c0661879ccd4b68bd54943aa94e8e09db8bb641df109"
+    ],
+    "depends": [
+      "libayatana-appindicator",
+      "hicolor-icon-theme",
+      "xdg-utils"
+    ],
+    "distfiles": [
+      "${_download}>${pkgname}-${version}.x86_64.deb"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "binutils",
+      "tar"
+    ],
+    "maintainer": "JavierC <SrDicov@gmail.com>",
+    "makedepends": [],
+    "pkgname": "epic-games-launcher",
+    "provides": [
+      "epic-games-launcher-bin-${version}_${revision}"
+    ],
+    "replaces": [
+      "epic-games-launcher-bin>=0"
+    ],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "0.120.0"
+  },
+  {
+    "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
       "sha256:cb13918088ef42cb57e452552046fa265ca9fc08184550226f283725b944f984",
       "sha256:fd8d321e5c7626892a198ee6c40ed107b577ed450bed441f6c6a3121a81671ff"
     ],
