@@ -1,8 +1,8 @@
 # Template file for 'luciole'
 pkgname=luciole
 version=0.1.0
-revision=11
-_commit=cd656bbfc7d2c77cbca95e098f51a3b3e1e1cd30
+revision=12
+_commit=b0c3778dc52cf46d1f785e702af6d59fd1a450fd
 archs="x86_64*"
 build_style=meson
 configure_args="-Dtests=disabled -Dnative_optimizations=false -Dbenchmarks=false -Dwerror=false -Dbuild_revision=${_commit:0:7}"
@@ -18,7 +18,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="MIT"
 homepage="https://github.com/noctalia-dev/luciole"
 distfiles="https://github.com/noctalia-dev/luciole/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
-checksum=a4833db9dbe1b4cfee11a73643d808346b9fac849cbcf09a30281f94d5c6d20f
+checksum=15bc44dfc64f407a8cf86cd59925ad5954a041c655b0084e621ffe5df54861cc
 
 post_install() {
 	vlicense LICENSE
