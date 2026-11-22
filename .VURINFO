@@ -79,7 +79,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:3436e06be0dff7cc61b724ce57e91e777f00507772698374c0e73354264efa59"
+      "sha256:e824125da56bfb953b58540f6c0acba796239ea2e273fd41c36e7233251b85ca"
     ],
     "depends": [],
     "distfiles": [
@@ -100,7 +100,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 2,
+    "revision": 3,
     "subpackages": [],
     "version": "9.0.25"
   },
