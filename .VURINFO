@@ -3029,7 +3029,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:49bb6154c3f3aed3978b579fa33281469174c2e95ed922354bfba21ada9d635f"
+      "sha256:078877ebf4de57eeb5c21e45d10408b944da9c397234f475b87ae62e61383512"
     ],
     "depends": [
       "glycin-loaders",
@@ -3075,7 +3075,7 @@
     "provides": [],
     "replaces": [],
     "restricted": false,
-    "revision": 13,
+    "revision": 14,
     "subpackages": [],
     "version": "0.1.0"
   },
