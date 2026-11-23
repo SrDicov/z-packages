@@ -3880,7 +3880,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:563b5d663637226b6e3bb4bb6803281bc39b0d2cd88db06d674b6420aab009b0"
+      "sha256:9ddd18e3faf64eaeccf6a0fcbc96a5c7a14520ae5fd5b61e5be51d894f478b47"
     ],
     "depends": [
       "ripgrep"
@@ -3904,7 +3904,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.3.2"
+    "version": "2.4.1"
   },
   {
     "archs": [
