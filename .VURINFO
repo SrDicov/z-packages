@@ -1117,7 +1117,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:83f765dfb9725755db38883f1cdd6f57c8bc690a8cb0f30f2b6dd9f87a4729ca"
+      "sha256:ffa59049496d143721ffbcf871725f5fe347f1e8c5af64a8c1df95ea8689c928"
     ],
     "depends": [
       "MangoHud",
@@ -1146,9 +1146,9 @@
       "goverlay-bin>=0"
     ],
     "restricted": false,
-    "revision": 2,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.9.4"
+    "version": "2.0"
   },
   {
     "archs": [
