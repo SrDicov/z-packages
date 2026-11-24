@@ -1,7 +1,7 @@
 # Template file for 'localsend'
 pkgname=localsend
-version=1.18.2
-revision=3
+version=1.19.0
+revision=1
 archs="x86_64"
 create_wrksrc=yes
 depends="gtk+3 desktop-file-utils hicolor-icon-theme"
@@ -10,7 +10,7 @@ maintainer="Dicov <SrDicov@gmail.com>"
 license="Apache-2.0"
 homepage="https://localsend.org"
 distfiles="https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}-linux-x86-64.tar.gz"
-checksum=287690a9a8eb6da9c83cc97b3e3030ac67daf32a7331fcf307d0939300658d16
+checksum=b62c6a53d3b4a5e3b02b426040af806f9ff7bd8bf971c4ea1cc157c383233ea3
 replaces="localsend-bin>=0"
 provides="localsend-bin-${version}_${revision}"
 nodebug=yes
