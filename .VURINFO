@@ -683,7 +683,7 @@
     "build_style": "gnu-makefile",
     "checkdepends": [],
     "checksum": [
-      "sha256:4d5ed559106fae82f8c7e9af202f29d769210f1e7e3c8282dd7e392d4635c0e6"
+      "sha256:30fb2cc7cfb478d00e94909890dd300e0db9b40677eba87e77c75a6bb8a2fb2a"
     ],
     "depends": [
       "fuse-overlayfs",
@@ -707,7 +707,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "2.14.19"
+    "version": "2.14.20"
   },
   {
     "archs": [
@@ -2952,7 +2952,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:287690a9a8eb6da9c83cc97b3e3030ac67daf32a7331fcf307d0939300658d16"
+      "sha256:b62c6a53d3b4a5e3b02b426040af806f9ff7bd8bf971c4ea1cc157c383233ea3"
     ],
     "depends": [
       "gtk+3",
@@ -2974,9 +2974,9 @@
       "localsend-bin>=0"
     ],
     "restricted": false,
-    "revision": 3,
+    "revision": 1,
     "subpackages": [],
-    "version": "1.18.2"
+    "version": "1.19.0"
   },
   {
     "archs": [
