@@ -31,6 +31,10 @@ exclude:
   - "xbps-triggers"
 
 packages:
+  protonmail-bridge:
+    backend: "tags"
+    url: "https://github.com/ProtonMail/proton-bridge"
+    pattern: "v"
   epic-games-launcher:
     backend: "regex"
     url: "https://launcher.epicgames.com/release-notes"

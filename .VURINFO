@@ -4224,6 +4224,57 @@
   },
   {
     "archs": [
+      "x86_64"
+    ],
+    "build_style": null,
+    "checkdepends": [],
+    "checksum": [
+      "sha256:720ced16f25b6f92758f2117edc9ccd7511c66202097ba6b1630ab29d6b097b6"
+    ],
+    "depends": [
+      "hicolor-icon-theme"
+    ],
+    "distfiles": [
+      "https://github.com/ProtonMail/proton-bridge/archive/refs/tags/v${version}.tar.gz>${pkgname}-${version}.tar.gz"
+    ],
+    "format_version": 1,
+    "hostmakedepends": [
+      "go",
+      "pkg-config",
+      "cmake",
+      "ninja",
+      "protobuf"
+    ],
+    "maintainer": "SrDicov <SrDicov@gmail.com>",
+    "makedepends": [
+      "qt6-base-devel",
+      "qt6-declarative-devel",
+      "qt6-svg-devel",
+      "grpc-devel",
+      "protobuf-devel",
+      "sentry-native-devel",
+      "abseil-cpp-devel",
+      "re2-devel",
+      "c-ares-devel",
+      "zlib-devel",
+      "libfido2-devel",
+      "libcbor-devel",
+      "openssl-devel",
+      "sqlite-devel",
+      "libsecret-devel",
+      "MesaLib-devel",
+      "libglvnd-devel"
+    ],
+    "pkgname": "protonmail-bridge",
+    "provides": [],
+    "replaces": [],
+    "restricted": false,
+    "revision": 1,
+    "subpackages": [],
+    "version": "3.27.2"
+  },
+  {
+    "archs": [
       "all"
     ],
     "build_style": "python3-pep517",
