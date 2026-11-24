@@ -1,7 +1,7 @@
 # Template file for 'goverlay'
 pkgname=goverlay
-version=1.9.4
-revision=2
+version=2.0
+revision=1
 archs="x86_64"
 hostmakedepends="tar xz"
 depends="MangoHud qt6-base qt6-declarative gamemode nerd-fonts libqt6pas
@@ -12,7 +12,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/benjamimgois/Goverlay"
 distfiles="https://github.com/benjamimgois/goverlay/releases/download/${version}/goverlay-${version}-x86_64.deb"
-checksum=83f765dfb9725755db38883f1cdd6f57c8bc690a8cb0f30f2b6dd9f87a4729ca
+checksum=ffa59049496d143721ffbcf871725f5fe347f1e8c5af64a8c1df95ea8689c928
 replaces="goverlay-bin>=0"
 provides="goverlay-bin-${version}_${revision}"
 noshlibprovides=yes
