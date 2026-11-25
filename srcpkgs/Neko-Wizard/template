@@ -1,8 +1,8 @@
 # Template file for 'Neko-Wizard'
 pkgname=Neko-Wizard
 version=9.0.25
-revision=3
-_commit=a23ff4face40874a6fe1c62aab9e3f60d4230329
+revision=4
+_commit=908dc43e81aa1a3a206455a7d407eb042af9942e
 build_style=meson
 hostmakedepends="pkg-config meson ninja cmake"
 makedepends="gtk4-devel"
@@ -11,7 +11,7 @@ maintainer="JavierC <javiercyt@atomicmail.io>"
 license="WTFPL"
 homepage="https://github.com/Neko-Void-Linux/Neko-Wizard"
 distfiles="https://github.com/Neko-Void-Linux/Neko-Wizard/archive/${_commit}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=e824125da56bfb953b58540f6c0acba796239ea2e273fd41c36e7233251b85ca
+checksum=6d69b68c0d8ae2b06803a10bb80b70a3dea0fd3d1704219c5719d5e1531042b6
 
 do_extract() {
 	vsrcextract --strip-components=1 ${pkgname}-${version}.tar.gz
