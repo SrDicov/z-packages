@@ -573,7 +573,7 @@
     "build_style": "fetch",
     "checkdepends": [],
     "checksum": [
-      "sha256:3baa1e745a5a3f59f917e92f25b9edf1284a0306b75f1f2e360a766df38b8b23"
+      "sha256:e8ab38df96d6070fd5d4582a606490637728243bb529e9edae19b3f0a6e664d2"
     ],
     "depends": [
       "gtk+3",
@@ -635,7 +635,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "26.1120.41243"
+    "version": "26.1120.50957"
   },
   {
     "archs": [
