@@ -2761,7 +2761,7 @@
     "build_style": null,
     "checkdepends": [],
     "checksum": [
-      "sha256:07ab4fc73f401764890eb5c87dd7b5815c7783b1c7378ea789ca1330d362209b"
+      "sha256:31f98e07dc80a5bfc04ed5c8337d1e808e51b79fd1c627343ea2c5aedf752279"
     ],
     "depends": [
       "desktop-file-utils",
@@ -2788,7 +2788,7 @@
     "restricted": false,
     "revision": 1,
     "subpackages": [],
-    "version": "160.0.1"
+    "version": "161.0"
   },
   {
     "archs": [
