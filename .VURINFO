@@ -3120,7 +3120,7 @@
     "build_style": "meson",
     "checkdepends": [],
     "checksum": [
-      "sha256:1e7d2df3854838aeef35b914ab49ad24c600e3ddaac5cc977cebda89608f10ba"
+      "sha256:51f33dfd36dbc46a51ce22db2104145dcd6f407b7cd2165c3e9851d7b3b113af"
     ],
     "depends": [
       "dbus",
@@ -3161,7 +3161,7 @@
       "mangowc>=0"
     ],
     "restricted": false,
-    "revision": 3,
+    "revision": 4,
     "subpackages": [],
     "version": "0.18.3"
   },
